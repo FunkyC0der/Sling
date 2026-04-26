@@ -1,0 +1,49 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity asset meta files are required for assets kept in the repository
+# *.meta
+
+# Unity crash reports
+sysinfo.txt
+Crashes/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj
+*.sln
+*.slnx
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# JetBrains
+*.iml
+*.iws
+
+# Claude
+.claude/
+CLAUDE.md
+
+# Builds output
+ExportedObj/
+*.apk
+*.aab
+*.ipa
+*.unitypackage
