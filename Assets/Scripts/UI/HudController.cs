@@ -1,12 +1,14 @@
 using Playtika.Controllers;
 
-public class HudController : ControllerBase<LevelSceneContext>
+public class HudController : ControllerBase
 {
     private readonly HudView _view;
+    private readonly LevelEvents _events;
 
-    public HudController(IControllerFactory factory, HudView view) : base(factory)
+    public HudController(IControllerFactory factory, HudView view, LevelEvents events) : base(factory)
     {
         _view = view;
+        _events = events;
     }
 
     protected override void OnStart()
@@ -23,6 +25,6 @@ public class HudController : ControllerBase<LevelSceneContext>
 
     private void OnRestartRequested()
     {
-        Args.LevelEvents.RaiseRestartRequested();
+        _events.RaiseRestartRequested();
     }
 }

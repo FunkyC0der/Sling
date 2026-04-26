@@ -2,33 +2,37 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using System.Threading;
 
-public class LevelGameplayController : ControllerWithResultBase<LevelSceneContext, GameplayOutcome>
+public class LevelGameplayController : ControllerWithResultBase<GameplayOutcome>
 {
-    public LevelGameplayController(IControllerFactory factory) : base(factory) { }
+    private readonly LevelEvents _events;
+
+    public LevelGameplayController(IControllerFactory factory, LevelEvents events) : base(factory)
+    {
+        _events = events;
+    }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-        var events = Args.LevelEvents;
         var outcomeSource = new UniTaskCompletionSource<GameplayOutcome>();
 
         void OnDied() => outcomeSource.TrySetResult(GameplayOutcome.Death);
         void OnWon() => outcomeSource.TrySetResult(GameplayOutcome.Win);
         void OnRestart() => outcomeSource.TrySetResult(GameplayOutcome.Restart);
 
-        events.OnPlayerDied += OnDied;
-        events.OnFinishReached += OnWon;
-        events.OnRestartRequested += OnRestart;
+        _events.OnPlayerDied += OnDied;
+        _events.OnFinishReached += OnWon;
+        _events.OnRestartRequested += OnRestart;
         AddDisposable(new DisposableToken(() =>
         {
-            events.OnPlayerDied -= OnDied;
-            events.OnFinishReached -= OnWon;
-            events.OnRestartRequested -= OnRestart;
+            _events.OnPlayerDied -= OnDied;
+            _events.OnFinishReached -= OnWon;
+            _events.OnRestartRequested -= OnRestart;
         }));
 
-        Execute<PlayerController, LevelSceneContext>(Args);
-        Execute<HazardsController, LevelSceneContext>(Args);
-        Execute<FinishController, LevelSceneContext>(Args);
-        Execute<HudController, LevelSceneContext>(Args);
+        Execute<PlayerController>();
+        Execute<HazardsController>();
+        Execute<FinishController>();
+        Execute<HudController>();
 
         var outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
         Complete(outcome);

@@ -1,12 +1,19 @@
 using Playtika.Controllers;
 
-public class HazardsController : ControllerBase<LevelSceneContext>
+public class HazardsController : ControllerBase
 {
-    public HazardsController(IControllerFactory factory) : base(factory) { }
+    private readonly HazardView[] _hazards;
+    private readonly LevelEvents _events;
+
+    public HazardsController(IControllerFactory factory, HazardView[] hazards, LevelEvents events) : base(factory)
+    {
+        _hazards = hazards;
+        _events = events;
+    }
 
     protected override void OnStart()
     {
-        foreach (var hazard in Args.Hazards)
+        foreach (var hazard in _hazards)
         {
             var h = hazard;
             h.OnPlayerHit += OnHazardHit;
@@ -16,6 +23,6 @@ public class HazardsController : ControllerBase<LevelSceneContext>
 
     private void OnHazardHit()
     {
-        Args.LevelEvents.RaisePlayerDied();
+        _events.RaisePlayerDied();
     }
 }

@@ -1,17 +1,24 @@
 using Playtika.Controllers;
 
-public class FinishController : ControllerBase<LevelSceneContext>
+public class FinishController : ControllerBase
 {
-    public FinishController(IControllerFactory factory) : base(factory) { }
+    private readonly FinishView _view;
+    private readonly LevelEvents _events;
+
+    public FinishController(IControllerFactory factory, FinishView view, LevelEvents events) : base(factory)
+    {
+        _view = view;
+        _events = events;
+    }
 
     protected override void OnStart()
     {
-        AddDisposable(new DisposableToken(() => Args.FinishView.OnPlayerReachedFinish -= OnFinishReached));
-        Args.FinishView.OnPlayerReachedFinish += OnFinishReached;
+        AddDisposable(new DisposableToken(() => _view.OnPlayerReachedFinish -= OnFinishReached));
+        _view.OnPlayerReachedFinish += OnFinishReached;
     }
 
     private void OnFinishReached()
     {
-        Args.LevelEvents.RaiseFinishReached();
+        _events.RaiseFinishReached();
     }
 }

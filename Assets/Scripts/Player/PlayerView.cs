@@ -10,28 +10,24 @@ public class PlayerView : MonoBehaviour
 
     private Rigidbody2D _rb;
     private Camera _cam;
-    private PlayerConfig _config;
-    private bool _isDragging;
-    private Vector3 _dragStartPos;
 
-    public event Action<Vector2> OnLaunchRequested;
+    public event Action<Vector2> OnPointerDown;
+    public event Action<Vector2> OnPointerUp;
 
-    public void Bind(PlayerConfig config)
+    public void Bind()
     {
-        _config = config;
         _rb = GetComponent<Rigidbody2D>();
         _cam = Camera.main;
-
-        _pointerPressActionRef.action.performed += OnPress;
-        _pointerPressActionRef.action.canceled += OnRelease;
+        _pointerPressActionRef.action.performed += HandlePress;
+        _pointerPressActionRef.action.canceled += HandleRelease;
         _pointerPressActionRef.action.Enable();
         _pointerPositionActionRef.action.Enable();
     }
 
     public void Unbind()
     {
-        _pointerPressActionRef.action.performed -= OnPress;
-        _pointerPressActionRef.action.canceled -= OnRelease;
+        _pointerPressActionRef.action.performed -= HandlePress;
+        _pointerPressActionRef.action.canceled -= HandleRelease;
     }
 
     public void Launch(Vector2 force)
@@ -39,28 +35,16 @@ public class PlayerView : MonoBehaviour
         _rb.AddForce(force, ForceMode2D.Impulse);
     }
 
-    private void OnPress(InputAction.CallbackContext context)
-    {
-        _isDragging = true;
-        _dragStartPos = PointerWorldPosition();
-    }
+    private void HandlePress(InputAction.CallbackContext _) =>
+        OnPointerDown?.Invoke(PointerWorldPos());
 
-    private void OnRelease(InputAction.CallbackContext context)
-    {
-        if (!_isDragging)
-            return;
+    private void HandleRelease(InputAction.CallbackContext _) =>
+        OnPointerUp?.Invoke(PointerWorldPos());
 
-        _isDragging = false;
-        var dragVector = PointerWorldPosition() - _dragStartPos;
-        dragVector = Vector3.ClampMagnitude(dragVector, _config.MaxDragDistance);
-        OnLaunchRequested?.Invoke(dragVector);
-    }
-
-    private Vector3 PointerWorldPosition()
+    private Vector2 PointerWorldPos()
     {
         var screenPos = _pointerPositionActionRef.action.ReadValue<Vector2>();
         var worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
-        worldPos.z = 0;
         return worldPos;
     }
 }

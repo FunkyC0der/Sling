@@ -17,13 +17,7 @@ public class GameBootstrapper : MonoBehaviour
         factory.Register<GameLoopController>(() => new GameLoopController(factory));
         factory.Register<MainMenuController>(() => new MainMenuController(factory, _mainMenuView));
         factory.Register<LevelSessionController>(() => new LevelSessionController(factory));
-        factory.Register<LoadLevelController>(() => new LoadLevelController(factory));
-        factory.Register<LevelGameplayController>(() => new LevelGameplayController(factory));
-        factory.Register<PlayerController>(() => new PlayerController(factory, _playerConfig));
-        factory.Register<HazardsController>(() => new HazardsController(factory));
-        factory.Register<FinishController>(() => new FinishController(factory));
-        factory.Register<HudController>(() => new HudController(factory, _hudView));
-        factory.Register<LevelResultController>(() => new LevelResultController(factory, _levelResultView));
+        factory.Register<LoadLevelController>(() => new LoadLevelController(factory, _playerConfig, _hudView, _levelResultView));
 
         var root = new GameRootController(factory);
         root.LaunchTree(this.GetCancellationTokenOnDestroy());

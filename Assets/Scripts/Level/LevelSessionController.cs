@@ -8,30 +8,24 @@ public class LevelSessionController : ControllerWithResultBase<int, LevelSession
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-        var context = await ExecuteAndWaitResultAsync<LoadLevelController, int, LevelSceneContext>(
+        var levelFactory = await ExecuteAndWaitResultAsync<LoadLevelController, int, IControllerFactory>(
             Args, cancellationToken);
 
         while (true)
         {
-            var outcome = await ExecuteAndWaitResultAsync<LevelGameplayController, LevelSceneContext, GameplayOutcome>(
-                context, cancellationToken);
+            var outcome = await ExecuteAndWaitResultAsync<LevelGameplayController, GameplayOutcome>(
+                levelFactory, cancellationToken);
 
             if (outcome == GameplayOutcome.Restart)
                 continue;
 
             var nextAction = await ExecuteAndWaitResultAsync<LevelResultController, GameplayOutcome, NextAction>(
-                outcome, cancellationToken);
+                outcome, levelFactory, cancellationToken);
 
             if (nextAction == NextAction.Restart)
                 continue;
 
-            if (nextAction == NextAction.Next)
-            {
-                Complete(LevelSessionResult.Next);
-                return;
-            }
-
-            Complete(LevelSessionResult.Menu);
+            Complete(nextAction == NextAction.Next ? LevelSessionResult.Next : LevelSessionResult.Menu);
             return;
         }
     }
