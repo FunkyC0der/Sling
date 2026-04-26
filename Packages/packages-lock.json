@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a9e27c03d411d2fca01cc7410c24c97cd77cb539"
+    },
+    "com.playtika.controllers-tree": {
+      "version": "https://github.com/PlaytikaOSS/controllers-tree.git?path=src/ControllersTree#v1.2.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "18749e370fdc808b2a189a5c7ea705859e4c1b25"
+    },
     "com.unity.2d.animation": {
       "version": "14.0.3",
       "depth": 0,
@@ -135,7 +149,7 @@
       "dependencies": {}
     },
     "com.unity.ide.rider": {
-      "version": "3.0.39",
+      "version": "3.0.40",
       "depth": 0,
       "source": "registry",
       "dependencies": {
