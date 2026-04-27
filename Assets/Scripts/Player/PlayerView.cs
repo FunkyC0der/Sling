@@ -18,8 +18,10 @@ public class PlayerView : BaseView
     {
         _rb = GetComponent<Rigidbody2D>();
         _cam = Camera.main;
+        
         _pointerPressActionRef.action.performed += HandlePress;
         _pointerPressActionRef.action.canceled += HandleRelease;
+        
         _pointerPressActionRef.action.Enable();
         _pointerPositionActionRef.action.Enable();
     }
@@ -44,7 +46,7 @@ public class PlayerView : BaseView
     private Vector2 PointerWorldPos()
     {
         var screenPos = _pointerPositionActionRef.action.ReadValue<Vector2>();
-        var worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
+        Vector3 worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
         return worldPos;
     }
 }

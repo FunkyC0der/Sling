@@ -35,7 +35,8 @@ public class LoadLevelController : ControllerWithResultBase<int, IControllerFact
 
         if (!views.GetOne<PlayerView>() || !views.GetOne<FinishView>())
         {
-            Fail(new System.Exception($"Required view missing in scene '{sceneName}': PlayerView and FinishView are mandatory"));
+            Fail(new System.Exception(
+                $"Required view missing in scene '{sceneName}': PlayerView and FinishView are mandatory"));
             return;
         }
 
@@ -47,7 +48,7 @@ public class LoadLevelController : ControllerWithResultBase<int, IControllerFact
     private IControllerFactory BuildLevelFactory(ViewsCollector views, LevelEvents events)
     {
         var f = new ControllerFactory();
-        f.Register(() => new LevelGameplayController(f, events, views.GetAll<MovingSawView>()));
+        f.Register(() => new LevelLoopController(f, events));
         f.Register(() => new PlayerController(f, views.GetOne<PlayerView>(), _playerConfig));
         f.Register(() => new HazardsController(f, views.GetAll<HazardView>(), events));
         f.Register(() => new FinishController(f, views.GetOne<FinishView>(), events));

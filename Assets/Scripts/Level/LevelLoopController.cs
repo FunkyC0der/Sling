@@ -1,17 +1,15 @@
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using System.Threading;
 
-public class LevelGameplayController : ControllerWithResultBase<GameplayOutcome>
+public class LevelLoopController : ControllerWithResultBase<GameplayOutcome>
 {
     private readonly LevelEvents _events;
-    private readonly List<MovingSawView> _movingSaws;
 
-    public LevelGameplayController(IControllerFactory factory, LevelEvents events, List<MovingSawView> movingSaws) : base(factory)
+    public LevelLoopController(IControllerFactory factory, LevelEvents events)
+        : base(factory)
     {
         _events = events;
-        _movingSaws = movingSaws;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -34,14 +32,8 @@ public class LevelGameplayController : ControllerWithResultBase<GameplayOutcome>
         }));
 
         Execute<PlayerController>();
-        Execute<HazardsController>();
-        Execute<FinishController>();
-        Execute<HudController>();
 
-        foreach (var saw in _movingSaws)
-            Execute<MovingSawController, MovingSawView>(saw);
-
-        var outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
+        GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
         Complete(outcome);
     }
 }

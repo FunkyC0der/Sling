@@ -5,7 +5,7 @@ public class PlayerController : ControllerBase
 {
     private readonly PlayerView _view;
     private readonly PlayerConfig _config;
-    private PlayerModel _model;
+    
     private bool _isDragging;
     private Vector2 _dragStartPos;
 
@@ -17,7 +17,6 @@ public class PlayerController : ControllerBase
 
     protected override void OnStart()
     {
-        _model = new PlayerModel();
         _view.Bind();
 
         AddDisposable(new DisposableToken(() =>
@@ -42,9 +41,10 @@ public class PlayerController : ControllerBase
             return;
 
         _isDragging = false;
-        var dragVector = Vector2.ClampMagnitude(worldPos - _dragStartPos, _config.MaxDragDistance);
-        var force = dragVector * _config.LaunchForceMultiplier;
-        _model.SetLaunched(force);
+        
+        Vector2 dragVector = Vector2.ClampMagnitude(_dragStartPos - worldPos, _config.MaxDragDistance);
+        Vector2 force = dragVector * _config.LaunchForceMultiplier;
+        
         _view.Launch(force);
     }
 }

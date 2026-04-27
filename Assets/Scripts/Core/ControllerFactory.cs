@@ -6,11 +6,8 @@ public sealed class ControllerFactory : IControllerFactory
 {
     private readonly Dictionary<Type, Func<IController>> _builders = new();
 
-    public ControllerFactory Register<T>(Func<T> builder) where T : class, IController
-    {
+    public void Register<T>(Func<T> builder) where T : class, IController => 
         _builders[typeof(T)] = builder;
-        return this;
-    }
 
     public IController Create<T>() where T : class, IController
     {

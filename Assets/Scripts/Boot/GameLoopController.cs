@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using UnityEngine;
@@ -8,21 +9,23 @@ public class GameLoopController : ControllerBase
 
     protected override void OnStart()
     {
-        RunGameLoop(CancellationToken).Forget(ex => Debug.LogException(ex));
+        RunGameLoop(CancellationToken).Forget(ex =>
+        {
+            if (ex is not OperationCanceledException)
+                Debug.LogException(ex);
+        });
     }
 
     private async UniTask RunGameLoop(System.Threading.CancellationToken ct)
     {
         while (!ct.IsCancellationRequested)
         {
-            var levelId = await ExecuteAndWaitResultAsync<MainMenuController, int>(ct);
-
             LevelSessionResult result;
             do
             {
-                result = await ExecuteAndWaitResultAsync<LevelSessionController, int, LevelSessionResult>(levelId, ct);
+                result = await ExecuteAndWaitResultAsync<LevelSessionController, LevelSessionResult>(ct);
                 if (result == LevelSessionResult.Next)
-                    levelId++;
+                    Debug.Log("Next level");
             }
             while (result == LevelSessionResult.Next);
         }
