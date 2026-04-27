@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Core;
 using Sling.Player;
+using Sling.Player.Trajectory;
 using UnityEngine.SceneManagement;
 
 namespace Sling.Level
@@ -39,7 +40,8 @@ namespace Sling.Level
         {
             var factory = new ControllerFactory();
             factory.Register(() => new LevelLoopController(factory, events));
-            factory.Register(() => new PlayerController(factory, views.GetOne<PlayerView>(), _playerConfig));
+            factory.Register(() => new PlayerController(factory, views.GetOne<PlayerView>()));
+            factory.Register(() => new TrajectoryController(factory, views.GetOne<TrajectoryView>(), _playerConfig));
             return factory;
         }
     }

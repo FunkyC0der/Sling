@@ -1,4 +1,3 @@
-using System;
 using Sling.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,24 +12,28 @@ namespace Sling.Player
 
         private Rigidbody2D _rb;
         private Camera _cam;
+        private PlayerInputEvents _events;
 
-        public event Action<Vector2> OnPointerDown;
-        public event Action<Vector2> OnPointerUp;
+        public float Mass => _rb.mass;
 
-        public void Bind()
+        public void Bind(PlayerInputEvents events)
         {
+            _events = events;
+
             _rb = GetComponent<Rigidbody2D>();
             _cam = Camera.main;
-        
+
             _pointerPressActionRef.action.performed += HandlePress;
             _pointerPressActionRef.action.canceled += HandleRelease;
-        
+
             _pointerPressActionRef.action.Enable();
             _pointerPositionActionRef.action.Enable();
         }
 
         public void Unbind()
         {
+            _events = null;
+
             _pointerPressActionRef.action.performed -= HandlePress;
             _pointerPressActionRef.action.canceled -= HandleRelease;
         }
@@ -40,11 +43,17 @@ namespace Sling.Player
             _rb.AddForce(force, ForceMode2D.Impulse);
         }
 
+        private void Update()
+        {
+            if (_pointerPressActionRef.action.IsPressed())
+                _events?.OnPointerDragged?.Invoke(PointerWorldPos());
+        }
+
         private void HandlePress(InputAction.CallbackContext _) =>
-            OnPointerDown?.Invoke(PointerWorldPos());
+            _events?.OnPointerDown?.Invoke(PointerWorldPos());
 
         private void HandleRelease(InputAction.CallbackContext _) =>
-            OnPointerUp?.Invoke(PointerWorldPos());
+            _events?.OnPointerUp?.Invoke(PointerWorldPos());
 
         private Vector2 PointerWorldPos()
         {

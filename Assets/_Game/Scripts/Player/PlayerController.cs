@@ -1,4 +1,5 @@
 using Playtika.Controllers;
+using Sling.Player.Trajectory;
 using UnityEngine;
 
 namespace Sling.Player
@@ -6,48 +7,43 @@ namespace Sling.Player
     public class PlayerController : ControllerBase
     {
         private readonly PlayerView _view;
-        private readonly PlayerConfig _config;
-    
-        private bool _isDragging;
-        private Vector2 _dragStartPos;
 
-        public PlayerController(IControllerFactory factory, PlayerView view, PlayerConfig config) : base(factory)
-        {
+        private bool _isDragging;
+        private PlayerInputEvents _events;
+
+        public PlayerController(IControllerFactory factory, PlayerView view) : base(factory) =>
             _view = view;
-            _config = config;
-        }
 
         protected override void OnStart()
         {
-            _view.Bind();
+            _events = new PlayerInputEvents();
+            _view.Bind(_events);
 
             AddDisposable(new DisposableToken(() =>
             {
-                _view.OnPointerDown -= OnPointerDown;
-                _view.OnPointerUp -= OnPointerUp;
+                _events.OnPointerDown -= OnPointerDown;
                 _view.Unbind();
             }));
-            _view.OnPointerDown += OnPointerDown;
-            _view.OnPointerUp += OnPointerUp;
+
+            _events.OnPointerDown += OnPointerDown;
         }
 
-        private void OnPointerDown(Vector2 worldPos)
+        private async void OnPointerDown(Vector2 worldPos)
         {
+            if (_isDragging) return;
             _isDragging = true;
-            _dragStartPos = worldPos;
-        }
 
-        private void OnPointerUp(Vector2 worldPos)
-        {
-            if (!_isDragging)
-                return;
-
-            _isDragging = false;
-        
-            Vector2 dragVector = Vector2.ClampMagnitude(_dragStartPos - worldPos, _config.MaxDragDistance);
-            Vector2 force = dragVector * _config.LaunchForceMultiplier;
-        
-            _view.Launch(force);
+            try
+            {
+                var args = new TrajectoryArgs(worldPos, _view.Mass, _events);
+                Vector2 force = await ExecuteAndWaitResultAsync<TrajectoryController, TrajectoryArgs, Vector2>(
+                    args, CancellationToken);
+                _view.Launch(force);
+            }
+            finally
+            {
+                _isDragging = false;
+            }
         }
     }
 }
