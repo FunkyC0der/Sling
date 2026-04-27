@@ -13,13 +13,13 @@ public class LevelSessionController : ControllerWithResultBase<int, LevelSession
 
         while (true)
         {
-            var outcome = await ExecuteAndWaitResultAsync<LevelGameplayController, GameplayOutcome>(
+            GameplayOutcome outcome = await ExecuteAndWaitResultAsync<LevelGameplayController, GameplayOutcome>(
                 levelFactory, cancellationToken);
 
             if (outcome == GameplayOutcome.Restart)
                 continue;
 
-            var nextAction = await ExecuteAndWaitResultAsync<LevelResultController, GameplayOutcome, NextAction>(
+            NextAction nextAction = await ExecuteAndWaitResultAsync<LevelResultController, GameplayOutcome, NextAction>(
                 outcome, levelFactory, cancellationToken);
 
             if (nextAction == NextAction.Restart)

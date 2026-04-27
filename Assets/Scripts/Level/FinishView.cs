@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class FinishView : MonoBehaviour
+public class FinishView : BaseView
 {
     public event Action OnPlayerReachedFinish;
 

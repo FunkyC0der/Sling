@@ -6,16 +6,19 @@ using UnityEngine.SceneManagement;
 public class LoadLevelController : ControllerWithResultBase<int, IControllerFactory>
 {
     private readonly PlayerConfig _playerConfig;
+    private readonly MovingSawConfig _movingSawConfig;
     private readonly HudView _hudView;
     private readonly LevelResultView _levelResultView;
 
     public LoadLevelController(
         IControllerFactory factory,
         PlayerConfig playerConfig,
+        MovingSawConfig movingSawConfig,
         HudView hudView,
         LevelResultView levelResultView) : base(factory)
     {
         _playerConfig = playerConfig;
+        _movingSawConfig = movingSawConfig;
         _hudView = hudView;
         _levelResultView = levelResultView;
     }
@@ -26,40 +29,31 @@ public class LoadLevelController : ControllerWithResultBase<int, IControllerFact
         await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single)
             .ToUniTask(cancellationToken: cancellationToken);
 
-        var scene = SceneManager.GetSceneByName(sceneName);
-        var context = FindContextInScene(scene);
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        ViewsCollector views = new();
+        views.CollectViews(scene);
 
-        if (context == null)
+        if (!views.GetOne<PlayerView>() || !views.GetOne<FinishView>())
         {
-            Fail(new System.Exception($"LevelSceneContext not found in scene '{sceneName}'"));
+            Fail(new System.Exception($"Required view missing in scene '{sceneName}': PlayerView and FinishView are mandatory"));
             return;
         }
 
         var events = new LevelEvents();
-        var levelFactory = BuildLevelFactory(context, events);
+        IControllerFactory levelFactory = BuildLevelFactory(views, events);
         Complete(levelFactory);
     }
 
-    private IControllerFactory BuildLevelFactory(LevelSceneContext context, LevelEvents events)
+    private IControllerFactory BuildLevelFactory(ViewsCollector views, LevelEvents events)
     {
         var f = new ControllerFactory();
-        f.Register<LevelGameplayController>(() => new LevelGameplayController(f, events));
-        f.Register<PlayerController>(() => new PlayerController(f, context.PlayerView, _playerConfig));
-        f.Register<HazardsController>(() => new HazardsController(f, context.Hazards, events));
-        f.Register<FinishController>(() => new FinishController(f, context.FinishView, events));
-        f.Register<HudController>(() => new HudController(f, _hudView, events));
-        f.Register<LevelResultController>(() => new LevelResultController(f, _levelResultView));
+        f.Register(() => new LevelGameplayController(f, events, views.GetAll<MovingSawView>()));
+        f.Register(() => new PlayerController(f, views.GetOne<PlayerView>(), _playerConfig));
+        f.Register(() => new HazardsController(f, views.GetAll<HazardView>(), events));
+        f.Register(() => new FinishController(f, views.GetOne<FinishView>(), events));
+        f.Register(() => new HudController(f, _hudView, events));
+        f.Register(() => new LevelResultController(f, _levelResultView));
+        f.Register(() => new MovingSawController(f, _movingSawConfig, events));
         return f;
-    }
-
-    private LevelSceneContext FindContextInScene(Scene scene)
-    {
-        foreach (var root in scene.GetRootGameObjects())
-        {
-            var ctx = root.GetComponentInChildren<LevelSceneContext>();
-            if (ctx != null)
-                return ctx;
-        }
-        return null;
     }
 }

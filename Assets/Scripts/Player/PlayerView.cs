@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerView : MonoBehaviour
+public class PlayerView : BaseView
 {
     [SerializeField] private InputActionReference _pointerPressActionRef;
     [SerializeField] private InputActionReference _pointerPositionActionRef;
