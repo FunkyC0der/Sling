@@ -1,6 +1,6 @@
 namespace Sling.Hazards
 {
-    public class SpikeView : HazardView
-    {
-    }
+  public class SpikeView : HazardView
+  {
+  }
 }

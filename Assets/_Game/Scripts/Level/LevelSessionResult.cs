@@ -1,8 +1,8 @@
 namespace Sling.Level
 {
-    public enum LevelSessionResult
-    {
-        Next,
-        Menu
-    }
+  public enum LevelSessionResult
+  {
+    Next,
+    Menu
+  }
 }

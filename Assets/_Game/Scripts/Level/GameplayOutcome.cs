@@ -1,9 +1,9 @@
 namespace Sling.Level
 {
-    public enum GameplayOutcome
-    {
-        Win,
-        Death,
-        Restart
-    }
+  public enum GameplayOutcome
+  {
+    Win,
+    Death,
+    Restart
+  }
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace Sling.Core
 {
-    public abstract class BaseView : MonoBehaviour
+  public abstract class BaseView : MonoBehaviour
+  {
+    public virtual List<Type> GetTypesToRegister()
     {
-        public virtual List<Type> GetTypesToRegister() => 
-            new() { GetType() };
+      return new List<Type> { GetType() };
     }
+  }
 }

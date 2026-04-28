@@ -9,34 +9,34 @@ using VContainer.Unity;
 
 namespace Sling.Boot
 {
-    public class GameBootstrapper : MonoBehaviour
+  public class GameBootstrapper : MonoBehaviour
+  {
+    [SerializeField] private PlayerConfig _playerConfig;
+
+    private LifetimeScope _rootScope;
+
+    private void Start()
     {
-        [SerializeField] private PlayerConfig _playerConfig;
+      _rootScope = LifetimeScope.Create(builder =>
+      {
+        builder.RegisterInstance(_playerConfig);
 
-        private LifetimeScope _rootScope;
+        builder.Register<BootstrapController>(Lifetime.Transient);
+        builder.Register<GameLoopController>(Lifetime.Transient);
+        builder.Register<LevelSessionController>(Lifetime.Transient);
+        builder.Register<BuildLevelFactoryController>(Lifetime.Transient);
+        builder.Register<GameRootController>(Lifetime.Transient);
 
-        private void Start()
-        {
-            _rootScope = LifetimeScope.Create(builder =>
-            {
-                builder.RegisterInstance(_playerConfig);
+        builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
+      });
 
-                builder.Register<BootstrapController>(Lifetime.Transient);
-                builder.Register<GameLoopController>(Lifetime.Transient);
-                builder.Register<LevelSessionController>(Lifetime.Transient);
-                builder.Register<BuildLevelFactoryController>(Lifetime.Transient);
-                builder.Register<GameRootController>(Lifetime.Transient);
-
-                builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
-            });
-
-            var root = _rootScope.Container.Resolve<GameRootController>();
-            root.LaunchTree(this.GetCancellationTokenOnDestroy());
-        }
-
-        private void OnDestroy()
-        {
-            _rootScope?.Dispose();
-        }
+      var root = _rootScope.Container.Resolve<GameRootController>();
+      root.LaunchTree(this.GetCancellationTokenOnDestroy());
     }
+
+    private void OnDestroy()
+    {
+      _rootScope?.Dispose();
+    }
+  }
 }

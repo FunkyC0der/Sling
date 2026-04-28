@@ -1,9 +1,9 @@
 namespace Sling.Level
 {
-    public enum NextAction
-    {
-        Restart,
-        Next,
-        Menu
-    }
+  public enum NextAction
+  {
+    Restart,
+    Next,
+    Menu
+  }
 }

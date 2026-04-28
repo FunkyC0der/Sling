@@ -6,41 +6,39 @@ using UnityEngine.SceneManagement;
 
 namespace Sling.Core
 {
-    public class ViewsCollector
+  public class ViewsCollector
+  {
+    private readonly Dictionary<Type, List<BaseView>> _viewsByType = new();
+
+    public void CollectViews(Scene scene)
     {
-        private readonly Dictionary<Type, List<BaseView>> _viewsByType = new();
+      _viewsByType.Clear();
 
-        public void CollectViews(Scene scene)
+      foreach (GameObject root in scene.GetRootGameObjects())
+      foreach (BaseView view in root.GetComponentsInChildren<BaseView>())
+      foreach (Type type in view.GetTypesToRegister())
+      {
+        if (!_viewsByType.TryGetValue(type, out List<BaseView> views))
         {
-            _viewsByType.Clear();
-
-            foreach (GameObject root in scene.GetRootGameObjects())
-            {
-                foreach (BaseView view in root.GetComponentsInChildren<BaseView>())
-                {
-                    foreach (Type type in view.GetTypesToRegister())
-                    {
-                        if (!_viewsByType.TryGetValue(type, out List<BaseView> views))
-                        {
-                            views = new List<BaseView>();
-                            _viewsByType.Add(type, views);
-                        }
-
-                        views.Add(view);
-                    }
-                }
-            }
+          views = new List<BaseView>();
+          _viewsByType.Add(type, views);
         }
 
-        public T GetOne<T>() where T : BaseView => 
-            GetAll<T>().FirstOrDefault();
-
-        public List<T> GetAll<T>() where T : BaseView
-        {
-            if(!_viewsByType.TryGetValue(typeof(T), out List<BaseView> list))
-                return new List<T>();
-        
-            return list.ConvertAll(v => (T) v);
-        }
+        views.Add(view);
+      }
     }
+
+    public T GetOne<T>() where T : BaseView
+    {
+      return GetAll<T>().FirstOrDefault();
+    }
+
+    public List<T> GetAll<T>() where T : BaseView
+    {
+      if (!_viewsByType.TryGetValue(typeof(T), out List<BaseView> list))
+        return new List<T>();
+
+      return list.ConvertAll(v => (T)v);
+    }
+  }
 }

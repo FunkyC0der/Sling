@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 namespace Sling.Level
 {
-    public class LoadLevelController : ControllerWithResultBase<int>
+  public class LoadLevelController : ControllerWithResultBase<int>
+  {
+    public LoadLevelController(IControllerFactory factory)
+      : base(factory)
     {
-        public LoadLevelController(IControllerFactory factory) 
-            : base(factory)
-        {
-        }
-
-        protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
-        {
-            var sceneName = $"Level_{Args:00}";
-            await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single)
-                .ToUniTask(cancellationToken: cancellationToken);
-        }
     }
+
+    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
+    {
+      var sceneName = $"Level_{Args:00}";
+      await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single)
+        .ToUniTask(cancellationToken: cancellationToken);
+    }
+  }
 }

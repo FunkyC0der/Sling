@@ -7,24 +7,24 @@ using VContainer.Unity;
 
 namespace Sling.Level
 {
-    public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
+  public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
+  {
+    public LevelSessionController(IControllerFactory factory)
+      : base(factory)
     {
-        public LevelSessionController(IControllerFactory factory)
-            : base(factory)
-        {
-        }
-
-        protected override async UniTask OnFlowAsync(CancellationToken ct)
-        {
-            LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelFactoryController, LifetimeScope>(ct);
-            AddDisposable(levelScope);
-
-            var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
-
-            GameplayOutcome outcome =
-                await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
-
-            Debug.Log($"{outcome}");
-        }
     }
+
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    {
+      LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelFactoryController, LifetimeScope>(ct);
+      AddDisposable(levelScope);
+
+      var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
+
+      GameplayOutcome outcome =
+        await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
+
+      Debug.Log($"{outcome}");
+    }
+  }
 }
