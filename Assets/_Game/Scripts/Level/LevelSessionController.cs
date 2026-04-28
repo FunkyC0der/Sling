@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,13 +19,12 @@ namespace Sling.Level
             LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelFactoryController, LifetimeScope>(ct);
             AddDisposable(levelScope);
 
-            while (true)
-            {
-                var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
-                
-                GameplayOutcome outcome =
-                    await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
-            }
+            var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
+
+            GameplayOutcome outcome =
+                await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
+
+            Debug.Log($"{outcome}");
         }
     }
 }

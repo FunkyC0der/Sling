@@ -6,28 +6,22 @@ namespace Sling.Hazards
 {
     public class HazardsController : ControllerBase
     {
-        private readonly List<HazardView> _hazards;
+        private readonly List<HazardView> _hazardViews;
         private readonly LevelEvents _events;
 
-        public HazardsController(IControllerFactory factory, List<HazardView> hazards, LevelEvents events) : base(factory)
+        public HazardsController(IControllerFactory factory, List<HazardView> hazardViews, LevelEvents events) : base(factory)
         {
-            _hazards = hazards;
+            _hazardViews = hazardViews;
             _events = events;
         }
 
         protected override void OnStart()
         {
-            foreach (var hazard in _hazards)
+            foreach (HazardView hazardView in _hazardViews)
             {
-                var h = hazard;
-                h.OnPlayerHit += OnHazardHit;
-                AddDisposable(new DisposableToken(() => h.OnPlayerHit -= OnHazardHit));
+                hazardView.OnPlayerHit += _events.OnPlayerDied;
+                AddDisposable(new DisposableToken(() => hazardView.OnPlayerHit -= _events.OnPlayerDied));
             }
-        }
-
-        private void OnHazardHit()
-        {
-            _events.RaisePlayerDied();
         }
     }
 }

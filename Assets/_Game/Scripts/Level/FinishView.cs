@@ -7,12 +7,9 @@ namespace Sling.Level
     [RequireComponent(typeof(Collider2D))]
     public class FinishView : BaseView
     {
-        public event Action OnPlayerReachedFinish;
+        public event Action OnReached;
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-                OnPlayerReachedFinish?.Invoke();
-        }
+        private void OnTriggerEnter2D(Collider2D other) => 
+            OnReached?.Invoke();
     }
 }

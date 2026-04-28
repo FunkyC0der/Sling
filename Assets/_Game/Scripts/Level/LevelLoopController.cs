@@ -20,10 +20,6 @@ namespace Sling.Level
         {
             var outcomeSource = new UniTaskCompletionSource<GameplayOutcome>();
 
-            void OnDied() => outcomeSource.TrySetResult(GameplayOutcome.Death);
-            void OnWon() => outcomeSource.TrySetResult(GameplayOutcome.Win);
-            void OnRestart() => outcomeSource.TrySetResult(GameplayOutcome.Restart);
-
             _events.OnPlayerDied += OnDied;
             _events.OnFinishReached += OnWon;
             _events.OnRestartRequested += OnRestart;
@@ -36,10 +32,16 @@ namespace Sling.Level
             }));
 
             Execute<PlayerController>();
+            Execute<FinishController>();
             Execute<StickyWallsController>();
 
             GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
             Complete(outcome);
+            return;
+
+            void OnDied() => outcomeSource.TrySetResult(GameplayOutcome.Death);
+            void OnWon() => outcomeSource.TrySetResult(GameplayOutcome.Win);
+            void OnRestart() => outcomeSource.TrySetResult(GameplayOutcome.Restart);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Sling.Hazards
             MoveLoopAsync(CancellationToken).Forget(e => Debug.LogException(e));
         }
 
-        private void OnPlayerHit() => _events.RaisePlayerDied();
+        private void OnPlayerHit() => _events.OnPlayerDied?.Invoke();
 
         private async UniTask MoveLoopAsync(CancellationToken cancellationToken)
         {

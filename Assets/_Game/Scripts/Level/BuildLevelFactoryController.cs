@@ -43,11 +43,14 @@ namespace Sling.Level
                 builder.Register<LevelLoopController>(Lifetime.Transient);
                 
                 builder.RegisterInstance(views.GetOne<PlayerView>());
+                builder.RegisterInstance(views.GetOne<TrajectoryView>());
+                
                 builder.Register<PlayerController>(Lifetime.Transient);
                 builder.Register<TrajectoryController>(Lifetime.Transient);
                 
-                builder.RegisterInstance(views.GetOne<TrajectoryView>());
-
+                builder.RegisterInstance(views.GetOne<FinishView>());
+                builder.Register<FinishController>(Lifetime.Transient);
+                
                 foreach (StickyWallView stickyWall in views.GetAll<StickyWallView>()) 
                     builder.RegisterInstance(stickyWall);
                 

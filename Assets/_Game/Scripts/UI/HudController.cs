@@ -28,7 +28,7 @@ namespace Sling.UI
 
         private void OnRestartRequested()
         {
-            _events.RaiseRestartRequested();
+            _events.OnRestartRequested?.Invoke();
         }
     }
 }

@@ -4,24 +4,20 @@ namespace Sling.Level
 {
     public class FinishController : ControllerBase
     {
-        private readonly FinishView _view;
+        private readonly FinishView _finishView;
         private readonly LevelEvents _events;
 
-        public FinishController(IControllerFactory factory, FinishView view, LevelEvents events) : base(factory)
+        public FinishController(IControllerFactory factory, FinishView finishView, LevelEvents events)
+            : base(factory)
         {
-            _view = view;
+            _finishView = finishView;
             _events = events;
         }
 
-        protected override void OnStart()
-        {
-            AddDisposable(new DisposableToken(() => _view.OnPlayerReachedFinish -= OnFinishReached));
-            _view.OnPlayerReachedFinish += OnFinishReached;
-        }
+        protected override void OnStart() => 
+            _finishView.OnReached += _events.OnFinishReached;
 
-        private void OnFinishReached()
-        {
-            _events.RaiseFinishReached();
-        }
+        protected override void OnStop() => 
+            _finishView.OnReached -= _events.OnFinishReached;
     }
 }
