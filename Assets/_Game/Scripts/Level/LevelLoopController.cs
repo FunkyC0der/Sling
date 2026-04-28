@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.StickyWall;
 using Sling.Player;
 
 namespace Sling.Level
@@ -35,6 +36,7 @@ namespace Sling.Level
             }));
 
             Execute<PlayerController>();
+            Execute<StickyWallsController>();
 
             GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
             Complete(outcome);

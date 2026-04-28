@@ -1,6 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using VContainer;
+using VContainer.Unity;
 
 namespace Sling.Level
 {
@@ -13,12 +15,14 @@ namespace Sling.Level
 
         protected override async UniTask OnFlowAsync(CancellationToken ct)
         {
-            IControllerFactory levelFactory = 
-                await ExecuteAndWaitResultAsync<BuildLevelFactoryController, IControllerFactory>(ct);
+            LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelFactoryController, LifetimeScope>(ct);
+            AddDisposable(levelScope);
 
             while (true)
             {
-                GameplayOutcome outcome = 
+                var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
+                
+                GameplayOutcome outcome =
                     await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
             }
         }

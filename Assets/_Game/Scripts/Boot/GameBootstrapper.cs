@@ -1,8 +1,11 @@
 using Cysharp.Threading.Tasks;
+using Playtika.Controllers;
 using Sling.Core;
 using Sling.Level;
 using Sling.Player;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Sling.Boot
 {
@@ -10,17 +13,30 @@ namespace Sling.Boot
     {
         [SerializeField] private PlayerConfig _playerConfig;
 
+        private LifetimeScope _rootScope;
+
         private void Start()
         {
-            var factory = new ControllerFactory();
+            _rootScope = LifetimeScope.Create(builder =>
+            {
+                builder.RegisterInstance(_playerConfig);
 
-            factory.Register(() => new BootstrapController(factory));
-            factory.Register(() => new GameLoopController(factory));
-            factory.Register(() => new LevelSessionController(factory));
-            factory.Register(() => new BuildLevelFactoryController(factory, _playerConfig));
+                builder.Register<BootstrapController>(Lifetime.Transient);
+                builder.Register<GameLoopController>(Lifetime.Transient);
+                builder.Register<LevelSessionController>(Lifetime.Transient);
+                builder.Register<BuildLevelFactoryController>(Lifetime.Transient);
+                builder.Register<GameRootController>(Lifetime.Transient);
 
-            var root = new GameRootController(factory);
+                builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
+            });
+
+            var root = _rootScope.Container.Resolve<GameRootController>();
             root.LaunchTree(this.GetCancellationTokenOnDestroy());
+        }
+
+        private void OnDestroy()
+        {
+            _rootScope?.Dispose();
         }
     }
 }

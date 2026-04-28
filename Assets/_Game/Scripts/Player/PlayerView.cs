@@ -13,6 +13,7 @@ namespace Sling.Player
         private Rigidbody2D _rb;
         private Camera _cam;
         private PlayerInputEvents _events;
+        private float _maxFallSpeed = float.PositiveInfinity;
 
         public float Mass => _rb.mass;
 
@@ -49,6 +50,11 @@ namespace Sling.Player
                 _events?.OnPointerDragged?.Invoke(PointerWorldPos());
         }
 
+        private void FixedUpdate()
+        {
+            _rb.linearVelocityY = Mathf.Max(-_maxFallSpeed, _rb.linearVelocityY);
+        }
+
         private void HandlePress(InputAction.CallbackContext _) =>
             _events?.OnPointerDown?.Invoke(PointerWorldPos());
 
@@ -61,5 +67,8 @@ namespace Sling.Player
             Vector3 worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
             return worldPos;
         }
+
+        public void SetMaxFallSpeed(float maxFallSpeed) => 
+            _maxFallSpeed = maxFallSpeed;
     }
 }

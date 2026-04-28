@@ -42,7 +42,7 @@ namespace Sling.Player.Trajectory
 
             await UniTask.Never(cancellationToken);
         }
-
+        
         private void Recompute(Vector2 currentWorldPos)
         {
             Vector2 dragVector = Vector2.ClampMagnitude(_dragStart - currentWorldPos, _playerConfig.MaxDragDistance);
