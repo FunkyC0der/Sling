@@ -11,20 +11,16 @@ namespace Sling.Boot
 {
   public class GameBootstrapper : MonoBehaviour
   {
-    [SerializeField] private PlayerConfig _playerConfig;
-
     private LifetimeScope _rootScope;
 
     private void Start()
     {
       _rootScope = LifetimeScope.Create(builder =>
       {
-        builder.RegisterInstance(_playerConfig);
-
         builder.Register<BootstrapController>(Lifetime.Transient);
         builder.Register<GameLoopController>(Lifetime.Transient);
         builder.Register<LevelSessionController>(Lifetime.Transient);
-        builder.Register<BuildLevelFactoryController>(Lifetime.Transient);
+        builder.Register<BuildLevelScopeController>(Lifetime.Transient);
         builder.Register<GameRootController>(Lifetime.Transient);
 
         builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);

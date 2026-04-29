@@ -14,14 +14,10 @@ namespace Sling.Level
       _events = events;
     }
 
-    protected override void OnStart()
-    {
+    protected override void OnStart() => 
       _finishView.OnReached += _events.OnFinishReached;
-    }
 
-    protected override void OnStop()
-    {
+    protected override void OnStop() => 
       _finishView.OnReached -= _events.OnFinishReached;
-    }
   }
 }

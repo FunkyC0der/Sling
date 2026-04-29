@@ -1,0 +1,66 @@
+using System;
+using Sling.Core;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Sling.Player.Views
+{
+  public class PlayerInputView : BaseView
+  {
+    [SerializeField] private InputActionReference _pointerPressActionRef;
+    [SerializeField] private InputActionReference _pointerPositionActionRef;
+
+    public event Action<Vector2> OnPreLaunchStart;
+    public event Action<Vector2> OnPreLaunchUpdate;
+    public event Action<Vector2> OnPreLaunchStop;
+
+    private Camera _cam;
+
+    private void Awake()
+    {
+      _cam = Camera.main;
+      _pointerPressActionRef.action.performed += HandlePress;
+      _pointerPressActionRef.action.canceled += HandleRelease;
+    }
+
+    private void OnEnable()
+    {
+      _pointerPressActionRef.action.Enable();
+      _pointerPositionActionRef.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+      _pointerPressActionRef.action.Disable();
+      _pointerPositionActionRef.action.Disable();
+    }
+
+    private void OnDestroy()
+    {
+      _pointerPressActionRef.action.performed -= HandlePress;
+      _pointerPressActionRef.action.canceled -= HandleRelease;
+    }
+
+    private void Update() =>
+      PreLaunchUpdate();
+
+    private void PreLaunchUpdate()
+    {
+      if (_pointerPressActionRef.action.IsPressed())
+        OnPreLaunchUpdate?.Invoke(PointerWorldPos());
+    }
+
+    private void HandlePress(InputAction.CallbackContext _) =>
+      OnPreLaunchStart?.Invoke(PointerWorldPos());
+
+    private void HandleRelease(InputAction.CallbackContext _) =>
+      OnPreLaunchStop?.Invoke(PointerWorldPos());
+
+    private Vector2 PointerWorldPos()
+    {
+      var screenPos = _pointerPositionActionRef.action.ReadValue<Vector2>();
+      Vector3 worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
+      return worldPos;
+    }
+  }
+}

@@ -2,10 +2,10 @@ using System;
 using Sling.Core;
 using UnityEngine;
 
-namespace Sling.Player.Trajectory
+namespace Sling.Player.Views
 {
   [RequireComponent(typeof(LineRenderer))]
-  public class TrajectoryView : BaseView
+  public class LaunchTrajectoryView : BaseView
   {
     [SerializeField] private int _pointCount = 30;
     [SerializeField] private float _timeStep = 0.05f;
@@ -17,22 +17,24 @@ namespace Sling.Player.Trajectory
     private void Awake()
     {
       _line = GetComponent<LineRenderer>();
+      
       _line.widthMultiplier = _lineWidth;
       _line.colorGradient = _colorGradient;
-      _line.positionCount = _pointCount;
-      _line.enabled = false;
+
+      Hide();
     }
 
     public void Show(Func<float, Vector3> samplePosition)
     {
+      _line.positionCount = _pointCount;
+      
       for (var i = 0; i < _pointCount; i++)
         _line.SetPosition(i, transform.position + samplePosition(i * _timeStep));
+      
       _line.enabled = true;
     }
 
-    public void Hide()
-    {
+    public void Hide() => 
       _line.enabled = false;
-    }
   }
 }

@@ -6,11 +6,11 @@ using Sling.Player;
 
 namespace Sling.Level
 {
-  public class LevelLoopController : ControllerWithResultBase<GameplayOutcome>
+  public class GameplayLoopController : ControllerWithResultBase<GameplayOutcome>
   {
     private readonly LevelEvents _events;
 
-    public LevelLoopController(IControllerFactory factory, LevelEvents events)
+    public GameplayLoopController(IControllerFactory factory, LevelEvents events)
       : base(factory)
     {
       _events = events;
@@ -31,8 +31,9 @@ namespace Sling.Level
         _events.OnRestartRequested -= OnRestart;
       }));
 
-      Execute<PlayerController>();
       Execute<FinishController>();
+      
+      Execute<LaunchController>();
       Execute<StickyWallsController>();
 
       GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);

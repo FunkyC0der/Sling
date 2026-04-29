@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5717655998603572528}
   - component: {fileID: 7531381223832247793}
   - component: {fileID: 8376719446793335417}
+  - component: {fileID: 8906501209974964651}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5849056, g: 0.0027589954, b: 0.0027589954, a: 1}
@@ -180,6 +181,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f1d97e201d748a0a79d292737741f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
+  <Config>k__BackingField: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
+--- !u!114 &8906501209974964651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276618756648720583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cead23d388d14a78ad56fd19925cfee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Player.Views.PlayerInputView
   _pointerPressActionRef: {fileID: 2007806119289100819, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _pointerPositionActionRef: {fileID: 4104080155975257287, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &5749200411127964045

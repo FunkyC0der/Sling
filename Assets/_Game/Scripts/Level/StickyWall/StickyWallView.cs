@@ -8,17 +8,10 @@ namespace Sling.Level.StickyWall
   {
     [field: SerializeField] public StickyWallConfig Config { get; private set; }
 
-    public Action<StickyWallView> OnPlayerEnter;
-    public Action<StickyWallView> OnPlayerExit;
+    public Action<StickyWallConfig> OnPlayerEnter;
+    public Action OnPlayerExit;
 
-    private void OnCollisionEnter2D()
-    {
-      OnPlayerEnter?.Invoke(this);
-    }
-
-    private void OnCollisionExit2D()
-    {
-      OnPlayerExit?.Invoke(this);
-    }
+    private void OnCollisionEnter2D() => OnPlayerEnter?.Invoke(Config);
+    private void OnCollisionExit2D() => OnPlayerExit?.Invoke();
   }
 }

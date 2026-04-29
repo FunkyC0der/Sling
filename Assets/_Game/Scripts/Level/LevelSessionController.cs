@@ -1,28 +1,28 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Utils;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Sling.Level
 {
   public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
   {
-    public LevelSessionController(IControllerFactory factory)
-      : base(factory)
+    public LevelSessionController(IControllerFactory controllerFactory)
+      : base(controllerFactory)
     {
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelFactoryController, LifetimeScope>(ct);
+      LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelScopeController, LifetimeScope>(ct);
       AddDisposable(levelScope);
 
-      var levelFactory = levelScope.Container.Resolve<IControllerFactory>();
+      IControllerFactory levelControllerFactory = levelScope.GetControllerFactory();
 
       GameplayOutcome outcome =
-        await ExecuteAndWaitResultAsync<LevelLoopController, GameplayOutcome>(levelFactory, ct);
+        await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayOutcome>(levelControllerFactory, ct);
 
       Debug.Log($"{outcome}");
     }
