@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sling.Level.Finish
 {
   [RequireComponent(typeof(Collider2D))]
-  public class FinishView : BaseView
+  public class FinishZoneView : BaseView
   {
     public event Action OnReached;
 

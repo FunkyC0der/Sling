@@ -41,17 +41,17 @@ namespace Sling.Level
         builder.Register<LevelEvents>(Lifetime.Singleton);
         builder.Register<LevelModel>(Lifetime.Singleton);
 
+        builder.Register<SetPlayerStartPosController>(Lifetime.Transient);
         builder.Register<GameplayLoopController>(Lifetime.Transient);
 
-        builder.Register<FinishController>(Lifetime.Transient);
         builder.Register<ShowWinScreenController>(Lifetime.Transient);
         builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
-        builder.Register<SetPlayerStartPosController>(Lifetime.Transient);
         builder.Register<PlayerLaunchController>(Lifetime.Transient);
         
         builder.Register<StickyWallsController>(Lifetime.Transient);
         builder.Register<HazardZonesController>(Lifetime.Transient);
+        builder.Register<FinishZoneController>(Lifetime.Transient);
         
         foreach (GameObject sceneRoot in sceneRoots) 
           builder.RegisterAllViews(sceneRoot);

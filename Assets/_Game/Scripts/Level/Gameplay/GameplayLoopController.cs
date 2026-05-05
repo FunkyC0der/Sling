@@ -33,7 +33,7 @@ namespace Sling.Level.Gameplay
         _events.OnRestartRequested -= OnRestart;
       }));
 
-      Execute<FinishController>();
+      Execute<FinishZoneController>();
 
       Execute<PlayerLaunchController>();
       Execute<StickyWallsController>();
