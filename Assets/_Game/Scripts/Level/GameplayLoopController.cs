@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.StickyWall;
+using Sling.Level.WinScreen;
 using Sling.Player;
 
 namespace Sling.Level
@@ -32,7 +33,7 @@ namespace Sling.Level
       }));
 
       Execute<FinishController>();
-      
+
       Execute<LaunchController>();
       Execute<StickyWallsController>();
 

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="bg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.49); top: auto;">
+        <ui:VisualElement name="window" style="flex-grow: 1; position: absolute; height: 567px; width: 986px; top: 208px; left: 430px; align-items: center; justify-content: center; bottom: 306px; right: 505px; background-color: rgb(9, 9, 31); border-top-left-radius: 17px; border-top-right-radius: 17px; border-bottom-right-radius: 17px; border-bottom-left-radius: 17px;">
+            <ui:Label text="LEVEL COMPLETE" name="title" style="flex-shrink: 0; flex-grow: 0; flex-direction: column; align-self: auto; width: 90%; top: 29px; color: rgb(255, 255, 255); -unity-text-align: middle-center; font-size: 69px; position: absolute; -unity-font-style: bold; align-content: flex-start;"/>
+            <ui:Button text="RESTART" name="restart-button" style="font-size: 44px; -unity-font-style: bold; color: rgb(9, 9, 31); background-color: rgb(214, 214, 214); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(56, 118, 86); border-right-color: rgb(56, 118, 86); border-top-color: rgb(56, 118, 86); border-bottom-color: rgb(56, 118, 86); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

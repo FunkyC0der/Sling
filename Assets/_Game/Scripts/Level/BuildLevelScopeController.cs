@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Core;
 using Sling.Level.StickyWall;
+using Sling.Level.WinScreen;
 using Sling.Player;
 using Sling.Player.Views;
 using UnityEngine.SceneManagement;
@@ -63,6 +64,9 @@ namespace Sling.Level
 
         builder.RegisterInstance(views.GetOne<FinishView>());
         builder.Register<FinishController>(Lifetime.Transient);
+
+        builder.Register<WinScreenController>(Lifetime.Transient)
+          .WithParameter(views.GetOne<WinScreenView>());
       });
     }
   }
