@@ -1,9 +1,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Gameplay;
+using Sling.Level.Hazards;
+using Sling.Level.Player;
 using Sling.Level.StickyWall;
 using Sling.Level.WinScreen;
-using Sling.Player;
 using Sling.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,9 +43,11 @@ namespace Sling.Level
 
         builder.Register<FinishController>(Lifetime.Transient);
         builder.Register<WinScreenController>(Lifetime.Transient);
+        builder.Register<GameOverController>(Lifetime.Transient);
 
-        builder.Register<LaunchController>(Lifetime.Transient);
+        builder.Register<PlayerLaunchController>(Lifetime.Transient);
         builder.Register<StickyWallsController>(Lifetime.Transient);
+        builder.Register<HazardZonesController>(Lifetime.Transient);
         
         foreach (GameObject sceneRoot in sceneRoots) 
           builder.RegisterAllViews(sceneRoot);

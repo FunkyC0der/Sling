@@ -1,11 +1,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Hazards;
+using Sling.Level.Player;
 using Sling.Level.StickyWall;
-using Sling.Level.WinScreen;
-using Sling.Player;
 
-namespace Sling.Level
+namespace Sling.Level.Gameplay
 {
   public class GameplayLoopController : ControllerWithResultBase<GameplayOutcome>
   {
@@ -34,27 +34,22 @@ namespace Sling.Level
 
       Execute<FinishController>();
 
-      Execute<LaunchController>();
+      Execute<PlayerLaunchController>();
       Execute<StickyWallsController>();
+      Execute<HazardZonesController>();
 
       GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
       Complete(outcome);
       return;
 
-      void OnDied()
-      {
+      void OnDied() => 
         outcomeSource.TrySetResult(GameplayOutcome.Death);
-      }
 
-      void OnWon()
-      {
+      void OnWon() => 
         outcomeSource.TrySetResult(GameplayOutcome.Win);
-      }
 
-      void OnRestart()
-      {
+      void OnRestart() => 
         outcomeSource.TrySetResult(GameplayOutcome.Restart);
-      }
     }
   }
 }

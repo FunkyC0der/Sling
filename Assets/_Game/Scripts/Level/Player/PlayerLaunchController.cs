@@ -1,11 +1,11 @@
 using System;
 using Playtika.Controllers;
-using Sling.Player.Views;
+using Sling.Level.Player.Views;
 using UnityEngine;
 
-namespace Sling.Player
+namespace Sling.Level.Player
 {
-  public class LaunchController : ControllerBase
+  public class PlayerLaunchController : ControllerBase
   {
     private readonly PlayerInputView _inputView;
     private readonly PlayerView _playerView;
@@ -16,7 +16,7 @@ namespace Sling.Player
     private Vector2 _startVelocity;
     private Vector2 _launchForce;
 
-    public LaunchController(IControllerFactory controllerFactory,
+    public PlayerLaunchController(IControllerFactory controllerFactory,
       PlayerInputView inputView,
       PlayerView playerView,
       LaunchTrajectoryView launchTrajectoryView)

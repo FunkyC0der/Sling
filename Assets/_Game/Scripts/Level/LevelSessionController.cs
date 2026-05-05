@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Gameplay;
 using Sling.Level.WinScreen;
 using Sling.Utils;
 using UnityEngine;
@@ -25,12 +26,18 @@ namespace Sling.Level
       GameplayOutcome outcome =
         await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayOutcome>(levelControllerFactory, ct);
 
+      Debug.Log($"{outcome}");
+      
       if (outcome == GameplayOutcome.Win)
       {
         WinScreenResult result =
           await ExecuteAndWaitResultAsync<WinScreenController, WinScreenResult>(levelControllerFactory, ct);
         
         Debug.Log($"{result}");
+      }
+      else if (outcome == GameplayOutcome.Death)
+      {
+        await ExecuteAndWaitResultAsync<GameOverController>(levelControllerFactory, ct);
       }
     }
   }

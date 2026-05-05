@@ -1,8 +1,9 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Sling.Core;
 using UnityEngine;
 
-namespace Sling.Player.Views
+namespace Sling.Level.Player.Views
 {
   [RequireComponent(typeof(Rigidbody2D))]
   public class PlayerView : BaseView
@@ -27,5 +28,24 @@ namespace Sling.Player.Views
 
     public void SetVelocityY(float y) =>
       _rb.linearVelocityY = y;
+
+    public async UniTask Die()
+    {
+      _rb.bodyType = RigidbodyType2D.Static;
+
+      var sprite = GetComponent<SpriteRenderer>();
+      Color originalColor = sprite.color;
+      float flickerPeriod = Config.DieDuration / Config.DieFlickerCount;
+
+      for (int i = 0; i < Config.DieFlickerCount; ++i)
+      {
+        sprite.color = Color.white;
+        await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
+        sprite.color = originalColor;
+        await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
+      }
+      
+      gameObject.SetActive(false); // Hide the player from view
+    }
   }
 }

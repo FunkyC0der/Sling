@@ -2,7 +2,7 @@ using System;
 using Sling.Core;
 using UnityEngine;
 
-namespace Sling.Player.Views
+namespace Sling.Level.Player.Views
 {
   [RequireComponent(typeof(LineRenderer))]
   public class LaunchTrajectoryView : BaseView

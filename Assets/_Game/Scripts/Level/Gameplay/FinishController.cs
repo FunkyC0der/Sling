@@ -1,6 +1,6 @@
 using Playtika.Controllers;
 
-namespace Sling.Level
+namespace Sling.Level.Gameplay
 {
   public class FinishController : ControllerBase
   {

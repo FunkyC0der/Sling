@@ -2,7 +2,7 @@ using System;
 using Sling.Core;
 using UnityEngine;
 
-namespace Sling.Level
+namespace Sling.Level.Gameplay
 {
   [RequireComponent(typeof(Collider2D))]
   public class FinishView : BaseView

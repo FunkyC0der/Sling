@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Core;
 using Sling.Level;
-using Sling.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

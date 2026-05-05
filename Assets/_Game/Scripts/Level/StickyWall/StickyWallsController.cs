@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Playtika.Controllers;
-using Sling.Player.Views;
+using Sling.Level.Player.Views;
 
 namespace Sling.Level.StickyWall
 {

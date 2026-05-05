@@ -1,4 +1,4 @@
-namespace Sling.Level
+namespace Sling.Level.Gameplay
 {
   public enum GameplayOutcome
   {

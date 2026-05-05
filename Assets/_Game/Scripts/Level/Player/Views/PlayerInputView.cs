@@ -3,7 +3,7 @@ using Sling.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Sling.Player.Views
+namespace Sling.Level.Player.Views
 {
   public class PlayerInputView : BaseView
   {
