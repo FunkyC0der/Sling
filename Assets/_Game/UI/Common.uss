@@ -1,0 +1,22 @@
+:root {
+  --color-text-dark: rgb(9, 9, 31);
+  --color-text-light: rgb(255, 255, 255);
+  --color-popup-btn-bg: rgb(214, 214, 214);
+  --color-popup-btn-bg-hover: rgb(180, 180, 180);
+  --radius-popup-btn: 12px;
+  --font-size-popup-btn: 44px;
+  --duration-fade: 0.35s;
+}
+
+.popup-button {
+  font-size: var(--font-size-popup-btn);
+  -unity-font-style: bold;
+  color: var(--color-text-dark);
+  background-color: var(--color-popup-btn-bg);
+  border-radius: var(--radius-popup-btn);
+  border-width: 0;
+}
+
+.popup-button:hover {
+  background-color: var(--color-popup-btn-bg-hover);
+}

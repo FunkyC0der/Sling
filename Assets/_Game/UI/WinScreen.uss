@@ -48,20 +48,6 @@
   margin-bottom: var(--spacing-md);
 }
 
-.btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-text);
-  font-size: var(--font-size-btn);
-  border-width: 0;
-  border-radius: var(--radius-btn);
-  padding: var(--spacing-sm) var(--spacing-md);
-  min-width: 200px;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-}
-
 .screen-hidden {
   display: none;
 }
