@@ -5,20 +5,24 @@ using Sling.Level.Player.Views;
 
 namespace Sling.Level.Gameplay
 {
-  public class GameOverController : ControllerWithResultBase<EmptyControllerResult>
+  public class RespawnPlayerController : ControllerWithResultBase<EmptyControllerResult>
   {
     private readonly PlayerView _playerView;
+    private readonly LevelModel _levelModel;
 
-    public GameOverController(IControllerFactory controllerFactory, PlayerView playerView)
+    public RespawnPlayerController(IControllerFactory controllerFactory,
+      PlayerView playerView, 
+      LevelModel levelModel)
       : base(controllerFactory)
     {
       _playerView = playerView;
+      _levelModel = levelModel;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
       await _playerView.Die();
-      // TODO: Show game over screen.
+      _playerView.Respawn(_levelModel.PlayerStartPos);
       Complete(new EmptyControllerResult());
     }
   }

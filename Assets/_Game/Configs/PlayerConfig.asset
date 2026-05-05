@@ -15,4 +15,4 @@ MonoBehaviour:
   <MaxDragDistance>k__BackingField: 5
   <LaunchForceMultiplier>k__BackingField: 2
   <DieFlickerCount>k__BackingField: 3
-  <DieDuration>k__BackingField: 1
+  <DieDuration>k__BackingField: 0.5

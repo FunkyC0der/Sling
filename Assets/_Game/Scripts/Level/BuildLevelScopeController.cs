@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
 using Sling.Level.Player;
@@ -38,14 +39,17 @@ namespace Sling.Level
       return _scope.CreateChild(builder =>
       {
         builder.Register<LevelEvents>(Lifetime.Singleton);
+        builder.Register<LevelModel>(Lifetime.Singleton);
 
         builder.Register<GameplayLoopController>(Lifetime.Transient);
 
         builder.Register<FinishController>(Lifetime.Transient);
-        builder.Register<WinScreenController>(Lifetime.Transient);
-        builder.Register<GameOverController>(Lifetime.Transient);
+        builder.Register<ShowWinScreenController>(Lifetime.Transient);
+        builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
+        builder.Register<SetPlayerStartPosController>(Lifetime.Transient);
         builder.Register<PlayerLaunchController>(Lifetime.Transient);
+        
         builder.Register<StickyWallsController>(Lifetime.Transient);
         builder.Register<HazardZonesController>(Lifetime.Transient);
         

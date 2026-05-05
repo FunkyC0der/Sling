@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Finish;
 using Sling.Level.Hazards;
 using Sling.Level.Player;
 using Sling.Level.StickyWall;

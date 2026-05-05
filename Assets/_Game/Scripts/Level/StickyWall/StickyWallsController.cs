@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Playtika.Controllers;
 using Sling.Level.Player.Views;
+using UnityEngine;
 
 namespace Sling.Level.StickyWall
 {
@@ -42,11 +43,8 @@ namespace Sling.Level.StickyWall
       }
     }
 
-    private void OnFixedTick()
-    {
-      if (_playerView.VelocityY < -_maxFallSpeed)
-        _playerView.SetVelocityY(-_maxFallSpeed);
-    }
+    private void OnFixedTick() => 
+      _playerView.LinearVelocityY = Mathf.Max(_playerView.LinearVelocityY, -_maxFallSpeed);
 
     private void OnEnterStickyWall(StickyWallConfig config) =>
       _maxFallSpeed = config.MaxFallSpeed;

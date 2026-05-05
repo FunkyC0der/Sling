@@ -3,11 +3,11 @@ using UnityEditorInternal;
 
 namespace Sling.Level.WinScreen
 {
-  public class WinScreenController : ControllerWithResultBase<WinScreenResult>
+  public class ShowWinScreenController : ControllerWithResultBase<WinScreenResult>
   {
     private readonly WinScreenView _view;
 
-    public WinScreenController(IControllerFactory factory, WinScreenView view)
+    public ShowWinScreenController(IControllerFactory factory, WinScreenView view)
       : base(factory)
     {
       _view = view;

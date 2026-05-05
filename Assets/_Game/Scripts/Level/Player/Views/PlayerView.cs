@@ -15,7 +15,12 @@ namespace Sling.Level.Player.Views
     private Rigidbody2D _rb;
 
     public float Mass => _rb.mass;
-    public float VelocityY => _rb.linearVelocityY;
+    public float LinearVelocityY
+    {
+      get => _rb.linearVelocityY;
+      set => _rb.linearVelocityY = value;
+    }
+    public Vector3 Position => _rb.position; 
 
     private void Awake() =>
       _rb = GetComponent<Rigidbody2D>();
@@ -25,9 +30,6 @@ namespace Sling.Level.Player.Views
 
     public void Launch(Vector2 force) =>
       _rb.AddForce(force, ForceMode2D.Impulse);
-
-    public void SetVelocityY(float y) =>
-      _rb.linearVelocityY = y;
 
     public async UniTask Die()
     {
@@ -46,6 +48,13 @@ namespace Sling.Level.Player.Views
       }
       
       gameObject.SetActive(false); // Hide the player from view
+    }
+
+    public void Respawn(Vector3 position)
+    {
+      transform.position = position;
+      _rb.bodyType = RigidbodyType2D.Dynamic;
+      gameObject.SetActive(true);
     }
   }
 }

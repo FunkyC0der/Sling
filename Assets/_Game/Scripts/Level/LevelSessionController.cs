@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Gameplay;
+using Sling.Level.Player;
 using Sling.Level.WinScreen;
 using Sling.Utils;
 using UnityEngine;
@@ -22,23 +23,21 @@ namespace Sling.Level
       AddDisposable(levelScope);
 
       IControllerFactory levelControllerFactory = levelScope.GetControllerFactory();
-
-      GameplayOutcome outcome =
-        await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayOutcome>(levelControllerFactory, ct);
-
-      Debug.Log($"{outcome}");
       
-      if (outcome == GameplayOutcome.Win)
+      await ExecuteAndWaitResultAsync<SetPlayerStartPosController>(levelControllerFactory, ct);
+      
+      GameplayOutcome outcome;
+      do
       {
-        WinScreenResult result =
-          await ExecuteAndWaitResultAsync<WinScreenController, WinScreenResult>(levelControllerFactory, ct);
+        outcome =
+          await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayOutcome>(levelControllerFactory, ct);
         
-        Debug.Log($"{result}");
-      }
-      else if (outcome == GameplayOutcome.Death)
-      {
-        await ExecuteAndWaitResultAsync<GameOverController>(levelControllerFactory, ct);
-      }
+        if(outcome == GameplayOutcome.Death)
+          await ExecuteAndWaitResultAsync<RespawnPlayerController>(levelControllerFactory, ct);
+        
+      } while (outcome != GameplayOutcome.Win);
+
+      await ExecuteAndWaitResultAsync<ShowWinScreenController, WinScreenResult>(levelControllerFactory, ct);
     }
   }
 }
