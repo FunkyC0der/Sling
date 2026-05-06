@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using UnityEngine.SceneManagement;
 
-namespace Sling.Level
+namespace Sling.Boot
 {
   public class LoadLevelController : ControllerWithResultBase<string, EmptyControllerResult>
   {
@@ -12,10 +12,10 @@ namespace Sling.Level
     {
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      await SceneManager.LoadSceneAsync(Args, LoadSceneMode.Single)
-        .ToUniTask(cancellationToken: cancellationToken);
+      await SceneManager.LoadSceneAsync(Args)
+        .ToUniTask(cancellationToken: ct);
       
       Complete(new EmptyControllerResult());
     }

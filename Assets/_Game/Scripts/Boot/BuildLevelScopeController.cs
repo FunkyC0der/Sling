@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
@@ -13,7 +14,7 @@ using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
-namespace Sling.Level
+namespace Sling.Boot
 {
   public class BuildLevelScopeController : ControllerWithResultBase<LifetimeScope>
   {
@@ -38,6 +39,8 @@ namespace Sling.Level
     {
       return _scope.CreateChild(builder =>
       {
+        builder.Register<LevelSessionController>(Lifetime.Transient);
+        
         builder.Register<LevelEvents>(Lifetime.Singleton);
         builder.Register<LevelModel>(Lifetime.Singleton);
 
@@ -55,7 +58,8 @@ namespace Sling.Level
         
         foreach (GameObject sceneRoot in sceneRoots) 
           builder.RegisterAllViews(sceneRoot);
-      });
+      },
+        childScopeName: "LevelScope");
     }
   }
 }

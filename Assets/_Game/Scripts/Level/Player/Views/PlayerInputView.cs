@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Sling.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,20 +20,19 @@ namespace Sling.Level.Player.Views
     private void Awake()
     {
       _cam = Camera.main;
+      
       _pointerPressActionRef.action.performed += HandlePress;
       _pointerPressActionRef.action.canceled += HandleRelease;
     }
 
-    private void OnEnable()
+    private IEnumerator Start()
     {
+      // HACK: to enable input on scene reload.
+      // I don't know why ???
+      yield return null;
+      
       _pointerPressActionRef.action.Enable();
       _pointerPositionActionRef.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-      _pointerPressActionRef.action.Disable();
-      _pointerPositionActionRef.action.Disable();
     }
 
     private void OnDestroy()

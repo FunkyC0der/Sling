@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Core;
-using Sling.Level;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,24 +13,32 @@ namespace Sling.Boot
 
     private void Start()
     {
+      DontDestroyOnLoad(gameObject);
+      
       _rootScope = LifetimeScope.Create(builder =>
       {
-        builder.Register<BootstrapController>(Lifetime.Transient);
-        builder.Register<GameLoopController>(Lifetime.Transient);
-        builder.Register<LevelSessionController>(Lifetime.Transient);
-        builder.Register<BuildLevelScopeController>(Lifetime.Transient);
         builder.Register<GameRootController>(Lifetime.Transient);
+        builder.Register<BootstrapController>(Lifetime.Transient);
 
+        builder.Register<GameModel>(Lifetime.Singleton);
+        
         builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
-      });
+
+        builder.Register<InitFirstSceneController>(Lifetime.Transient);
+        
+        builder.Register<LevelsLoopController>(Lifetime.Transient);
+        builder.Register<LoadLevelController>(Lifetime.Transient);
+        builder.Register<BuildLevelScopeController>(Lifetime.Transient);
+      },
+        name: "Root");
+      
+      _rootScope.transform.SetParent(transform);
 
       var root = _rootScope.Container.Resolve<GameRootController>();
       root.LaunchTree(this.GetCancellationTokenOnDestroy());
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() => 
       _rootScope?.Dispose();
-    }
   }
 }

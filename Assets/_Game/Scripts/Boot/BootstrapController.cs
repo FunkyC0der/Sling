@@ -10,11 +10,10 @@ namespace Sling.Boot
     {
     }
 
-    protected override UniTask OnFlowAsync(CancellationToken cancellationToken)
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      // Load configs, initialize services here as the game grows.
+      await ExecuteAndWaitResultAsync<InitFirstSceneController>(ct);
       Complete();
-      return UniTask.CompletedTask;
     }
   }
 }

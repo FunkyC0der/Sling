@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerConfig
   <MaxDragDistance>k__BackingField: 5
   <LaunchForceMultiplier>k__BackingField: 2
-  <DieFlickerCount>k__BackingField: 3
+  <DieFlickerCount>k__BackingField: 2
   <DieDuration>k__BackingField: 0.5
