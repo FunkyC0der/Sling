@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "AngryMeatBoy.slnx",
+    "dotnet.defaultSolution": "Sling.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }

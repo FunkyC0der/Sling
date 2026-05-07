@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Sling.Level.Player
 {
-  [CreateAssetMenu(fileName = "PlayerConfig", menuName = "AngryMeatBoy/PlayerConfig")]
+  [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Game/PlayerConfig")]
   public class PlayerConfig : ScriptableObject
   {
     [field: SerializeField] public float MaxDragDistance { get; private set; } = 5f;
