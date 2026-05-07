@@ -47,3 +47,4 @@ ExportedObj/
 *.aab
 *.ipa
 *.unitypackage
+.vsconfig
