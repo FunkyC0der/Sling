@@ -15,6 +15,7 @@ namespace Sling.Level.Player
     private Vector2 _preLaunchStartPos;
     private Vector2 _startVelocity;
     private Vector2 _launchForce;
+    private bool _isFirstLaunch;
 
     public PlayerLaunchController(IControllerFactory controllerFactory,
       PlayerInputView inputView,
@@ -33,6 +34,9 @@ namespace Sling.Level.Player
       _inputView.OnPreLaunchStart += OnPreLaunchStart;
       _inputView.OnPreLaunchUpdate += OnPreLaunchUpdate;
       _inputView.OnPreLaunchStop += OnPreLaunchStop;
+
+      _isFirstLaunch = true;
+      _playerView.SetPhysicsEnabled(false);
     }
 
     protected override void OnStop()
@@ -59,6 +63,13 @@ namespace Sling.Level.Player
     private void OnPreLaunchStop(Vector2 worldPos)
     {
       _launchTrajectoryView.Hide();
+      
+      if(_isFirstLaunch)
+      {
+        _isFirstLaunch = false;
+        _playerView.SetPhysicsEnabled(true);
+      }
+      
       _playerView.Launch(_launchForce);
     }
 

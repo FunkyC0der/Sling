@@ -30,6 +30,9 @@ namespace Sling.Level.Player.Views
 
     public void Launch(Vector2 force) =>
       _rb.AddForce(force, ForceMode2D.Impulse);
+    
+    public void SetPhysicsEnabled(bool isEnabled) =>
+      _rb.bodyType = isEnabled ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
 
     public async UniTask Die()
     {
