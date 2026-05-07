@@ -10,7 +10,7 @@ namespace Sling.Level.Hazards
 
     public HazardZonesController(IControllerFactory controllerFactory,
       LevelEvents levelEvents,
-      IReadOnlyList<HazardZoneView> zones) : base(controllerFactory)
+      HazardZoneView[] zones) : base(controllerFactory)
     {
       _levelEvents = levelEvents;
       _zones = zones;

@@ -1,10 +1,9 @@
 using System;
-using Sling.Core;
 using UnityEngine;
 
 namespace Sling.Level.Hazards
 {
-  public class HazardZoneView : BaseView
+  public class HazardZoneView : MonoBehaviour
   {
     public event Action OnEnter;
 

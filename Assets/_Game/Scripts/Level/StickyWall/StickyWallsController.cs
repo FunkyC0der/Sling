@@ -15,7 +15,7 @@ namespace Sling.Level.StickyWall
     private float _maxFallSpeed = _kMaxFallSpeed;
 
     public StickyWallsController(IControllerFactory controllerFactory,
-      IReadOnlyList<StickyWallView> stickyWalls,
+      StickyWallView[] stickyWalls,
       PlayerView playerView)
       : base(controllerFactory)
     {
