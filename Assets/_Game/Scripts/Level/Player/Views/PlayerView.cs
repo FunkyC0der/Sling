@@ -20,6 +20,13 @@ namespace Sling.Level.Player.Views
       get => _rb.linearVelocityY;
       set => _rb.linearVelocityY = value;
     }
+
+    public RigidbodyType2D BodyType
+    {
+      get => _rb.bodyType;
+      set => _rb.bodyType = value;
+    }
+    
     public Vector3 Position => _rb.position; 
 
     private void Awake() =>

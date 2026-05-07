@@ -57,7 +57,9 @@ namespace Sling.Level.Player
       _launchForce = launchVector * _playerView.Config.LaunchForceMultiplier;
       _startVelocity = _launchForce / _playerView.Mass;
 
-      _launchTrajectoryView.Show(_trajectorySamplePosFunc);
+      float forceFraction = launchVector.magnitude / _playerView.Config.MaxDragDistance;
+      float totalTime = _playerView.Config.TrajectoryHintDuration * forceFraction;
+      _launchTrajectoryView.Show(totalTime, _trajectorySamplePosFunc);
     }
 
     private void OnPreLaunchStop(Vector2 worldPos)

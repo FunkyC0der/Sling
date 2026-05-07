@@ -43,8 +43,11 @@ namespace Sling.Level.StickyWall
       }
     }
 
-    private void OnFixedTick() => 
-      _playerView.LinearVelocityY = Mathf.Max(_playerView.LinearVelocityY, -_maxFallSpeed);
+    private void OnFixedTick()
+    {
+      if(_playerView.BodyType != RigidbodyType2D.Static)
+        _playerView.LinearVelocityY = Mathf.Max(_playerView.LinearVelocityY, -_maxFallSpeed);
+    }
 
     private void OnEnterStickyWall(StickyWallConfig config) =>
       _maxFallSpeed = config.MaxFallSpeed;
