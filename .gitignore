@@ -41,6 +41,9 @@ Crashes/
 .claude/
 CLAUDE.md
 
+# Kanban board
+.devtool/
+
 # Builds output
 ExportedObj/
 *.apk

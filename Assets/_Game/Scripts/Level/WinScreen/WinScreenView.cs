@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 namespace Sling.Level.WinScreen
 {
   [RequireComponent(typeof(UIDocument))]
-  public class WinScreenView : BaseView
+  public class WinScreenView : MonoBehaviour, IUniqueView
   {
     private static class Names
     {

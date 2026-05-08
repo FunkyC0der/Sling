@@ -1,9 +1,10 @@
 using System;
+using Sling.Core;
 using UnityEngine;
 
 namespace Sling.Level.StickyWall
 {
-  public class StickyWallView : MonoBehaviour
+  public class StickyWallView : MonoBehaviour, IView
   {
     [field: SerializeField] public StickyWallConfig Config { get; private set; }
 

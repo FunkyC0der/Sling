@@ -9,7 +9,6 @@ using Sling.Level.Player;
 using Sling.Level.StickyWall;
 using Sling.Level.WinScreen;
 using Sling.Utils;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
@@ -29,18 +28,18 @@ namespace Sling.Boot
     protected override UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
       Scene scene = SceneManager.GetActiveScene();
-      LifetimeScope levelScope = BuildLevelScope(scene.GetRootGameObjects());
+      LifetimeScope levelScope = BuildLevelScope(scene);
 
       Complete(levelScope);
       return UniTask.CompletedTask;
     }
 
-    private LifetimeScope BuildLevelScope(GameObject[] sceneRoots)
+    private LifetimeScope BuildLevelScope(Scene scene)
     {
       return _scope.CreateChild(builder =>
       {
         builder.Register<LevelSessionController>(Lifetime.Transient);
-        
+
         builder.Register<LevelEvents>(Lifetime.Singleton);
         builder.Register<LevelModel>(Lifetime.Singleton);
 
@@ -51,13 +50,12 @@ namespace Sling.Boot
         builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
         builder.Register<PlayerLaunchController>(Lifetime.Transient);
-        
+
         builder.Register<StickyWallsController>(Lifetime.Transient);
         builder.Register<HazardZonesController>(Lifetime.Transient);
         builder.Register<FinishZoneController>(Lifetime.Transient);
-        
-        foreach (GameObject sceneRoot in sceneRoots) 
-          builder.RegisterAllViews(sceneRoot);
+
+        builder.RegisterSceneViews(scene);
       },
         childScopeName: "LevelScope");
     }

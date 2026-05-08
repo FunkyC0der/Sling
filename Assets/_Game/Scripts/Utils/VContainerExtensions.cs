@@ -1,8 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Playtika.Controllers;
 using Sling.Core;
-using Sling.Level.Hazards;
-using Sling.Level.StickyWall;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,19 +14,44 @@ namespace Sling.Utils
     public static IControllerFactory GetControllerFactory(this LifetimeScope scope) =>
       scope.Container.Resolve<IControllerFactory>();
 
-    public static void RegisterAllViews(this IContainerBuilder builder, GameObject root)
+    public static void RegisterSceneViews(this IContainerBuilder builder, Scene scene)
     {
-      foreach (BaseView view in root.GetComponentsInChildren<BaseView>()) 
-        builder.RegisterInstance(view, view.GetType());
+      var viewsByType = new Dictionary<Type, List<IView>>();
 
-      // TODO: Thing how to make it better.
-      HazardZoneView[] hazardZones = root.GetComponentsInChildren<HazardZoneView>();
-      if(hazardZones.Length > 0)
-        builder.RegisterInstance(hazardZones);
+      foreach (GameObject root in scene.GetRootGameObjects())
+      foreach (IView view in root.GetComponentsInChildren<IView>(true))
+        viewsByType.GetOrAdd(view.GetType()).Add(view);
 
-      StickyWallView[] stickyWalls = root.GetComponentsInChildren<StickyWallView>();
-      if(stickyWalls.Length > 0)
-        builder.RegisterInstance(stickyWalls);
+      foreach (KeyValuePair<Type, List<IView>> entry in viewsByType)
+      {
+        // IsAssignableFrom reads backward: checks that entry.Key implements IUniqueView
+        bool isUnique = typeof(IUniqueView).IsAssignableFrom(entry.Key);
+        if (isUnique)
+          RegisterUnique(builder, entry.Key, entry.Value);
+        else
+          RegisterCollection(builder, entry.Key, entry.Value);
+      }
+    }
+
+    private static void RegisterUnique(IContainerBuilder builder, Type viewType, List<IView> views)
+    {
+      if (views.Count != 1)
+      {
+        throw new InvalidOperationException(
+          $"IUniqueView '{viewType.Name}' must have exactly 1 instance in scene, found {views.Count}.");
+      }
+      
+      builder.RegisterInstance(views[0], viewType);
+    }
+
+    private static void RegisterCollection(IContainerBuilder builder, Type viewType, List<IView> views)
+    {
+      var typedArray = Array.CreateInstance(viewType, views.Count);
+      
+      for (int i = 0; i < views.Count; i++)
+        typedArray.SetValue(views[i], i);
+      
+      builder.RegisterInstance(typedArray, viewType.MakeArrayType());
     }
   }
 }

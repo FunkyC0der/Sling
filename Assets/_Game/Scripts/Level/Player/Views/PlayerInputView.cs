@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Sling.Level.Player.Views
 {
-  public class PlayerInputView : BaseView
+  public class PlayerInputView : MonoBehaviour, IUniqueView
   {
     [SerializeField] private InputActionReference _pointerPressActionRef;
     [SerializeField] private InputActionReference _pointerPositionActionRef;

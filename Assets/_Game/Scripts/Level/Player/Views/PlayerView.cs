@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Sling.Level.Player.Views
 {
   [RequireComponent(typeof(Rigidbody2D))]
-  public class PlayerView : BaseView
+  public class PlayerView : MonoBehaviour, IUniqueView
   {
     public event Action OnFixedTick;
     
