@@ -15,6 +15,13 @@ namespace Sling.Level.Player.Views
     private Rigidbody2D _rb;
 
     public float Mass => _rb.mass;
+
+    public float LinearVelocityX
+    {
+      get => _rb.linearVelocityX;
+      set => _rb.linearVelocityX = value;
+    }
+    
     public float LinearVelocityY
     {
       get => _rb.linearVelocityY;

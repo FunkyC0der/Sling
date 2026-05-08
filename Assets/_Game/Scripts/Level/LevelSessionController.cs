@@ -29,7 +29,7 @@ namespace Sling.Level
         
       } while (outcome != GameplayOutcome.Win);
 
-      await ExecuteAndWaitResultAsync<ShowWinScreenController, WinScreenResult>(ct);
+      await ExecuteAndWaitResultAsync<FinishLevelFlowController, WinScreenResult>(ct);
       Complete();
     }
   }
