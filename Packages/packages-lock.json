@@ -7,6 +7,12 @@
       "dependencies": {},
       "hash": "a9e27c03d411d2fca01cc7410c24c97cd77cb539"
     },
+    "com.kyrylokuzyk.primetween": {
+      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.playtika.controllers-tree": {
       "version": "https://github.com/PlaytikaOSS/controllers-tree.git?path=src/ControllersTree#v1.2.0",
       "depth": 0,
