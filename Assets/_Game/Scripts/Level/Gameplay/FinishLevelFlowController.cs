@@ -1,32 +1,27 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Level.Finish;
 using Sling.Level.Player.Views;
+using Sling.Level.WinScreen;
 using UnityEngine;
 
-namespace Sling.Level.WinScreen
+namespace Sling.Level.Gameplay
 {
   public class FinishLevelFlowController : ControllerWithResultBase<WinScreenResult>
   {
     private readonly WinScreenView _winScreenView;
     private readonly PlayerView _playerView;
-    private readonly FinishZoneView _finishZoneView;
 
-    public FinishLevelFlowController(IControllerFactory factory,
-      WinScreenView winScreenView,
-      PlayerView playerView,
-      FinishZoneView finishZoneView)
+    public FinishLevelFlowController(IControllerFactory factory, WinScreenView winScreenView, PlayerView playerView)
       : base(factory)
     {
       _winScreenView = winScreenView;
       _playerView = playerView;
-      _finishZoneView = finishZoneView;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      await WaitPlayerReachFinishZone(ct);
+      await StopPlayerMovementX(ct);
       
       _playerView.LinearVelocityX = 0;
       
@@ -35,19 +30,17 @@ namespace Sling.Level.WinScreen
       
       _winScreenView.Show();
     }
-
-    private async UniTask WaitPlayerReachFinishZone(CancellationToken ct)
+    
+    private async UniTask StopPlayerMovementX(CancellationToken ct)
     {
-      float prevPlayerPositionX = _playerView.transform.position.x;
+      float deceleration = Mathf.Abs(_playerView.LinearVelocityX) / _playerView.Config.FinishStopDuration;
       
-      while (!ct.IsCancellationRequested)
+      while (Mathf.Abs(_playerView.LinearVelocityX) > 0 && !ct.IsCancellationRequested)
       {
+        _playerView.LinearVelocityX =
+          Mathf.MoveTowards(_playerView.LinearVelocityX, 0, deceleration * Time.fixedDeltaTime);
+        
         await UniTask.Yield(PlayerLoopTiming.FixedUpdate, ct);
-        
-        if(IsBetween(_finishZoneView.transform.position.x, prevPlayerPositionX, _playerView.transform.position.x))
-          break;
-        
-        prevPlayerPositionX = _playerView.transform.position.x;
       }
     }
 
