@@ -27,24 +27,18 @@ namespace Sling.Level.Tweeners
 
       Transform parent = transform.parent;
       float initialParentAngle = parent != null ? parent.eulerAngles.z : 0f;
+      float ParentDelta() => (parent != null ? parent.eulerAngles.z : 0f) - initialParentAngle;
 
       var sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
-      float currentLocalAngle = _rigidbody.rotation - initialParentAngle;
+      float currentAngle = _rigidbody.rotation;
 
       foreach (float angle in Angles)
       {
-        float targetLocalAngle = angle - initialParentAngle;
-        float duration = Mathf.Abs(targetLocalAngle - currentLocalAngle) / Speed;
-        float segmentStart = currentLocalAngle;
-
-        sequence.Chain(Tween.Custom(segmentStart, targetLocalAngle, duration, localAngle =>
-        {
-          float parentZ = parent != null ? parent.eulerAngles.z : 0f;
-          _rigidbody.MoveRotation(parentZ + localAngle);
-        }, Ease));
+        float duration = Mathf.Abs(angle - currentAngle) / Speed;
+        sequence.Chain(Tween.Custom(currentAngle, angle, duration,
+          a => _rigidbody.MoveRotation(a + ParentDelta()), Ease));
         sequence.ChainDelay(DelayBeforeNextAngle);
-
-        currentLocalAngle = targetLocalAngle;
+        currentAngle = angle;
       }
     }
   }

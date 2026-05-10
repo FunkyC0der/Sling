@@ -11,7 +11,7 @@ namespace Sling.Level.Tweeners
     public float Speed = 5f;
     public float DelayBeforeNextPoint = 0.5f;
     public Ease Ease = Ease.Linear;
-    
+
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
@@ -24,32 +24,27 @@ namespace Sling.Level.Tweeners
     {
       if (Points.Count == 0)
         return;
-      
-      Vector3 initialLocalPosition = transform.localPosition;
-      Transform parent = transform.parent;
 
+      Vector3 initialLocalPosition = transform.localPosition;
       var sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
-      Vector2 currentLocalOffset = Vector2.zero;
+      Vector3 currentLocalOffset = Vector3.zero;
 
       foreach (Vector3 point in Points)
       {
-        Vector2 nextLocalOffset = point;
-        float duration = Vector2.Distance(currentLocalOffset, nextLocalOffset) / Speed;
-        Vector2 segmentStart = currentLocalOffset;
-
-        sequence.Chain(Tween.Custom(segmentStart, nextLocalOffset, duration, localOffset =>
-        {
-          Quaternion localRotation = Quaternion.Euler(0f, 0f, transform.localEulerAngles.z);
-          Vector3 newLocalPos = initialLocalPosition + localRotation * (Vector3)localOffset;
-          Vector2 worldPos = parent != null
-            ? parent.TransformPoint(newLocalPos)
-            : newLocalPos;
-          _rigidbody.MovePosition(worldPos);
-        }, Ease));
-
+        float duration = Vector3.Distance(currentLocalOffset, point) / Speed;
+        sequence.Chain(Tween.Custom(currentLocalOffset, point, duration,
+          offset => _rigidbody.MovePosition(LocalOffsetToWorld(initialLocalPosition, offset)),
+          Ease));
         sequence.ChainDelay(DelayBeforeNextPoint);
-        currentLocalOffset = nextLocalOffset;
+        currentLocalOffset = point;
       }
+    }
+    
+    private Vector3 LocalOffsetToWorld(Vector3 initialLocalPosition, Vector3 offset)
+    {
+      Vector3 localPos = initialLocalPosition + transform.localRotation * offset;
+      Transform parent = transform.parent;
+      return parent != null ? parent.TransformPoint(localPos) : localPos;
     }
 
 #if UNITY_EDITOR
@@ -59,19 +54,16 @@ namespace Sling.Level.Tweeners
         return;
 
       Gizmos.color = Color.yellow;
-      Transform parent = transform.parent;
-      Vector3 localOrigin = transform.localPosition;
-      Quaternion localRotation = Quaternion.Euler(0f, 0f, transform.localEulerAngles.z);
+      Vector3 initialLocalPosition = transform.localPosition;
+      Vector3 origin = LocalOffsetToWorld(initialLocalPosition, Vector3.zero);
 
       for (int i = 0; i < Points.Count; i++)
       {
-        Vector3 localPoint = localOrigin + localRotation * Points[i];
-        Vector3 worldPoint = parent != null ? parent.TransformPoint(localPoint) : localPoint;
+        Vector3 worldPoint = LocalOffsetToWorld(initialLocalPosition, Points[i]);
         Gizmos.DrawSphere(worldPoint, 0.15f);
 
-        Vector3 prevLocal = i == 0 ? localOrigin : localOrigin + localRotation * Points[i - 1];
-        Vector3 prevWorld = parent != null ? parent.TransformPoint(prevLocal) : prevLocal;
-        Gizmos.DrawLine(prevWorld, worldPoint);
+        Vector3 prev = i == 0 ? origin : LocalOffsetToWorld(initialLocalPosition, Points[i - 1]);
+        Gizmos.DrawLine(prev, worldPoint);
       }
     }
 #endif
