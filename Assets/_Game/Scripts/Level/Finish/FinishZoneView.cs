@@ -9,9 +9,7 @@ namespace Sling.Level.Finish
   {
     public event Action OnReached;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) => 
       OnReached?.Invoke();
-    }
   }
 }

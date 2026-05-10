@@ -4,7 +4,6 @@ using Playtika.Controllers;
 using Sling.Level.Finish;
 using Sling.Level.Hazards;
 using Sling.Level.Player;
-using Sling.Level.StickyWall;
 
 namespace Sling.Level.Gameplay
 {
@@ -36,7 +35,6 @@ namespace Sling.Level.Gameplay
       Execute<FinishZoneController>();
 
       Execute<PlayerLaunchController>();
-      Execute<StickyWallsController>();
       Execute<HazardZonesController>();
 
       GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sling.Level.StickyWall
+namespace Sling.Level.Elements
 {
   [CreateAssetMenu(fileName = "StickyWall", menuName = "Game/Level/StickyWall")]
   public class StickyWallConfig : ScriptableObject

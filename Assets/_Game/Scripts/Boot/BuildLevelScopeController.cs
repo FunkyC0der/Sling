@@ -6,7 +6,6 @@ using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
 using Sling.Level.Player;
-using Sling.Level.StickyWall;
 using Sling.Level.WinScreen;
 using Sling.Utils;
 using UnityEngine.SceneManagement;
@@ -51,7 +50,6 @@ namespace Sling.Boot
 
         builder.Register<PlayerLaunchController>(Lifetime.Transient);
 
-        builder.Register<StickyWallsController>(Lifetime.Transient);
         builder.Register<HazardZonesController>(Lifetime.Transient);
         builder.Register<FinishZoneController>(Lifetime.Transient);
 
