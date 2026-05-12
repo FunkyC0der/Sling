@@ -46,26 +46,5 @@ namespace Sling.Level.Tweeners
       Transform parent = transform.parent;
       return parent != null ? parent.TransformPoint(localPos) : localPos;
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-      if (Points == null || Points.Count == 0)
-        return;
-
-      Gizmos.color = Color.yellow;
-      Vector3 initialLocalPosition = transform.localPosition;
-      Vector3 origin = LocalOffsetToWorld(initialLocalPosition, Vector3.zero);
-
-      for (int i = 0; i < Points.Count; i++)
-      {
-        Vector3 worldPoint = LocalOffsetToWorld(initialLocalPosition, Points[i]);
-        Gizmos.DrawSphere(worldPoint, 0.15f);
-
-        Vector3 prev = i == 0 ? origin : LocalOffsetToWorld(initialLocalPosition, Points[i - 1]);
-        Gizmos.DrawLine(prev, worldPoint);
-      }
-    }
-#endif
   }
 }

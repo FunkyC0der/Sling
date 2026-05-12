@@ -68,46 +68,5 @@ namespace Sling.Level.Tweeners
       Transform parent = transform.parent;
       return parent != null ? parent.TransformPoint(localPos) : localPos;
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-      if (Segments == null || Segments.Count == 0)
-        return;
-
-      Vector3 initialLocalPosition = transform.localPosition;
-      Vector3 currentLocalOffset = Vector3.zero;
-
-      foreach (BezierSegment seg in Segments)
-      {
-        Vector3 worldEnd = LocalOffsetToWorld(initialLocalPosition, seg.Point);
-        Vector3 worldControl = LocalOffsetToWorld(initialLocalPosition, seg.Control);
-        Vector3 worldStart = LocalOffsetToWorld(initialLocalPosition, currentLocalOffset);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(worldEnd, 0.15f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(worldControl, 0.08f);
-
-        Gizmos.color = Color.gray;
-        Gizmos.DrawLine(worldStart, worldControl);
-        Gizmos.DrawLine(worldControl, worldEnd);
-
-        Gizmos.color = Color.yellow;
-        const int steps = 16;
-        Vector3 prev = worldStart;
-        for (int i = 1; i <= steps; i++)
-        {
-          float t = i / (float)steps;
-          Vector3 next = LocalOffsetToWorld(initialLocalPosition, SampleQuadraticBezier(currentLocalOffset, seg.Control, seg.Point, t));
-          Gizmos.DrawLine(prev, next);
-          prev = next;
-        }
-
-        currentLocalOffset = seg.Point;
-      }
-    }
-#endif
   }
 }
