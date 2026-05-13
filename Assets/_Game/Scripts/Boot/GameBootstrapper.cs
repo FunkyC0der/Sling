@@ -18,7 +18,6 @@ namespace Sling.Boot
       _rootScope = LifetimeScope.Create(builder =>
       {
         builder.Register<GameRootController>(Lifetime.Transient);
-        builder.Register<BootstrapController>(Lifetime.Transient);
 
         builder.Register<GameModel>(Lifetime.Singleton);
         
@@ -26,7 +25,7 @@ namespace Sling.Boot
 
         builder.Register<InitFirstSceneController>(Lifetime.Transient);
         
-        builder.Register<LevelsLoopController>(Lifetime.Transient);
+        builder.Register<PlayLevelsStateController>(Lifetime.Transient);
         builder.Register<LoadLevelController>(Lifetime.Transient);
         builder.Register<BuildLevelScopeController>(Lifetime.Transient);
       },

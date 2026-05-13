@@ -7,11 +7,11 @@ using VContainer.Unity;
 
 namespace Sling.Boot
 {
-  public class LevelsLoopController : ControllerWithResultBase
+  public class PlayLevelsStateController : ControllerWithResultBase
   {
     private readonly GameModel _gameModel;
     
-    public LevelsLoopController(IControllerFactory factory, GameModel gameModel) 
+    public PlayLevelsStateController(IControllerFactory factory, GameModel gameModel) 
       : base(factory)
     {
       _gameModel = gameModel;
@@ -21,7 +21,7 @@ namespace Sling.Boot
     {
       do
       {
-        await ExecuteAndWaitResultAsync<LoadLevelController, string>(_gameModel.FirstLevelScene, ct);
+        await ExecuteAndWaitResultAsync<LoadLevelController, string>(_gameModel.SceneToLoad, ct);
         
         LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelScopeController, LifetimeScope>(ct);
         

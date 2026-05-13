@@ -7,8 +7,12 @@ namespace Sling.Boot
 {
   public class GameRootController : RootController
   {
-    public GameRootController(IControllerFactory factory) : base(factory)
+    private readonly GameModel _gameModel;
+    
+    public GameRootController(IControllerFactory factory, GameModel gameModel)
+      : base(factory)
     {
+      _gameModel = gameModel;
     }
 
     protected override void OnStart()
@@ -23,8 +27,13 @@ namespace Sling.Boot
 
     private async UniTask RunAsync(System.Threading.CancellationToken ct)
     {
-      await ExecuteAndWaitResultAsync<BootstrapController>(ct);
-      await ExecuteAndWaitResultAsync<LevelsLoopController>(ct);
+      await ExecuteAndWaitResultAsync<InitFirstSceneController>(ct);
+
+      while (!ct.IsCancellationRequested)
+      {
+        if (_gameModel.GameState == GameState.PlayLevels) 
+          await ExecuteAndWaitResultAsync<PlayLevelsStateController>(ct);
+      }
     }
   }
 }

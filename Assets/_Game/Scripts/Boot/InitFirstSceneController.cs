@@ -25,8 +25,13 @@ namespace Sling.Boot
 #if UNITY_EDITOR
       string editorScene = SessionState.GetString(kEditorActiveSceneSessionKey, "");
       
-      if (!string.IsNullOrEmpty(editorScene)) 
-        _gameModel.FirstLevelScene = editorScene;
+      if (!string.IsNullOrEmpty(editorScene))
+      {
+        _gameModel.SceneToLoad = editorScene;
+
+        if (editorScene.StartsWith("Level"))
+          _gameModel.GameState = GameState.PlayLevels;
+      }
 #endif
       
       Complete();
