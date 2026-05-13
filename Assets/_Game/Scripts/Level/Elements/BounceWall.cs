@@ -13,10 +13,20 @@ namespace Sling.Level.Elements
       if (rb == null)
         return;
 
-      Vector2 incomingVelocity = collision.relativeVelocity;
-      Vector2 normal = collision.GetContact(0).normal;
-      Vector2 reflectVelocity = Vector2.Reflect(incomingVelocity, normal);
-      rb.linearVelocity = reflectVelocity * _config.BounceMultiplier;
+      bool movingWithUp = Vector3.Dot(rb.linearVelocity, transform.up) > 0;
+      Vector2 bounceDir = movingWithUp ? transform.up : -(Vector2)transform.up;
+
+      Vector2 toObject = (rb.position - (Vector2)transform.position).normalized;
+      Vector2 rotatedDir = RotateTowards(bounceDir, toObject, _config.Angle);
+
+      rb.linearVelocity = rotatedDir.normalized * _config.Impulse;
+    }
+
+    private Vector2 RotateTowards(Vector2 current, Vector2 target, float maxAngle)
+    {
+      float angle = Vector2.SignedAngle(current, target);
+      float clampedAngle = Mathf.Clamp(angle, -maxAngle, maxAngle);
+      return (Quaternion.Euler(0, 0, clampedAngle) * current);
     }
   }
 }

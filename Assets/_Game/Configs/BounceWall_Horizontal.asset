@@ -10,6 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4157526d146e41ad9adb254c1ffdc885, type: 3}
-  m_Name: BounceWall
+  m_Name: BounceWall_Horizontal
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.BounceWallConfig
   BounceMultiplier: 1.1
+  Angle: 60
+  Impulse: 8
