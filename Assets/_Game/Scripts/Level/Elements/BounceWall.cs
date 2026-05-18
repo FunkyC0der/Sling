@@ -13,16 +13,22 @@ namespace Sling.Level.Elements
       if (rb == null)
         return;
 
-      bool movingWithUp = Vector3.Dot(rb.linearVelocity, transform.up) > 0;
-      Vector2 bounceDir = movingWithUp ? transform.up : -(Vector2)transform.up;
+      
+      Vector2 bounceDir = transform.up;
+      
+      if(!_config.OneDirection && !IsVectorTowardsTo(rb.linearVelocity, transform.up)) 
+        bounceDir *= -1;
 
       Vector2 toObject = (rb.position - (Vector2)transform.position).normalized;
       Vector2 rotatedDir = RotateTowards(bounceDir, toObject, _config.Angle);
 
       rb.linearVelocity = rotatedDir.normalized * _config.Impulse;
     }
+    
+    private static bool IsVectorTowardsTo(Vector2 vector, Vector2 target) =>
+      Vector2.Dot(vector, target) > 0;
 
-    private Vector2 RotateTowards(Vector2 current, Vector2 target, float maxAngle)
+    private static Vector2 RotateTowards(Vector2 current, Vector2 target, float maxAngle)
     {
       float angle = Vector2.SignedAngle(current, target);
       float clampedAngle = Mathf.Clamp(angle, -maxAngle, maxAngle);

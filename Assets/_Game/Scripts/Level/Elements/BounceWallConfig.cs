@@ -10,5 +10,7 @@ namespace Sling.Level.Elements
 
     [Min(0)]
     public float Impulse = 2f;
+
+    public bool OneDirection;
   }
 }
