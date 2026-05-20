@@ -1,22 +1,82 @@
 :root {
-  --color-text-dark: rgb(9, 9, 31);
-  --color-text-light: rgb(255, 255, 255);
-  --color-popup-btn-bg: rgb(214, 214, 214);
-  --color-popup-btn-bg-hover: rgb(180, 180, 180);
-  --radius-popup-btn: 12px;
-  --font-size-popup-btn: 44px;
-  --duration-fade: 0.35s;
+    --color-text-dark: rgb(9, 9, 31);
+    --color-text-light: rgb(255, 255, 255);
+    --color-popup-btn-bg: rgb(214, 214, 214);
+    --color-popup-btn-bg-hover: rgb(180, 180, 180);
+    --radius-default: 15px;
+    --radius-popup-btn: 12px;
+    --font-size-popup-btn: 44px;
+    --duration-fade: 0.35s;
+}
+
+.rounded {
+    border-top-left-radius: var(--radius-default);
+    border-top-right-radius: var(--radius-default);
+    border-bottom-right-radius: var(--radius-default);
+    border-bottom-left-radius: var(--radius-default);
 }
 
 .popup-button {
-  font-size: var(--font-size-popup-btn);
-  -unity-font-style: bold;
-  color: var(--color-text-dark);
-  background-color: var(--color-popup-btn-bg);
-  border-radius: var(--radius-popup-btn);
-  border-width: 0;
+    font-size: var(--font-size-popup-btn);
+    -unity-font-style: bold;
+    color: var(--color-text-dark);
+    background-color: var(--color-popup-btn-bg);
+    border-radius: var(--radius-popup-btn);
+    border-width: 0;
 }
 
 .popup-button:hover {
-  background-color: var(--color-popup-btn-bg-hover);
+    background-color: var(--color-popup-btn-bg-hover);
+}
+
+.containerBorder {
+    background-color: rgba(207, 207, 207, 0);
+    border-left-color: rgb(212, 212, 212);
+    border-right-color: rgb(212, 212, 212);
+    border-top-color: rgb(212, 212, 212);
+    border-bottom-color: rgb(212, 212, 212);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.levelItem {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 100px;
+    background-color: rgb(103, 103, 103);
+    margin-bottom: 10px;
+    color: rgb(255, 255, 255);
+}
+
+.levelItem:hover {
+    background-color: rgb(82, 82, 82);
+}
+
+.levelItem:checked {
+    background-color: rgb(111, 54, 54);
+}
+
+.unity-button {
+    flex-grow: 1;
+    width: 50%;
+    align-self: center;
+    -unity-font-style: bold;
+    font-size: 57px;
+    background-color: rgb(152, 51, 51);
+    color: rgb(255, 255, 255);
+    transition-property: scale;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+}
+
+.unity-button:hover {
+    background-color: rgb(123, 42, 42);
+}
+
+.unity-button:active {
+    scale: 0.95;
 }

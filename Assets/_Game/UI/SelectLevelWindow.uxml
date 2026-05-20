@@ -1,0 +1,25 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="LevelItem" src="project://database/Assets/_Game/UI/LevelItem.uxml?fileID=9197481963319205126&amp;guid=0561a3968ed404be0beb3e0290c01e0c&amp;type=3#LevelItem"/>
+    <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
+    <ui:VisualElement name="Window" class="rounded" style="flex-grow: 0; flex-direction: column; align-self: center; align-content: auto; align-items: stretch; width: 39%; height: 90%; right: auto; left: auto; top: 5%; bottom: auto; background-color: rgb(161, 161, 161); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
+        <ui:VisualElement name="TitleContainer" class="rounded" style="flex-grow: 0; flex-basis: 12%; background-color: rgb(14, 14, 14); flex-shrink: 0;">
+            <ui:Label text="SELECT LEVEL" name="Title" style="-unity-text-align: middle-center; flex-grow: 1; -unity-font-style: bold; font-size: 55px; color: rgb(255, 255, 255);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="LevelsListContainer" class="containerBorder rounded" style="flex-grow: 1; padding-top: 11px; padding-right: 11px; padding-bottom: 11px; padding-left: 11px; flex-shrink: 1;">
+            <ui:ScrollView style="flex-grow: 1;">
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+                <ui:Instance template="LevelItem"/>
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="PlayButtonContainer" style="flex-basis: 15%; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; flex-shrink: 0;">
+            <ui:Button text="PLAY" focusable="false" name="PlayButton" class="unity-button rounded"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -31,7 +31,9 @@ namespace Sling.Boot
 
       while (!ct.IsCancellationRequested)
       {
-        if (_gameModel.GameState == GameState.PlayLevels) 
+        if(_gameModel.GameState == GameState.MainMenu)
+          await ExecuteAndWaitResultAsync<MainMenuStateController>(ct);
+        else if (_gameModel.GameState == GameState.PlayLevels) 
           await ExecuteAndWaitResultAsync<PlayLevelsStateController>(ct);
       }
     }
