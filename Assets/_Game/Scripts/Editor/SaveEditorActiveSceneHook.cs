@@ -1,8 +1,9 @@
+using Sling.Root;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace Sling.Boot.Editor
+namespace Sling.Editor
 {
   [InitializeOnLoad]
   public static class SaveEditorActiveSceneHook

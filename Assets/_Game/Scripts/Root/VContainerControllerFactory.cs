@@ -1,7 +1,7 @@
 using Playtika.Controllers;
 using VContainer;
 
-namespace Sling.Core
+namespace Sling.Root
 {
   public sealed class VContainerControllerFactory : IControllerFactory
   {

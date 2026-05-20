@@ -1,9 +1,10 @@
 namespace Sling.Level.Gameplay
 {
-  public enum GameplayOutcome
+  public enum GameplayLoopResult
   {
     Win,
     Death,
-    Restart
+    Restart,
+    Menu
   }
 }

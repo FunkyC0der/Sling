@@ -1,4 +1,4 @@
-namespace Sling.Core
+namespace Sling.Utils
 {
   public interface IView
   {

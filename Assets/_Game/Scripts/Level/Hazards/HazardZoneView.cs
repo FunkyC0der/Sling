@@ -1,5 +1,6 @@
 using System;
-using Sling.Core;
+using Sling.Root;
+using Sling.Utils;
 using UnityEngine;
 
 namespace Sling.Level.Hazards

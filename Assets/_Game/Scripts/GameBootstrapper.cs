@@ -1,12 +1,12 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Core;
+using Sling.Root;
 using Sling.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Sling.Boot
+namespace Sling
 {
   public class GameBootstrapper : MonoBehaviour
   {

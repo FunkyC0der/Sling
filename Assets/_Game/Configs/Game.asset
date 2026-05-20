@@ -67,3 +67,4 @@ MonoBehaviour:
     sceneIndex: 13
     sceneEnabled: 1
   SelectLevelWindowViewPrefab: {fileID: 5099761649561587050, guid: 1a7d2f2f705744eca9a66d58991a955c, type: 3}
+  LevelCompleteWindowViewPrefab: {fileID: 1857988705285404789, guid: 048058b581e2a4981a4ce8a1602e27fe, type: 3}

@@ -1,9 +1,10 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Root;
 using UnityEngine;
 
-namespace Sling.Boot
+namespace Sling
 {
   public class GameRootController : RootController
   {

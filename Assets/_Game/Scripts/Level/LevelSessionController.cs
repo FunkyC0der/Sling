@@ -1,13 +1,15 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Level.Finish;
 using Sling.Level.Gameplay;
+using Sling.Level.LevelComplete;
 using Sling.Level.Player;
-using Sling.Level.WinScreen;
 
 namespace Sling.Level
 {
-  public class LevelSessionController : ControllerWithResultBase
+  public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
   {
     public LevelSessionController(IControllerFactory controllerFactory)
       : base(controllerFactory)
@@ -18,19 +20,53 @@ namespace Sling.Level
     {
       await ExecuteAndWaitResultAsync<SetPlayerStartPosController>(ct);
       
-      GameplayOutcome outcome;
+      LevelSessionResult sessionResult;
+      
       do
       {
-        outcome =
-          await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayOutcome>(ct);
+        GameplayLoopResult loopResult =
+          await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayLoopResult>(ct);
         
-        if(outcome == GameplayOutcome.Death)
+        if(loopResult == GameplayLoopResult.Death)
+        {
           await ExecuteAndWaitResultAsync<RespawnPlayerController>(ct);
-        
-      } while (outcome != GameplayOutcome.Win);
+          continue;
+        }
 
-      await ExecuteAndWaitResultAsync<FinishLevelFlowController, WinScreenResult>(ct);
-      Complete();
+        if (loopResult == GameplayLoopResult.Menu)
+        {
+          sessionResult = LevelSessionResult.Menu;
+          break;
+        }
+
+        if (loopResult == GameplayLoopResult.Restart)
+        {
+          sessionResult = LevelSessionResult.Restart;
+          break;
+        }
+
+        if (loopResult == GameplayLoopResult.Win)
+        {
+          LevelCompleteFlowResult levelCompleteResult = 
+            await ExecuteAndWaitResultAsync<LevelCompleteFlowController, LevelCompleteFlowResult>(ct);
+
+          sessionResult = ToSessionResult(levelCompleteResult);
+          break;
+        }
+      } while (true);
+
+      Complete(sessionResult);
+    }
+
+    private static LevelSessionResult ToSessionResult(LevelCompleteFlowResult levelCompleteResult)
+    {
+      return levelCompleteResult switch
+      {
+        LevelCompleteFlowResult.Restart => LevelSessionResult.Restart,
+        LevelCompleteFlowResult.Next => LevelSessionResult.Next,
+        LevelCompleteFlowResult.Menu => LevelSessionResult.Menu,
+        _ => throw new ArgumentException($"Wrong argument {levelCompleteResult}")
+      };
     }
   }
 }

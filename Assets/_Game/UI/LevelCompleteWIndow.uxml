@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
+    <ui:VisualElement name="Bg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.49); top: auto;">
+        <ui:VisualElement name="Window" class="rounded" style="flex-grow: 1; position: absolute; height: 567px; width: 986px; top: 208px; left: 430px; align-items: stretch; justify-content: flex-start; bottom: 306px; right: 505px; background-color: rgb(9, 9, 31); flex-direction: column;">
+            <ui:Label text="LEVEL COMPLETE" name="Title" style="flex-grow: 1; flex-basis: 0; flex-shrink: 1; color: rgb(255, 255, 255); -unity-text-align: middle-center; font-size: 70px; -unity-font-style: bold;"/>
+            <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; align-self: auto; align-content: auto; align-items: center; justify-content: center;">
+                <ui:Button text="NEXT" name="NextLevelButton" class="popup-button" style="flex-grow: 0; margin-bottom: 15px;"/>
+                <ui:Button text="RESTART" name="RestartButton" class="popup-button" style="flex-grow: 0; margin-bottom: 15px;"/>
+                <ui:Button text="MENU" name="MenuButton" class="popup-button" style="flex-grow: 0;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

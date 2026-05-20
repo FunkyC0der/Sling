@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.UI;
 
-namespace Sling.Boot
+namespace Sling.Root
 {
   public class MainMenuStateController : ControllerWithResultBase
   {
@@ -22,12 +22,11 @@ namespace Sling.Boot
       await _gameConfig.MainMenuScene.LoadSceneAsync()
         .ToUniTask(cancellationToken: ct);
 
-      string levelScene = await ExecuteAndWaitResultAsync<SelectLevelWindowController, string>(ct);
-      if(!string.IsNullOrEmpty(levelScene))
-      {
-        _gameModel.GameState = GameState.PlayLevels;
-        _gameModel.SceneToLoad = levelScene;
-      }
+      int levelIndex = await ExecuteAndWaitResultAsync<SelectLevelWindowController, int>(ct);
+      
+      _gameModel.GameState = GameState.PlayLevels;
+      _gameModel.LevelIndex = levelIndex;
+      _gameModel.SceneToLoad = _gameConfig.LevelScenes[levelIndex].SceneName;
       
       Complete();
     }

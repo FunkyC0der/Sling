@@ -1,4 +1,4 @@
-namespace Sling.Boot
+namespace Sling
 {
   public enum GameState
   {

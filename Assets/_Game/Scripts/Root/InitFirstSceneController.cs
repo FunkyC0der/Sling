@@ -1,10 +1,7 @@
 using Playtika.Controllers;
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-namespace Sling.Boot
+namespace Sling.Root
 {
   public class InitFirstSceneController : ControllerWithResultBase
   {
@@ -13,11 +10,13 @@ namespace Sling.Boot
 #endif
 
     private readonly GameModel _gameModel;
+    private readonly GameConfig _gameConfig;
 
-    public InitFirstSceneController(IControllerFactory controllerFactory, GameModel gameModel)
+    public InitFirstSceneController(IControllerFactory controllerFactory, GameModel gameModel, GameConfig gameConfig)
       : base(controllerFactory)
     {
       _gameModel = gameModel;
+      _gameConfig = gameConfig;
     }
 
     protected override void OnStart()
@@ -30,7 +29,13 @@ namespace Sling.Boot
         _gameModel.SceneToLoad = editorScene;
 
         if (editorScene.StartsWith("Level"))
+        {
           _gameModel.GameState = GameState.PlayLevels;
+          
+          int levelIndex = _gameConfig.LevelScenes.FindIndex(level => level.SceneName == editorScene);
+          if (levelIndex > -1)
+            _gameModel.LevelIndex = levelIndex;
+        }
       }
 #endif
       

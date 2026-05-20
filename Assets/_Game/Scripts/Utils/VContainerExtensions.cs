@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Playtika.Controllers;
-using Sling.Core;
+using Sling.Root;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;

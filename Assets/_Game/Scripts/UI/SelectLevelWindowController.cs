@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Sling.UI
 {
-  public class SelectLevelWindowController : ControllerWithResultBase<string>
+  public class SelectLevelWindowController : ControllerWithResultBase<int>
   {
     private readonly GameConfig _gameConfig;
     
@@ -24,13 +24,10 @@ namespace Sling.UI
         .Select(item => new LevelItemViewData { Name = item.SceneName })
         .ToArray());
 
-      selectLevelWindowView.OnPlayClicked += OnPlayButtonClicked;
+      selectLevelWindowView.OnPlayClicked += Complete;
 
       await ct.WaitUntilCanceled();
-      Complete(string.Empty);
+      Complete(0);
     }
-
-    private void OnPlayButtonClicked(int levelIndex) => 
-      Complete(_gameConfig.LevelScenes[levelIndex].SceneName);
   }
 }

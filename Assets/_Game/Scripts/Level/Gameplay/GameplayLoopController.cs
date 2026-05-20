@@ -7,7 +7,7 @@ using Sling.Level.Player;
 
 namespace Sling.Level.Gameplay
 {
-  public class GameplayLoopController : ControllerWithResultBase<GameplayOutcome>
+  public class GameplayLoopController : ControllerWithResultBase<GameplayLoopResult>
   {
     private readonly LevelEvents _events;
 
@@ -19,7 +19,7 @@ namespace Sling.Level.Gameplay
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      var outcomeSource = new UniTaskCompletionSource<GameplayOutcome>();
+      var outcomeSource = new UniTaskCompletionSource<GameplayLoopResult>();
 
       _events.OnPlayerDied += OnDied;
       _events.OnFinishReached += OnWon;
@@ -37,18 +37,18 @@ namespace Sling.Level.Gameplay
       Execute<PlayerLaunchController>();
       Execute<HazardZonesController>();
 
-      GameplayOutcome outcome = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
-      Complete(outcome);
+      GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
+      Complete(loopResult);
       return;
 
       void OnDied() => 
-        outcomeSource.TrySetResult(GameplayOutcome.Death);
+        outcomeSource.TrySetResult(GameplayLoopResult.Death);
 
       void OnWon() => 
-        outcomeSource.TrySetResult(GameplayOutcome.Win);
+        outcomeSource.TrySetResult(GameplayLoopResult.Win);
 
       void OnRestart() => 
-        outcomeSource.TrySetResult(GameplayOutcome.Restart);
+        outcomeSource.TrySetResult(GameplayLoopResult.Restart);
     }
   }
 }

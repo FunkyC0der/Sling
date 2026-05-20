@@ -5,14 +5,14 @@ using Sling.Level;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
+using Sling.Level.LevelComplete;
 using Sling.Level.Player;
-using Sling.Level.WinScreen;
 using Sling.Utils;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
-namespace Sling.Boot
+namespace Sling.Root
 {
   public class BuildLevelScopeController : ControllerWithResultBase<LifetimeScope>
   {
@@ -45,7 +45,7 @@ namespace Sling.Boot
         builder.Register<SetPlayerStartPosController>(Lifetime.Transient);
         builder.Register<GameplayLoopController>(Lifetime.Transient);
 
-        builder.Register<FinishLevelFlowController>(Lifetime.Transient);
+        builder.Register<LevelCompleteFlowController>(Lifetime.Transient);
         builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
         builder.Register<PlayerLaunchController>(Lifetime.Transient);
