@@ -16,17 +16,33 @@
     border-bottom-left-radius: var(--radius-default);
 }
 
-.popup-button {
-    font-size: var(--font-size-popup-btn);
-    -unity-font-style: bold;
-    color: var(--color-text-dark);
-    background-color: var(--color-popup-btn-bg);
-    border-radius: var(--radius-popup-btn);
-    border-width: 0;
+
+
+
+
+.popup-window {
+    align-self: center;
+    align-items: stretch;
+    width: 850px;
+    height: 528px;
+    top: auto;
+    background-color: rgb(161, 161, 161);
+    padding: 12px;
 }
 
-.popup-button:hover {
-    background-color: var(--color-popup-btn-bg-hover);
+.popup-title-container {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100px;
+    background-color: rgb(14, 14, 14);
+}
+
+.popup-title {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 55px;
+    color: var(--color-text-light);
 }
 
 .containerBorder {
