@@ -12,8 +12,6 @@ namespace Sling.UI
     private static class Names
     {
       public const string kPlayButton = "PlayButton";
-
-      public const string kSelectedLevelItemClass = "levelItem--selected";
     }
 
     public event Action<int> OnPlayClicked;

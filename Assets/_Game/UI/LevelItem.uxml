@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
-    <ui:VisualElement name="LevelItem" data-source-type="Sling.UI.LevelItemViewData, Assembly-CSharp" class="levelItem rounded">
-        <ui:Label text="Level Name" name="Name" style="flex-grow: 1; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 45px;">
+    <ui:VisualElement name="LevelItem" data-source-type="Sling.UI.LevelItemViewData, Assembly-CSharp" class="level-item rounded">
+        <ui:Label text="Level Name" name="Name" class="level-item__name">
             <Bindings>
                 <ui:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget"/>
             </Bindings>

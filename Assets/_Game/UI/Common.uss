@@ -1,11 +1,7 @@
 :root {
     --color-text-dark: rgb(9, 9, 31);
     --color-text-light: rgb(255, 255, 255);
-    --color-popup-btn-bg: rgb(214, 214, 214);
-    --color-popup-btn-bg-hover: rgb(180, 180, 180);
     --radius-default: 15px;
-    --radius-popup-btn: 12px;
-    --font-size-popup-btn: 44px;
     --duration-fade: 0.35s;
 }
 
@@ -16,14 +12,10 @@
     border-bottom-left-radius: var(--radius-default);
 }
 
-
-
-
-
 .popup-window {
     align-self: center;
     align-items: stretch;
-    width: 850px;
+    width: 800px;
     height: 528px;
     top: auto;
     background-color: rgb(161, 161, 161);
@@ -45,54 +37,59 @@
     color: var(--color-text-light);
 }
 
-.containerBorder {
-    background-color: rgba(207, 207, 207, 0);
-    border-left-color: rgb(212, 212, 212);
-    border-right-color: rgb(212, 212, 212);
-    border-top-color: rgb(212, 212, 212);
-    border-bottom-color: rgb(212, 212, 212);
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    margin-top: 10px;
-    margin-bottom: 0;
+.stacked-button {
+    margin-bottom: 15px;
 }
 
-.levelItem {
+.bordered-frame {
+    background-color: rgba(207, 207, 207, 0);
+    border-color: rgb(212, 212, 212);
+    border-width: 4px;
+    margin-top: 10px;
+}
+
+.level-item {
     flex-grow: 0;
     flex-shrink: 0;
     height: 100px;
     background-color: rgb(103, 103, 103);
     margin-bottom: 10px;
-    color: rgb(255, 255, 255);
+    color: var(--color-text-light);
 }
 
-.levelItem:hover {
+.level-item:hover {
     background-color: rgb(82, 82, 82);
 }
 
-.levelItem:checked {
+.level-item:checked {
     background-color: rgb(111, 54, 54);
 }
 
-.unity-button {
+.level-item__name {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 45px;
+}
+
+.primary-button {
     flex-grow: 1;
     width: 50%;
     align-self: center;
     -unity-font-style: bold;
     font-size: 57px;
     background-color: rgb(152, 51, 51);
-    color: rgb(255, 255, 255);
+    color: var(--color-text-light);
     transition-property: scale;
     transition-duration: 0.1s;
     transition-timing-function: ease-out;
+    border-width: 0;
 }
 
-.unity-button:hover {
+.primary-button:hover {
     background-color: rgb(123, 42, 42);
 }
 
-.unity-button:active {
+.primary-button:active {
     scale: 0.95;
 }
