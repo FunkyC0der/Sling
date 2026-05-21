@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Playtika.Controllers;
+using Sling.Level.Session;
 
 namespace Sling.Level.Hazards
 {
@@ -18,7 +19,7 @@ namespace Sling.Level.Hazards
 
     protected override void OnStart()
     {
-      foreach (HazardZoneView zone in _zones) 
+      foreach (HazardZoneView zone in _zones)
         zone.OnEnter += _levelEvents.OnPlayerDied;
     }
 

@@ -1,6 +1,5 @@
 using System;
 using Playtika.Controllers;
-using Sling.Level.Player.Views;
 using UnityEngine;
 
 namespace Sling.Level.Player
@@ -53,7 +52,7 @@ namespace Sling.Level.Player
     {
       Vector2 launchVector = _preLaunchStartPos - worldPos;
       launchVector = Vector2.ClampMagnitude(launchVector, _playerView.Config.MaxDragDistance);
-      
+
       _launchForce = launchVector * _playerView.Config.LaunchForceMultiplier;
       _startVelocity = _launchForce / _playerView.Mass;
 
@@ -65,13 +64,13 @@ namespace Sling.Level.Player
     private void OnPreLaunchStop(Vector2 worldPos)
     {
       _launchTrajectoryView.Hide();
-      
+
       if(_isFirstLaunch)
       {
         _isFirstLaunch = false;
         _playerView.SetPhysicsEnabled(true);
       }
-      
+
       _playerView.Launch(_launchForce);
     }
 

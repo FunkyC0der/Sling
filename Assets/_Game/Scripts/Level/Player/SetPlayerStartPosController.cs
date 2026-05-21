@@ -1,5 +1,5 @@
 using Playtika.Controllers;
-using Sling.Level.Player.Views;
+using Sling.Level.Session;
 
 namespace Sling.Level.Player
 {

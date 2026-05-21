@@ -1,4 +1,5 @@
 using Playtika.Controllers;
+using Sling.Level.Session;
 
 namespace Sling.Level.Finish
 {
@@ -14,10 +15,10 @@ namespace Sling.Level.Finish
       _events = events;
     }
 
-    protected override void OnStart() => 
+    protected override void OnStart() =>
       _finishZoneView.OnReached += _events.OnFinishReached;
 
-    protected override void OnStop() => 
+    protected override void OnStop() =>
       _finishZoneView.OnReached -= _events.OnFinishReached;
   }
 }

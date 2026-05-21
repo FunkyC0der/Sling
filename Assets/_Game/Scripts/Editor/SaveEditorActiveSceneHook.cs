@@ -1,4 +1,4 @@
-using Sling.Root;
+using Sling.Root.Flow;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
@@ -10,7 +10,7 @@ namespace Sling.Editor
   {
     private const string _kBootScenePath = "Assets/_Game/Scenes/Boot.unity";
 
-    static SaveEditorActiveSceneHook() => 
+    static SaveEditorActiveSceneHook() =>
       EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 
     private static void OnPlayModeStateChanged(PlayModeStateChange state)
@@ -20,7 +20,7 @@ namespace Sling.Editor
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.path == _kBootScenePath)
           return;
-        
+
         SessionState.SetString(InitFirstSceneController.kEditorActiveSceneSessionKey, activeScene.name);
         EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(_kBootScenePath);
       }

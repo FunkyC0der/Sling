@@ -4,6 +4,7 @@ using Playtika.Controllers;
 using Sling.Level.Finish;
 using Sling.Level.Hazards;
 using Sling.Level.Player;
+using Sling.Level.Session;
 
 namespace Sling.Level.Gameplay
 {
@@ -41,13 +42,13 @@ namespace Sling.Level.Gameplay
       Complete(loopResult);
       return;
 
-      void OnDied() => 
+      void OnDied() =>
         outcomeSource.TrySetResult(GameplayLoopResult.Death);
 
-      void OnWon() => 
+      void OnWon() =>
         outcomeSource.TrySetResult(GameplayLoopResult.Win);
 
-      void OnRestart() => 
+      void OnRestart() =>
         outcomeSource.TrySetResult(GameplayLoopResult.Restart);
     }
   }

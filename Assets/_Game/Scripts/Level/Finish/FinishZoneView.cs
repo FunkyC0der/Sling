@@ -1,6 +1,5 @@
 using System;
-using Sling.Root;
-using Sling.Utils;
+using Sling.Common.Views;
 using UnityEngine;
 
 namespace Sling.Level.Finish
@@ -10,7 +9,7 @@ namespace Sling.Level.Finish
   {
     public event Action OnReached;
 
-    private void OnTriggerEnter2D(Collider2D other) => 
+    private void OnTriggerEnter2D(Collider2D other) =>
       OnReached?.Invoke();
   }
 }

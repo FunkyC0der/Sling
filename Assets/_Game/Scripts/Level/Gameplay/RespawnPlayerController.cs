@@ -1,7 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Level.Player.Views;
+using Sling.Level.Player;
+using Sling.Level.Session;
 
 namespace Sling.Level.Gameplay
 {
@@ -11,7 +12,7 @@ namespace Sling.Level.Gameplay
     private readonly LevelModel _levelModel;
 
     public RespawnPlayerController(IControllerFactory controllerFactory,
-      PlayerView playerView, 
+      PlayerView playerView,
       LevelModel levelModel)
       : base(controllerFactory)
     {
