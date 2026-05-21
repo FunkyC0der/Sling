@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Game/UI/Windows/WindowsRoot.uss?fileID=7433441132597879392&amp;guid=36357f4f89d7348b69604b2c62bc69a1&amp;type=3#WindowsRoot"/>
+    <ui:VisualElement name="MenuLayer" picking-mode="Ignore" class="layer"/>
+    <ui:VisualElement name="PopupLayer" picking-mode="Ignore" class="layer"/>
+</ui:UXML>

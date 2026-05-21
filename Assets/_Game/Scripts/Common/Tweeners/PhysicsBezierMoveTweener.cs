@@ -24,9 +24,13 @@ namespace Sling.Common.Tweeners
     public int Cycles = -1;
 
     private Rigidbody2D _rigidbody;
+    private Sequence _sequence;
 
     private void Awake() =>
       _rigidbody = GetComponent<Rigidbody2D>();
+
+    private void OnDestroy() =>
+      _sequence.Stop();
 
     private void Start()
     {
@@ -34,7 +38,7 @@ namespace Sling.Common.Tweeners
         return;
 
       Vector3 initialLocalPosition = transform.localPosition;
-      var sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
+      _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
       Vector3 currentLocalOffset = Vector3.zero;
 
       foreach (BezierSegment seg in Segments)
@@ -42,7 +46,7 @@ namespace Sling.Common.Tweeners
         float duration = Vector3.Distance(currentLocalOffset, seg.Point) / Speed;
         Vector3 start = currentLocalOffset;
         
-        sequence.Chain(Tween.Custom(
+        _sequence.Chain(Tween.Custom(
           0f, 
           1f, 
           duration,
@@ -51,7 +55,7 @@ namespace Sling.Common.Tweeners
               LocalOffsetToWorld(initialLocalPosition, SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
           Ease));
         
-        sequence.ChainDelay(DelayBeforeNextSegment);
+        _sequence.ChainDelay(DelayBeforeNextSegment);
         currentLocalOffset = seg.Point;
       }
     }

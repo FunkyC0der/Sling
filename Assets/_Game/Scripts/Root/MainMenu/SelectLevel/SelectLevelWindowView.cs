@@ -1,51 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Sling.Common.UI;
 using UnityEngine.UIElements;
 
 namespace Sling.Root.MainMenu.SelectLevel
 {
-  [RequireComponent(typeof(UIDocument))]
-  public class SelectLevelWindowView : MonoBehaviour
+  public class SelectLevelWindowView
   {
-    private static class Names
-    {
-      public const string kPlayButton = "PlayButton";
-    }
-
     public event Action<int> OnPlayClicked;
-
-    [SerializeField] private VisualTreeAsset _levelItemTemplate;
-
-    private Button _playButton;
-    private ScrollView _scrollView;
-    private UIDocument _uiDocument;
 
     private int _selectedLevelIndex;
     private VisualElement _selectedLevelItem;
 
-    private void Awake()
+    public SelectLevelWindowView(
+      VisualElement contentRoot,
+      IReadOnlyList<LevelItemViewData> levelData,
+      VisualTreeAsset levelItemTemplate)
     {
-      _uiDocument = GetComponent<UIDocument>();
+      ScrollView scrollView = contentRoot.Q<ScrollView>();
+      scrollView.Clear();
 
-      _scrollView = _uiDocument.rootVisualElement.Q<ScrollView>();
-
-      _playButton = _uiDocument.rootVisualElement.Q<Button>(Names.kPlayButton);
-      _playButton.clicked += () => OnPlayClicked?.Invoke(_selectedLevelIndex);
-    }
-
-    public void SetLevels(IReadOnlyList<LevelItemViewData> levels)
-    {
-      _scrollView.Clear();
-
-      for (int i = 0; i < levels.Count; ++i)
+      for (int i = 0; i < levelData.Count; i++)
       {
-        VisualElement levelItem = _levelItemTemplate.Instantiate()
-          .Children()
-          .First();
-
-        levelItem.dataSource = levels[i];
+        VisualElement levelItem = levelItemTemplate.Instantiate().Children().First();
+        levelItem.dataSource = levelData[i];
 
         int levelIndex = i;
         levelItem.AddManipulator(new Clickable(() => SelectItem(levelIndex, levelItem)));
@@ -53,8 +32,10 @@ namespace Sling.Root.MainMenu.SelectLevel
         if (i == 0)
           SelectItem(levelIndex, levelItem);
 
-        _scrollView.Add(levelItem);
+        scrollView.Add(levelItem);
       }
+
+      contentRoot.Q<Button>(WindowNames.PlayButton).clicked += () => OnPlayClicked?.Invoke(_selectedLevelIndex);
     }
 
     private void SelectItem(int levelIndex, VisualElement levelItem)

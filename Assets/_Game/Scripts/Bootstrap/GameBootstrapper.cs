@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.Extensions;
 using Sling.Root.Flow;
 using Sling.Root.Game;
 using Sling.Root.Infrastructure;
@@ -38,6 +39,8 @@ namespace Sling.Bootstrap
           builder.Register<PlayLevelsStateController>(Lifetime.Transient);
           builder.Register<LoadLevelController>(Lifetime.Transient);
           builder.Register<BuildLevelScopeController>(Lifetime.Transient);
+
+          builder.RegisterSceneViews(gameObject.scene);
         },
         name: "Root");
 

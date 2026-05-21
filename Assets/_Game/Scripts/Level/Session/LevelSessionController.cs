@@ -27,46 +27,41 @@ namespace Sling.Level.Session
         GameplayLoopResult loopResult =
           await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayLoopResult>(ct);
 
-        if(loopResult == GameplayLoopResult.Death)
+        if (loopResult == GameplayLoopResult.Death)
         {
           await ExecuteAndWaitResultAsync<RespawnPlayerController>(ct);
           continue;
         }
 
-        if (loopResult == GameplayLoopResult.Menu)
-        {
-          sessionResult = LevelSessionResult.Menu;
-          break;
-        }
-
-        if (loopResult == GameplayLoopResult.Restart)
-        {
-          sessionResult = LevelSessionResult.Restart;
-          break;
-        }
-
         if (loopResult == GameplayLoopResult.Win)
         {
-          LevelCompleteFlowResult levelCompleteResult =
+          LevelCompleteFlowResult completeResult =
             await ExecuteAndWaitResultAsync<LevelCompleteFlowController, LevelCompleteFlowResult>(ct);
 
-          sessionResult = ToSessionResult(levelCompleteResult);
+          sessionResult = ToSessionResult(completeResult);
           break;
         }
+
+        sessionResult = loopResult switch
+        {
+          GameplayLoopResult.Restart => LevelSessionResult.Restart,
+          GameplayLoopResult.Menu    => LevelSessionResult.Menu,
+          _                          => LevelSessionResult.Next
+        };
+
+        break;
       } while (true);
 
       Complete(sessionResult);
     }
 
-    private static LevelSessionResult ToSessionResult(LevelCompleteFlowResult levelCompleteResult)
-    {
-      return levelCompleteResult switch
+    private static LevelSessionResult ToSessionResult(LevelCompleteFlowResult result) =>
+      result switch
       {
+        LevelCompleteFlowResult.Next    => LevelSessionResult.Next,
         LevelCompleteFlowResult.Restart => LevelSessionResult.Restart,
-        LevelCompleteFlowResult.Next => LevelSessionResult.Next,
-        LevelCompleteFlowResult.Menu => LevelSessionResult.Menu,
-        _ => throw new ArgumentException($"Wrong argument {levelCompleteResult}")
+        LevelCompleteFlowResult.Menu    => LevelSessionResult.Menu,
+        _                               => throw new ArgumentOutOfRangeException(nameof(result), result, null)
       };
-    }
   }
 }

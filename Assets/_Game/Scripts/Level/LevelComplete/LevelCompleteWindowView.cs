@@ -1,32 +1,20 @@
 using System;
-using UnityEngine;
+using Sling.Common.UI;
 using UnityEngine.UIElements;
 
 namespace Sling.Level.LevelComplete
 {
-  [RequireComponent(typeof(UIDocument))]
-  public class LevelCompleteWindowView : MonoBehaviour
+  public class LevelCompleteWindowView
   {
-    private static class Names
-    {
-      public const string kNextLevelButton = "NextLevelButton";
-      public const string kRestartButton = "RestartButton";
-      public const string kMenuButton = "MenuButton";
-    }
-
     public event Action OnNextLevelClicked;
     public event Action OnRestartClicked;
     public event Action OnMenuClicked;
 
-    private UIDocument _document;
-
-    private void Awake()
+    public LevelCompleteWindowView(VisualElement contentRoot)
     {
-      _document = GetComponent<UIDocument>();
-
-      _document.rootVisualElement.Q<Button>(Names.kNextLevelButton).clicked += () => OnNextLevelClicked?.Invoke();
-      _document.rootVisualElement.Q<Button>(Names.kRestartButton).clicked += () => OnRestartClicked?.Invoke();
-      _document.rootVisualElement.Q<Button>(Names.kMenuButton).clicked += () => OnMenuClicked?.Invoke();
+      contentRoot.Q<Button>(WindowNames.NextLevelButton).clicked += () => OnNextLevelClicked?.Invoke();
+      contentRoot.Q<Button>(WindowNames.RestartButton).clicked   += () => OnRestartClicked?.Invoke();
+      contentRoot.Q<Button>(WindowNames.MenuButton).clicked      += () => OnMenuClicked?.Invoke();
     }
   }
 }

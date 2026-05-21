@@ -46,6 +46,7 @@ namespace Sling.Root.LevelLoading
         builder.Register<GameplayLoopController>(Lifetime.Transient);
 
         builder.Register<LevelCompleteFlowController>(Lifetime.Transient);
+        builder.Register<LevelCompleteWindowController>(Lifetime.Transient);
         builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
         builder.Register<PlayerLaunchController>(Lifetime.Transient);

@@ -22,19 +22,18 @@ namespace Sling.Level.Gameplay
     {
       var outcomeSource = new UniTaskCompletionSource<GameplayLoopResult>();
 
-      _events.OnPlayerDied += OnDied;
-      _events.OnFinishReached += OnWon;
+      _events.OnPlayerDied       += OnDied;
+      _events.OnFinishReached    += OnWon;
       _events.OnRestartRequested += OnRestart;
 
       AddDisposable(new DisposableToken(() =>
       {
-        _events.OnPlayerDied -= OnDied;
-        _events.OnFinishReached -= OnWon;
+        _events.OnPlayerDied       -= OnDied;
+        _events.OnFinishReached    -= OnWon;
         _events.OnRestartRequested -= OnRestart;
       }));
 
       Execute<FinishZoneController>();
-
       Execute<PlayerLaunchController>();
       Execute<HazardZonesController>();
 
@@ -42,14 +41,9 @@ namespace Sling.Level.Gameplay
       Complete(loopResult);
       return;
 
-      void OnDied() =>
-        outcomeSource.TrySetResult(GameplayLoopResult.Death);
-
-      void OnWon() =>
-        outcomeSource.TrySetResult(GameplayLoopResult.Win);
-
-      void OnRestart() =>
-        outcomeSource.TrySetResult(GameplayLoopResult.Restart);
+      void OnDied()    => outcomeSource.TrySetResult(GameplayLoopResult.Death);
+      void OnWon()     => outcomeSource.TrySetResult(GameplayLoopResult.Win);
+      void OnRestart() => outcomeSource.TrySetResult(GameplayLoopResult.Restart);
     }
   }
 }

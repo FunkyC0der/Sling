@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.UI.Windows;
 using Sling.Root.Game;
-using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Sling.Root.MainMenu.SelectLevel
 {
-  public class SelectLevelWindowController : ControllerWithResultBase<int>
+  public class SelectLevelWindowController : WindowControllerBase<SelectLevelWindowView, int>
   {
     private readonly GameConfig _gameConfig;
 
@@ -17,18 +19,24 @@ namespace Sling.Root.MainMenu.SelectLevel
       _gameConfig = gameConfig;
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    protected override VisualTreeAsset Uxml => _gameConfig.SelectLevelWindowUxml;
+
+    protected override SelectLevelWindowView CreateView(VisualElement contentRoot)
     {
-      SelectLevelWindowView selectLevelWindowView = Object.Instantiate(_gameConfig.SelectLevelWindowViewPrefab);
+      IReadOnlyList<LevelItemViewData> levelNames = _gameConfig.LevelScenes
+        .Select(scene => new LevelItemViewData() {Name = scene.SceneName})
+        .ToArray();
 
-      selectLevelWindowView.SetLevels(_gameConfig.LevelScenes
-        .Select(item => new LevelItemViewData { Name = item.SceneName })
-        .ToArray());
+      return new SelectLevelWindowView(contentRoot, levelNames, _gameConfig.SelectLevelLevelItemUxml);
+    }
 
-      selectLevelWindowView.OnPlayClicked += Complete;
-
-      await ct.WaitUntilCanceled();
-      Complete(0);
+    protected override async UniTask<int> AwaitResultAsync(
+      SelectLevelWindowView view,
+      CancellationToken cancellationToken)
+    {
+      var completionSource = new UniTaskCompletionSource<int>();
+      view.OnPlayClicked += index => completionSource.TrySetResult(index);
+      return await completionSource.Task.AttachExternalCancellation(cancellationToken);
     }
   }
 }

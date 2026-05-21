@@ -1,8 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.UI.Windows;
 using Sling.Level.Player;
-using Sling.Root.Game;
 using UnityEngine;
 
 namespace Sling.Level.LevelComplete
@@ -10,39 +10,39 @@ namespace Sling.Level.LevelComplete
   public class LevelCompleteFlowController : ControllerWithResultBase<LevelCompleteFlowResult>
   {
     private readonly PlayerView _playerView;
-    private readonly GameConfig _gameConfig;
+    private readonly PopupWindowsRootView _popupRootView;
 
-    public LevelCompleteFlowController(IControllerFactory factory, PlayerView playerView, GameConfig gameConfig)
+    public LevelCompleteFlowController(
+      IControllerFactory factory,
+      PlayerView playerView,
+      PopupWindowsRootView popupRootView)
       : base(factory)
     {
       _playerView = playerView;
-      _gameConfig = gameConfig;
+      _popupRootView = popupRootView;
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await StopPlayerMovementX(ct);
+      await StopPlayerMovementX(cancellationToken);
 
-      LevelCompleteWindowView levelCompleteWindowView = Object.Instantiate(_gameConfig.LevelCompleteWindowViewPrefab);
-      AddDisposable(new DisposableToken(() => Object.Destroy(levelCompleteWindowView.gameObject)));
+      LevelCompleteFlowResult result =
+        await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
+          _popupRootView.NonSkippable(), cancellationToken);
 
-      levelCompleteWindowView.OnNextLevelClicked += () => Complete(LevelCompleteFlowResult.Next);
-      levelCompleteWindowView.OnRestartClicked += () => Complete(LevelCompleteFlowResult.Restart);
-      levelCompleteWindowView.OnMenuClicked += () => Complete(LevelCompleteFlowResult.Menu);
-
-      await ct.WaitUntilCanceled();
+      Complete(result);
     }
 
-    private async UniTask StopPlayerMovementX(CancellationToken ct)
+    private async UniTask StopPlayerMovementX(CancellationToken cancellationToken)
     {
       float deceleration = Mathf.Abs(_playerView.LinearVelocityX) / _playerView.Config.FinishStopDuration;
 
-      while (Mathf.Abs(_playerView.LinearVelocityX) > 0 && !ct.IsCancellationRequested)
+      while (Mathf.Abs(_playerView.LinearVelocityX) > 0 && !cancellationToken.IsCancellationRequested)
       {
         _playerView.LinearVelocityX =
           Mathf.MoveTowards(_playerView.LinearVelocityX, 0, deceleration * Time.fixedDeltaTime);
 
-        await UniTask.Yield(PlayerLoopTiming.FixedUpdate, ct);
+        await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken);
       }
 
       _playerView.LinearVelocityX = 0;

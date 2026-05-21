@@ -16,9 +16,13 @@ namespace Sling.Common.Tweeners
     public int Cycles = -1;
 
     private Rigidbody2D _rigidbody;
+    private Sequence _sequence;
 
     private void Awake() =>
       _rigidbody = GetComponent<Rigidbody2D>();
+
+    private void OnDestroy() =>
+      _sequence.Stop();
 
     private void Start()
     {
@@ -29,15 +33,15 @@ namespace Sling.Common.Tweeners
       float initialParentAngle = parent != null ? parent.eulerAngles.z : 0f;
       float ParentDelta() => (parent != null ? parent.eulerAngles.z : 0f) - initialParentAngle;
 
-      var sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
+      _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
       float currentAngle = _rigidbody.rotation;
 
       foreach (float angle in Angles)
       {
         float duration = Mathf.Abs(angle - currentAngle) / Speed;
-        sequence.Chain(Tween.Custom(currentAngle, angle, duration,
+        _sequence.Chain(Tween.Custom(currentAngle, angle, duration,
           a => _rigidbody.MoveRotation(a + ParentDelta()), Ease));
-        sequence.ChainDelay(DelayBeforeNextAngle);
+        _sequence.ChainDelay(DelayBeforeNextAngle);
         currentAngle = angle;
       }
     }

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Sling.Common.Scenes;
-using Sling.Level.LevelComplete;
-using Sling.Root.MainMenu.SelectLevel;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Sling.Root.Game
 {
@@ -14,7 +13,8 @@ namespace Sling.Root.Game
     public List<SceneReference> LevelScenes = new();
 
     [Header("UI")]
-    public SelectLevelWindowView SelectLevelWindowViewPrefab;
-    public LevelCompleteWindowView LevelCompleteWindowViewPrefab;
+    public VisualTreeAsset SelectLevelWindowUxml;
+    public VisualTreeAsset SelectLevelLevelItemUxml;
+    public VisualTreeAsset LevelCompleteWindowUxml;
   }
 }

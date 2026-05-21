@@ -1,0 +1,12 @@
+.open {
+    opacity: 1;
+    scale: 1 1 1;
+    transition-duration: 0.2s;
+    transition-delay: 0s;
+}
+
+.close {
+    opacity: 0;
+    scale: 0 0 0;
+    transition-duration: 0.2s;
+}
