@@ -1232,7 +1232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070061232733126315, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_Name
-      value: WinScreen
+      value: LevelViews
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
