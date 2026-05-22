@@ -6,50 +6,35 @@ namespace Sling.Common.Extensions
 {
   public static class VisualElementExtensions
   {
-    public static UniTask WaitForTransitionEndAsync(
-      this VisualElement element,
-      CancellationToken cancellationToken)
+    public static UniTask WaitForEventAsync<TEvent>(this VisualElement element, CancellationToken cancellationToken) 
+      where TEvent : EventBase<TEvent>, new()
     {
       var completionSource = new UniTaskCompletionSource();
 
-      void OnTransitionEnd(TransitionEndEvent _)
+      void OnEvent(TEvent eventData)
       {
-        element.UnregisterCallback<TransitionEndEvent>(OnTransitionEnd);
+        if (eventData.target != element)
+          return;
+        
+        element.UnregisterCallback<TEvent>(OnEvent);
         completionSource.TrySetResult();
       }
 
-      element.RegisterCallback<TransitionEndEvent>(OnTransitionEnd);
+      element.RegisterCallback<TEvent>(OnEvent);
 
       cancellationToken.Register(() =>
       {
-        element.UnregisterCallback<TransitionEndEvent>(OnTransitionEnd);
+        element.UnregisterCallback<TEvent>(OnEvent);
         completionSource.TrySetCanceled();
       });
 
       return completionSource.Task;
     }
-
-    public static UniTask WaitForClickAsync(
-      this VisualElement element,
-      CancellationToken cancellationToken)
+    
+    public static void CopyStyleSheetsTo(this VisualElement source, VisualElement target)
     {
-      var completionSource = new UniTaskCompletionSource();
-
-      void OnClick(ClickEvent _)
-      {
-        element.UnregisterCallback<ClickEvent>(OnClick);
-        completionSource.TrySetResult();
-      }
-
-      element.RegisterCallback<ClickEvent>(OnClick);
-
-      cancellationToken.Register(() =>
-      {
-        element.UnregisterCallback<ClickEvent>(OnClick);
-        completionSource.TrySetCanceled();
-      });
-
-      return completionSource.Task;
+      for (int i = 0; i < source.styleSheets.count; i++)
+        target.styleSheets.Add(source.styleSheets[i]);
     }
   }
 }

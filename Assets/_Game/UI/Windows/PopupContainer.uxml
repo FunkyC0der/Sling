@@ -1,4 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Windows/Popups.uss?fileID=7433441132597879392&amp;guid=3bfc09938a75d4a238e6873f212d6fca&amp;type=3#Popups"/>
-    <ui:VisualElement name="Root" class="open close" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.39); justify-content: center; align-content: auto;"/>
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.39); justify-content: center; align-content: auto;"/>
 </ui:UXML>

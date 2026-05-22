@@ -1,13 +1,14 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.UI;
 using Sling.Common.UI.Windows;
 using Sling.Root.Game;
 using UnityEngine.UIElements;
 
 namespace Sling.Level.LevelComplete
 {
-  public class LevelCompleteWindowController : WindowControllerBase<LevelCompleteWindowView, LevelCompleteFlowResult>
+  public class LevelCompleteWindowController : WindowControllerBase<LevelCompleteFlowResult>
   {
     private readonly GameConfig _gameConfig;
 
@@ -17,18 +18,27 @@ namespace Sling.Level.LevelComplete
       _gameConfig = gameConfig;
     }
 
-    protected override VisualTreeAsset Uxml => _gameConfig.LevelCompleteWindowUxml;
-    protected override LevelCompleteWindowView CreateView(VisualElement contentRoot) => new(contentRoot);
+    private VisualElement _window;
+    
+    protected override VisualTreeAsset WindowTemplate => _gameConfig.LevelCompleteWindowUxml;
+    
+    protected override void InitWindow(VisualElement window) => 
+      _window = window;
 
-    protected override async UniTask<LevelCompleteFlowResult> AwaitResultAsync(
-      LevelCompleteWindowView view,
-      CancellationToken cancellationToken)
+    protected override UniTask<LevelCompleteFlowResult> WaitForResult(CancellationToken cancellationToken)
     {
       var completionSource = new UniTaskCompletionSource<LevelCompleteFlowResult>();
-      view.OnNextLevelClicked += () => completionSource.TrySetResult(LevelCompleteFlowResult.Next);
-      view.OnRestartClicked   += () => completionSource.TrySetResult(LevelCompleteFlowResult.Restart);
-      view.OnMenuClicked      += () => completionSource.TrySetResult(LevelCompleteFlowResult.Menu);
-      return await completionSource.Task.AttachExternalCancellation(cancellationToken);
+      
+      _window.Q<Button>(WindowNames.NextLevelButton).clicked += () => 
+        completionSource.TrySetResult(LevelCompleteFlowResult.Next);
+      
+      _window.Q<Button>(WindowNames.RestartButton).clicked += () => 
+        completionSource.TrySetResult(LevelCompleteFlowResult.Restart);
+      
+      _window.Q<Button>(WindowNames.MenuButton).clicked += () =>
+        completionSource.TrySetResult(LevelCompleteFlowResult.Menu);
+      
+      return completionSource.Task.AttachExternalCancellation(cancellationToken);
     }
   }
 }

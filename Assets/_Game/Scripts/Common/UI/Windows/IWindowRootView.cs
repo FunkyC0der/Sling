@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UIElements;
@@ -10,9 +11,13 @@ namespace Sling.Common.UI.Windows
 
   public interface IWindowRootView
   {
-    UniTask<TResult> ShowAsync<TResult>(
-      VisualTreeAsset contentUxml,
-      WindowSessionAsync<TResult> runSession,
+    VisualElement CreateAndAddWindow(VisualTreeAsset windowTemplate);
+    UniTask ShowAsync(CancellationToken cancellationToken);
+    
+    UniTask<TResult> WaitForWindowResult<TResult>(Func<CancellationToken, UniTask<TResult>> waitForResultFunc,
       CancellationToken cancellationToken);
+    
+    UniTask HideAsync(CancellationToken ct);
+    void RemoveWindow();
   }
 }

@@ -12,9 +12,10 @@ namespace Sling.Common.UI
 
     public static class Classes
     {
-      public const string ForceClose = "force-close";
-      public const string Close      = "close";
-      public const string Open       = "open";
+      public const string ContainerClose = "container-close";
+      public const string ContainerOpen = "container-open";
+      public const string WindowClose = "window-close";
+      public const string WindowOpen = "window-open";
     }
   }
 }

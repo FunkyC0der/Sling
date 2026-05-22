@@ -3,14 +3,20 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.UI;
 using Sling.Common.UI.Windows;
+using Sling.Level.LevelComplete;
 using Sling.Root.Game;
 using UnityEngine.UIElements;
 
 namespace Sling.Root.MainMenu.SelectLevel
 {
-  public class SelectLevelWindowController : WindowControllerBase<SelectLevelWindowView, int>
+  public class SelectLevelWindowController : WindowControllerBase<int>
   {
+    private VisualElement _window;
+    private int _selectedLevelIndex;
+    private VisualElement _selectedLevelItem;
+    
     private readonly GameConfig _gameConfig;
 
     public SelectLevelWindowController(IControllerFactory controllerFactory, GameConfig gameConfig)
@@ -19,24 +25,49 @@ namespace Sling.Root.MainMenu.SelectLevel
       _gameConfig = gameConfig;
     }
 
-    protected override VisualTreeAsset Uxml => _gameConfig.SelectLevelWindowUxml;
-
-    protected override SelectLevelWindowView CreateView(VisualElement contentRoot)
+    protected override VisualTreeAsset WindowTemplate => _gameConfig.SelectLevelWindowUxml;
+    
+    protected override void InitWindow(VisualElement window)
     {
-      IReadOnlyList<LevelItemViewData> levelNames = _gameConfig.LevelScenes
-        .Select(scene => new LevelItemViewData() {Name = scene.SceneName})
-        .ToArray();
+      _window = window;
+      
+      ScrollView scrollView = _window.Q<ScrollView>();
+      scrollView.Clear();
 
-      return new SelectLevelWindowView(contentRoot, levelNames, _gameConfig.SelectLevelLevelItemUxml);
+      for (int i = 0; i < _gameConfig.LevelScenes.Count; i++)
+      {
+        _gameConfig.SelectLevelLevelItemUxml.CloneTree(scrollView);
+        VisualElement levelItem = scrollView.Children().Last();
+        
+        levelItem.dataSource = new LevelItemViewData() {Name = _gameConfig.LevelScenes[i].SceneName};
+
+        int levelIndex = i;
+        levelItem.AddManipulator(new Clickable(() => SelectItem(levelIndex, levelItem)));
+
+        if (i == 0)
+          SelectItem(levelIndex, levelItem);
+
+        scrollView.Add(levelItem);
+      }
     }
 
-    protected override async UniTask<int> AwaitResultAsync(
-      SelectLevelWindowView view,
-      CancellationToken cancellationToken)
+    protected override UniTask<int> WaitForResult(CancellationToken cancellationToken)
     {
       var completionSource = new UniTaskCompletionSource<int>();
-      view.OnPlayClicked += index => completionSource.TrySetResult(index);
-      return await completionSource.Task.AttachExternalCancellation(cancellationToken);
+      
+      _window.Q<Button>(WindowNames.PlayButton).clicked += () => 
+        completionSource.TrySetResult(_selectedLevelIndex);
+      
+      return completionSource.Task.AttachExternalCancellation(cancellationToken);
+    }
+    
+    private void SelectItem(int levelIndex, VisualElement levelItem)
+    {
+      _selectedLevelItem?.SetCheckedPseudoState(false);
+
+      _selectedLevelIndex = levelIndex;
+      _selectedLevelItem = levelItem;
+      _selectedLevelItem.SetCheckedPseudoState(true);
     }
   }
 }
