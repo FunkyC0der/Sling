@@ -41,7 +41,8 @@ namespace Sling.Common.Tweeners
         float duration = Mathf.Abs(angle - currentAngle) / Speed;
         _sequence.Chain(Tween.Custom(currentAngle, angle, duration,
           a => _rigidbody.MoveRotation(a + ParentDelta()), Ease));
-        _sequence.ChainDelay(DelayBeforeNextAngle);
+        if (DelayBeforeNextAngle > 0)
+          _sequence.ChainDelay(DelayBeforeNextAngle);
         currentAngle = angle;
       }
     }

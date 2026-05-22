@@ -55,7 +55,8 @@ namespace Sling.Common.Tweeners
               LocalOffsetToWorld(initialLocalPosition, SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
           Ease));
         
-        _sequence.ChainDelay(DelayBeforeNextSegment);
+        if (DelayBeforeNextSegment > 0)
+          _sequence.ChainDelay(DelayBeforeNextSegment);
         currentLocalOffset = seg.Point;
       }
     }

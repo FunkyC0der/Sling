@@ -39,7 +39,8 @@ namespace Sling.Common.Tweeners
         _sequence.Chain(Tween.Custom(currentLocalOffset, point, duration,
           offset => _rigidbody.MovePosition(LocalOffsetToWorld(initialLocalPosition, offset)),
           Ease));
-        _sequence.ChainDelay(DelayBeforeNextPoint);
+        if (DelayBeforeNextPoint > 0)
+          _sequence.ChainDelay(DelayBeforeNextPoint);
         currentLocalOffset = point;
       }
     }
