@@ -9,6 +9,7 @@ namespace Sling.Common.UI
     public const string NextLevelButton = "NextLevelButton";
     public const string RestartButton   = "RestartButton";
     public const string MenuButton      = "MenuButton";
+    public const string PauseButton     = "PauseButton";
 
     public static class Classes
     {

@@ -38,8 +38,6 @@ namespace Sling.Common.UI.Windows
     {
       PopupWindowData data = _popupStack.Peek();
 
-      data.Container.pickingMode = data.CanClose ? PickingMode.Position : PickingMode.Ignore;
-
       data.Container.AddToClassList(WindowNames.Classes.ContainerClose);
       data.Container.AddToClassList(WindowNames.Classes.ContainerOpen);
       
@@ -62,9 +60,12 @@ namespace Sling.Common.UI.Windows
 
       using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-       (bool isLeftWin, TResult result) = await UniTask.WhenAny(
-        waitForResultFunc(linkedCts.Token),
-        data.Container.WaitForEventAsync<ClickEvent>(linkedCts.Token));
+      UniTask waitForCloseTask = data.CanClose 
+        ? data.Container.WaitForEventAsync<ClickEvent>(linkedCts.Token)
+        : UniTask.Never(linkedCts.Token);
+      
+      (bool isLeftWin, TResult result) = 
+        await UniTask.WhenAny(waitForResultFunc(linkedCts.Token), waitForCloseTask);
 
        linkedCts.Cancel();
        return isLeftWin ? result : default;

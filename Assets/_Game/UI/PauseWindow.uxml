@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
+    <ui:VisualElement name="Window" class="rounded popup-window" style="height: 450px;">
+        <ui:VisualElement name="TitleContainer" class="rounded popup-title-container">
+            <ui:Label text="PAUSED" name="Title" class="popup-title"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
+            <ui:Button text="RESTART" name="RestartButton" class="primary-button stacked-button rounded" style="flex-grow: 0;"/>
+            <ui:Button text="MENU" name="MenuButton" class="primary-button rounded" style="flex-grow: 0;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -133,3 +133,4 @@ MonoBehaviour:
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
   LevelCompleteWindowUxml: {fileID: 9197481963319205126, guid: 0066c9393c3414aacb820d7101ea4cd4, type: 3}
+  PauseWindowUxml: {fileID: 9197481963319205126, guid: df3fc7ba3ae2d4bdfba0eb14b1e3f105, type: 3}

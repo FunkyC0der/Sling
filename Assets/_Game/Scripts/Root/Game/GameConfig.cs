@@ -16,5 +16,6 @@ namespace Sling.Root.Game
     public VisualTreeAsset SelectLevelWindowUxml;
     public VisualTreeAsset SelectLevelLevelItemUxml;
     public VisualTreeAsset LevelCompleteWindowUxml;
+    public VisualTreeAsset PauseWindowUxml;
   }
 }

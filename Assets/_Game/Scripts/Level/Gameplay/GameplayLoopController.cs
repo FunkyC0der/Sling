@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Finish;
 using Sling.Level.Hazards;
+using Sling.Level.Hud;
 using Sling.Level.Player;
 using Sling.Level.Session;
 
@@ -25,17 +26,20 @@ namespace Sling.Level.Gameplay
       _events.OnPlayerDied       += OnDied;
       _events.OnFinishReached    += OnWon;
       _events.OnRestartRequested += OnRestart;
+      _events.OnMenuRequested    += OnMenu;
 
       AddDisposable(new DisposableToken(() =>
       {
         _events.OnPlayerDied       -= OnDied;
         _events.OnFinishReached    -= OnWon;
         _events.OnRestartRequested -= OnRestart;
+        _events.OnMenuRequested    -= OnMenu;
       }));
 
       Execute<FinishZoneController>();
       Execute<PlayerLaunchController>();
       Execute<HazardZonesController>();
+      Execute<HudController>();
 
       GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
       Complete(loopResult);
@@ -44,6 +48,7 @@ namespace Sling.Level.Gameplay
       void OnDied()    => outcomeSource.TrySetResult(GameplayLoopResult.Death);
       void OnWon()     => outcomeSource.TrySetResult(GameplayLoopResult.Win);
       void OnRestart() => outcomeSource.TrySetResult(GameplayLoopResult.Restart);
+      void OnMenu()    => outcomeSource.TrySetResult(GameplayLoopResult.Menu);
     }
   }
 }

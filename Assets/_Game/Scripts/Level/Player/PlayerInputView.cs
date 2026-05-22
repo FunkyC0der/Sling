@@ -41,6 +41,18 @@ namespace Sling.Level.Player
       _pointerPressActionRef.action.canceled -= HandleRelease;
     }
 
+    public void EnableInput()
+    {
+      _pointerPressActionRef.action.Enable();
+      _pointerPositionActionRef.action.Enable();
+    }
+
+    public void DisableInput()
+    {
+      _pointerPressActionRef.action.Disable();
+      _pointerPositionActionRef.action.Disable();
+    }
+
     private void Update() =>
       PreLaunchUpdate();
 

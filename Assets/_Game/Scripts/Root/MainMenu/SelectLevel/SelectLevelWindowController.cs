@@ -36,8 +36,8 @@ namespace Sling.Root.MainMenu.SelectLevel
 
       for (int i = 0; i < _gameConfig.LevelScenes.Count; i++)
       {
-        _gameConfig.SelectLevelLevelItemUxml.CloneTree(scrollView);
-        VisualElement levelItem = scrollView.Children().Last();
+        _gameConfig.SelectLevelLevelItemUxml.CloneTree(scrollView.contentContainer);
+        VisualElement levelItem = scrollView.ElementAt(i);
         
         levelItem.dataSource = new LevelItemViewData() {Name = _gameConfig.LevelScenes[i].SceneName};
 
@@ -46,8 +46,6 @@ namespace Sling.Root.MainMenu.SelectLevel
 
         if (i == 0)
           SelectItem(levelIndex, levelItem);
-
-        scrollView.Add(levelItem);
       }
     }
 

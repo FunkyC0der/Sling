@@ -5,6 +5,7 @@ using Sling.Common.Extensions;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
+using Sling.Level.Hud;
 using Sling.Level.LevelComplete;
 using Sling.Level.Player;
 using Sling.Level.Session;
@@ -53,6 +54,9 @@ namespace Sling.Root.LevelLoading
 
         builder.Register<HazardZonesController>(Lifetime.Transient);
         builder.Register<FinishZoneController>(Lifetime.Transient);
+
+        builder.Register<HudController>(Lifetime.Transient);
+        builder.Register<PauseWindowController>(Lifetime.Transient);
 
         builder.RegisterSceneViews(scene);
       },
