@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Sling.Common.Tweeners
 {
-  [RequireComponent(typeof(Rigidbody2D))]
-  public class PhysicsRotateTweener : MonoBehaviour
+  public class PhysicsRotateTweener : PhysicsTweenerBase
   {
     public List<float> Angles;
     public float Speed = 90f;
@@ -15,16 +14,15 @@ namespace Sling.Common.Tweeners
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
-    private Rigidbody2D _rigidbody;
-    private Sequence _sequence;
+    private float _initialRotation;
 
-    private void Awake() =>
-      _rigidbody = GetComponent<Rigidbody2D>();
+    protected override void Awake()
+    {
+      base.Awake();
+      _initialRotation = _rigidbody.rotation;
+    }
 
-    private void OnDestroy() =>
-      _sequence.Stop();
-
-    private void Start()
+    public override void StartTween()
     {
       if (Angles.Count == 0)
         return;
@@ -34,7 +32,7 @@ namespace Sling.Common.Tweeners
       float ParentDelta() => (parent != null ? parent.eulerAngles.z : 0f) - initialParentAngle;
 
       _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
-      float currentAngle = _rigidbody.rotation;
+      float currentAngle = _initialRotation;
 
       foreach (float angle in Angles)
       {

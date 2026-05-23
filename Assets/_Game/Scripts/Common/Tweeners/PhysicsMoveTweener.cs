@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Sling.Common.Tweeners
 {
-  [RequireComponent(typeof(Rigidbody2D))]
-  public class PhysicsMoveTweener : MonoBehaviour
+  public class PhysicsMoveTweener : PhysicsTweenerBase
   {
     public List<Vector3> Points;
     public float Speed = 5f;
@@ -15,21 +14,19 @@ namespace Sling.Common.Tweeners
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
-    private Rigidbody2D _rigidbody;
-    private Sequence _sequence;
+    private Vector3 _initialLocalPosition;
 
-    private void Awake() =>
-      _rigidbody = GetComponent<Rigidbody2D>();
+    protected override void Awake()
+    {
+      base.Awake();
+      _initialLocalPosition = transform.localPosition;
+    }
 
-    private void OnDestroy() =>
-      _sequence.Stop();
-
-    private void Start()
+    public override void StartTween()
     {
       if (Points.Count == 0)
         return;
 
-      Vector3 initialLocalPosition = transform.localPosition;
       _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
       Vector3 currentLocalOffset = Vector3.zero;
 
@@ -37,14 +34,14 @@ namespace Sling.Common.Tweeners
       {
         float duration = Vector3.Distance(currentLocalOffset, point) / Speed;
         _sequence.Chain(Tween.Custom(currentLocalOffset, point, duration,
-          offset => _rigidbody.MovePosition(LocalOffsetToWorld(initialLocalPosition, offset)),
+          offset => _rigidbody.MovePosition(LocalOffsetToWorld(_initialLocalPosition, offset)),
           Ease));
         if (DelayBeforeNextPoint > 0)
           _sequence.ChainDelay(DelayBeforeNextPoint);
         currentLocalOffset = point;
       }
     }
-    
+
     private Vector3 LocalOffsetToWorld(Vector3 initialLocalPosition, Vector3 offset)
     {
       Vector3 localPos = initialLocalPosition + transform.localRotation * offset;

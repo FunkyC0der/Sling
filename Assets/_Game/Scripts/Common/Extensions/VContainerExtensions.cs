@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Playtika.Controllers;
 using Sling.Common.Views;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Sling.Common.Extensions
 {
   public static class VContainerExtensions
   {
+    private static Type[] _cachedNonUniqueViewTypes;
+
     public static IControllerFactory GetControllerFactory(this LifetimeScope scope) =>
       scope.Container.Resolve<IControllerFactory>();
 
@@ -30,6 +33,15 @@ namespace Sling.Common.Extensions
           RegisterUnique(builder, entry.Key, entry.Value);
         else
           RegisterCollection(builder, entry.Key, entry.Value);
+      }
+
+      foreach (Type viewType in GetAllNonUniqueViewTypes())
+      {
+        if (viewsByType.ContainsKey(viewType))
+          continue;
+
+        Array emptyArray = Array.CreateInstance(viewType, 0);
+        builder.RegisterInstance(emptyArray, viewType.MakeArrayType());
       }
     }
 
@@ -52,6 +64,46 @@ namespace Sling.Common.Extensions
         typedArray.SetValue(views[i], i);
 
       builder.RegisterInstance(typedArray, viewType.MakeArrayType());
+    }
+
+    private static Type[] GetAllNonUniqueViewTypes()
+    {
+      if (_cachedNonUniqueViewTypes != null)
+        return _cachedNonUniqueViewTypes;
+
+      var result = new List<Type>();
+      Type iViewType = typeof(IView);
+      Type iUniqueViewType = typeof(IUniqueView);
+
+      foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+      {
+        Type[] types;
+        try
+        {
+          types = assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException ex)
+        {
+          types = ex.Types;
+        }
+
+        foreach (Type type in types)
+        {
+          if (type == null)
+            continue;
+          if (type.IsInterface || type.IsAbstract)
+            continue;
+          if (!iViewType.IsAssignableFrom(type))
+            continue;
+          if (iUniqueViewType.IsAssignableFrom(type))
+            continue;
+
+          result.Add(type);
+        }
+      }
+
+      _cachedNonUniqueViewTypes = result.ToArray();
+      return _cachedNonUniqueViewTypes;
     }
   }
 }

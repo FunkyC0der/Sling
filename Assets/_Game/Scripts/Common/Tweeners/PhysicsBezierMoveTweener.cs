@@ -12,8 +12,7 @@ namespace Sling.Common.Tweeners
     public Vector3 Control;
   }
 
-  [RequireComponent(typeof(Rigidbody2D))]
-  public class PhysicsBezierMoveTweener : MonoBehaviour
+  public class PhysicsBezierMoveTweener : PhysicsTweenerBase
   {
     public List<BezierSegment> Segments;
     public float Speed = 5f;
@@ -23,21 +22,19 @@ namespace Sling.Common.Tweeners
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
-    private Rigidbody2D _rigidbody;
-    private Sequence _sequence;
+    private Vector3 _initialLocalPosition;
 
-    private void Awake() =>
-      _rigidbody = GetComponent<Rigidbody2D>();
+    protected override void Awake()
+    {
+      base.Awake();
+      _initialLocalPosition = transform.localPosition;
+    }
 
-    private void OnDestroy() =>
-      _sequence.Stop();
-
-    private void Start()
+    public override void StartTween()
     {
       if (Segments.Count == 0)
         return;
 
-      Vector3 initialLocalPosition = transform.localPosition;
       _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
       Vector3 currentLocalOffset = Vector3.zero;
 
@@ -45,16 +42,16 @@ namespace Sling.Common.Tweeners
       {
         float duration = Vector3.Distance(currentLocalOffset, seg.Point) / Speed;
         Vector3 start = currentLocalOffset;
-        
+
         _sequence.Chain(Tween.Custom(
-          0f, 
-          1f, 
+          0f,
+          1f,
           duration,
-          t => 
+          t =>
             _rigidbody.MovePosition(
-              LocalOffsetToWorld(initialLocalPosition, SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
+              LocalOffsetToWorld(_initialLocalPosition, SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
           Ease));
-        
+
         if (DelayBeforeNextSegment > 0)
           _sequence.ChainDelay(DelayBeforeNextSegment);
         currentLocalOffset = seg.Point;

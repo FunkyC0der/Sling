@@ -16,9 +16,9 @@ namespace Sling.Level.Finish
     }
 
     protected override void OnStart() =>
-      _finishZoneView.OnReached += _events.OnFinishReached;
+      _finishZoneView.OnReached += _events.OnLevelCompleted;
 
     protected override void OnStop() =>
-      _finishZoneView.OnReached -= _events.OnFinishReached;
+      _finishZoneView.OnReached -= _events.OnLevelCompleted;
   }
 }

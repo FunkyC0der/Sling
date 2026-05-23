@@ -1,7 +1,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.Controllers;
 using Sling.Common.Extensions;
+using Sling.Level.Boss;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hazards;
@@ -54,6 +56,12 @@ namespace Sling.Root.LevelLoading
 
         builder.Register<HazardZonesController>(Lifetime.Transient);
         builder.Register<FinishZoneController>(Lifetime.Transient);
+        builder.Register<OptionalFeatureController<FinishZoneController, FinishZoneView>>(Lifetime.Transient);
+
+        builder.Register<BossModel>(Lifetime.Singleton);
+        builder.Register<BossController>(Lifetime.Transient);
+        builder.Register<BossPhaseController>(Lifetime.Transient);
+        builder.Register<OptionalFeatureController<BossController, BossView>>(Lifetime.Transient);
 
         builder.Register<HudController>(Lifetime.Transient);
         builder.Register<PauseWindowController>(Lifetime.Transient);
