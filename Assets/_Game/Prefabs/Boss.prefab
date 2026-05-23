@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Boss.BossView
   _bossBody: {fileID: 3772980208495210530}
+  _phaseTransitionDuration: 1
   _phases:
   - Tweener: {fileID: 5932929541682809343}
     WeakPoints:

@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using PrimeTween;
 using Sling.Level.Session;
 
 namespace Sling.Level.Boss
@@ -32,12 +33,24 @@ namespace Sling.Level.Boss
 
     private async UniTaskVoid RunPhasesAsync(CancellationToken cancellationToken)
     {
-      for (int phase = 0; phase < _bossView.PhaseCount; phase++)
+      for (int phaseIndex = 0; phaseIndex < _bossView.PhaseCount; phaseIndex++)
       {
-        _model.CurrentPhaseIndex = phase;
-        _bossView.ActivatePhase(phase);
+        if(_model.CurrentPhaseIndex != phaseIndex)
+        {
+          if (_model.CurrentPhaseIndex >= 0)
+          {
+            _bossView.StopPhase(_model.CurrentPhaseIndex);
+            await _bossView.TransitionToPhaseAsync(phaseIndex, cancellationToken);
+          }
+          
+          _bossView.StartPhase(phaseIndex);
+          _model.CurrentPhaseIndex = phaseIndex;
+        }
+        
         await ExecuteAndWaitResultAsync<BossPhaseController>(cancellationToken);
       }
+      
+      _bossView.StopPhase(_model.CurrentPhaseIndex);
       _events.OnLevelCompleted?.Invoke();
     }
   }

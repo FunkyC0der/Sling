@@ -10,6 +10,8 @@ namespace Sling.Common.Tweeners
 
     protected Rigidbody2D _rigidbody;
     protected Sequence _sequence;
+    
+    public Rigidbody2D Rigidbody => _rigidbody;
 
     protected virtual void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
 
@@ -22,7 +24,6 @@ namespace Sling.Common.Tweeners
     protected virtual void OnDestroy() => StopTween();
 
     public abstract void StartTween();
-
     public void StopTween() => _sequence.Stop();
   }
 }

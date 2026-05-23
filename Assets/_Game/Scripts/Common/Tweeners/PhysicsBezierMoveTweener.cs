@@ -22,19 +22,13 @@ namespace Sling.Common.Tweeners
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
-    private Vector3 _initialLocalPosition;
-
-    protected override void Awake()
-    {
-      base.Awake();
-      _initialLocalPosition = transform.localPosition;
-    }
-
     public override void StartTween()
     {
       if (Segments.Count == 0)
         return;
 
+      Vector3 initialLocalPosition = transform.localPosition;
+      
       _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
       Vector3 currentLocalOffset = Vector3.zero;
 
@@ -49,7 +43,8 @@ namespace Sling.Common.Tweeners
           duration,
           t =>
             _rigidbody.MovePosition(
-              LocalOffsetToWorld(_initialLocalPosition, SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
+              LocalOffsetToWorld(initialLocalPosition, 
+                SampleQuadraticBezier(start, seg.Control, seg.Point, t))),
           Ease));
 
         if (DelayBeforeNextSegment > 0)

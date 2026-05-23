@@ -7,22 +7,22 @@ namespace Sling.Level.Boss
 {
   public class BossPhaseController : ControllerWithResultBase
   {
-    private readonly BossView _bossView;
+    private readonly BossView _view;
     private readonly BossModel _model;
 
-    public BossPhaseController(IControllerFactory factory, BossView bossView, BossModel model)
+    public BossPhaseController(IControllerFactory factory, BossView view, BossModel model)
       : base(factory)
     {
-      _bossView = bossView;
+      _view = view;
       _model = model;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
       var done = new UniTaskCompletionSource();
-      int remaining = _bossView.GetPhaseWeakPoints(_model.CurrentPhaseIndex).Count;
+      int remaining = _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex).Count;
 
-      foreach (WeakPointView weakPoint in _bossView.GetPhaseWeakPoints(_model.CurrentPhaseIndex))
+      foreach (WeakPointView weakPoint in _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex))
       {
         weakPoint.Show();
         WeakPointView captured = weakPoint;

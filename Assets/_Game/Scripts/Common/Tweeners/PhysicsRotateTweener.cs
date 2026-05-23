@@ -14,14 +14,6 @@ namespace Sling.Common.Tweeners
     [Tooltip("The number of repetitions. Setting cycles to '-1' will repeat the animation indefinitely.")]
     public int Cycles = -1;
 
-    private float _initialRotation;
-
-    protected override void Awake()
-    {
-      base.Awake();
-      _initialRotation = _rigidbody.rotation;
-    }
-
     public override void StartTween()
     {
       if (Angles.Count == 0)
@@ -32,7 +24,7 @@ namespace Sling.Common.Tweeners
       float ParentDelta() => (parent != null ? parent.eulerAngles.z : 0f) - initialParentAngle;
 
       _sequence = Sequence.Create(Cycles, updateType: UpdateType.FixedUpdate);
-      float currentAngle = _initialRotation;
+      float currentAngle = _rigidbody.rotation;
 
       foreach (float angle in Angles)
       {
