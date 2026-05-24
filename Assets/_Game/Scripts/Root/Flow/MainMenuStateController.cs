@@ -35,7 +35,7 @@ namespace Sling.Root.Flow
 
       _gameModel.GameState = GameState.PlayLevels;
       _gameModel.LevelIndex = levelIndex;
-      _gameModel.SceneToLoad = _gameConfig.LevelScenes[levelIndex].SceneName;
+      _gameModel.SceneToLoad = _gameConfig.Levels[levelIndex].Scene.SceneName;
 
       Complete();
     }

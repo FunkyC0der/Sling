@@ -43,8 +43,8 @@ namespace Sling.Root.Flow
 
         if (sessionResult == LevelSessionResult.Next)
         {
-          _gameModel.LevelIndex = Mathf.Min(_gameModel.LevelIndex + 1, _gameConfig.LevelScenes.Count - 1);
-          _gameModel.SceneToLoad = _gameConfig.LevelScenes[_gameModel.LevelIndex].SceneName;
+          _gameModel.LevelIndex = Mathf.Min(_gameModel.LevelIndex + 1, _gameConfig.Levels.Count - 1);
+          _gameModel.SceneToLoad = _gameConfig.Levels[_gameModel.LevelIndex].Scene.SceneName;
         }
       } while (true);
 

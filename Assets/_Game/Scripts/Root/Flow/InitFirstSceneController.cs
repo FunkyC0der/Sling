@@ -33,7 +33,7 @@ namespace Sling.Root.Flow
         {
           _gameModel.GameState = GameState.PlayLevels;
 
-          int levelIndex = _gameConfig.LevelScenes.FindIndex(level => level.SceneName == editorScene);
+          int levelIndex = _gameConfig.Levels.FindIndex(level => level.Scene.SceneName == editorScene);
           if (levelIndex > -1)
             _gameModel.LevelIndex = levelIndex;
         }

@@ -31,15 +31,21 @@ namespace Sling.Root.MainMenu.SelectLevel
     {
       _window = window;
       
-      ScrollView scrollView = _window.Q<ScrollView>();
-      scrollView.Clear();
+      VisualElement levelItemsContainer = _window.Q(WindowNames.LevelItemsContainer);
+      levelItemsContainer.Clear();
 
-      for (int i = 0; i < _gameConfig.LevelScenes.Count; i++)
+      for (int i = 0; i < _gameConfig.Levels.Count; i++)
       {
-        _gameConfig.SelectLevelLevelItemUxml.CloneTree(scrollView.contentContainer);
-        VisualElement levelItem = scrollView.ElementAt(i);
+        _gameConfig.SelectLevelLevelItemUxml.CloneTree(levelItemsContainer.contentContainer);
+        VisualElement levelItem = levelItemsContainer.ElementAt(i);
         
-        levelItem.dataSource = new LevelItemViewData() {Name = _gameConfig.LevelScenes[i].SceneName};
+        levelItem.dataSource = new LevelItemViewData() {Name = $"{i + 1}"};
+        
+        LevelType levelType = _gameConfig.Levels[i].Type;
+        if(levelType == LevelType.Boss)
+          levelItem.AddToClassList(WindowNames.Classes.BossLevelItem);
+        else if (levelType == LevelType.SuperBoss)
+          levelItem.AddToClassList(WindowNames.Classes.SuperBossLevelItem);
 
         int levelIndex = i;
         levelItem.AddManipulator(new Clickable(() => SelectItem(levelIndex, levelItem)));

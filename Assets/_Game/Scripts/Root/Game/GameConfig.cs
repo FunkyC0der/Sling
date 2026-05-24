@@ -10,7 +10,7 @@ namespace Sling.Root.Game
   {
     [Header("Scenes")]
     public SceneReference MainMenuScene;
-    public List<SceneReference> LevelScenes = new();
+    public List<LevelConfig> Levels = new();
 
     [Header("UI")]
     public VisualTreeAsset SelectLevelWindowUxml;

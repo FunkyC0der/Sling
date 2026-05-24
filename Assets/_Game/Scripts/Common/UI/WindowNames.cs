@@ -10,6 +10,7 @@ namespace Sling.Common.UI
     public const string RestartButton   = "RestartButton";
     public const string MenuButton      = "MenuButton";
     public const string PauseButton     = "PauseButton";
+    public const string LevelItemsContainer = "LevelItemsContainer";
 
     public static class Classes
     {
@@ -17,6 +18,8 @@ namespace Sling.Common.UI
       public const string ContainerOpen = "container-open";
       public const string WindowClose = "window-close";
       public const string WindowOpen = "window-open";
+      public const string BossLevelItem = "level-item--boss";
+      public const string SuperBossLevelItem = "level-item--super-boss";
     }
   }
 }

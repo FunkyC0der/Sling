@@ -17,123 +17,181 @@ MonoBehaviour:
     SceneName: MainMenu
     sceneIndex: 1
     sceneEnabled: 1
-  LevelScenes:
-  - Scene: {fileID: 102900000, guid: cc5a276819af27a4eb80a16ada7c210d, type: 3}
-    SceneName: Level_1
-    sceneIndex: 2
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 03f0abeaf81f1e84c9e63acf3b7f78a2, type: 3}
-    SceneName: Level_2
-    sceneIndex: 3
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 07ba216274bc059439db7906ec6611be, type: 3}
-    SceneName: Level_3
-    sceneIndex: 4
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: a263640b0bac14c4d957f0fe14bf0eb0, type: 3}
-    SceneName: Level_4
-    sceneIndex: 5
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: b8e4417dab9a91d48a84a19a67552c60, type: 3}
-    SceneName: Level_5
-    sceneIndex: 6
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 3ec2f8b6a05341047a031b2f62e00872, type: 3}
-    SceneName: Level_6
-    sceneIndex: 7
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 818d8e2e8af5d8d4e8062aec95a1dc13, type: 3}
-    SceneName: Level_7
-    sceneIndex: 8
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: d420ab4a9360c4c4b95ca859bc982dee, type: 3}
-    SceneName: Level_8
-    sceneIndex: 9
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 0bbae983f07bc254990b49173110b879, type: 3}
-    SceneName: Level_9
-    sceneIndex: 10
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 8819f200715439943a8c4124eb5600c1, type: 3}
-    SceneName: Level_10
-    sceneIndex: 11
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: fb84bb351d43d804d9061633b15bc6f2, type: 3}
-    SceneName: Level_11
-    sceneIndex: 12
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: bb6d25b598bc6e346baac89f5af8f45f, type: 3}
-    SceneName: Level_12
-    sceneIndex: 13
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 8dcc142eef449d34b8335aaf21a0dced, type: 3}
-    SceneName: Level_13
-    sceneIndex: 14
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: a605299c3f6294246a408e84cc2e9a8d, type: 3}
-    SceneName: Level_14
-    sceneIndex: 15
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: d475202e24a311443abc263615f3ca1f, type: 3}
-    SceneName: Level_Boss1
-    sceneIndex: 31
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: b0f4f80e35d490d40914b0ee7a04d986, type: 3}
-    SceneName: Level_15
-    sceneIndex: 16
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 2f47f54f45205c84782e1ff2a28aba6f, type: 3}
-    SceneName: Level_16
-    sceneIndex: 17
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 80d7d8f93c71fe14bae82c37b8311656, type: 3}
-    SceneName: Level_17
-    sceneIndex: 18
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: ee72904cd79551649acb685878313469, type: 3}
-    SceneName: Level_18
-    sceneIndex: 19
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 51c50d72a4b67fa4481b4e6387d44b5b, type: 3}
-    SceneName: Level_19
-    sceneIndex: 20
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 940b98154f6dbfa41861ed858001014a, type: 3}
-    SceneName: Level_20
-    sceneIndex: 21
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: ccd098471d9a1d144826d3295f2cc2e7, type: 3}
-    SceneName: Level_21
-    sceneIndex: 22
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 0b508edbb8cebb54e94d46d2cc096a5c, type: 3}
-    SceneName: Level_22
-    sceneIndex: 23
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 8ac38b0de5d480649a48c475fb99e8ef, type: 3}
-    SceneName: Level_23
-    sceneIndex: 24
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: a0a7fd6ab9a3e37459f54202ee8e2fcb, type: 3}
-    SceneName: Level_24
-    sceneIndex: 25
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 62fee13d4a8babf45a3bf43da1fb7f3d, type: 3}
-    SceneName: Level_25
-    sceneIndex: 26
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 4f6c5790cb8ce6c42bafd379c2f7d3b9, type: 3}
-    SceneName: Level_26
-    sceneIndex: 27
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: 4a6cae68c0c8ff147a7c3bea63736cf8, type: 3}
-    SceneName: Level_27
-    sceneIndex: 28
-    sceneEnabled: 1
-  - Scene: {fileID: 102900000, guid: a2448baaae115b54aad7c5922d752589, type: 3}
-    SceneName: Level_28
-    sceneIndex: 29
-    sceneEnabled: 1
+  Levels:
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: cc5a276819af27a4eb80a16ada7c210d, type: 3}
+      SceneName: Level_1
+      sceneIndex: 2
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 03f0abeaf81f1e84c9e63acf3b7f78a2, type: 3}
+      SceneName: Level_2
+      sceneIndex: 3
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 07ba216274bc059439db7906ec6611be, type: 3}
+      SceneName: Level_3
+      sceneIndex: 4
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: a263640b0bac14c4d957f0fe14bf0eb0, type: 3}
+      SceneName: Level_4
+      sceneIndex: 5
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: b8e4417dab9a91d48a84a19a67552c60, type: 3}
+      SceneName: Level_5
+      sceneIndex: 6
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 3ec2f8b6a05341047a031b2f62e00872, type: 3}
+      SceneName: Level_6
+      sceneIndex: 7
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 818d8e2e8af5d8d4e8062aec95a1dc13, type: 3}
+      SceneName: Level_7
+      sceneIndex: 8
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: d420ab4a9360c4c4b95ca859bc982dee, type: 3}
+      SceneName: Level_8
+      sceneIndex: 9
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 0bbae983f07bc254990b49173110b879, type: 3}
+      SceneName: Level_9
+      sceneIndex: 10
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 8819f200715439943a8c4124eb5600c1, type: 3}
+      SceneName: Level_10
+      sceneIndex: 11
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: fb84bb351d43d804d9061633b15bc6f2, type: 3}
+      SceneName: Level_11
+      sceneIndex: 12
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: bb6d25b598bc6e346baac89f5af8f45f, type: 3}
+      SceneName: Level_12
+      sceneIndex: 13
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 8dcc142eef449d34b8335aaf21a0dced, type: 3}
+      SceneName: Level_13
+      sceneIndex: 14
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: a605299c3f6294246a408e84cc2e9a8d, type: 3}
+      SceneName: Level_14
+      sceneIndex: 15
+      sceneEnabled: 1
+  - Type: 1
+    Scene:
+      Scene: {fileID: 102900000, guid: d475202e24a311443abc263615f3ca1f, type: 3}
+      SceneName: Level_Boss1
+      sceneIndex: 31
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: b0f4f80e35d490d40914b0ee7a04d986, type: 3}
+      SceneName: Level_15
+      sceneIndex: 16
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 2f47f54f45205c84782e1ff2a28aba6f, type: 3}
+      SceneName: Level_16
+      sceneIndex: 17
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 80d7d8f93c71fe14bae82c37b8311656, type: 3}
+      SceneName: Level_17
+      sceneIndex: 18
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: ee72904cd79551649acb685878313469, type: 3}
+      SceneName: Level_18
+      sceneIndex: 19
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 51c50d72a4b67fa4481b4e6387d44b5b, type: 3}
+      SceneName: Level_19
+      sceneIndex: 20
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 940b98154f6dbfa41861ed858001014a, type: 3}
+      SceneName: Level_20
+      sceneIndex: 21
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: ccd098471d9a1d144826d3295f2cc2e7, type: 3}
+      SceneName: Level_21
+      sceneIndex: 22
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 0b508edbb8cebb54e94d46d2cc096a5c, type: 3}
+      SceneName: Level_22
+      sceneIndex: 23
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 8ac38b0de5d480649a48c475fb99e8ef, type: 3}
+      SceneName: Level_23
+      sceneIndex: 24
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: a0a7fd6ab9a3e37459f54202ee8e2fcb, type: 3}
+      SceneName: Level_24
+      sceneIndex: 25
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 62fee13d4a8babf45a3bf43da1fb7f3d, type: 3}
+      SceneName: Level_25
+      sceneIndex: 26
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 4f6c5790cb8ce6c42bafd379c2f7d3b9, type: 3}
+      SceneName: Level_26
+      sceneIndex: 27
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 4a6cae68c0c8ff147a7c3bea63736cf8, type: 3}
+      SceneName: Level_27
+      sceneIndex: 28
+      sceneEnabled: 1
+  - Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: a2448baaae115b54aad7c5922d752589, type: 3}
+      SceneName: Level_28
+      sceneIndex: 29
+      sceneEnabled: 1
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
   LevelCompleteWindowUxml: {fileID: 9197481963319205126, guid: 0066c9393c3414aacb820d7101ea4cd4, type: 3}

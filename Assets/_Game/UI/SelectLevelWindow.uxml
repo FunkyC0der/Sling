@@ -2,26 +2,43 @@
     <ui:Template name="LevelItem" src="project://database/Assets/_Game/UI/LevelItem.uxml?fileID=9197481963319205126&amp;guid=0561a3968ed404be0beb3e0290c01e0c&amp;type=3#LevelItem"/>
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
     <ui:VisualElement name="Root" style="flex-grow: 1; justify-content: center;">
-        <ui:VisualElement name="Window" class="rounded popup-window" style="height: 900px;">
-            <ui:VisualElement name="TitleContainer" class="rounded popup-title-container">
-                <ui:Label text="SELECT LEVEL" name="Title" class="popup-title"/>
-            </ui:VisualElement>
-            <ui:VisualElement name="LevelsListContainer" class="bordered-frame rounded" style="flex-grow: 1; padding: 11px; flex-shrink: 1;">
-                <ui:ScrollView style="flex-grow: 1;">
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                    <ui:Instance template="LevelItem"/>
-                </ui:ScrollView>
-            </ui:VisualElement>
-            <ui:VisualElement name="PlayButtonContainer" style="flex-basis: 15%; padding: 12px; flex-shrink: 0;">
-                <ui:Button text="PLAY" focusable="false" name="PlayButton" class="primary-button rounded"/>
-            </ui:VisualElement>
+        <ui:VisualElement name="Title" style="flex-grow: 0; flex-basis: 305px;">
+            <ui:Label text="SLING&#10;HERO" name="GameText" style="align-self: center; color: rgb(255, 255, 255); font-size: 84px; -unity-font-style: bold; top: 42px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="LevelItemsContainer" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; margin-left: 310px; margin-right: 250px; justify-content: flex-start;">
+            <ui:Instance template="LevelItem" name="TemplateContainer"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+            <ui:Instance template="LevelItem"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="Footer" style="flex-grow: 0; flex-shrink: 0; flex-basis: 253px;">
+            <ui:Button text="PLAY" focusable="false" name="PlayButton" class="primary-button rounded" style="position: absolute; right: 60px; bottom: 50px; flex-grow: 0; width: 254px; height: 129px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
