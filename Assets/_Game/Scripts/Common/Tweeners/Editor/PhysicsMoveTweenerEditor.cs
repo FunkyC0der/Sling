@@ -16,6 +16,11 @@ namespace Sling.Common.Tweeners.Editor
       Vector3 initialLocalPos = t.localPosition;
       Vector3 prevWorld = OffsetToWorld(t, initialLocalPos, Vector3.zero);
 
+      GUIStyle labelStyle = new GUIStyle(EditorStyles.boldLabel)
+      {
+        normal = { textColor = Color.yellow },
+      };
+
       for (int i = 0; i < tweener.Points.Count; i++)
       {
         Vector3 worldPoint = OffsetToWorld(t, initialLocalPos, tweener.Points[i]);
@@ -33,6 +38,9 @@ namespace Sling.Common.Tweeners.Editor
           tweener.Points[i] = WorldToOffset(t, initialLocalPos, newWorld);
           EditorUtility.SetDirty(tweener);
         }
+
+        Vector3 labelOffset = Vector3.up * HandleUtility.GetHandleSize(worldPoint) * 0.2f;
+        Handles.Label(worldPoint + labelOffset, (i + 1).ToString(), labelStyle);
 
         prevWorld = worldPoint;
       }

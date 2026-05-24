@@ -35,6 +35,11 @@ namespace Sling.Common.Tweeners.Editor
       Vector3 initialLocalPos = t.localPosition;
       Vector3 currentOffset = Vector3.zero;
 
+      GUIStyle labelStyle = new GUIStyle(EditorStyles.boldLabel)
+      {
+        normal = { textColor = Color.yellow },
+      };
+
       for (int i = 0; i < tweener.Segments.Count; i++)
       {
         BezierSegment seg = tweener.Segments[i];
@@ -82,6 +87,9 @@ namespace Sling.Common.Tweeners.Editor
           tweener.Segments[i] = seg;
           EditorUtility.SetDirty(tweener);
         }
+
+        Vector3 labelOffset = Vector3.up * HandleUtility.GetHandleSize(worldPoint) * 0.2f;
+        Handles.Label(worldPoint + labelOffset, (i + 1).ToString(), labelStyle);
 
         currentOffset = seg.Point;
       }
