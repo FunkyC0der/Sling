@@ -104,9 +104,9 @@ MonoBehaviour:
       sceneEnabled: 1
   - Type: 1
     Scene:
-      Scene: {fileID: 102900000, guid: d475202e24a311443abc263615f3ca1f, type: 3}
+      Scene: {fileID: 102900000, guid: 82b9d28d9323a864e93df2cd1d3efd4d, type: 3}
       SceneName: Level_Boss1
-      sceneIndex: 31
+      sceneIndex: 32
       sceneEnabled: 1
   - Type: 0
     Scene:
@@ -191,6 +191,12 @@ MonoBehaviour:
       Scene: {fileID: 102900000, guid: a2448baaae115b54aad7c5922d752589, type: 3}
       SceneName: Level_28
       sceneIndex: 29
+      sceneEnabled: 1
+  - Type: 2
+    Scene:
+      Scene: {fileID: 102900000, guid: d475202e24a311443abc263615f3ca1f, type: 3}
+      SceneName: Level_Boss2
+      sceneIndex: 31
       sceneEnabled: 1
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
