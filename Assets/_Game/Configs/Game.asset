@@ -74,6 +74,10 @@ MonoBehaviour:
     SceneName: Level_14
     sceneIndex: 15
     sceneEnabled: 1
+  - Scene: {fileID: 102900000, guid: d475202e24a311443abc263615f3ca1f, type: 3}
+    SceneName: Level_Boss1
+    sceneIndex: 31
+    sceneEnabled: 1
   - Scene: {fileID: 102900000, guid: b0f4f80e35d490d40914b0ee7a04d986, type: 3}
     SceneName: Level_15
     sceneIndex: 16
