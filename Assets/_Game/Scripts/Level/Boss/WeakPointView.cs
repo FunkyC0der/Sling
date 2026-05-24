@@ -8,7 +8,8 @@ namespace Sling.Level.Boss
   {
     public event Action OnHit;
 
-    private void OnTriggerEnter2D(Collider2D other) => OnHit?.Invoke();
+    private void OnCollisionEnter2D() => 
+      OnHit?.Invoke();
 
     public void Show() => gameObject.SetActive(true);
 
