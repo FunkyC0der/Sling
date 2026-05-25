@@ -53,7 +53,6 @@
     flex-shrink: 0;
     height: 100px;
     background-color: rgb(103, 103, 103);
-    margin-bottom: 15px;
     color: var(--color-text-light);
     width: 100px;
     border-top-width: 5px;
@@ -64,17 +63,34 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-top: 15px;
+    margin: 15px;
 }
 
 .level-item:hover {
     background-color: rgb(82, 82, 82);
 }
 
-.level-item:checked {
-    background-color: rgb(111, 54, 54);
+.level-item__selected-rect {
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    right: -12px;
+    bottom: -12px;
+    border-width: 4px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    opacity: 0;
+}
+
+.level-item__selected-rect:checked {
+    opacity: 1;
+    transition-duration: 0.2s;
 }
 
 .level-item--boss {
@@ -86,10 +102,6 @@
     background-color: rgb(95, 56, 8);
 }
 
-.level-item--boss:checked {
-    background-color: rgb(160, 90, 20);
-}
-
 .level-item--super-boss {
     background-color: rgb(80, 10, 100);
     scale: 1.1 1.1;
@@ -97,10 +109,6 @@
 
 .level-item--super-boss:hover {
     background-color: rgb(60, 8, 75);
-}
-
-.level-item--super-boss:checked {
-    background-color: rgb(110, 20, 140);
 }
 
 .level-item__name {

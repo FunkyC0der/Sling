@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.UI;
 using Sling.Common.UI.Windows;
-using Sling.Level.LevelComplete;
 using Sling.Root.Game;
 using UnityEngine.UIElements;
 
@@ -15,8 +12,8 @@ namespace Sling.Root.MainMenu.SelectLevel
   {
     private VisualElement _window;
     private int _selectedLevelIndex;
-    private VisualElement _selectedLevelItem;
-    
+    private VisualElement _selectedRect;
+
     private readonly GameConfig _gameConfig;
 
     public SelectLevelWindowController(IControllerFactory controllerFactory, GameConfig gameConfig)
@@ -38,13 +35,13 @@ namespace Sling.Root.MainMenu.SelectLevel
       {
         _gameConfig.SelectLevelLevelItemUxml.CloneTree(levelItemsContainer.contentContainer);
         VisualElement levelItem = levelItemsContainer.ElementAt(i);
-        
+
         levelItem.dataSource = new LevelItemViewData() {Name = $"{i + 1}"};
-        
+
         LevelType levelType = _gameConfig.Levels[i].Type;
         if(levelType == LevelType.Boss)
           levelItem.AddToClassList(WindowNames.Classes.BossLevelItem);
-        else if (levelType == LevelType.SuperBoss)
+        else if(levelType == LevelType.SuperBoss)
           levelItem.AddToClassList(WindowNames.Classes.SuperBossLevelItem);
 
         int levelIndex = i;
@@ -67,11 +64,11 @@ namespace Sling.Root.MainMenu.SelectLevel
     
     private void SelectItem(int levelIndex, VisualElement levelItem)
     {
-      _selectedLevelItem?.SetCheckedPseudoState(false);
+      _selectedRect?.SetCheckedPseudoState(false);
 
       _selectedLevelIndex = levelIndex;
-      _selectedLevelItem = levelItem;
-      _selectedLevelItem.SetCheckedPseudoState(true);
+      _selectedRect = levelItem.Q<VisualElement>(WindowNames.SelectedRect);
+      _selectedRect.SetCheckedPseudoState(true);
     }
   }
 }
