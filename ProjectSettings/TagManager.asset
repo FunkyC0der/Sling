@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Surface
+  - Ground
   - Player
-  - FinishZone
-  - HazardZone
+  - Objects
+  - 
   - Boss
   - 
   - 
@@ -40,6 +40,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 3485591415
+    locked: 0
+  - name: Objects
+    uniqueID: 1393915797
+    locked: 0
+  - name: Player
+    uniqueID: 956033909
     locked: 0
   m_RenderingLayers:
   - Default

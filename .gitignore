@@ -41,6 +41,11 @@ Crashes/
 .claude/
 CLAUDE.md
 
+# Agents
+.agents/
+.codex/
+AGENTS.md
+
 # Kanban board
 .devtool/
 

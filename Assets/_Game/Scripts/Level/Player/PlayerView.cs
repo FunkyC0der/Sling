@@ -6,10 +6,10 @@ using UnityEngine;
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(Rigidbody2D))]
-  public class PlayerView : MonoBehaviour, IUniqueView
+  public class PlayerView : MonoBehaviour, IUniqueView, ILaunchable
   {
-    public event Action OnFixedTick;
-
+    public event Action OnLaunched;
+    
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
     private Rigidbody2D _rb;
@@ -22,28 +22,16 @@ namespace Sling.Level.Player
       set => _rb.linearVelocityX = value;
     }
 
-    public float LinearVelocityY
-    {
-      get => _rb.linearVelocityY;
-      set => _rb.linearVelocityY = value;
-    }
-
-    public RigidbodyType2D BodyType
-    {
-      get => _rb.bodyType;
-      set => _rb.bodyType = value;
-    }
-
     public Vector3 Position => _rb.position;
 
     private void Awake() =>
       _rb = GetComponent<Rigidbody2D>();
 
-    private void FixedUpdate() =>
-      OnFixedTick?.Invoke();
-
-    public void Launch(Vector2 force) =>
-      _rb.AddForce(force, ForceMode2D.Impulse);
+    public void Launch(Vector2 force)
+    {
+      _rb.linearVelocity = force;
+      OnLaunched?.Invoke();
+    }
 
     public void SetPhysicsEnabled(bool isEnabled) =>
       _rb.bodyType = isEnabled ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
@@ -58,7 +46,7 @@ namespace Sling.Level.Player
 
       for (int i = 0; i < Config.DieFlickerCount; ++i)
       {
-        sprite.color = Color.white;
+        sprite.color = Color.red;
         await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
         sprite.color = originalColor;
         await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
@@ -73,5 +61,6 @@ namespace Sling.Level.Player
       _rb.bodyType = RigidbodyType2D.Dynamic;
       gameObject.SetActive(true);
     }
+
   }
 }

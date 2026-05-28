@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c82e947ebf4a8da24dbe7f652a8324, type: 3}
   m_Name: StickyWall
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.StickyWall.StickyWallConfig
-  <Stickiness>k__BackingField: 1
-  <MaxFallSpeed>k__BackingField: 0.15
+  <MaxSpeed>k__BackingField: 0.5

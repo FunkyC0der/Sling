@@ -1,0 +1,40 @@
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace Sling.Common.Views
+{
+  public class HorizontalSizeEditorView : MonoBehaviour
+  {
+    [Min(1)]
+    [SerializeField] private int _count = 1;
+    [SerializeField] private float _unitSize = 1;
+
+    [Header("References")] 
+    [SerializeField] private BoxCollider2D _collider;
+    [SerializeField] private SpriteRenderer _renderer;
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+      EditorApplication.delayCall -= ApplySize;
+      EditorApplication.delayCall += ApplySize;
+    }
+
+    private void ApplySize()
+    {
+      EditorApplication.delayCall -= ApplySize;
+
+      float width = _count * _unitSize;
+      
+      if (_renderer)
+        _renderer.size = new Vector2(width, _renderer.size.y);
+      
+      if(_collider)
+        _collider.size = new Vector2(width, _collider.size.y);    
+    }
+#endif
+  }
+}

@@ -6,6 +6,6 @@ namespace Sling.Level.Elements.StickyWall
   public class StickyWallConfig : ScriptableObject
   {
     [field: Min(0)]
-    [field: SerializeField] public float MaxFallSpeed { get; private set; } = 1f;
+    [field: SerializeField] public float MaxSpeed { get; private set; } = 1f;
   }
 }
