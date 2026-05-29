@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 7500360534249774184}
   - component: {fileID: 1698434795264424354}
   m_Layer: 8
-  m_Name: HazardZone
+  m_Name: HazardZone_Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
