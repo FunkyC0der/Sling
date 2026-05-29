@@ -43,16 +43,16 @@ namespace Sling.Common.Tweeners.Editor
       for (int i = 0; i < tweener.Segments.Count; i++)
       {
         BezierSegment seg = tweener.Segments[i];
-        Vector3 worldStart   = OffsetToWorld(t, initialLocalPos, currentOffset);
-        Vector3 worldPoint   = OffsetToWorld(t, initialLocalPos, seg.Point);
-        Vector3 worldControl = OffsetToWorld(t, initialLocalPos, seg.Control);
+        Vector3 worldStart   = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos, currentOffset);
+        Vector3 worldPoint   = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos, seg.Point);
+        Vector3 worldControl = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos, seg.Control);
 
         Handles.color = Color.yellow;
         Vector3 prev = worldStart;
         for (int s = 1; s <= 16; s++)
         {
           float tv = s / 16f, mt = 1f - tv;
-          Vector3 sample = OffsetToWorld(t, initialLocalPos,
+          Vector3 sample = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos,
             mt * mt * currentOffset + 2f * mt * tv * seg.Control + tv * tv * seg.Point);
           Handles.DrawLine(prev, sample);
           prev = sample;
@@ -63,29 +63,19 @@ namespace Sling.Common.Tweeners.Editor
         Handles.DrawLine(worldControl, worldPoint);
 
         Handles.color = Color.yellow;
-        EditorGUI.BeginChangeCheck();
-        Vector3 newWorldPoint = Handles.FreeMoveHandle(
-          worldPoint, HandleUtility.GetHandleSize(worldPoint) * 0.15f,
-          Vector3.zero, Handles.SphereHandleCap);
-        if (EditorGUI.EndChangeCheck())
+        Vector3 point = seg.Point;
+        if (TweenerEditorHandles.MovePointHandle(tweener, "Move Bezier Point", t, initialLocalPos, ref point))
         {
-          Undo.RecordObject(tweener, "Move Bezier Point");
-          seg.Point = WorldToOffset(t, initialLocalPos, newWorldPoint);
+          seg.Point = point;
           tweener.Segments[i] = seg;
-          EditorUtility.SetDirty(tweener);
         }
 
         Handles.color = Color.red;
-        EditorGUI.BeginChangeCheck();
-        Vector3 newWorldControl = Handles.FreeMoveHandle(
-          worldControl, HandleUtility.GetHandleSize(worldControl) * 0.1f,
-          Vector3.zero, Handles.SphereHandleCap);
-        if (EditorGUI.EndChangeCheck())
+        Vector3 control = seg.Control;
+        if (BezierControlHandle(tweener, t, initialLocalPos, ref control))
         {
-          Undo.RecordObject(tweener, "Move Bezier Control");
-          seg.Control = WorldToOffset(t, initialLocalPos, newWorldControl);
+          seg.Control = control;
           tweener.Segments[i] = seg;
-          EditorUtility.SetDirty(tweener);
         }
 
         Vector3 labelOffset = Vector3.up * HandleUtility.GetHandleSize(worldPoint) * 0.2f;
@@ -93,6 +83,28 @@ namespace Sling.Common.Tweeners.Editor
 
         currentOffset = seg.Point;
       }
+    }
+
+    private static bool BezierControlHandle(
+      PhysicsBezierMoveTweener tweener,
+      Transform transform,
+      Vector3 initialLocalPosition,
+      ref Vector3 control)
+    {
+      Vector3 worldControl = TweenerEditorHandles.OffsetToWorld(transform, initialLocalPosition, control);
+
+      EditorGUI.BeginChangeCheck();
+      Vector3 newWorldControl = Handles.FreeMoveHandle(
+        worldControl, HandleUtility.GetHandleSize(worldControl) * 0.1f,
+        TweenerEditorHandles.MoveHandleSnap, Handles.SphereHandleCap);
+      if (!EditorGUI.EndChangeCheck())
+        return false;
+
+      Undo.RecordObject(tweener, "Move Bezier Control");
+      newWorldControl = TweenerEditorHandles.SnapToGridIfEnabled(newWorldControl);
+      control = TweenerEditorHandles.WorldToOffset(transform, initialLocalPosition, newWorldControl);
+      EditorUtility.SetDirty(tweener);
+      return true;
     }
 
     private void FillCircle()
@@ -131,16 +143,5 @@ namespace Sling.Common.Tweeners.Editor
       return segments;
     }
 
-    private static Vector3 OffsetToWorld(Transform t, Vector3 initialLocalPos, Vector3 offset)
-    {
-      Vector3 localPos = initialLocalPos + t.localRotation * offset;
-      return t.parent != null ? t.parent.TransformPoint(localPos) : localPos;
-    }
-
-    private static Vector3 WorldToOffset(Transform t, Vector3 initialLocalPos, Vector3 worldPos)
-    {
-      Vector3 localPos = t.parent != null ? t.parent.InverseTransformPoint(worldPos) : worldPos;
-      return Quaternion.Inverse(t.localRotation) * (localPos - initialLocalPos);
-    }
   }
 }

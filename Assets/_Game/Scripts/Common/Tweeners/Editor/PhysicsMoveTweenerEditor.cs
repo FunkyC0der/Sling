@@ -14,7 +14,7 @@ namespace Sling.Common.Tweeners.Editor
 
       Transform t = tweener.transform;
       Vector3 initialLocalPos = t.localPosition;
-      Vector3 prevWorld = OffsetToWorld(t, initialLocalPos, Vector3.zero);
+      Vector3 prevWorld = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos, Vector3.zero);
 
       GUIStyle labelStyle = new GUIStyle(EditorStyles.boldLabel)
       {
@@ -23,39 +23,20 @@ namespace Sling.Common.Tweeners.Editor
 
       for (int i = 0; i < tweener.Points.Count; i++)
       {
-        Vector3 worldPoint = OffsetToWorld(t, initialLocalPos, tweener.Points[i]);
+        Vector3 point = tweener.Points[i];
+        Vector3 worldPoint = TweenerEditorHandles.OffsetToWorld(t, initialLocalPos, point);
 
         Handles.color = Color.yellow;
         Handles.DrawLine(prevWorld, worldPoint);
 
-        EditorGUI.BeginChangeCheck();
-        Vector3 newWorld = Handles.FreeMoveHandle(
-          worldPoint, HandleUtility.GetHandleSize(worldPoint) * 0.15f,
-          Vector3.zero, Handles.SphereHandleCap);
-        if (EditorGUI.EndChangeCheck())
-        {
-          Undo.RecordObject(tweener, "Move Tweener Point");
-          tweener.Points[i] = WorldToOffset(t, initialLocalPos, newWorld);
-          EditorUtility.SetDirty(tweener);
-        }
+        if (TweenerEditorHandles.MovePointHandle(tweener, "Move Tweener Point", t, initialLocalPos, ref point))
+          tweener.Points[i] = point;
 
         Vector3 labelOffset = Vector3.up * HandleUtility.GetHandleSize(worldPoint) * 0.2f;
         Handles.Label(worldPoint + labelOffset, (i + 1).ToString(), labelStyle);
 
         prevWorld = worldPoint;
       }
-    }
-
-    private static Vector3 OffsetToWorld(Transform t, Vector3 initialLocalPos, Vector3 offset)
-    {
-      Vector3 localPos = initialLocalPos + t.localRotation * offset;
-      return t.parent != null ? t.parent.TransformPoint(localPos) : localPos;
-    }
-
-    private static Vector3 WorldToOffset(Transform t, Vector3 initialLocalPos, Vector3 worldPos)
-    {
-      Vector3 localPos = t.parent != null ? t.parent.InverseTransformPoint(worldPos) : worldPos;
-      return Quaternion.Inverse(t.localRotation) * (localPos - initialLocalPos);
     }
   }
 }

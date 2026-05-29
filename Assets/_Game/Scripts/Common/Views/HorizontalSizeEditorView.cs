@@ -9,8 +9,8 @@ namespace Sling.Common.Views
   public class HorizontalSizeEditorView : MonoBehaviour
   {
     [Min(1)]
-    [SerializeField] private int _count = 1;
-    [SerializeField] private float _unitSize = 1;
+    [SerializeField] private int _stepsCount = 1;
+    [SerializeField] private int _stepSize = 1;
 
     [Header("References")] 
     [SerializeField] private BoxCollider2D _collider;
@@ -27,7 +27,7 @@ namespace Sling.Common.Views
     {
       EditorApplication.delayCall -= ApplySize;
 
-      float width = _count * _unitSize;
+      float width = _stepsCount * _stepSize;
       
       if (_renderer)
         _renderer.size = new Vector2(width, _renderer.size.y);
