@@ -7,6 +7,8 @@ namespace Sling.Level.Elements.BounceWall
   {
     [SerializeField] private BounceWallConfig _config;
 
+    private Vector3 ReferenceDirection => transform.right;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
       Rigidbody2D rb = collision.rigidbody;
@@ -14,9 +16,9 @@ namespace Sling.Level.Elements.BounceWall
         return;
 
       
-      Vector2 bounceDir = transform.up;
+      Vector2 bounceDir = ReferenceDirection;
       
-      if(!_config.OneDirection && !IsVectorTowardsTo(rb.linearVelocity, transform.up)) 
+      if(!_config.OneDirection && !IsVectorTowardsTo(rb.linearVelocity, ReferenceDirection)) 
         bounceDir *= -1;
 
       Vector2 toObject = (rb.position - (Vector2)transform.position).normalized;
