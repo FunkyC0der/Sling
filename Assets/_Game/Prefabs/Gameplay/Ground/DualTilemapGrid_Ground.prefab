@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8880758968467118511}
   - component: {fileID: 2898481424710144006}
   - component: {fileID: 3927415242036926852}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DualTilemapGrid_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8880758968467118511
 Transform:
@@ -74,12 +74,12 @@ GameObject:
   - component: {fileID: 2529766040199766452}
   - component: {fileID: 1030618886645433061}
   - component: {fileID: 4822783951168571419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VisualTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2529766040199766452
 Transform:
@@ -203,12 +203,12 @@ GameObject:
   - component: {fileID: 3880503686207016554}
   - component: {fileID: 88654040206911454}
   - component: {fileID: 6475885548964329239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PhysicalTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1040078897829789327
 Transform:
@@ -337,7 +337,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5765095812489313470}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
