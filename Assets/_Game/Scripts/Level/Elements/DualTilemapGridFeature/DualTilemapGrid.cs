@@ -152,16 +152,16 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
         case NeighborFlags.kBottomLeft | NeighborFlags.kBottomRight:
           return new TileVariant(_tileSet.EdgeHalf, 0);
-        case NeighborFlags.kBottomRight | NeighborFlags.kTopLeft:
+        case NeighborFlags.kBottomRight | NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.EdgeHalf, 90);
-        case NeighborFlags.kTopLeft | NeighborFlags.kTopRight:
+        case NeighborFlags.kTopRight | NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.EdgeHalf, 180);
-        case NeighborFlags.kBottomLeft | NeighborFlags.kTopRight:
+        case NeighborFlags.kTopLeft | NeighborFlags.kBottomLeft:
           return new TileVariant(_tileSet.EdgeHalf, 270);
 
-        case NeighborFlags.kBottomLeft | NeighborFlags.kTopLeft:
+        case NeighborFlags.kBottomLeft | NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.DiagonalSplit, 0);
-        case NeighborFlags.kBottomRight | NeighborFlags.kTopRight:
+        case NeighborFlags.kBottomRight | NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.DiagonalSplit, 90);
 
         case NeighborFlags.kFull & ~NeighborFlags.kTopRight:
