@@ -61,6 +61,5 @@ namespace Sling.Level.Player
       _rb.bodyType = RigidbodyType2D.Dynamic;
       gameObject.SetActive(true);
     }
-
   }
 }

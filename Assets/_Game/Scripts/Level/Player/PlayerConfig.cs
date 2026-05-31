@@ -17,5 +17,9 @@ namespace Sling.Level.Player
 
     [field: Header("Finish")]
     [field: SerializeField] public float FinishStopDuration { get; private set; } = 0.5f;
+
+    [Header("Physics Tweaks")] 
+    public float GlobalGravity = -9.8f;
+    
   }
 }
