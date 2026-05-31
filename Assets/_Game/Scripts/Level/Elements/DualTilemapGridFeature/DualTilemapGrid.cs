@@ -114,66 +114,68 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
     private int CalculateMask(Vector3Int visualCell)
     {
-      var mask = TileVariantsMask.None;
+      var mask = NeighborFlags.kNone;
 
       if (_physicalTilemap.HasTile(visualCell))
-        mask |= TileVariantsMask.BottomLeft;
+        mask |= NeighborFlags.kBottomLeft;
 
       if (_physicalTilemap.HasTile(visualCell + Vector3Int.right))
-        mask |= TileVariantsMask.BottomRight;
+        mask |= NeighborFlags.kBottomRight;
 
       if (_physicalTilemap.HasTile(visualCell + Vector3Int.up))
-        mask |= TileVariantsMask.TopLeft;
+        mask |= NeighborFlags.kTopLeft;
 
       if (_physicalTilemap.HasTile(visualCell + Vector3Int.right + Vector3Int.up))
-        mask |= TileVariantsMask.TopRight;
+        mask |= NeighborFlags.kTopRight;
 
       return (int)mask;
     }
 
     private TileVariant CreateTileVariantByMask(int mask)
     {
-      if (mask < 0 || mask > 15)
+      if (mask < NeighborFlags.kNone || mask > 15)
         throw new ArgumentOutOfRangeException(nameof(mask), mask, "Dual-tilemap-grid mask must be in range 0..15.");
 
       switch (mask)
       {
-        case 0:
+        case NeighborFlags.kNone:
           return new TileVariant(null, 0);
-        case 15:
-          return new TileVariant(_tileSet.Full, 0);
 
-        case 1:
+        case NeighborFlags.kBottomLeft:
           return new TileVariant(_tileSet.SingleCorner, 0);
-        case 2:
+        case NeighborFlags.kBottomRight:
           return new TileVariant(_tileSet.SingleCorner, 90);
-        case 8:
+        case NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.SingleCorner, 180);
-        case 4:
+        case NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.SingleCorner, 270);
 
-        case 3:
+        case NeighborFlags.kBottomLeft | NeighborFlags.kBottomRight:
           return new TileVariant(_tileSet.EdgeHalf, 0);
-        case 10:
+        case NeighborFlags.kBottomRight | NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.EdgeHalf, 90);
-        case 12:
+        case NeighborFlags.kTopLeft | NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.EdgeHalf, 180);
-        case 5:
+        case NeighborFlags.kBottomLeft | NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.EdgeHalf, 270);
 
-        case 9:
+        case NeighborFlags.kBottomLeft | NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.DiagonalSplit, 0);
-        case 6:
+        case NeighborFlags.kBottomRight | NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.DiagonalSplit, 90);
 
-        case 7:
+        case NeighborFlags.kFull & ~NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.ThreeCorners, 0);
-        case 11:
+        case NeighborFlags.kFull & ~NeighborFlags.kTopLeft:
           return new TileVariant(_tileSet.ThreeCorners, 90);
-        case 14:
+        case NeighborFlags.kFull & ~NeighborFlags.kBottomLeft:
           return new TileVariant(_tileSet.ThreeCorners, 180);
-        case 13:
+        case NeighborFlags.kFull & ~NeighborFlags.kBottomRight:
           return new TileVariant(_tileSet.ThreeCorners, 270);
+        
+        case NeighborFlags.kFull:
+          return new TileVariant(_tileSet.Full, 0);
+        
         default:
           throw new ArgumentOutOfRangeException(nameof(mask), mask, "Unsupported dual-grid mask.");
       }
