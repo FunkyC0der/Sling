@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e74414af4b994d999f53e3154a581de, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerConfig
-  <MaxDragDistance>k__BackingField: 25
-  <LaunchForceMultiplier>k__BackingField: 3.71
-  <TrajectoryHintDuration>k__BackingField: 0.8
+  <MaxDragDistance>k__BackingField: 24
+  <LaunchForceMultiplier>k__BackingField: 4.5
+  <TrajectoryHintDuration>k__BackingField: 0.6
   <DieFlickerCount>k__BackingField: 2
   <DieDuration>k__BackingField: 0.5
   <FinishStopDuration>k__BackingField: 0.2
