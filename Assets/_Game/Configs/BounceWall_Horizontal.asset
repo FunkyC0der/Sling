@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BounceWall_Horizontal
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.BounceWallConfig
   Angle: 60
-  Impulse: 32
-  OneDirection: 0
+  Impulse: 90
+  OneDirection: 1
