@@ -119,11 +119,6 @@ MonoBehaviour:
   _edgeHalf: {fileID: -405905229, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
   _diagonalSplit: {fileID: -398385668, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
   _threeCorners: {fileID: -127590866, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
-  _fullTile: {fileID: 7416529825516105832}
-  _singleCornerTile: {fileID: -3460765683971620224}
-  _edgeHalfTile: {fileID: -4272629401294739954}
-  _diagonalSplitTile: {fileID: 1568158136895324177}
-  _threeCornersTile: {fileID: -94906008770743269}
 --- !u!114 &1568158136895324177
 MonoBehaviour:
   m_ObjectHideFlags: 1

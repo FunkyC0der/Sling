@@ -1,294 +1,182 @@
-using System.Collections.Generic;
+#if UNITY_EDITOR
+using System;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.Tilemaps;
+#endif
+
+using UnityEngine;
 
 namespace Sling.Level.Elements.DualTilemapGridFeature
 {
   [ExecuteAlways]
-  [DisallowMultipleComponent]
   public class DualTilemapGrid : MonoBehaviour
   {
+#if UNITY_EDITOR
     [SerializeField] private Tilemap _physicalTilemap;
     [SerializeField] private Tilemap _visualTilemap;
     [SerializeField] private DualTilemapGridTileSet _tileSet;
     [SerializeField] private bool _autoSync = true;
 
-#if UNITY_EDITOR
-    private bool _isSyncing;
-    private bool _syncQueued;
-#endif
+    private TileVariant[] _tileVariants;
 
     public Tilemap PhysicalTilemap => _physicalTilemap;
     public Tilemap VisualTilemap => _visualTilemap;
-    public DualTilemapGridTileSet TileSet => _tileSet;
-    public bool AutoSync => _autoSync;
 
-#if UNITY_EDITOR
     private void OnEnable()
     {
-      if (!Application.isPlaying)
-        Tilemap.tilemapTileChanged += OnTilemapTileChanged;
+      if (Application.isPlaying)
+        return;
+      
+      _tileVariants = CreateTileVariants();
+      Tilemap.tilemapTileChanged += OnTilemapTileChanged;
     }
 
     private void OnDisable()
     {
-      if (!Application.isPlaying)
-        Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
-
-      EditorApplication.delayCall -= FlushPendingSync;
-      _syncQueued = false;
-    }
-
-    private void OnValidate()
-    {
       if (Application.isPlaying)
         return;
 
-      EditorApplication.delayCall -= ApplyHalfTileOffsetIfAlive;
-      EditorApplication.delayCall += ApplyHalfTileOffsetIfAlive;
+      _tileVariants = null;
+      Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
     }
 
-    private void ApplyHalfTileOffsetIfAlive()
-    {
-      if (this == null)
-        return;
+    public void ApplyVisualTilemapOffset() => 
+      _visualTilemap.transform.localPosition = GetVisualTilemapOffset();
 
-      if (_visualTilemap != null)
-        ApplyHalfTileOffset();
+    public void RebuildVisualTilemap()
+    {
+      if(!IsVisualTilemapAligned())
+        ApplyVisualTilemapOffset();
+      
+      _visualTilemap.ClearAllTiles();
+      
+      _physicalTilemap.CompressBounds();
+      BoundsInt bounds = _physicalTilemap.cellBounds;
+
+      for (int y = bounds.yMin - 1; y < bounds.yMax; y++)
+      for (int x = bounds.xMin - 1; x < bounds.xMax; x++)
+      {
+        var visualCell = new Vector3Int(x, y, 0);
+        
+        int mask = CalculateMask(visualCell);
+
+        TileVariant tileVariant = _tileVariants[mask];
+        if (tileVariant.IsEmpty)
+          continue;
+
+        SetTileToVisualTilemap(visualCell, tileVariant);
+      }
+
+      _visualTilemap.RefreshAllTiles();
+    }
+
+    private void SetTileToVisualTilemap(Vector3Int cell, TileVariant tileVariant)
+    {
+      _visualTilemap.SetTile(cell, CreateVisualTile(tileVariant.Sprite));
+      _visualTilemap.SetTransformMatrix(cell, tileVariant.TransformMatrix);
     }
 
     private void OnTilemapTileChanged(Tilemap tilemap, Tilemap.SyncTile[] syncTiles)
     {
-      if (_isSyncing || !_autoSync || tilemap != _physicalTilemap || syncTiles == null)
+      if (!_autoSync || tilemap != _physicalTilemap)
         return;
 
-      string validationError = GetValidationError();
-      if (!string.IsNullOrEmpty(validationError))
-        return;
-
-      QueuePendingSync();
+      EditorApplication.delayCall -= RebuildVisualTilemap;
+      EditorApplication.delayCall += RebuildVisualTilemap;
     }
 
-    private void QueuePendingSync()
-    {
-      if (_syncQueued)
-        return;
+    private Vector3 GetVisualTilemapOffset() => 
+      _visualTilemap.layoutGrid.cellSize * 0.5f;
 
-      _syncQueued = true;
-      EditorApplication.delayCall += FlushPendingSync;
+    private bool IsVisualTilemapAligned() => 
+      _visualTilemap.transform.localPosition == GetVisualTilemapOffset();
+
+    private static Tile CreateVisualTile(Sprite sprite)
+    {
+      var tile = ScriptableObject.CreateInstance<Tile>();
+      
+      tile.hideFlags = HideFlags.HideAndDontSave;
+      tile.sprite = sprite;
+      tile.colliderType = Tile.ColliderType.None;
+
+      return tile;
     }
 
-    private void FlushPendingSync()
+    private TileVariant[] CreateTileVariants()
     {
-      _syncQueued = false;
+      var variants = new TileVariant[16];
 
-      if (this == null)
-        return;
+      for (int mask = 0; mask < variants.Length; mask++)
+        variants[mask] = CreateTileVariantByMask(mask);
 
-      RebuildVisual();
-    }
-#endif
-
-    public string GetValidationError()
-    {
-      if (_physicalTilemap == null)
-        return "Dual Tilemap Grid requires a physical tilemap.";
-
-      if (_visualTilemap == null)
-        return "Dual Tilemap Grid requires a visual tilemap.";
-
-      if (_physicalTilemap == _visualTilemap)
-        return "Physical and visual tilemaps must be different.";
-
-      if (_tileSet == null)
-        return "Dual Tilemap Grid requires a tile set.";
-
-      string tileSetError = _tileSet.GetValidationError();
-      if (!string.IsNullOrEmpty(tileSetError))
-        return tileSetError;
-
-      return string.Empty;
+      return variants;
     }
 
-    public string GetValidationWarning()
+    private int CalculateMask(Vector3Int visualCell)
     {
-      if (_visualTilemap != null && _visualTilemap.GetComponent<Collider2D>() != null)
-        return "Visual tilemap should not have Collider2D components. Keep physics on the physical tilemap.";
+      var mask = TileVariantsMask.None;
 
-      return string.Empty;
+      if (_physicalTilemap.HasTile(visualCell))
+        mask |= TileVariantsMask.BottomLeft;
+
+      if (_physicalTilemap.HasTile(visualCell + Vector3Int.right))
+        mask |= TileVariantsMask.BottomRight;
+
+      if (_physicalTilemap.HasTile(visualCell + Vector3Int.up))
+        mask |= TileVariantsMask.TopLeft;
+
+      if (_physicalTilemap.HasTile(visualCell + Vector3Int.right + Vector3Int.up))
+        mask |= TileVariantsMask.TopRight;
+
+      return (int)mask;
     }
 
-    public void ApplyHalfTileOffset()
+    private TileVariant CreateTileVariantByMask(int mask)
     {
-      if (_visualTilemap == null)
-        return;
+      if (mask < 0 || mask > 15)
+        throw new ArgumentOutOfRangeException(nameof(mask), mask, "Dual-tilemap-grid mask must be in range 0..15.");
 
-      GridLayout grid = _visualTilemap.layoutGrid != null
-        ? _visualTilemap.layoutGrid
-        : _physicalTilemap != null
-          ? _physicalTilemap.layoutGrid
-          : null;
-
-      Vector3 cellSize = grid != null ? grid.cellSize : Vector3.one;
-      Vector3 localPosition = _visualTilemap.transform.localPosition;
-      localPosition.x = cellSize.x * 0.5f;
-      localPosition.y = cellSize.y * 0.5f;
-
-      if (_visualTilemap.transform.localPosition == localPosition)
-        return;
-
-#if UNITY_EDITOR
-      Undo.RecordObject(_visualTilemap.transform, "Apply Dual Tilemap Grid Half-Tile Offset");
-#endif
-      _visualTilemap.transform.localPosition = localPosition;
-
-#if UNITY_EDITOR
-      MarkSceneDirty();
-#endif
-    }
-
-    public void ClearVisual()
-    {
-      if (_visualTilemap == null)
-        return;
-
-#if UNITY_EDITOR
-      Undo.RecordObject(_visualTilemap, "Clear Dual Tilemap Grid Visual Tilemap");
-#endif
-      _visualTilemap.ClearAllTiles();
-
-#if UNITY_EDITOR
-      MarkSceneDirty();
-#endif
-    }
-
-    public void RebuildVisual()
-    {
-      RebuildVisual(true);
-    }
-
-    public void RebuildVisualWithoutUndo()
-    {
-      RebuildVisual(false);
-    }
-
-    private void RebuildVisual(bool recordUndo)
-    {
-      string validationError = GetValidationError();
-      if (!string.IsNullOrEmpty(validationError))
+      switch (mask)
       {
-        Debug.LogError(validationError, this);
-        return;
+        case 0:
+          return new TileVariant(null, 0);
+        case 15:
+          return new TileVariant(_tileSet.Full, 0);
+
+        case 1:
+          return new TileVariant(_tileSet.SingleCorner, 0);
+        case 2:
+          return new TileVariant(_tileSet.SingleCorner, 90);
+        case 8:
+          return new TileVariant(_tileSet.SingleCorner, 180);
+        case 4:
+          return new TileVariant(_tileSet.SingleCorner, 270);
+
+        case 3:
+          return new TileVariant(_tileSet.EdgeHalf, 0);
+        case 10:
+          return new TileVariant(_tileSet.EdgeHalf, 90);
+        case 12:
+          return new TileVariant(_tileSet.EdgeHalf, 180);
+        case 5:
+          return new TileVariant(_tileSet.EdgeHalf, 270);
+
+        case 9:
+          return new TileVariant(_tileSet.DiagonalSplit, 0);
+        case 6:
+          return new TileVariant(_tileSet.DiagonalSplit, 90);
+
+        case 7:
+          return new TileVariant(_tileSet.ThreeCorners, 0);
+        case 11:
+          return new TileVariant(_tileSet.ThreeCorners, 90);
+        case 14:
+          return new TileVariant(_tileSet.ThreeCorners, 180);
+        case 13:
+          return new TileVariant(_tileSet.ThreeCorners, 270);
+        default:
+          throw new ArgumentOutOfRangeException(nameof(mask), mask, "Unsupported dual-grid mask.");
       }
-
-#if UNITY_EDITOR
-      _isSyncing = true;
-      if (recordUndo)
-        Undo.RecordObject(_visualTilemap, "Rebuild Dual Tilemap Grid Visual Tilemap");
-#endif
-      try
-      {
-        _visualTilemap.ClearAllTiles();
-
-        BoundsInt bounds = _physicalTilemap.cellBounds;
-        for (int y = bounds.yMin - 1; y < bounds.yMax; y++)
-        for (int x = bounds.xMin - 1; x < bounds.xMax; x++)
-          SyncVisualCell(new Vector3Int(x, y, 0));
-      }
-      finally
-      {
-#if UNITY_EDITOR
-        _isSyncing = false;
-        if (recordUndo)
-          MarkSceneDirty();
-#endif
-      }
-    }
-
-    public void SyncChangedPhysicalCells(IReadOnlyCollection<Vector3Int> physicalCells)
-    {
-      string validationError = GetValidationError();
-      if (!string.IsNullOrEmpty(validationError))
-      {
-        Debug.LogError(validationError, this);
-        return;
-      }
-
-#if UNITY_EDITOR
-      _isSyncing = true;
-      Undo.RecordObject(_visualTilemap, "Sync Dual Tilemap Grid Visual Tilemap");
-#endif
-      try
-      {
-        foreach (Vector3Int physicalCell in physicalCells)
-        {
-          SyncVisualCell(physicalCell);
-          SyncVisualCell(physicalCell - Vector3Int.right);
-          SyncVisualCell(physicalCell - Vector3Int.up);
-          SyncVisualCell(physicalCell - Vector3Int.right - Vector3Int.up);
-        }
-      }
-      finally
-      {
-#if UNITY_EDITOR
-        _isSyncing = false;
-        MarkSceneDirty();
-#endif
-      }
-    }
-
-    public int CalculateMask(Vector3Int visualCell)
-    {
-      int mask = 0;
-
-      if (HasPhysicalTile(visualCell))
-        mask |= DualTilemapGridMaskResolver.BottomLeft;
-
-      if (HasPhysicalTile(visualCell + Vector3Int.right))
-        mask |= DualTilemapGridMaskResolver.BottomRight;
-
-      if (HasPhysicalTile(visualCell + Vector3Int.up))
-        mask |= DualTilemapGridMaskResolver.TopLeft;
-
-      if (HasPhysicalTile(visualCell + Vector3Int.right + Vector3Int.up))
-        mask |= DualTilemapGridMaskResolver.TopRight;
-
-      return mask;
-    }
-
-    private bool HasPhysicalTile(Vector3Int cell) =>
-      _physicalTilemap.GetTile(cell) != null;
-
-    private void SyncVisualCell(Vector3Int visualCell)
-    {
-      int mask = CalculateMask(visualCell);
-      if (!_tileSet.TryGetTile(mask, out TileBase tile, out Matrix4x4 transform))
-      {
-        Debug.LogError("Dual Tilemap Grid Tile Set is missing a tile for mask " + mask + ".", this);
-        return;
-      }
-
-      if (tile == null)
-      {
-        _visualTilemap.SetTile(visualCell, null);
-        return;
-      }
-
-      _visualTilemap.SetTile(visualCell, tile);
-      _visualTilemap.SetTileFlags(visualCell, TileFlags.None);
-      _visualTilemap.SetTransformMatrix(visualCell, transform);
-    }
-
-#if UNITY_EDITOR
-    private void MarkSceneDirty()
-    {
-      if (_visualTilemap == null)
-        return;
-
-      EditorUtility.SetDirty(_visualTilemap);
-      EditorSceneManager.MarkSceneDirty(_visualTilemap.gameObject.scene);
     }
 #endif
   }

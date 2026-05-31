@@ -42,7 +42,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
         Tilemap visualTilemap = grid.VisualTilemap;
 
         FillPhysicalTilemap(physicalTilemap, width, height);
-        grid.RebuildVisualWithoutUndo();
+        grid.RebuildVisualTilemap();
         visualTilemap.CompressBounds();
 
         List<VisualTileData> visualTiles = CollectVisualTiles(tilemapInstance.transform, visualTilemap);
@@ -99,10 +99,6 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       DualTilemapGrid grid = _dualTilemapGridPrefab.GetComponentInChildren<DualTilemapGrid>(true);
       if (grid == null)
         return "Dual tilemap grid prefab must contain a DualTilemapGrid.";
-
-      string gridError = grid.GetValidationError();
-      if (!string.IsNullOrEmpty(gridError))
-        return gridError;
 
       if (_physicalTile == null)
         return "Dual Tilemap Grid Object Generator requires a physical tile.";
