@@ -1,4 +1,6 @@
+using PlasticGui.WorkspaceWindow.Security;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Sling.Level.Elements.DualTilemapGridFeature.Editor
@@ -17,11 +19,18 @@ namespace Sling.Level.Elements.DualTilemapGridFeature.Editor
       if (GUILayout.Button("Align Visual Tilemap"))
       {
         grid.ApplyVisualTilemapOffset();
+ 
         EditorUtility.SetDirty(grid);
+        EditorSceneManager.MarkSceneDirty(grid.gameObject.scene);
       }
 
       if (GUILayout.Button("Rebuild Visual Tilemap"))
+      {
         grid.RebuildVisualTilemap();
+        
+        EditorUtility.SetDirty(grid);
+        EditorSceneManager.MarkSceneDirty(grid.gameObject.scene);
+      }
     }
   }
 }

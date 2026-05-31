@@ -27,7 +27,6 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       if (Application.isPlaying)
         return;
       
-      _tileVariants = CreateTileVariants();
       Tilemap.tilemapTileChanged += OnTilemapTileChanged;
     }
 
@@ -36,8 +35,15 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       if (Application.isPlaying)
         return;
 
-      _tileVariants = null;
       Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
+    }
+
+    private void OnValidate()
+    {
+      if (Application.isPlaying)
+        return;
+      
+      _tileVariants = CreateTileVariants();
     }
 
     public void ApplyVisualTilemapOffset() => 
@@ -72,7 +78,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
     private void SetTileToVisualTilemap(Vector3Int cell, TileVariant tileVariant)
     {
-      _visualTilemap.SetTile(cell, CreateVisualTile(tileVariant.Sprite));
+      _visualTilemap.SetTile(cell, tileVariant.Tile);
       _visualTilemap.SetTransformMatrix(cell, tileVariant.TransformMatrix);
     }
 
@@ -91,17 +97,6 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
     private bool IsVisualTilemapAligned() => 
       _visualTilemap.transform.localPosition == GetVisualTilemapOffset();
 
-    private static Tile CreateVisualTile(Sprite sprite)
-    {
-      var tile = ScriptableObject.CreateInstance<Tile>();
-      
-      tile.hideFlags = HideFlags.HideAndDontSave;
-      tile.sprite = sprite;
-      tile.colliderType = Tile.ColliderType.None;
-
-      return tile;
-    }
-
     private TileVariant[] CreateTileVariants()
     {
       var variants = new TileVariant[16];
@@ -114,7 +109,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
     private int CalculateMask(Vector3Int visualCell)
     {
-      var mask = NeighborFlags.kNone;
+      int mask = NeighborFlags.kNone;
 
       if (_physicalTilemap.HasTile(visualCell))
         mask |= NeighborFlags.kBottomLeft;
@@ -128,7 +123,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       if (_physicalTilemap.HasTile(visualCell + Vector3Int.right + Vector3Int.up))
         mask |= NeighborFlags.kTopRight;
 
-      return (int)mask;
+      return mask;
     }
 
     private TileVariant CreateTileVariantByMask(int mask)
@@ -160,9 +155,9 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
           return new TileVariant(_tileSet.EdgeHalf, 270);
 
         case NeighborFlags.kBottomLeft | NeighborFlags.kTopRight:
-          return new TileVariant(_tileSet.DiagonalSplit, 0);
+          return new TileVariant(_tileSet.DiagonalCorners, 0);
         case NeighborFlags.kBottomRight | NeighborFlags.kTopLeft:
-          return new TileVariant(_tileSet.DiagonalSplit, 90);
+          return new TileVariant(_tileSet.DiagonalCorners, 90);
 
         case NeighborFlags.kFull & ~NeighborFlags.kTopRight:
           return new TileVariant(_tileSet.ThreeCorners, 0);

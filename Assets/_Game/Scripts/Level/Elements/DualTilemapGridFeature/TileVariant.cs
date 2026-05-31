@@ -1,21 +1,22 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Sling.Level.Elements.DualTilemapGridFeature
 {
   public class TileVariant
   {
-    public readonly Sprite Sprite;
+    public readonly TileBase Tile;
     public readonly Matrix4x4 TransformMatrix;
 
-    public TileVariant(Sprite sprite, int rotationDegrees)
+    public TileVariant(TileBase tile, int rotationDegrees)
     {
-      Sprite = sprite;
+      Tile = tile;
       TransformMatrix = Matrix4x4.TRS(
         Vector3.zero,
         Quaternion.Euler(0f, 0f, rotationDegrees),
         Vector3.one);
     }
 
-    public bool IsEmpty => !Sprite;
+    public bool IsEmpty => !Tile;
   }
 }

@@ -114,11 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8009e39e39d4415282dc0c6af29abe09, type: 3}
   m_Name: DualTilemapGridTileSet_Ground
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.DualTilemapGrid.DualTilemapGridTileSet
-  _full: {fileID: -1695742065, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
-  _singleCorner: {fileID: -946253763966662253, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
-  _edgeHalf: {fileID: -405905229, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
-  _diagonalSplit: {fileID: -398385668, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
-  _threeCorners: {fileID: -127590866, guid: f85f17b53391e43fdaa607fed8529d26, type: 3}
+  Full: {fileID: 11400000, guid: d9550e197e1854edda4c95a0da31e430, type: 2}
+  SingleCorner: {fileID: 11400000, guid: caa98987ebd59417792311e6ce7f6a11, type: 2}
+  EdgeHalf: {fileID: 11400000, guid: db999d6080b0d49a5b8ceb15f0636c6e, type: 2}
+  DiagonalCorners: {fileID: 11400000, guid: a97f47d41d266443282cd20847a9430a, type: 2}
+  ThreeCorners: {fileID: 11400000, guid: bfa4d4a4c53d9456eb4584c8a0bcf676, type: 2}
 --- !u!114 &1568158136895324177
 MonoBehaviour:
   m_ObjectHideFlags: 1
