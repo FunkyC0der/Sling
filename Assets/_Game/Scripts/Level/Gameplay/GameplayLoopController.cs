@@ -38,8 +38,10 @@ namespace Sling.Level.Gameplay
         _events.OnMenuRequested    -= OnMenu;
       }));
 
-      Execute<OptionalFeatureController<FinishZoneController, FinishZoneView>>();
+      
       Execute<PlayerLaunchController>();
+      
+      Execute<OptionalFeatureController<FinishZoneController, FinishZoneView>>();
       Execute<HazardZonesController>();
       Execute<OptionalFeatureController<BossController, BossView>>();
       Execute<HudController>();

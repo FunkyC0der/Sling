@@ -7,6 +7,9 @@ namespace Sling.Level.Player
   {
     [field: SerializeField] public float MaxDragDistance { get; private set; } = 5f;
     [field: SerializeField] public float LaunchForceMultiplier { get; private set; } = 10f;
+
+    [Min(0)] 
+    public int MaxAirLaunches;
     
     [field: Header("Trajectory")]
     [field: SerializeField] public float TrajectoryHintDuration { get; private set; } = 1f;
