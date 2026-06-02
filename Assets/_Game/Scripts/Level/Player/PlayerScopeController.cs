@@ -2,6 +2,7 @@ using Playtika.Controllers;
 using Sling.Common.Controllers;
 using Sling.Common.Extensions;
 using Sling.Level.Collision;
+using Sling.Level.Player.Launch;
 using VContainer;
 using VContainer.Unity;
 
@@ -25,10 +26,14 @@ namespace Sling.Level.Player
 
     protected override void InitScopeBuilder(IContainerBuilder builder)
     {
+      builder.RegisterInstance(_playerView.Config);
+      
       builder.Register<PlayerModel>(Lifetime.Singleton);
       builder.Register<PlayerController>(Lifetime.Transient);
       builder.Register<IsInAirController>(Lifetime.Transient);
+      
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
+      builder.Register<PlayerPreLaunchFlowController>(Lifetime.Transient);
       
       builder.RegisterGameObjectViews(_playerView.gameObject);
     }

@@ -1,21 +1,15 @@
-using System;
 using Cysharp.Threading.Tasks;
 using Sling.Common.Views;
-using Sling.Level.Common;
 using UnityEngine;
 
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(Rigidbody2D))]
-  public class PlayerView : MonoBehaviour, IUniqueView, ILaunchable
+  public class PlayerView : MonoBehaviour, IUniqueView
   {
-    public event Action OnLaunched;
-    
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
     private Rigidbody2D _rb;
-
-    public float Mass => _rb.mass;
 
     public float LinearVelocityX
     {
@@ -28,14 +22,8 @@ namespace Sling.Level.Player
     private void Awake() =>
       _rb = GetComponent<Rigidbody2D>();
 
-    public void Launch(Vector2 force)
-    {
-      _rb.linearVelocity = force;
-      OnLaunched?.Invoke();
-    }
-
-    public void SetPhysicsEnabled(bool isEnabled) =>
-      _rb.bodyType = isEnabled ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+    public void SetGravityScale(float gravityScale) =>
+      _rb.gravityScale = gravityScale;
 
     public async UniTask Die()
     {

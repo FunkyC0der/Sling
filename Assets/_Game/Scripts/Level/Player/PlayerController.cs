@@ -1,5 +1,6 @@
 using Playtika.Controllers;
 using Sling.Level.Collision;
+using Sling.Level.Player.Launch;
 
 namespace Sling.Level.Player
 {
@@ -20,8 +21,16 @@ namespace Sling.Level.Player
       Execute<IsInAirController, IsInAirController.Context>(
         new IsInAirController.Context(_model.IsInAir, _view.Config.GroundSurfaceLayerMask));
       
-      Execute<PlayerLaunchController, PlayerLaunchController.Context>(
-        new PlayerLaunchController.Context(_model.IsInAir));
+      Execute<PlayerLaunchController>();
+      
+      _view.SetGravityScale(0);
+      _model.OnLaunched += ResetGravityScaleOnce;
+    }
+
+    private void ResetGravityScaleOnce()
+    {
+      _view.SetGravityScale(1);
+      _model.OnLaunched -= ResetGravityScaleOnce;
     }
   }
 }
