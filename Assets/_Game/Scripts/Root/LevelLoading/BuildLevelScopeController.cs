@@ -52,7 +52,7 @@ namespace Sling.Root.LevelLoading
         builder.Register<LevelCompleteWindowController>(Lifetime.Transient);
         builder.Register<RespawnPlayerController>(Lifetime.Transient);
 
-        builder.Register<PlayerLaunchController>(Lifetime.Transient);
+        builder.Register<PlayerScopeController>(Lifetime.Transient);
 
         builder.Register<HazardZonesController>(Lifetime.Transient);
         builder.Register<FinishZoneController>(Lifetime.Transient);

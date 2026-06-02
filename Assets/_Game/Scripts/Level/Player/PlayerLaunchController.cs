@@ -1,35 +1,42 @@
 using System;
 using Playtika.Controllers;
+using Sling.Common;
 using UnityEngine;
 
 namespace Sling.Level.Player
 {
-  public class PlayerLaunchController : ControllerBase
+  public class PlayerLaunchController : ControllerBase<PlayerLaunchController.Context>
   {
+    public class Context
+    {
+      public readonly Observable<bool> IsInAir;
+
+      public Context(Observable<bool> isInAir)
+      {
+        IsInAir = isInAir;
+      }
+    }
+    
     private readonly PlayerInputView _inputView;
     private readonly PlayerView _view;
-    private readonly PlayerIsInAirView _isInAirView;
     private readonly LaunchTrajectoryView _launchTrajectoryView;
     private readonly Func<float, Vector3> _trajectorySamplePosFunc;
 
     private Vector2 _preLaunchStartPos;
     private Vector2 _startVelocity;
-    private Vector2 _launchForce;
     private bool _isFirstLaunch;
     private bool _isInLaunchState;
-    private int _remainingAirLaunches = 1;
+    private int _remainingLaunches;
 
     public PlayerLaunchController(IControllerFactory controllerFactory,
       PlayerInputView inputView,
       PlayerView view,
-      PlayerIsInAirView isInAirView,
       LaunchTrajectoryView launchTrajectoryView)
       : base(controllerFactory)
     {
       _inputView = inputView;
       _view = view;
       _launchTrajectoryView = launchTrajectoryView;
-      _isInAirView = isInAirView;
       _trajectorySamplePosFunc = SamplePosition;
     }
 
@@ -39,15 +46,17 @@ namespace Sling.Level.Player
       _inputView.OnPreLaunchUpdate += OnPreLaunchUpdate;
       _inputView.OnPreLaunchStop += OnPreLaunchStop;
 
-      _isInAirView.OnStateChanged += OnIsInAirChanged;
+      Args.IsInAir.OnValueChanged += OnIsInAirChanged;
       
       _isFirstLaunch = true;
       _view.SetPhysicsEnabled(false);
+
+      ResetRemainingLaunches();
     }
 
     protected override void OnStop()
     {
-      _isInAirView.OnStateChanged -= OnIsInAirChanged;
+      Args.IsInAir.OnValueChanged -= OnIsInAirChanged;
       
       _inputView.OnPreLaunchStart -= OnPreLaunchStart;
       _inputView.OnPreLaunchUpdate -= OnPreLaunchUpdate;
@@ -56,7 +65,7 @@ namespace Sling.Level.Player
 
     private void OnPreLaunchStart(Vector2 worldPos)
     {
-      if (!_isFirstLaunch && _isInAirView.IsInAir && _remainingAirLaunches <= 0)
+      if (!_isFirstLaunch && Args.IsInAir.Value && _remainingLaunches <= 0)
         return;
 
       _isInLaunchState = true;
@@ -71,8 +80,7 @@ namespace Sling.Level.Player
       Vector2 launchVector = _preLaunchStartPos - worldPos;
       launchVector = Vector2.ClampMagnitude(launchVector, _view.Config.MaxDragDistance);
 
-      _launchForce = launchVector * _view.Config.LaunchForceMultiplier;
-      _startVelocity = _launchForce / _view.Mass;
+      _startVelocity = launchVector * _view.Config.LaunchForceMultiplier;
 
       float forceFraction = launchVector.magnitude / _view.Config.MaxDragDistance;
       float totalTime = _view.Config.TrajectoryHintDuration * forceFraction;
@@ -81,13 +89,11 @@ namespace Sling.Level.Player
 
     private void OnPreLaunchStop(Vector2 worldPos)
     {
-      if (!_isInLaunchState)
+      if (!_isInLaunchState || !(_startVelocity.sqrMagnitude > 0))
         return;
 
       _isInLaunchState = false;
-      
-      if(_isInAirView.IsInAir)
-        _remainingAirLaunches = Mathf.Max(0, _remainingAirLaunches - 1);
+      _remainingLaunches = Mathf.Max(0, _remainingLaunches - 1);
       
       _launchTrajectoryView.Hide();
 
@@ -97,16 +103,19 @@ namespace Sling.Level.Player
         _view.SetPhysicsEnabled(true);
       }
 
-      _view.Launch(_launchForce);
+      _view.Launch(_startVelocity);
     }
 
     private Vector3 SamplePosition(float t) =>
       _startVelocity * t + Physics2D.gravity * (0.5f * t * t);
 
-    private void OnIsInAirChanged()
+    private void OnIsInAirChanged(bool oldValue, bool newValue)
     {
-      if (!_isInAirView.IsInAir)
-        _remainingAirLaunches = _view.Config.MaxAirLaunches;
+      if (!newValue)
+        ResetRemainingLaunches();
     }
+
+    private void ResetRemainingLaunches() => 
+      _remainingLaunches = 1 + _view.Config.MaxAirLaunches;
   }
 }

@@ -1,0 +1,36 @@
+using Playtika.Controllers;
+using Sling.Common.Controllers;
+using Sling.Common.Extensions;
+using Sling.Level.Collision;
+using VContainer;
+using VContainer.Unity;
+
+namespace Sling.Level.Player
+{
+  public class PlayerScopeController : ScopeControllerBase
+  {
+    private readonly PlayerView _playerView;
+
+    public PlayerScopeController(IControllerFactory controllerFactory, LifetimeScope scope, PlayerView playerView) 
+      : base(controllerFactory, scope)
+    {
+      _playerView = playerView;
+    }
+
+    protected override void OnStart()
+    {
+      base.OnStart();
+      Execute<PlayerController>(GetOwnedControllerFactory());
+    }
+
+    protected override void InitScopeBuilder(IContainerBuilder builder)
+    {
+      builder.Register<PlayerModel>(Lifetime.Singleton);
+      builder.Register<PlayerController>(Lifetime.Transient);
+      builder.Register<IsInAirController>(Lifetime.Transient);
+      builder.Register<PlayerLaunchController>(Lifetime.Transient);
+      
+      builder.RegisterGameObjectViews(_playerView.gameObject);
+    }
+  }
+}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8376719446793335417}
   - component: {fileID: 8906501209974964651}
   - component: {fileID: 5245787917697079112}
-  - component: {fileID: 8772416199980495445}
+  - component: {fileID: 568652647998110355}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.PlayerAutoTweaker
   _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
---- !u!114 &8772416199980495445
+--- !u!114 &568652647998110355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,12 +220,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3276618756648720583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522a41e033fe4e289712c6a3132b1ce0, type: 3}
+  m_Script: {fileID: 11500000, guid: 32ca0218f2334bf381bbcf9a37be17c8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.PlayerIsInAirView
-  _surfaceLayerMask:
-    serializedVersion: 2
-    m_Bits: 320
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Collision.CollisionTriggerView
 --- !u!1 &5749200411127964045
 GameObject:
   m_ObjectHideFlags: 0

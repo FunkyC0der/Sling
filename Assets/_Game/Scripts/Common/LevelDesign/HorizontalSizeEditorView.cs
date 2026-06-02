@@ -1,10 +1,7 @@
+using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-namespace Sling.Common.Views
+namespace Sling.Common.LevelDesign
 {
   public class HorizontalSizeEditorView : MonoBehaviour
   {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Sling.Level.Player
+namespace Sling.Level.Common
 {
   public interface ILaunchable
   {

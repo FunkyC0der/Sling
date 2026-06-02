@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(LineRenderer))]
-  public class LaunchTrajectoryView : MonoBehaviour, IUniqueView
+  public class LaunchTrajectoryView : MonoBehaviour, IGameObjectView
   {
     [SerializeField] private int _frameRate = 24;
 

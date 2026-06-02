@@ -1,7 +1,7 @@
 using Playtika.Controllers;
-using Sling.Level.Session;
+using Sling.Level.Player;
 
-namespace Sling.Level.Player
+namespace Sling.Level.Session
 {
   public class SetPlayerStartPosController : ControllerWithResultBase<EmptyControllerResult>
   {

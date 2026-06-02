@@ -8,6 +8,8 @@ namespace Sling.Level.Player
     [field: SerializeField] public float MaxDragDistance { get; private set; } = 5f;
     [field: SerializeField] public float LaunchForceMultiplier { get; private set; } = 10f;
 
+    public LayerMask GroundSurfaceLayerMask;
+    
     [Min(0)] 
     public int MaxAirLaunches;
     
@@ -23,6 +25,5 @@ namespace Sling.Level.Player
 
     [Header("Physics Tweaks")] 
     public float GlobalGravity = -9.8f;
-    
   }
 }
