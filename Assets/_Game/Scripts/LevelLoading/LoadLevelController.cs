@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using UnityEngine.SceneManagement;
 
-namespace Sling.Root.LevelLoading
+namespace Sling.LevelLoading
 {
   public class LoadLevelController : ControllerWithResultBase<string, EmptyControllerResult>
   {

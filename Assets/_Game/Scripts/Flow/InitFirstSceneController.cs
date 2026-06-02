@@ -1,8 +1,8 @@
 using Playtika.Controllers;
-using Sling.Root.Game;
+using Sling;
 using UnityEditor;
 
-namespace Sling.Root.Flow
+namespace Sling.Flow
 {
   public class InitFirstSceneController : ControllerWithResultBase
   {

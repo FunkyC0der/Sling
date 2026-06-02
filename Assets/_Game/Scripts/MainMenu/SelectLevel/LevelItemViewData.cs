@@ -1,4 +1,4 @@
-namespace Sling.Root.MainMenu.SelectLevel
+namespace Sling.MainMenu.SelectLevel
 {
   public class LevelItemViewData
   {

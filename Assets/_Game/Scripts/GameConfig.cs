@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Sling.Common.Scenes;
+using Sling.Levels;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Sling.Root.Game
+namespace Sling
 {
   [CreateAssetMenu(fileName = "GameConfig", menuName = "Game/GameConfig")]
   public class GameConfig : ScriptableObject

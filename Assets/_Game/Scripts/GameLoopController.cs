@@ -1,16 +1,16 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Root.Flow;
+using Sling.Flow;
 using UnityEngine;
 
-namespace Sling.Root.Game
+namespace Sling
 {
-  public class GameRootController : RootController
+  public class GameLoopController : ControllerBase
   {
     private readonly GameModel _gameModel;
 
-    public GameRootController(IControllerFactory factory, GameModel gameModel)
+    public GameLoopController(IControllerFactory factory, GameModel gameModel)
       : base(factory)
     {
       _gameModel = gameModel;
@@ -18,7 +18,6 @@ namespace Sling.Root.Game
 
     protected override void OnStart()
     {
-      base.OnStart();
       RunAsync(CancellationToken).Forget(ex =>
       {
         if(ex is not OperationCanceledException)

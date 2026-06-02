@@ -1,12 +1,13 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling;
 using Sling.Common.UI;
 using Sling.Common.UI.Windows;
-using Sling.Root.Game;
+using Sling.Levels;
 using UnityEngine.UIElements;
 
-namespace Sling.Root.MainMenu.SelectLevel
+namespace Sling.MainMenu.SelectLevel
 {
   public class SelectLevelWindowController : WindowControllerBase<int>
   {

@@ -1,11 +1,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling;
 using Sling.Common.UI.Windows;
-using Sling.Root.Game;
-using Sling.Root.MainMenu.SelectLevel;
+using Sling.MainMenu.SelectLevel;
 
-namespace Sling.Root.Flow
+namespace Sling.Flow
 {
   public class MainMenuStateController : ControllerWithResultBase
   {

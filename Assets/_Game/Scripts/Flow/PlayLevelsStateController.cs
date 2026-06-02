@@ -1,14 +1,13 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Common.Extensions;
+using Sling;
+using Sling.Level;
 using Sling.Level.Session;
-using Sling.Root.Game;
-using Sling.Root.LevelLoading;
+using Sling.LevelLoading;
 using UnityEngine;
-using VContainer.Unity;
 
-namespace Sling.Root.Flow
+namespace Sling.Flow
 {
   public class PlayLevelsStateController : ControllerWithResultBase
   {
@@ -28,12 +27,8 @@ namespace Sling.Root.Flow
       {
         await ExecuteAndWaitResultAsync<LoadLevelController, string>(_gameModel.SceneToLoad, ct);
 
-        LifetimeScope levelScope = await ExecuteAndWaitResultAsync<BuildLevelScopeController, LifetimeScope>(ct);
-
         LevelSessionResult sessionResult =
-          await ExecuteAndWaitResultAsync<LevelSessionController, LevelSessionResult>(levelScope.GetControllerFactory(), ct);
-
-        levelScope.Dispose();
+          await ExecuteAndWaitResultAsync<LevelScopeController, LevelSessionResult>(ct);
 
         if (sessionResult == LevelSessionResult.Menu)
         {

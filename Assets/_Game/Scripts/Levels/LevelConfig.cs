@@ -1,7 +1,7 @@
 using System;
 using Sling.Common.Scenes;
 
-namespace Sling.Root.Game
+namespace Sling.Levels
 {
   [Serializable]
   public class LevelConfig
