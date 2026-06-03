@@ -8,7 +8,8 @@ namespace Sling.Level.Player
   public class PlayerView : MonoBehaviour, IUniqueView
   {
     [field: SerializeField] public PlayerConfig Config { get; private set; }
-
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    
     private Rigidbody2D _rb;
 
     public float LinearVelocityX
@@ -29,15 +30,14 @@ namespace Sling.Level.Player
     {
       _rb.bodyType = RigidbodyType2D.Static;
 
-      var sprite = GetComponent<SpriteRenderer>();
-      Color originalColor = sprite.color;
+      Color originalColor = _spriteRenderer.color;
       float flickerPeriod = Config.DieDuration / Config.DieFlickerCount;
 
       for (int i = 0; i < Config.DieFlickerCount; ++i)
       {
-        sprite.color = Color.red;
+        _spriteRenderer.color = Color.red;
         await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
-        sprite.color = originalColor;
+        _spriteRenderer.color = originalColor;
         await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
       }
 
