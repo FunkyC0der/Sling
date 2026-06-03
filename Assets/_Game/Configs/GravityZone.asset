@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eb94be7cba4dba8ff5d5004fb719af, type: 3}
   m_Name: GravityZone
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.GravityZoneConfig
-  Force: 15.6
+  Force: 200
