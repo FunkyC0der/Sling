@@ -46,10 +46,10 @@ namespace Sling.Level.Collision
     }
 
     private void OnCollisionEnter(Collision2D collision) => 
-      AddCollidedObject(collision.gameObject);
+      AddCollidedObject(collision.collider.gameObject);
     
     private void OnCollisionExit(Collision2D collision) => 
-      RemoveCollidedObject(collision.gameObject);
+      RemoveCollidedObject(collision.collider.gameObject);
     
     private void OnTriggerEnter(Collider2D collider) =>
       AddCollidedObject(collider.gameObject);
