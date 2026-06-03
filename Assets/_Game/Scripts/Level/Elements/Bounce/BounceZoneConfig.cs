@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Sling.Level.Elements.BounceWall
+namespace Sling.Level.Elements.Bounce
 {
   [CreateAssetMenu(fileName = "BounceWall", menuName = "Game/Level/BounceWall")]
-  public class BounceWallConfig : ScriptableObject
+  public class BounceZoneConfig : ScriptableObject
   {
     [Range(0, 90)]
     public float Angle = 45f;
