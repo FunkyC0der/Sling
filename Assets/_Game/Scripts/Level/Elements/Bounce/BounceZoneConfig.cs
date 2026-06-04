@@ -11,6 +11,6 @@ namespace Sling.Level.Elements.Bounce
     [Min(0)]
     public float Impulse = 2f;
 
-    public bool OneDirection;
+    public bool BothDirection;
   }
 }

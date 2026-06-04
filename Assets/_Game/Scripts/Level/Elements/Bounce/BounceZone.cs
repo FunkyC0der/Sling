@@ -1,4 +1,3 @@
-using Sling.Common.Extensions;
 using UnityEngine;
 
 namespace Sling.Level.Elements.Bounce
@@ -8,7 +7,8 @@ namespace Sling.Level.Elements.Bounce
   {
     [SerializeField] private BounceZoneConfig _config;
 
-    private Vector3 ReferenceDirection => transform.right;
+    private Vector3 Forward => transform.right;
+    private Vector3 Normal => transform.up;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -16,14 +16,18 @@ namespace Sling.Level.Elements.Bounce
       if (rb == null)
         return;
 
-      bool isRight = _config.OneDirection || IsVectorTowardsTo(rb.linearVelocity, ReferenceDirection);
-      rb.linearVelocity = CreateBounceVelocity(isRight);
+      bool invert = _config.BothDirection && !IsVectorTowardsTo(rb.linearVelocity, Forward);
+
+      Vector3 otherPositionInLocalSpace = rb.transform.position - transform.position;
+      bool mirror = !IsVectorTowardsTo(otherPositionInLocalSpace, Normal);
+      
+      rb.linearVelocity = CreateBounceVelocity(invert, mirror);
     }
 
-    private Vector2 CreateBounceVelocity(bool isRight)
+    private Vector2 CreateBounceVelocity(bool invert, bool mirror)
     {
-      Vector2 bounceDir = isRight ? ReferenceDirection : -ReferenceDirection;
-      Vector2 rotatedDir = Quaternion.Euler(0, 0, _config.Angle) * bounceDir;
+      Vector2 bounceDir = invert ? -Forward : Forward;
+      Vector2 rotatedDir = Quaternion.Euler(0, 0, mirror ? -_config.Angle : _config.Angle) * bounceDir;
       return rotatedDir.normalized * _config.Impulse;
     }
     
@@ -37,21 +41,25 @@ namespace Sling.Level.Elements.Bounce
         return;
 
       Gizmos.color = Color.cyan;
-      DrawBounceVelocity(true);
+      
+      DrawBounceVelocity(invert: false, mirror: false);
+      DrawBounceVelocity(invert: false, mirror: true);
 
-      if (!_config.OneDirection)
-        DrawBounceVelocity(false);
+      if (_config.BothDirection)
+      {
+        DrawBounceVelocity(invert: true, mirror: false);
+        DrawBounceVelocity(invert: true, mirror: true);
+      }
     }
 
-    private void DrawBounceVelocity(bool isRight)
+    private void DrawBounceVelocity(bool invert, bool mirror)
     {
       const int kBounceVectorLength = 20;
       
       Vector2 origin = transform.position;
-      Vector2 velocity = CreateBounceVelocity(isRight);
+      Vector2 velocity = CreateBounceVelocity(invert, mirror);
 
       Gizmos.DrawLine(origin, origin + velocity.normalized * kBounceVectorLength);
-      Gizmos.DrawLine(origin, origin + velocity.normalized.Mirror(ReferenceDirection) * kBounceVectorLength);
     }
 #endif
   }
