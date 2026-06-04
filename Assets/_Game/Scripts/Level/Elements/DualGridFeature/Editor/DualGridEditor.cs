@@ -3,16 +3,16 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Sling.Level.Elements.DualTilemapGridFeature.Editor
+namespace Sling.Level.Elements.DualGridFeature.Editor
 {
-  [CustomEditor(typeof(DualTilemapGrid))]
-  public class DualTilemapGridEditor : UnityEditor.Editor
+  [CustomEditor(typeof(DualGrid))]
+  public class DualGridEditor : UnityEditor.Editor
   {
     public override void OnInspectorGUI()
     {
       DrawDefaultInspector();
 
-      var grid = (DualTilemapGrid)target;
+      var grid = (DualGrid)target;
 
       EditorGUILayout.Space();
 

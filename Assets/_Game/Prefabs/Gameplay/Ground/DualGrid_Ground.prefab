@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2898481424710144006}
   - component: {fileID: 3927415242036926852}
   m_Layer: 6
-  m_Name: DualTilemapGrid_Ground
+  m_Name: DualGrid_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105d48f66bcd456d8fadee94853000fd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.DualTilemapGrid.DualTilemapGrid
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.DualGridFeature.DualGrid
   _physicalTilemap: {fileID: 7366381130352117102}
   _visualTilemap: {fileID: 1030618886645433061}
   _tileSet: {fileID: 11400000, guid: afe9f645149fd443bb6f60f2b8beba04, type: 2}

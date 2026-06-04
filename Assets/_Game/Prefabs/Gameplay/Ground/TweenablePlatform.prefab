@@ -556,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1509939296281356838}
   m_Layer: 0
-  m_Name: GeneratedDualGridObject
+  m_Name: GeneratedDualGridPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 972701559515181124}
   - component: {fileID: 4881831946359448658}
   m_Layer: 6
-  m_Name: TweenableGround
+  m_Name: TweenablePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,8 +721,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc53b82e09f14db6b73db76ac18f16bc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.DualTilemapGridObjectGenerator.DualTilemapGridObjectGenerator
-  _dualGridTilemapPrefab: {fileID: 1755975636278983890, guid: 628736ceac4df4c6793f0577b2a1bab0, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.DualGridFeature.DualGridPlatformGenerator
+  _dualGridPrefab: {fileID: 1755975636278983890, guid: 628736ceac4df4c6793f0577b2a1bab0, type: 3}
   _physicalTile: {fileID: 11400000, guid: 0f230aa4232db49d484021ec40fcbcd9, type: 2}
   _boxCollider: {fileID: 4881831946359448658}
 --- !u!61 &4881831946359448658

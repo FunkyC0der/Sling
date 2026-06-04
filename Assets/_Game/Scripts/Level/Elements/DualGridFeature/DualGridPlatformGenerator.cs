@@ -1,20 +1,18 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Sling.Level.Elements.DualTilemapGridFeature
+namespace Sling.Level.Elements.DualGridFeature
 {
-  public class DualTilemapGridObjectGenerator : MonoBehaviour
+  public class DualGridPlatformGenerator : MonoBehaviour
   {
     private const string _kGeneratedVisualTileNamePrefix = "GeneratedVisualTile_";
     private const string _kGeneratedPhysicalTileNamePrefix = "GeneratedPhysicalTile_";
-    private const string _kGeneratedRootName = "GeneratedDualTilemapGridObject";
+    private const string _kGeneratedRootName = "GeneratedDualGridPlatform";
     private const string _kLegacyGeneratedRootName = "GeneratedDualGridObject";
 
-    [FormerlySerializedAs("_dualGridTilemapPrefab")]
-    [SerializeField] private GameObject _dualTilemapGridPrefab;
+    [SerializeField] private GameObject _dualGridPrefab;
     [SerializeField] private TileBase _physicalTile;
     [SerializeField] private BoxCollider2D _boxCollider;
 
@@ -29,7 +27,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       }
 
       int undoGroup = Undo.GetCurrentGroup();
-      Undo.SetCurrentGroupName("Generate Dual Tilemap Grid Object");
+      Undo.SetCurrentGroupName("Generate Dual Grid Platform");
 
       GameObject tilemapInstance = null;
       try
@@ -37,7 +35,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
         ClearGeneratedTilesInternal(false);
 
         tilemapInstance = InstantiateTemporaryTilemap();
-        DualTilemapGrid grid = tilemapInstance.GetComponentInChildren<DualTilemapGrid>(true);
+        DualGrid grid = tilemapInstance.GetComponentInChildren<DualGrid>(true);
         Tilemap physicalTilemap = grid.PhysicalTilemap;
         Tilemap visualTilemap = grid.VisualTilemap;
 
@@ -47,12 +45,12 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
         List<VisualTileData> visualTiles = CollectVisualTiles(tilemapInstance.transform, visualTilemap);
         Vector3 visualCenter = CalculateVisualBoundsCenter(visualTiles);
-        Undo.RecordObject(_boxCollider, "Generate Dual Tilemap Grid Object");
+        Undo.RecordObject(_boxCollider, "Generate Dual Grid Platform");
         ApplyBoxCollider(width, height, GetCellSize(grid));
 
         GameObject generatedRoot = CreateGeneratedRoot();
         CreateVisualObjects(generatedRoot.transform, visualTiles, visualCenter);
-        Undo.RegisterCreatedObjectUndo(generatedRoot, "Generate Dual Tilemap Grid Object");
+        Undo.RegisterCreatedObjectUndo(generatedRoot, "Generate Dual Grid Platform");
 
         EditorUtility.SetDirty(this);
         EditorUtility.SetDirty(_boxCollider);
@@ -69,7 +67,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
     public void ClearGeneratedTiles()
     {
       int undoGroup = Undo.GetCurrentGroup();
-      Undo.SetCurrentGroupName("Clear Dual Tilemap Grid Object");
+      Undo.SetCurrentGroupName("Clear Dual Grid Platform");
 
       ClearGeneratedTilesInternal(true);
 
@@ -93,18 +91,18 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
     public string GetValidationError(int width, int height)
     {
-      if (_dualTilemapGridPrefab == null)
-        return "Dual Tilemap Grid Object Generator requires a dual tilemap grid prefab.";
+      if (_dualGridPrefab == null)
+        return "Dual Grid Platform Generator requires a dual grid prefab.";
 
-      DualTilemapGrid grid = _dualTilemapGridPrefab.GetComponentInChildren<DualTilemapGrid>(true);
+      DualGrid grid = _dualGridPrefab.GetComponentInChildren<DualGrid>(true);
       if (grid == null)
-        return "Dual tilemap grid prefab must contain a DualTilemapGrid.";
+        return "Dual grid prefab must contain a DualGrid.";
 
       if (_physicalTile == null)
-        return "Dual Tilemap Grid Object Generator requires a physical tile.";
+        return "Dual Grid Platform Generator requires a physical tile.";
 
       if (_boxCollider == null)
-        return "Dual Tilemap Grid Object Generator requires a BoxCollider2D.";
+        return "Dual Grid Platform Generator requires a BoxCollider2D.";
 
       if (width <= 0)
         return "Width must be greater than zero.";
@@ -129,11 +127,11 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
 
     private GameObject InstantiateTemporaryTilemap()
     {
-      GameObject instance = PrefabUtility.InstantiatePrefab(_dualTilemapGridPrefab) as GameObject;
+      GameObject instance = PrefabUtility.InstantiatePrefab(_dualGridPrefab) as GameObject;
       if (instance == null)
-        instance = Instantiate(_dualTilemapGridPrefab);
+        instance = Instantiate(_dualGridPrefab);
 
-      instance.name = "TemporaryDualTilemapGridObjectGeneratorTilemap";
+      instance.name = "TemporaryDualGridPlatformGeneratorTilemap";
       SetHideFlags(instance.transform, HideFlags.HideAndDontSave);
       instance.SetActive(true);
       instance.transform.position = transform.position;
@@ -233,7 +231,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       return (min + max) * 0.5f;
     }
 
-    private static Vector3 GetCellSize(DualTilemapGrid grid)
+    private static Vector3 GetCellSize(DualGrid grid)
     {
       GridLayout layoutGrid = null;
       if (grid != null && grid.PhysicalTilemap != null)

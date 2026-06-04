@@ -335,7 +335,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1755975636278983890, guid: 628736ceac4df4c6793f0577b2a1bab0, type: 3}
       propertyPath: m_Name
-      value: DualTilemapGrid_Ground
+      value: DualGrid_Ground
       objectReference: {fileID: 0}
     - target: {fileID: 8880758968467118511, guid: 628736ceac4df4c6793f0577b2a1bab0, type: 3}
       propertyPath: m_LocalPosition.x

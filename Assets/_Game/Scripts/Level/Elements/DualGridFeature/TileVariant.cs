@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Sling.Level.Elements.DualTilemapGridFeature
+namespace Sling.Level.Elements.DualGridFeature
 {
   public class TileVariant
   {

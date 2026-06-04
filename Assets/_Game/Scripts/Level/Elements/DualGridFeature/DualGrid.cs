@@ -6,15 +6,15 @@ using UnityEngine.Tilemaps;
 
 using UnityEngine;
 
-namespace Sling.Level.Elements.DualTilemapGridFeature
+namespace Sling.Level.Elements.DualGridFeature
 {
   [ExecuteAlways]
-  public class DualTilemapGrid : MonoBehaviour
+  public class DualGrid : MonoBehaviour
   {
 #if UNITY_EDITOR
     [SerializeField] private Tilemap _physicalTilemap;
     [SerializeField] private Tilemap _visualTilemap;
-    [SerializeField] private DualTilemapGridTileSet _tileSet;
+    [SerializeField] private DualGridTileSet _tileSet;
     [SerializeField] private bool _autoSync = true;
 
     private TileVariant[] _tileVariants;
@@ -64,7 +64,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       {
         var visualCell = new Vector3Int(x, y, 0);
         
-        int mask = CalculateMask(visualCell);
+        int mask = GeneratePhysicalNeighborsMask(visualCell);
 
         TileVariant tileVariant = _tileVariants[mask];
         if (tileVariant.IsEmpty)
@@ -97,17 +97,7 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
     private bool IsVisualTilemapAligned() => 
       _visualTilemap.transform.localPosition == GetVisualTilemapOffset();
 
-    private TileVariant[] CreateTileVariants()
-    {
-      var variants = new TileVariant[16];
-
-      for (int mask = 0; mask < variants.Length; mask++)
-        variants[mask] = CreateTileVariantByMask(mask);
-
-      return variants;
-    }
-
-    private int CalculateMask(Vector3Int visualCell)
+    private int GeneratePhysicalNeighborsMask(Vector3Int visualCell)
     {
       int mask = NeighborFlags.kNone;
 
@@ -126,11 +116,18 @@ namespace Sling.Level.Elements.DualTilemapGridFeature
       return mask;
     }
 
+    private TileVariant[] CreateTileVariants()
+    {
+      var variants = new TileVariant[NeighborFlags.kFull + 1];
+
+      for (int mask = 0; mask < variants.Length; mask++)
+        variants[mask] = CreateTileVariantByMask(mask);
+
+      return variants;
+    }
+
     private TileVariant CreateTileVariantByMask(int mask)
     {
-      if (mask < NeighborFlags.kNone || mask > 15)
-        throw new ArgumentOutOfRangeException(nameof(mask), mask, "Dual-tilemap-grid mask must be in range 0..15.");
-
       switch (mask)
       {
         case NeighborFlags.kNone:

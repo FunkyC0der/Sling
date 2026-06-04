@@ -974,7 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 948292906}
   m_Layer: 0
-  m_Name: GeneratedDualTilemapGridObject
+  m_Name: GeneratedDualGridPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3172,7 +3172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2129874586}
   m_Layer: 0
-  m_Name: GeneratedDualTilemapGridObject
+  m_Name: GeneratedDualGridPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

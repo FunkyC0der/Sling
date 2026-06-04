@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Sling.Level.Elements.DualTilemapGridFeature
+namespace Sling.Level.Elements.DualGridFeature
 {
-  [CreateAssetMenu(fileName = "DualTilemapGridTileSet", menuName = "Game/Dual Tilemap Grid Tile Set")]
-  public class DualTilemapGridTileSet : ScriptableObject
+  [CreateAssetMenu(fileName = "DualGridTileSet", menuName = "Game/Dual Grid Tile Set")]
+  public class DualGridTileSet : ScriptableObject
   {
     public TileBase Full;
     public TileBase SingleCorner;
