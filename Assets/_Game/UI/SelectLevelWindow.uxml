@@ -5,7 +5,7 @@
         <ui:VisualElement name="Title" style="flex-grow: 0; flex-basis: 305px;">
             <ui:Label text="SLING&#10;HERO" name="GameText" style="align-self: center; color: rgb(255, 255, 255); font-size: 84px; -unity-font-style: bold; top: 42px;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="LevelItemsContainer" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; margin-left: 310px; margin-right: 250px; justify-content: flex-start;">
+        <ui:VisualElement name="LevelItemsContainer" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; margin-left: 0; margin-right: 0; justify-content: flex-start; width: 1300px; align-self: center; align-content: flex-start;">
             <ui:Instance template="LevelItem" name="TemplateContainer"/>
             <ui:Instance template="LevelItem"/>
             <ui:Instance template="LevelItem"/>

@@ -558,6 +558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_4x4_ScaledSprite
       objectReference: {fileID: 0}
+    - target: {fileID: 2250095283150553121, guid: bd53e6fbd23ce4a81b2d8378f81ebb12, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2023682544663189544, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
       propertyPath: m_Sprite
       value: 
