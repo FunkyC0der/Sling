@@ -16,9 +16,18 @@ namespace Sling.Level.Player
 
     protected override void OnStart()
     {
-      _model.OnLaunched += () => _view.Jump();
+      _model.OnLaunched += HandleLaunched;
       _model.IsInAir.OnValueChanged += IsInAirOnOnValueChanged;
     }
+
+    protected override void OnStop()
+    {
+      _model.OnLaunched -= HandleLaunched;
+      _model.IsInAir.OnValueChanged -= IsInAirOnOnValueChanged;
+    }
+
+    private void HandleLaunched() =>
+      _view.Jump();
 
     private void IsInAirOnOnValueChanged(bool oldValue, bool newValue)
     {

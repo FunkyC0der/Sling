@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using Sling.Common.Views;
@@ -25,7 +26,7 @@ namespace Sling.Level.Player
     public void Land() => 
       _animator.SetTrigger(_landTriggerId);
 
-    public async UniTask Die(float duration, int flickerCount)
+    public async UniTask Die(float duration, int flickerCount, CancellationToken cancellationToken)
     {
       Color originalColor = _spriteRenderer.color;
       float flickerPeriod = duration / flickerCount;
@@ -33,9 +34,9 @@ namespace Sling.Level.Player
       for (int i = 0; i < flickerCount; ++i)
       {
         _spriteRenderer.color = Color.red;
-        await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
+        await UniTask.WaitForSeconds(flickerPeriod * 0.5f, cancellationToken: cancellationToken);
         _spriteRenderer.color = originalColor;
-        await UniTask.WaitForSeconds(flickerPeriod * 0.5f);
+        await UniTask.WaitForSeconds(flickerPeriod * 0.5f, cancellationToken: cancellationToken);
       }
     }
   }

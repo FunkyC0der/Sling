@@ -22,7 +22,7 @@ namespace Sling.Level.Player
 
     protected override void OnStart()
     {
-      _view.BodySprite.flipX = _levelModel.PlayerStartFlipX;
+      _view.SetFacingLeft(_levelModel.PlayerStartFlipX);
       
       Update(CancellationToken).Forget();
     }
@@ -31,10 +31,7 @@ namespace Sling.Level.Player
     {
       while (!cancellationToken.IsCancellationRequested)
       {
-        if (_view.Rigidbody.linearVelocityX > _kVelocityThreshold)
-          _view.BodySprite.flipX = false;
-        else if (_view.Rigidbody.linearVelocityX < -_kVelocityThreshold)
-          _view.BodySprite.flipX = true;
+        _view.FaceByVelocityX(_kVelocityThreshold);
         
         await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken);
       }

@@ -27,13 +27,16 @@ namespace Sling.Level.Player
       Execute<PlayerAnimatorController>();
       Execute<PlayerFaceDirectionController>();
 
-      _view.Rigidbody.gravityScale = 0;
+      _view.SetGravityScale(0);
       _model.OnLaunched += ResetGravityScaleOnce;
     }
 
+    protected override void OnStop() =>
+      _model.OnLaunched -= ResetGravityScaleOnce;
+
     private void ResetGravityScaleOnce()
     {
-      _view.Rigidbody.gravityScale = 1;
+      _view.SetGravityScale(1);
       _model.OnLaunched -= ResetGravityScaleOnce;
     }
   }

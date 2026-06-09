@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.UI.Windows;
 using Sling.Level.Player;
-using UnityEngine;
 
 namespace Sling.Level.LevelComplete
 {
@@ -24,30 +23,13 @@ namespace Sling.Level.LevelComplete
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await StopPlayerMovementX(cancellationToken);
+      await _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken);
 
       LevelCompleteFlowResult result =
         await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
           _popupRootView.NonSkippable(), cancellationToken);
 
       Complete(result);
-    }
-
-    private async UniTask StopPlayerMovementX(CancellationToken cancellationToken)
-    {
-      Rigidbody2D playerRb = _playerView.Rigidbody;
-      
-      float deceleration = Mathf.Abs(playerRb.linearVelocityX) / _playerView.Config.FinishStopDuration;
-
-      while (Mathf.Abs(playerRb.linearVelocityX) > 0 && !cancellationToken.IsCancellationRequested)
-      {
-        playerRb.linearVelocityX =
-          Mathf.MoveTowards(playerRb.linearVelocityX, 0, deceleration * Time.fixedDeltaTime);
-
-        await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken);
-      }
-
-      playerRb.linearVelocityX = 0;
     }
   }
 }

@@ -16,8 +16,8 @@ namespace Sling.Level.Session
 
     protected override void OnStart()
     {
-      _levelModel.PlayerStartPos = _playerView.Rigidbody.position;
-      _levelModel.PlayerStartFlipX = _playerView.BodySprite.flipX;
+      _levelModel.PlayerStartPos = _playerView.Position;
+      _levelModel.PlayerStartFlipX = _playerView.IsFacingLeft;
       Complete(new EmptyControllerResult());
     }
   }

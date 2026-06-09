@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Player;
 using Sling.Level.Session;
-using UnityEngine;
 
 namespace Sling.Level.Gameplay
 {
@@ -23,17 +22,12 @@ namespace Sling.Level.Gameplay
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      Rigidbody2D playerRb = _playerView.Rigidbody;
-
-      playerRb.bodyType = RigidbodyType2D.Static;
+      _playerView.FreezePhysics();
       
-      await _playerView
-        .GetComponent<PlayerAnimatorView>()
-        .Die(_playerView.Config.DieDuration, _playerView.Config.DieFlickerCount)
-        .AttachExternalCancellation(cancellationToken);
+      await _playerView.PlayDeathAsync(cancellationToken);
       
-      playerRb.bodyType = RigidbodyType2D.Dynamic;
-      playerRb.position = _levelModel.PlayerStartPos;
+      _playerView.UnfreezePhysics();
+      _playerView.SetPosition(_levelModel.PlayerStartPos);
       
       Complete();
     }
