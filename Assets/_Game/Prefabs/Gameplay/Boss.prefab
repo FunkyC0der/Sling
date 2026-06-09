@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2870131258164775764}
   - component: {fileID: 2268944150550002034}
   - component: {fileID: 9072460114713152555}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7887320911632918912}
   - component: {fileID: 9206631028127552407}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3772980208495210530}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: BodyRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6456078844270890790, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -543,7 +543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6456078844270890790, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
