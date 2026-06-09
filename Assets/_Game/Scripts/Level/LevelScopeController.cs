@@ -40,12 +40,12 @@ namespace Sling.Level
       builder.Register<LevelEvents>(Lifetime.Singleton);
       builder.Register<LevelModel>(Lifetime.Singleton);
 
-      builder.Register<SetPlayerStartPosController>(Lifetime.Transient);
+      builder.Register<SetPlayerStartStatsController>(Lifetime.Transient);
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 
       builder.Register<LevelCompleteFlowController>(Lifetime.Transient);
       builder.Register<LevelCompleteWindowController>(Lifetime.Transient);
-      builder.Register<RespawnPlayerController>(Lifetime.Transient);
+      builder.Register<RespawnPlayerFlowController>(Lifetime.Transient);
 
       builder.Register<PlayerScopeController>(Lifetime.Transient);
 

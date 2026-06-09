@@ -9,7 +9,9 @@ namespace Sling.Level.Player
     private readonly PlayerView _view;
     private readonly PlayerModel _model;
     
-    public PlayerController(IControllerFactory controllerFactory, PlayerView view, PlayerModel model) 
+    public PlayerController(IControllerFactory controllerFactory,
+      PlayerView view,
+      PlayerModel model) 
       : base(controllerFactory)
     {
       _view = view;
@@ -22,14 +24,16 @@ namespace Sling.Level.Player
         new IsInAirController.Context(_model.IsInAir, _view.Config.GroundSurfaceLayerMask));
       
       Execute<PlayerLaunchController>();
-      
-      _view.SetGravityScale(0);
+      Execute<PlayerAnimatorController>();
+      Execute<PlayerFaceDirectionController>();
+
+      _view.Rigidbody.gravityScale = 0;
       _model.OnLaunched += ResetGravityScaleOnce;
     }
 
     private void ResetGravityScaleOnce()
     {
-      _view.SetGravityScale(1);
+      _view.Rigidbody.gravityScale = 1;
       _model.OnLaunched -= ResetGravityScaleOnce;
     }
   }

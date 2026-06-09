@@ -35,17 +35,19 @@ namespace Sling.Level.LevelComplete
 
     private async UniTask StopPlayerMovementX(CancellationToken cancellationToken)
     {
-      float deceleration = Mathf.Abs(_playerView.LinearVelocityX) / _playerView.Config.FinishStopDuration;
+      Rigidbody2D playerRb = _playerView.Rigidbody;
+      
+      float deceleration = Mathf.Abs(playerRb.linearVelocityX) / _playerView.Config.FinishStopDuration;
 
-      while (Mathf.Abs(_playerView.LinearVelocityX) > 0 && !cancellationToken.IsCancellationRequested)
+      while (Mathf.Abs(playerRb.linearVelocityX) > 0 && !cancellationToken.IsCancellationRequested)
       {
-        _playerView.LinearVelocityX =
-          Mathf.MoveTowards(_playerView.LinearVelocityX, 0, deceleration * Time.fixedDeltaTime);
+        playerRb.linearVelocityX =
+          Mathf.MoveTowards(playerRb.linearVelocityX, 0, deceleration * Time.fixedDeltaTime);
 
         await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken);
       }
 
-      _playerView.LinearVelocityX = 0;
+      playerRb.linearVelocityX = 0;
     }
   }
 }

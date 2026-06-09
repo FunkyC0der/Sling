@@ -18,7 +18,7 @@ namespace Sling.Level.Session
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      await ExecuteAndWaitResultAsync<SetPlayerStartPosController>(ct);
+      await ExecuteAndWaitResultAsync<SetPlayerStartStatsController>(ct);
 
       LevelSessionResult sessionResult;
 
@@ -29,7 +29,7 @@ namespace Sling.Level.Session
 
         if (loopResult == GameplayLoopResult.Death)
         {
-          await ExecuteAndWaitResultAsync<RespawnPlayerController>(ct);
+          await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(ct);
           continue;
         }
 

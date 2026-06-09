@@ -34,6 +34,9 @@ namespace Sling.Level.Player
       
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
       builder.Register<PlayerPreLaunchFlowController>(Lifetime.Transient);
+
+      builder.Register<PlayerAnimatorController>(Lifetime.Transient);
+      builder.Register<PlayerFaceDirectionController>(Lifetime.Transient);
       
       builder.RegisterGameObjectViews(_playerView.gameObject);
     }

@@ -4,6 +4,7 @@ namespace Sling.Level.Session
 {
   public class LevelModel
   {
-    public Vector3 PlayerStartPos;
+    public Vector2 PlayerStartPos;
+    public bool PlayerStartFlipX;
   }
 }
