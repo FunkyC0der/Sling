@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 568652647998110355}
   - component: {fileID: 3865177818738517766}
   - component: {fileID: 1534344768608504927}
+  - component: {fileID: 4438162892628949576}
   - component: {fileID: 3260974579751839154}
   - component: {fileID: 4794860568099122736}
   m_Layer: 7
@@ -55,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   <Config>k__BackingField: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
-  _animatorView: {fileID: 1534344768608504927}
+  _animationsView: {fileID: 1534344768608504927}
   _bodySprite: {fileID: 3799020414547520204}
   _rigidbody: {fileID: 7531381223832247793}
 --- !u!61 &5717655998603572528
@@ -195,10 +196,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc8af55aebe4f3687740980eeb46b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.PlayerAnimatorView
+  _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
   _animator: {fileID: 4794860568099122736}
   _spriteRenderer: {fileID: 3799020414547520204}
   _jumpTriggerId: 125937960
   _landTriggerId: 137525990
+--- !u!114 &4438162892628949576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276618756648720583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9576f2c4edd42aa8b14520dd472b0fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.Death.PlayerDeathView
 --- !u!120 &3260974579751839154
 LineRenderer:
   serializedVersion: 3

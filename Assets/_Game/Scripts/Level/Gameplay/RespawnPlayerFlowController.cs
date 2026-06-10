@@ -1,5 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Player;
 using Sling.Level.Session;
@@ -8,26 +6,30 @@ namespace Sling.Level.Gameplay
 {
   public class RespawnPlayerFlowController : ControllerWithResultBase
   {
-    private readonly PlayerView _playerView;
+    private readonly PlayerView _view;
     private readonly LevelModel _levelModel;
+    private readonly PlayerInputView _inputView;
 
     public RespawnPlayerFlowController(IControllerFactory controllerFactory,
-      PlayerView playerView,
-      LevelModel levelModel)
+      PlayerView view,
+      LevelModel levelModel,
+      PlayerInputView inputView)
       : base(controllerFactory)
     {
-      _playerView = playerView;
+      _view = view;
       _levelModel = levelModel;
+      _inputView = inputView;
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
+    protected override void OnStart()
     {
-      _playerView.FreezePhysics();
+      _view.SetPosition(_levelModel.PlayerStartPos);
+      _view.SetFacingLeft(_levelModel.PlayerIsFacingLeft);
       
-      await _playerView.PlayDeathAsync(cancellationToken);
-      
-      _playerView.UnfreezePhysics();
-      _playerView.SetPosition(_levelModel.PlayerStartPos);
+      _view.UnfreezePhysics();
+      _view.Show();
+
+      _inputView.EnableInput();
       
       Complete();
     }

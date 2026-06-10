@@ -1,6 +1,9 @@
+using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Collision;
+using Sling.Level.Gameplay;
 using Sling.Level.Player.Launch;
+using Sling.Level.Session;
 
 namespace Sling.Level.Player
 {
@@ -8,36 +11,33 @@ namespace Sling.Level.Player
   {
     private readonly PlayerView _view;
     private readonly PlayerModel _model;
+    private readonly LevelModel _levelModel;
     
     public PlayerController(IControllerFactory controllerFactory,
       PlayerView view,
-      PlayerModel model) 
+      PlayerModel model, 
+      LevelModel levelModel) 
       : base(controllerFactory)
     {
       _view = view;
       _model = model;
+      _levelModel = levelModel;
     }
 
-    protected override void OnStart()
+    protected override void OnStart() => 
+      StartAsync().Forget();
+
+    private async UniTask StartAsync()
     {
+      
+      await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(CancellationToken);
+      
       Execute<IsInAirController, IsInAirController.Context>(
         new IsInAirController.Context(_model.IsInAir, _view.Config.GroundSurfaceLayerMask));
       
       Execute<PlayerLaunchController>();
-      Execute<PlayerAnimatorController>();
-      Execute<PlayerFaceDirectionController>();
-
-      _view.SetGravityScale(0);
-      _model.OnLaunched += ResetGravityScaleOnce;
-    }
-
-    protected override void OnStop() =>
-      _model.OnLaunched -= ResetGravityScaleOnce;
-
-    private void ResetGravityScaleOnce()
-    {
-      _view.SetGravityScale(1);
-      _model.OnLaunched -= ResetGravityScaleOnce;
+      Execute<PlayerFacingController>();
+      Execute<PlayerDeathController>();
     }
   }
 }

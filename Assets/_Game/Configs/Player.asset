@@ -21,5 +21,8 @@ MonoBehaviour:
   <TrajectoryHintDuration>k__BackingField: 0.6
   <DieFlickerCount>k__BackingField: 2
   <DieDuration>k__BackingField: 0.5
+  DieCameraShakeStrength: 0.5
+  DieCameraShakeFrequency: 5
+  DeathVFXPrefab: {fileID: 5732605035819352471, guid: 35ecc2c4466464cf3821ad1f713c478a, type: 3}
   <FinishStopDuration>k__BackingField: 0.2
   GlobalGravity: -123.9

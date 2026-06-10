@@ -11,36 +11,19 @@ namespace Sling.Level.Player
   {
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
-    [SerializeField, Required] private PlayerAnimatorView _animatorView;
+    [SerializeField, Required] private PlayerAnimationsView _animationsView;
     [SerializeField, Required] private SpriteRenderer _bodySprite;
     [SerializeField, Required] private Rigidbody2D _rigidbody;
 
-    public Vector2 Position => _rigidbody.position;
+    public Vector3 Position => transform.position;
     public bool IsFacingLeft => _bodySprite.flipX;
     public float LinearVelocityX => _rigidbody.linearVelocityX;
 
-    private void Awake()
-    {
-      if (_animatorView == null)
-        _animatorView = GetComponentInChildren<PlayerAnimatorView>();
-    }
-
-    public void SetPosition(Vector2 position) =>
-      _rigidbody.position = position;
+    public void SetPosition(Vector3 position) =>
+      transform.position = position;
 
     public void SetFacingLeft(bool value) =>
       _bodySprite.flipX = value;
-
-    public void FaceByVelocityX(float threshold)
-    {
-      if (_rigidbody.linearVelocityX > threshold)
-        SetFacingLeft(false);
-      else if (_rigidbody.linearVelocityX < -threshold)
-        SetFacingLeft(true);
-    }
-
-    public void SetGravityScale(float value) =>
-      _rigidbody.gravityScale = value;
 
     public void FreezePhysics() =>
       _rigidbody.bodyType = RigidbodyType2D.Static;
@@ -72,11 +55,11 @@ namespace Sling.Level.Player
       StopHorizontalMovement();
     }
 
-    public UniTask PlayDeathAsync(CancellationToken cancellationToken) =>
-      _animatorView.Die(Config.DieDuration, Config.DieFlickerCount, cancellationToken);
+    public void Show() => 
+      gameObject.SetActive(true);
 
     [Button]
-    public void FlipBodySpriteX() => 
+    private void FlipBodyFacing() => 
       SetFacingLeft(!IsFacingLeft);
   }
 }

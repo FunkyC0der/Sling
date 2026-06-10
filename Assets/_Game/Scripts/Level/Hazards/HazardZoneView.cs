@@ -9,6 +9,6 @@ namespace Sling.Level.Hazards
     public event Action OnEnter;
 
     private void OnTriggerEnter2D(Collider2D other) =>
-      OnEnter?.Invoke();
+      other?.GetComponent<IDamageable>()?.TakeDamage();    
   }
 }

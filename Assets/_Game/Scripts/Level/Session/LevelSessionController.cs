@@ -11,32 +11,35 @@ namespace Sling.Level.Session
 {
   public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
   {
-    public LevelSessionController(IControllerFactory controllerFactory)
+    private LevelModel _levelModel;
+    
+    public LevelSessionController(IControllerFactory controllerFactory, LevelModel levelModel)
       : base(controllerFactory)
     {
+      _levelModel = levelModel;
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await ExecuteAndWaitResultAsync<SetPlayerStartStatsController>(ct);
-
+      await ExecuteAndWaitResultAsync<SavePlayerStartStatsFlowController>(cancellationToken);
+      
       LevelSessionResult sessionResult;
 
       do
       {
         GameplayLoopResult loopResult =
-          await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayLoopResult>(ct);
+          await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayLoopResult>(cancellationToken);
 
         if (loopResult == GameplayLoopResult.Death)
         {
-          await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(ct);
+          await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(cancellationToken);
           continue;
         }
 
         if (loopResult == GameplayLoopResult.Win)
         {
           LevelCompleteFlowResult completeResult =
-            await ExecuteAndWaitResultAsync<LevelCompleteFlowController, LevelCompleteFlowResult>(ct);
+            await ExecuteAndWaitResultAsync<LevelCompleteFlowController, LevelCompleteFlowResult>(cancellationToken);
 
           sessionResult = ToSessionResult(completeResult);
           break;
