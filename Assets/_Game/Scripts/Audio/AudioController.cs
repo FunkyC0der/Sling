@@ -25,14 +25,16 @@ namespace Sling.Audio
     {
       _audioEvents.PlayMusic += PlayMusic;
       _audioEvents.PlaySFX += PlaySFX;
+      _audioEvents.PlayConcurrentSFX += PlayConcurrentSFX;
     }
 
-    [DebugMethod]
     private void PlayMusic(AudioClipId id) =>
       _view.PlayMusic(_config.AudioClips.GetValueOrDefault(id));
-    
-    [DebugMethod]
+
     private void PlaySFX(AudioClipId id) =>
       _view.PlaySFX(_config.AudioClips.GetValueOrDefault(id));
+
+    private void PlayConcurrentSFX(AudioClipId id) => 
+      _view.PlayConcurrentSFX(_config.AudioClips.GetValueOrDefault(id));
   }
 }

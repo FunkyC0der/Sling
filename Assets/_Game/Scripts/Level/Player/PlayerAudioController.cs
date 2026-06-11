@@ -23,10 +23,10 @@ namespace Sling.Level.Player
     }
 
     private void OnPreLaunch() => 
-      _audioEvents.PlaySFX?.Invoke(AudioClipId.PlayerStretch);
+      _audioEvents.PlayConcurrentSFX?.Invoke(AudioClipId.PlayerStretch);
 
     private void OnLaunched() => 
-      _audioEvents.PlaySFX?.Invoke(AudioClipId.PlayerLaunch);
+      _audioEvents.PlayConcurrentSFX?.Invoke(AudioClipId.PlayerLaunch);
 
     private void OnGroundedChanged(bool oldValue, bool newValue)
     {

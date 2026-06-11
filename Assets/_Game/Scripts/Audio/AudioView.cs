@@ -18,5 +18,13 @@ namespace Sling.Audio
 
     public void PlaySFX(AudioClipConfig audioClipConfig) =>
       _sfxAudioSource.PlayOneShot(audioClipConfig.AudioClip, audioClipConfig.Volume);
+
+    public void PlayConcurrentSFX(AudioClipConfig audioClipConfig)
+    {
+      _sfxAudioSource.clip = audioClipConfig.AudioClip;
+      _sfxAudioSource.volume = audioClipConfig.Volume;
+      _sfxAudioSource.loop = false;
+      _sfxAudioSource.Play();
+    }
   }
 }
