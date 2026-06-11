@@ -35,7 +35,7 @@ namespace Sling.Level.Player.Launch
 
       _line.positionCount = pointCount;
       for (int i = 0; i < pointCount; i++)
-        _line.SetPosition(i, transform.position + samplePosition(i * timeStep));
+        _line.SetPosition(i, samplePosition(i * timeStep));
 
       _line.enabled = true;
     }
