@@ -1,8 +1,7 @@
-using System;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Audio;
 using Sling.Flow;
-using UnityEngine;
 
 namespace Sling
 {
@@ -18,23 +17,21 @@ namespace Sling
 
     protected override void OnStart()
     {
-      RunAsync(CancellationToken).Forget(ex =>
-      {
-        if(ex is not OperationCanceledException)
-          Debug.LogException(ex);
-      });
+      Execute<AudioController>();
+      
+      GameLoopAsync().Forget();
     }
 
-    private async UniTask RunAsync(System.Threading.CancellationToken ct)
+    private async UniTask GameLoopAsync()
     {
-      await ExecuteAndWaitResultAsync<InitFirstSceneController>(ct);
+      await ExecuteAndWaitResultAsync<InitFirstSceneController>(CancellationToken);
 
-      while (!ct.IsCancellationRequested)
+      while (!CancellationToken.IsCancellationRequested)
       {
         if(_gameModel.GameState == GameState.MainMenu)
-          await ExecuteAndWaitResultAsync<MainMenuStateController>(ct);
+          await ExecuteAndWaitResultAsync<MainMenuStateController>(CancellationToken);
         else if (_gameModel.GameState == GameState.PlayLevels)
-          await ExecuteAndWaitResultAsync<PlayLevelsStateController>(ct);
+          await ExecuteAndWaitResultAsync<PlayLevelsStateController>(CancellationToken);
       }
     }
   }

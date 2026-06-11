@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9f2688ae7e4ab6927b890c30579266, type: 3}
   m_Name: Game
   m_EditorClassIdentifier: Assembly-CSharp::Sling.GameConfig
+  AudioConfig: {fileID: 11400000, guid: cd6f63594643448f8ab978e7c68e4f66, type: 2}
   MainMenuScene:
     Scene: {fileID: 102900000, guid: 3cc6e5c3fc86d423c950fc16caf45fb0, type: 3}
     SceneName: MainMenu

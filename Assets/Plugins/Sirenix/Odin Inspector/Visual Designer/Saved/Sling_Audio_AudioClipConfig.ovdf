@@ -1,0 +1,17 @@
+OVDF v1.1
+Sling.Audio.AudioClipConfig, Assembly-CSharp
+
+# Volume
++ [Sirenix.OdinInspector.ProgressBarAttribute]
+	Max = 2
+	ColorGetter = "RGBA(1.670, 0.947, 0.034, 1.000)"
+	Segmented = False
+	valueLabelAlignment = Center
+	ValueLabelAlignmentHasValue = True
+	MinGetter = null
+	MaxGetter = null
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 70.7
+
+# AudioClip
++ [Sirenix.OdinInspector.HideLabelAttribute]

@@ -1,4 +1,5 @@
 using Playtika.Controllers;
+using Sling.Audio;
 using Sling.Common.Controllers;
 using Sling.Flow;
 using Sling.Infrastructure;
@@ -30,6 +31,10 @@ namespace Sling
     {
       builder.RegisterInstance(_gameConfig);
       builder.Register<GameModel>(Lifetime.Singleton);
+
+      builder.RegisterInstance(_gameConfig.AudioConfig);
+      builder.Register<AudioEvents>(Lifetime.Singleton);
+      builder.Register<AudioController>(Lifetime.Transient);
 
       builder.Register<GameLoopController>(Lifetime.Transient);
       builder.Register<InitFirstSceneController>(Lifetime.Transient);

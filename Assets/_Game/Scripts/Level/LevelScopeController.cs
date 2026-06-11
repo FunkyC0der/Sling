@@ -50,7 +50,6 @@ namespace Sling.Level
       builder.Register<SavePlayerStartStatsFlowController>(Lifetime.Transient);
       builder.Register<RespawnPlayerFlowController>(Lifetime.Transient);
 
-      builder.Register<HazardZonesController>(Lifetime.Transient);
       builder.Register<FinishZoneController>(Lifetime.Transient);
       builder.Register<OptionalFeatureController<FinishZoneController, FinishZoneView>>(Lifetime.Transient);
 

@@ -42,7 +42,6 @@ namespace Sling.Level.Gameplay
       Execute<PlayerScopeController>();
       
       Execute<OptionalFeatureController<FinishZoneController, FinishZoneView>>();
-      //Execute<HazardZonesController>();
       Execute<OptionalFeatureController<BossController, BossView>>();
       Execute<HudController>();
 

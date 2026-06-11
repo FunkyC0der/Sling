@@ -1,0 +1,9 @@
+OVDF v1.1
+Sling.Audio.AudioConfig, Assembly-CSharp
+MetaGuid:535e3ab4f8654d8ba1ff36f06646eab0
+
+# AudioClips
++ [Sirenix.OdinInspector.DictionaryDrawerSettings]
+	KeyLabel = ""
+	ValueLabel = ""
+	DisplayMode = Foldout

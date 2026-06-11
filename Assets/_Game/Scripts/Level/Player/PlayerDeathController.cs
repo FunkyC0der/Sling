@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Audio;
 using Sling.Level.Hazards;
 using Sling.Level.Session;
 
@@ -12,13 +13,15 @@ namespace Sling.Level.Player
     private readonly PlayerAnimationsView _animationsView;
     private readonly PlayerInputView _inputView;
     private readonly LevelEvents _levelEvents;
+    private readonly AudioEvents _audioEvents;
 
     public PlayerDeathController(IControllerFactory controllerFactory,
       DamageableView damageableView,
       PlayerView playerView,
       PlayerAnimationsView animationsView,
       PlayerInputView inputView,
-      LevelEvents levelEvents) 
+      LevelEvents levelEvents, 
+      AudioEvents audioEvents) 
       : base(controllerFactory)
     {
       _damageableView = damageableView;
@@ -26,6 +29,7 @@ namespace Sling.Level.Player
       _animationsView = animationsView;
       _inputView = inputView;
       _levelEvents = levelEvents;
+      _audioEvents = audioEvents;
     }
 
     protected override void OnStart() => 
@@ -44,6 +48,8 @@ namespace Sling.Level.Player
       _playerView.FreezePhysics();
       _inputView.DisableInput();
 
+      _audioEvents.PlaySFX(AudioClipId.PlayerDeath);
+      
       await _animationsView.Die(CancellationToken);
       
       _levelEvents.OnPlayerDied?.Invoke();

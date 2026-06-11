@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using System.ComponentModel;
+using Playtika.Controllers;
+
+namespace Sling.Audio
+{
+  public class AudioController : ControllerBase
+  {
+    private readonly AudioView _view;
+    private readonly AudioConfig _config;
+    private readonly AudioEvents _audioEvents;
+
+    public AudioController(IControllerFactory controllerFactory,
+      AudioView view,
+      AudioConfig config,
+      AudioEvents audioEvents)
+      : base(controllerFactory)
+    {
+      _view = view;
+      _config = config;
+      _audioEvents = audioEvents;
+    }
+
+    protected override void OnStart()
+    {
+      _audioEvents.PlayMusic += PlayMusic;
+      _audioEvents.PlaySFX += PlaySFX;
+    }
+
+    [DebugMethod]
+    private void PlayMusic(AudioClipId id) =>
+      _view.PlayMusic(_config.AudioClips.GetValueOrDefault(id));
+    
+    [DebugMethod]
+    private void PlaySFX(AudioClipId id) =>
+      _view.PlaySFX(_config.AudioClips.GetValueOrDefault(id));
+  }
+}
