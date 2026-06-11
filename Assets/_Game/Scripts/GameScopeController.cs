@@ -21,6 +21,8 @@ namespace Sling
       _gameConfig = gameConfig;
     }
 
+    protected override string OwnedScopeName => "Game";
+
     protected override void OnStart()
     {
       base.OnStart();

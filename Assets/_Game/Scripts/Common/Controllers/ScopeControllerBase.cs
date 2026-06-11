@@ -1,5 +1,4 @@
 using Playtika.Controllers;
-using Sling.Common.Extensions;
 using VContainer;
 using VContainer.Unity;
 
@@ -7,7 +6,7 @@ namespace Sling.Common.Controllers
 {
   public abstract class ScopeControllerBase : ControllerBase
   {
-    private LifetimeScope _ownedScope;
+    private OwnedLifetimeScope _ownedScope;
 
     private readonly LifetimeScope _scope;
 
@@ -17,6 +16,8 @@ namespace Sling.Common.Controllers
       _scope = scope;
     }
 
+    protected abstract string OwnedScopeName { get; }
+    
     protected override void OnStart() => 
       _ownedScope = BuildOwnedScope();
 
@@ -24,11 +25,15 @@ namespace Sling.Common.Controllers
       _ownedScope.Dispose();
 
     protected IControllerFactory GetOwnedControllerFactory() =>
-      _ownedScope.GetControllerFactory();
+      _ownedScope.ControllerFactory;
 
     protected abstract void InitScopeBuilder(IContainerBuilder builder);
 
-    private LifetimeScope BuildOwnedScope() => 
-      _scope.CreateChild(InitScopeBuilder);
+    private OwnedLifetimeScope BuildOwnedScope()
+    {
+      var ownedScope = new OwnedLifetimeScope(_scope, InitScopeBuilder, OwnedScopeName);
+      ownedScope.Build();
+      return ownedScope;
+    }
   }
 }

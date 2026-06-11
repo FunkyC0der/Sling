@@ -24,6 +24,8 @@ namespace Sling.Level
     {
     }
 
+    protected override string OwnedScopeName => "Level";
+
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
       LevelSessionResult result =

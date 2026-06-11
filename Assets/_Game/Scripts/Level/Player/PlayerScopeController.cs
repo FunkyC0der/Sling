@@ -19,6 +19,8 @@ namespace Sling.Level.Player
       _playerView = playerView;
     }
 
+    protected override string OwnedScopeName => "Player";
+
     protected override void OnStart()
     {
       base.OnStart();
