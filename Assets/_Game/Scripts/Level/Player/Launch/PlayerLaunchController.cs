@@ -53,6 +53,8 @@ namespace Sling.Level.Player.Launch
 
     private async UniTask LaunchFlowAsync(Vector2 worldPos)
     {
+      _model.OnPreLaunch?.Invoke();
+      
       Vector2 launchVelocity =
         await ExecuteAndWaitResultAsync<PlayerPreLaunchFlowController, Vector2, Vector2>(worldPos, CancellationToken);
 
@@ -62,6 +64,7 @@ namespace Sling.Level.Player.Launch
         
         _animationsView.Jump();
         _launchView.Launch(launchVelocity);
+        
         _model.OnLaunched?.Invoke();
       }      
     }

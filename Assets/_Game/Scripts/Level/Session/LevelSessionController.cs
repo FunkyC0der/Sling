@@ -5,22 +5,20 @@ using Playtika.Controllers;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.LevelComplete;
-using Sling.Level.Player;
 
 namespace Sling.Level.Session
 {
   public class LevelSessionController : ControllerWithResultBase<LevelSessionResult>
   {
-    private LevelModel _levelModel;
-    
-    public LevelSessionController(IControllerFactory controllerFactory, LevelModel levelModel)
+    public LevelSessionController(IControllerFactory controllerFactory)
       : base(controllerFactory)
     {
-      _levelModel = levelModel;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
+      Execute<LevelTrackController>();
+      
       await ExecuteAndWaitResultAsync<SavePlayerStartStatsFlowController>(cancellationToken);
       
       LevelSessionResult sessionResult;

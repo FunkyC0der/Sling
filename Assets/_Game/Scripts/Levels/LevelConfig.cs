@@ -1,4 +1,5 @@
 using System;
+using Sling.Audio;
 using Sling.Common.Scenes;
 
 namespace Sling.Levels
@@ -8,5 +9,6 @@ namespace Sling.Levels
   {
     public LevelType Type;
     public SceneReference Scene;
+    public AudioClipId Track = AudioClipId.LevelTrack1;
   }
 }

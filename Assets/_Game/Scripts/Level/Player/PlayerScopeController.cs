@@ -4,6 +4,7 @@ using Sling.Common.Extensions;
 using Sling.Level.Collision;
 using Sling.Level.Gameplay;
 using Sling.Level.Player.Launch;
+using Sling.Level.Player.States;
 using VContainer;
 using VContainer.Unity;
 
@@ -33,6 +34,8 @@ namespace Sling.Level.Player
       
       builder.Register<PlayerModel>(Lifetime.Singleton);
       builder.Register<PlayerController>(Lifetime.Transient);
+
+      builder.Register<PlayerStatesController>(Lifetime.Transient);
       builder.Register<IsInAirController>(Lifetime.Transient);
 
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
@@ -40,6 +43,8 @@ namespace Sling.Level.Player
 
       builder.Register<PlayerFacingController>(Lifetime.Transient);
       builder.Register<PlayerDeathController>(Lifetime.Transient);
+
+      builder.Register<PlayerAudioController>(Lifetime.Transient);
       
       builder.RegisterGameObjectViews(_playerView.gameObject);
     }

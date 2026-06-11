@@ -34,14 +34,14 @@ namespace Sling.Flow
       await _gameConfig.MainMenuScene.LoadSceneAsync()
         .ToUniTask(cancellationToken: ct);
 
+      _audioEvents.PlayMusic?.Invoke(AudioClipId.MainMenuTrack);
+      
       int levelIndex = await ExecuteAndWaitResultAsync<SelectLevelWindowController, IWindowRootView, int>(
         _menuRootView, ct);
 
       _gameModel.GameState = GameState.PlayLevels;
       _gameModel.LevelIndex = levelIndex;
       _gameModel.SceneToLoad = _gameConfig.Levels[levelIndex].Scene.SceneName;
-      
-      _audioEvents.PlayMusic?.Invoke(AudioClipId.MainMenuTrack);
 
       Complete();
     }

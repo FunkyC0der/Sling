@@ -3,6 +3,7 @@ using Playtika.Controllers;
 using Sling.Level.Collision;
 using Sling.Level.Gameplay;
 using Sling.Level.Player.Launch;
+using Sling.Level.Player.States;
 using Sling.Level.Session;
 
 namespace Sling.Level.Player
@@ -29,8 +30,9 @@ namespace Sling.Level.Player
 
     private async UniTask StartAsync()
     {
-      
       await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(CancellationToken);
+      
+      Execute<PlayerStatesController>();
       
       Execute<IsInAirController, IsInAirController.Context>(
         new IsInAirController.Context(_model.IsInAir, _view.Config.GroundSurfaceLayerMask));
@@ -38,6 +40,8 @@ namespace Sling.Level.Player
       Execute<PlayerLaunchController>();
       Execute<PlayerFacingController>();
       Execute<PlayerDeathController>();
+      
+      Execute<PlayerAudioController>();
     }
   }
 }

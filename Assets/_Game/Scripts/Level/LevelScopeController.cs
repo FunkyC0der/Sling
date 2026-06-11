@@ -37,10 +37,12 @@ namespace Sling.Level
 
     protected override void InitScopeBuilder(IContainerBuilder builder)
     {
-      builder.Register<LevelSessionController>(Lifetime.Transient);
-
       builder.Register<LevelEvents>(Lifetime.Singleton);
       builder.Register<LevelModel>(Lifetime.Singleton);
+      
+      builder.Register<LevelSessionController>(Lifetime.Transient);
+      builder.Register<LevelTrackController>(Lifetime.Transient);
+
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 

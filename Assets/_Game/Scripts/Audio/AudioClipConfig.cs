@@ -7,6 +7,6 @@ namespace Sling.Audio
   public class AudioClipConfig
   {
     public AudioClip AudioClip;
-    public float Volume;
+    public float Volume = 1;
   }
 }
