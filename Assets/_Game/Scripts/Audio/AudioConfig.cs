@@ -8,5 +8,8 @@ namespace Sling.Audio
   public class AudioConfig : SerializedScriptableObject
   {
     public Dictionary<AudioClipId, AudioClipConfig> AudioClips;
+
+    public AudioClipConfig GetClipConfig(AudioClipId id) =>
+      AudioClips.GetValueOrDefault(id);
   }
 }

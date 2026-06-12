@@ -16,6 +16,9 @@ namespace Sling.Audio
     PlayerLaunch = 102,
     PlayerLand = 103,
     
+    BounceZone = 121,
+    StickyZone = 122,
+    
     LevelComplete = 150
   }
 }
