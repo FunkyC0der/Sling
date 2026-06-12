@@ -543,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_1_3
@@ -701,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_1_2
@@ -767,7 +767,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_2_1
@@ -1004,7 +1004,7 @@ PrefabInstance:
     - target: {fileID: 2268944150550002034, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 775054683461602459, guid: c447ea1a0985e2c46af0c2f7f20b20e4, type: 3}
+      objectReference: {fileID: 4088507899557720417, guid: b730c41ab231d774eac0831220c39f55, type: 3}
     - target: {fileID: 2268944150550002034, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: m_Color.b
       value: 0.9860737
@@ -1611,7 +1611,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_2_2
@@ -1761,7 +1761,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_1_1
@@ -1911,7 +1911,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_2_3
@@ -1988,7 +1988,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_2_4
@@ -2423,7 +2423,7 @@ PrefabInstance:
     - target: {fileID: 4964083907149227954, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8612382658419094932, guid: c8e2b1fd11b71f14cb9f43fe1eaafa5a, type: 3}
+      objectReference: {fileID: -6603655592384330572, guid: aa91cb71e6741d540943de3b7df2286b, type: 3}
     - target: {fileID: 6048398396122128134, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_Name
       value: WeakPoint_1_4
