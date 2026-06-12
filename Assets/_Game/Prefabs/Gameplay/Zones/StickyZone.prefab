@@ -124,6 +124,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1484509978248976864}
+  - {fileID: 2382355761548939042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2483703814857229999
@@ -155,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.StickyWall.StickyWall
   <Config>k__BackingField: {fileID: 11400000, guid: cb04ee88789c8493c9596862402acedb, type: 2}
+  _stickClipEmitter: {fileID: 6907452904855632140}
 --- !u!61 &6730474392159276202
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -201,3 +203,80 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 1.55}
   m_EdgeRadius: 0
+--- !u!1001 &4737996899338668703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1125984343119530135}
+    m_Modifications:
+    - target: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: _clipId
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085843815261020547, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_Name
+      value: AudioClipEmitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+--- !u!4 &2382355761548939042 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 4737996899338668703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6907452904855632140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 4737996899338668703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d255b329ee4e8bbd5455ebc298840c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Audio.AudioClipEmitter
