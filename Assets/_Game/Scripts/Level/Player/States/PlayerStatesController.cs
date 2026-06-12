@@ -23,6 +23,12 @@ namespace Sling.Level.Player.States
       _groundedView.OnUngrounded += OnUngrounded;
     }
 
+    protected override void OnStop()
+    {
+      _groundedView.OnGrounded -= OnGrounded;
+      _groundedView.OnUngrounded -= OnUngrounded;
+    }
+
     private void OnGrounded(Collider2D other) => 
       _model.IsGrounded.Value = true;
 
