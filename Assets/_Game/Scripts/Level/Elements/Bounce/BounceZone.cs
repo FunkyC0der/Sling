@@ -1,3 +1,4 @@
+using Sling.Audio;
 using UnityEngine;
 
 namespace Sling.Level.Elements.Bounce
@@ -6,6 +7,7 @@ namespace Sling.Level.Elements.Bounce
   public class BounceZone : MonoBehaviour
   {
     [SerializeField] private BounceZoneConfig _config;
+    [SerializeField] private AudioClipEmitter _bounceClipEmitter;
 
     private Vector3 Forward => transform.right;
     private Vector3 Normal => transform.up;
@@ -21,6 +23,7 @@ namespace Sling.Level.Elements.Bounce
       Vector3 otherPositionInLocalSpace = rb.transform.position - transform.position;
       bool mirror = !IsVectorTowardsTo(otherPositionInLocalSpace, Normal);
       
+      _bounceClipEmitter.PlayOneShot();
       rb.linearVelocity = CreateBounceVelocity(invert, mirror);
     }
 

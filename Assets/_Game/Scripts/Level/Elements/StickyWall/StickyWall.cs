@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Sling.Audio;
 using Sling.Level.Common;
-using Sling.Level.Player;
 using UnityEngine;
 
 namespace Sling.Level.Elements.StickyWall
@@ -9,6 +9,7 @@ namespace Sling.Level.Elements.StickyWall
   public class StickyWall : MonoBehaviour
   {
     [field: SerializeField] public StickyWallConfig Config { get; private set; }
+    [SerializeField] private AudioClipEmitter _stickClipEmitter;
 
     private readonly HashSet<Rigidbody2D> _collidedRbs = new();
     private readonly Dictionary<ILaunchable, Action> _launchSubscriptions = new();
@@ -42,6 +43,8 @@ namespace Sling.Level.Elements.StickyWall
       if (!_collidedRbs.Add(rb))
         return;
 
+      _stickClipEmitter.PlayOneShot();
+      
       var launchable = rb.GetComponent<ILaunchable>();
       if (launchable != null)
       {

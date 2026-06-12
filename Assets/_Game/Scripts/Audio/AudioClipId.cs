@@ -2,6 +2,7 @@ namespace Sling.Audio
 {
   public enum AudioClipId
   {
+    Invalid = -1,
     MainMenuTrack = 0,
     
     LevelTrack1 = 1,
@@ -14,6 +15,9 @@ namespace Sling.Audio
     PlayerStretch = 101,
     PlayerLaunch = 102,
     PlayerLand = 103,
+    
+    BounceZone = 121,
+    StickyZone = 122,
     
     LevelComplete = 150
   }
