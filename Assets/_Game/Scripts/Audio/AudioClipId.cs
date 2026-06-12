@@ -2,6 +2,7 @@ namespace Sling.Audio
 {
   public enum AudioClipId
   {
+    Invalid = -1,
     MainMenuTrack = 0,
     
     LevelTrack1 = 1,

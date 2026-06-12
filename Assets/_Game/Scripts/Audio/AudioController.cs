@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using Playtika.Controllers;
 
 namespace Sling.Audio
@@ -9,6 +8,8 @@ namespace Sling.Audio
     private readonly AudioView _view;
     private readonly AudioConfig _config;
     private readonly AudioEvents _audioEvents;
+
+    private AudioClipId _currentMusicClipId = AudioClipId.Invalid;
 
     public AudioController(IControllerFactory controllerFactory,
       AudioView view,
@@ -28,8 +29,14 @@ namespace Sling.Audio
       _audioEvents.PlayConcurrentSFX += PlayConcurrentSFX;
     }
 
-    private void PlayMusic(AudioClipId id) =>
+    private void PlayMusic(AudioClipId id)
+    {
+      if (_currentMusicClipId == id)
+        return;
+
+      _currentMusicClipId = id;
       _view.PlayMusic(_config.AudioClips.GetValueOrDefault(id));
+    }
 
     private void PlaySFX(AudioClipId id) =>
       _view.PlaySFX(_config.AudioClips.GetValueOrDefault(id));
