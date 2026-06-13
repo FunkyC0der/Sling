@@ -12,6 +12,7 @@ namespace Sling.Common.UI
     public const string PauseButton     = "PauseButton";
     public const string LevelItemsContainer = "LevelItemsContainer";
     public const string SelectedRect = "SelectedRect";
+    public const string LevelName = "LevelName";
 
     public static class Classes
     {

@@ -139,3 +139,9 @@
 .primary-button:active {
     scale: 0.95;
 }
+
+.hud-text-h1 {
+    color: rgb(243, 243, 243);
+    font-size: 35px;
+    -unity-font-style: bold;
+}

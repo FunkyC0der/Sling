@@ -28,5 +28,8 @@ namespace Sling.Level.Hud
 
     private void HandlePauseClicked() =>
       OnPauseClicked?.Invoke();
+
+    public void SetLevelIndex(int levelIndex) => 
+      _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LEVEL {levelIndex + 1}";
   }
 }

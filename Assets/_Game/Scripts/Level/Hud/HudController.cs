@@ -13,23 +13,29 @@ namespace Sling.Level.Hud
     private readonly PopupWindowsRootView _popupRootView;
     private readonly PlayerInputView _playerInput;
     private readonly LevelEvents _events;
+    private readonly GameModel _gameModel;
 
     public HudController(
       IControllerFactory factory,
       HudView hudView,
       PopupWindowsRootView popupRootView,
       PlayerInputView playerInput,
-      LevelEvents events)
+      LevelEvents events, 
+      GameModel gameModel)
       : base(factory)
     {
       _hudView = hudView;
       _popupRootView = popupRootView;
       _playerInput = playerInput;
       _events = events;
+      _gameModel = gameModel;
     }
 
-    protected override void OnStart() =>
+    protected override void OnStart()
+    {
       _hudView.OnPauseClicked += HandlePauseClicked;
+      _hudView.SetLevelIndex(_gameModel.LevelIndex);
+    }
 
     protected override void OnStop() =>
       _hudView.OnPauseClicked -= HandlePauseClicked;
