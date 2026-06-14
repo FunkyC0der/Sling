@@ -49,6 +49,9 @@ AGENTS.md
 # Kanban board
 .devtool/
 
+# Graphify
+graphify-out/
+
 # Builds output
 ExportedObj/
 *.apk
