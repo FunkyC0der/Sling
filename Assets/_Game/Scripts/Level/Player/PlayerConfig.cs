@@ -27,8 +27,10 @@ namespace Sling.Level.Player
     [Min(0)]
     public float DieCameraShakeFrequency = 5f;
     
-    [RequiredType(typeof(ParticleSystem))]
-    public GameObject DeathVFXPrefab;
+    public ParticleSystem DeathVFXPrefab;
+
+    [Header("Landing dust")]
+    public ParticleSystem LandingDustVFXPrefab;
 
     [field: Header("Finish")]
     [field: SerializeField] public float FinishStopDuration { get; private set; } = 0.5f;

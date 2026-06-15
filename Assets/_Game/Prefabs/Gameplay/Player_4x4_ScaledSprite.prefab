@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2914225571055283963, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -63
       objectReference: {fileID: 0}
     - target: {fileID: 2914225571055283963, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -34
       objectReference: {fileID: 0}
     - target: {fileID: 2914225571055283963, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -67,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 3276618756648720583, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
       propertyPath: m_Name
       value: Player_4x4_ScaledSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788143834159826571, guid: f0ac90c6caf2f407b86123c37488a91f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.73
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

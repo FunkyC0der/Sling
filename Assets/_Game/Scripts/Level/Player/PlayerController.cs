@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Collision;
 using Sling.Level.Gameplay;
+using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
 using Sling.Level.Player.States;
 using Sling.Level.Session;
@@ -42,6 +43,7 @@ namespace Sling.Level.Player
       Execute<PlayerDeathController>();
       
       Execute<PlayerAudioController>();
+      Execute<PlayerLandingDustController>();
     }
   }
 }

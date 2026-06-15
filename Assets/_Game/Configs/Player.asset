@@ -23,6 +23,7 @@ MonoBehaviour:
   <DieDuration>k__BackingField: 0.5
   DieCameraShakeStrength: 0.5
   DieCameraShakeFrequency: 5
-  DeathVFXPrefab: {fileID: 5732605035819352471, guid: 35ecc2c4466464cf3821ad1f713c478a, type: 3}
+  DeathVFXPrefab: {fileID: 537701270093123969, guid: 35ecc2c4466464cf3821ad1f713c478a, type: 3}
+  LandingDustVFXPrefab: {fileID: 2609069596727956780, guid: 480d058a548af4d979069ec2272fcf21, type: 3}
   <FinishStopDuration>k__BackingField: 0.2
   GlobalGravity: -123.9
