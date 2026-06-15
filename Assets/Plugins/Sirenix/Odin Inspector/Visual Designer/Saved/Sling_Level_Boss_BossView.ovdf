@@ -1,0 +1,7 @@
+OVDF v1.1
+Sling.Level.Boss.BossView, Assembly-CSharp
+MetaGuid:5a6f4d6d859ea4e7f9042a8186579067
+
+# _blinkAmount
++ [UnityEngine.RangeAttribute]
+	max = 1

@@ -19,6 +19,8 @@ namespace Sling.Audio
     BounceZone = 121,
     StickyZone = 122,
     
+    BossDamage = 131,
+    
     LevelComplete = 150
   }
 }

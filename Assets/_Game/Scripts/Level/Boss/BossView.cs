@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
+using Sirenix.OdinInspector;
 using Sling.Common.Tweeners;
 using Sling.Common.Views;
 using UnityEngine;
@@ -25,11 +26,19 @@ namespace Sling.Level.Boss
     [SerializeField] private Transform _bossBody;
     [SerializeField] private float _phaseTransitionDuration = 0.5f;
     [SerializeField] private List<BossPhaseSettings> _phases;
+    [SerializeField] private ShakeSettings _hitShakeSettings;
+    [SerializeField] private float _blinkAmount;
+    [SerializeField] private int _hitBlinkCount = 3;
+
+    private SpriteBlinkTweener[] _blinkTweeners;
 
     public int PhaseCount => _phases.Count;
 
     public IReadOnlyList<WeakPointView> GetPhaseWeakPoints(int index) => _phases[index].WeakPoints;
     public IReadOnlyList<BossPhaseSettings> GetPhases() => _phases;
+
+    private void Awake() => 
+      _blinkTweeners = GetComponentsInChildren<SpriteBlinkTweener>();
 
     private void Start()
     {
@@ -38,6 +47,7 @@ namespace Sling.Level.Boss
         phases.InitialPosition = phases.Tweener.Rigidbody.position;
         phases.InitialRotation = phases.Tweener.Rigidbody.rotation;
       }
+
     }
 
     public void StopPhase(int phaseIndex)
@@ -78,6 +88,15 @@ namespace Sling.Level.Boss
       _bossBody.localRotation = Quaternion.identity;
       
       phase.Tweener.StartTween();
+    }
+
+    [Button]
+    public void PlayHitAnim()
+    {
+      Tween.ShakeLocalPosition(transform, _hitShakeSettings);
+      
+      foreach (SpriteBlinkTweener blinkTweener in _blinkTweeners) 
+        blinkTweener.PlayBlink(_hitBlinkCount, _hitShakeSettings.duration, _blinkAmount).Forget();
     }
   }
 }

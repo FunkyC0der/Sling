@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2870131258164775764}
   - component: {fileID: 2268944150550002034}
   - component: {fileID: 9072460114713152555}
+  - component: {fileID: 1706072903558970319}
   m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
@@ -128,6 +129,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1706072903558970319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3143578325680803541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49f996b9f3f402b9094819a7be687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.SpriteBlinkTweener
+  _spriteRenderer: {fileID: 2268944150550002034}
+  _blinkMaterial: {fileID: 2100000, guid: 2f07758086124cceb4a86841e013665f, type: 2}
+  _blinkAmountProperty: _BlinkAmount
 --- !u!1 &3880029067356826034
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +200,28 @@ MonoBehaviour:
   - Tweener: {fileID: 5418916311888171328}
     WeakPoints:
     - {fileID: 2536439293183331239}
+  _hitShakeSettings:
+    strength: {x: 0.5, y: 0.5, z: 0}
+    duration: 0.5
+    frequency: 10
+    enableFalloff: 0
+    falloffEase: 0
+    strengthOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    asymmetry: 0
+    easeBetweenShakes: 0
+    cycles: 1
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  _blinkAmount: 0.5
+  _hitBlinkCount: 3
 --- !u!1 &6729289364589355069
 GameObject:
   m_ObjectHideFlags: 0
