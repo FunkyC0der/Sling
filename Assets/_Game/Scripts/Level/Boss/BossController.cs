@@ -24,7 +24,7 @@ namespace Sling.Level.Boss
     {
       for (int i = 0; i < _bossView.PhaseCount; i++)
         foreach (WeakPointView weakPoint in _bossView.GetPhaseWeakPoints(i))
-          weakPoint.Hide();
+          weakPoint.Hide(showVFX: false);
 
       var cts = new CancellationTokenSource();
       AddDisposable(new DisposableToken(cts.Cancel));

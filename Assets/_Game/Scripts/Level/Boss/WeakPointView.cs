@@ -8,11 +8,19 @@ namespace Sling.Level.Boss
   {
     public event Action OnHit;
 
+    [SerializeField] private ParticleSystem _hideVFXPrefab;
+
     private void OnCollisionEnter2D() => 
       OnHit?.Invoke();
 
     public void Show() => gameObject.SetActive(true);
 
-    public void Hide() => gameObject.SetActive(false);
+    public void Hide(bool showVFX)
+    {
+      gameObject.SetActive(false);
+
+      if(showVFX)
+        Instantiate(_hideVFXPrefab, transform.position, Quaternion.identity);
+    }
   }
 }

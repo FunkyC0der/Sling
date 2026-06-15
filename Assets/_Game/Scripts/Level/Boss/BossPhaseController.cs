@@ -28,7 +28,7 @@ namespace Sling.Level.Boss
         WeakPointView captured = weakPoint;
         Action handler = () =>
         {
-          captured.Hide();
+          captured.Hide(showVFX: true);
           remaining--;
           if (remaining <= 0)
             done.TrySetResult();
