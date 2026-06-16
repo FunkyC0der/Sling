@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
     <ui:VisualElement name="Root" style="flex-grow: 1; justify-content: center;">
         <ui:VisualElement name="Title" style="flex-grow: 0; flex-basis: 305px;">
-            <ui:Label text="SLING&#10;HERO" name="GameText" style="align-self: center; color: rgb(255, 255, 255); font-size: 84px; -unity-font-style: bold; top: 42px;"/>
+            <ui:Image source="project://database/Assets/_Game/Sprites/SlingHero_Logo.png?fileID=2800000&amp;guid=49f97e862f16ef741986306f0204bb37&amp;type=3#SlingHero_Logo" name="Logo"/>
         </ui:VisualElement>
         <ui:VisualElement name="LevelItemsContainer" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; margin-left: 0; margin-right: 0; justify-content: center; width: 1361px; align-self: center; align-content: flex-start;">
             <ui:Instance template="LevelItem" name="TemplateContainer"/>
