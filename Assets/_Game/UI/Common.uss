@@ -116,17 +116,20 @@
 }
 
 .primary-button {
-    flex-grow: 1;
-    width: 50%;
+    flex-grow: 0;
+    width: 250px;
     align-self: center;
-    -unity-font-style: bold;
-    font-size: 57px;
+    -unity-font-style: normal;
+    font-size: 59px;
     background-color: rgb(152, 51, 51);
     color: var(--color-text-light);
     transition-property: scale;
     transition-duration: 0.1s;
     transition-timing-function: ease-out;
     border-width: 0;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 4px;
+    align-content: center;
 }
 
 .primary-button:hover {

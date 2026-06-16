@@ -1,13 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
-    <ui:VisualElement name="Window" class="rounded popup-window">
+    <ui:VisualElement name="Window" class="rounded popup-window" style="width: 981px; height: 330px;">
         <ui:VisualElement name="TitleContainer" class="rounded popup-title-container">
             <ui:Label text="LEVEL COMPLETE" name="Title" class="popup-title"/>
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; align-items: center; justify-content: center;">
-            <ui:Button text="NEXT" name="NextLevelButton" class="primary-button stacked-button rounded" style="flex-grow: 0;"/>
-            <ui:Button text="RESTART" name="RestartButton" class="primary-button stacked-button rounded" style="flex-grow: 0;"/>
-            <ui:Button text="MENU" name="MenuButton" class="primary-button rounded" style="flex-grow: 0;"/>
+        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: row; align-content: center; align-self: stretch;">
+            <ui:Button text="RESTART" name="RestartButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>
+            <ui:Button text="MENU" name="MenuButton" class="primary-button rounded" style="flex-grow: 0; margin-top: 2px; flex-shrink: 0; margin-right: 10px; margin-left: 10px; translate: 0 0;"/>
+            <ui:Button text="NEXT" name="NextLevelButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
