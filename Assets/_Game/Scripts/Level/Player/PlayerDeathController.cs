@@ -14,6 +14,7 @@ namespace Sling.Level.Player
     private readonly PlayerInputView _inputView;
     private readonly LevelEvents _levelEvents;
     private readonly AudioEvents _audioEvents;
+    private readonly PlayerModel _model;
 
     public PlayerDeathController(IControllerFactory controllerFactory,
       DamageableView damageableView,
@@ -21,7 +22,8 @@ namespace Sling.Level.Player
       PlayerAnimationsView animationsView,
       PlayerInputView inputView,
       LevelEvents levelEvents, 
-      AudioEvents audioEvents) 
+      AudioEvents audioEvents, 
+      PlayerModel model) 
       : base(controllerFactory)
     {
       _damageableView = damageableView;
@@ -30,6 +32,7 @@ namespace Sling.Level.Player
       _inputView = inputView;
       _levelEvents = levelEvents;
       _audioEvents = audioEvents;
+      _model = model;
     }
 
     protected override void OnStart() => 
@@ -44,6 +47,8 @@ namespace Sling.Level.Player
     private async UniTask DeathFlowAsync()
     {
       _damageableView.OnDamaged -= OnDamaged;
+
+      _model.IsDead.Value = true;
       
       _playerView.FreezePhysics();
       _inputView.DisableInput();

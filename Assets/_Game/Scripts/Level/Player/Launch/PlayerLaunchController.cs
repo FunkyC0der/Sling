@@ -10,7 +10,6 @@ namespace Sling.Level.Player.Launch
     private readonly PlayerModel _model;
     private readonly PlayerLaunchView _launchView;
     private readonly PlayerConfig _config;
-    private readonly PlayerAnimationsView _animationsView;
 
     private int _remainingLaunches;
 
@@ -18,15 +17,13 @@ namespace Sling.Level.Player.Launch
       PlayerInputView inputView,
       PlayerModel model, 
       PlayerLaunchView launchView,
-      PlayerConfig config,
-      PlayerAnimationsView animationsView)
+      PlayerConfig config)
       : base(controllerFactory)
     {
       _inputView = inputView;
       _model = model;
       _launchView = launchView;
       _config = config;
-      _animationsView = animationsView;
     }
 
     protected override void OnStart()
@@ -62,20 +59,15 @@ namespace Sling.Level.Player.Launch
       {
         _remainingLaunches = Mathf.Max(0, _remainingLaunches - 1);
         
-        _animationsView.Jump();
         _launchView.Launch(launchVelocity);
-        
         _model.OnLaunched?.Invoke();
       }      
     }
 
     private void OnIsInAirChanged(bool oldValue, bool newValue)
     {
-      if (!newValue)
-      {
+      if (!newValue) 
         ResetRemainingLaunches();
-        _animationsView.Land();
-      }
     }
 
     private void ResetRemainingLaunches() => 

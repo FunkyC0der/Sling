@@ -1,34 +1,19 @@
 fileFormatVersion: 2
-guid: b6f58361d0bec4e98bbfada6e8fa0b64
+guid: 3ea15a70bde424301a02bc7aef647230
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7276065108202815291
-    second: Hero-Jump_0
+      213: -4431221630536069155
+    second: HeroJump_0
   - first:
-      213: -6268884871476064819
-    second: Hero-Jump_1
+      213: 7917672194324541414
+    second: HeroJump_1
   - first:
-      213: 4756817647653355586
-    second: Hero-Jump_2
+      213: -6932121571280280646
+    second: HeroJump_2
   - first:
-      213: 7266092482185414903
-    second: Hero-Jump_3
-  - first:
-      213: 5406542863902209663
-    second: Hero-Jump_4
-  - first:
-      213: 543932107571124209
-    second: Hero-Jump_5
-  - first:
-      213: 2629443837317940744
-    second: Hero-Jump_6
-  - first:
-      213: 7832185586394653102
-    second: Hero-Jump_7
-  - first:
-      213: -7156891415764518371
-    second: Hero-Jump_8
+      213: 3012732131982566737
+    second: HeroJump_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +57,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 12
@@ -124,7 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hero-Jump_0
+      name: HeroJump_0
       rect:
         serializedVersion: 2
         x: 0
@@ -139,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c005f69559360b90800000000000000
-      internalID: -7276065108202815291
+      spriteID: ddfced697632182c0800000000000000
+      internalID: -4431221630536069155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hero-Jump_1
+      name: HeroJump_1
       rect:
         serializedVersion: 2
         x: 48
@@ -161,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dcd49d16c627009a0800000000000000
-      internalID: -6268884871476064819
+      spriteID: 6efa3be39e831ed60800000000000000
+      internalID: 7917672194324541414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hero-Jump_2
+      name: HeroJump_2
       rect:
         serializedVersion: 2
         x: 96
@@ -183,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 24000b5a27c930240800000000000000
-      internalID: 4756817647653355586
+      spriteID: ab3240ca8282ccf90800000000000000
+      internalID: -6932121571280280646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hero-Jump_3
+      name: HeroJump_3
       rect:
         serializedVersion: 2
         x: 144
@@ -205,118 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f84cc97d9856d460800000000000000
-      internalID: 7266092482185414903
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hero-Jump_4
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7670d1f616e70b40800000000000000
-      internalID: 5406542863902209663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hero-Jump_5
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1f7d4b5be5f6c8700800000000000000
-      internalID: 543932107571124209
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hero-Jump_6
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8060d281d39ad7420800000000000000
-      internalID: 2629443837317940744
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hero-Jump_7
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea1ecfb4b4381bc60800000000000000
-      internalID: 7832185586394653102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hero-Jump_8
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d1a305b1d2d9dac90800000000000000
-      internalID: -7156891415764518371
+      spriteID: 155e93279ef5fc920800000000000000
+      internalID: 3012732131982566737
       vertices: []
       indices: 
       edges: []
@@ -325,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8a02d17f95d0d4eafa074b5fdf14139f
+    spriteID: ec47c7201a217404daf8f8833be4a544
     internalID: 0
     vertices: []
     indices: 
@@ -337,15 +212,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Hero-Jump_0: -7276065108202815291
-      Hero-Jump_1: -6268884871476064819
-      Hero-Jump_2: 4756817647653355586
-      Hero-Jump_3: 7266092482185414903
-      Hero-Jump_4: 5406542863902209663
-      Hero-Jump_5: 543932107571124209
-      Hero-Jump_6: 2629443837317940744
-      Hero-Jump_7: 7832185586394653102
-      Hero-Jump_8: -7156891415764518371
+      HeroJump_0: -4431221630536069155
+      HeroJump_1: 7917672194324541414
+      HeroJump_2: -6932121571280280646
+      HeroJump_3: 3012732131982566737
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

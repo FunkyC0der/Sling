@@ -284,8 +284,9 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
   _animator: {fileID: 4794860568099122736}
   _spriteRenderer: {fileID: 3799020414547520204}
-  _jumpTriggerId: 125937960
+  _inAirTriggerId: 861170204
   _landTriggerId: 137525990
+  _inAirBlendFloatId: 67752084
 --- !u!114 &4438162892628949576
 MonoBehaviour:
   m_ObjectHideFlags: 0

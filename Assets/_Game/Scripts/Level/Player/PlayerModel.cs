@@ -11,5 +11,6 @@ namespace Sling.Level.Player
     
     public readonly Observable<bool> IsInAir = new() { Value = false };
     public readonly Observable<bool> IsGrounded = new() { Value = false };
+    public readonly Observable<bool> IsDead = new() { Value = false };
   }
 }

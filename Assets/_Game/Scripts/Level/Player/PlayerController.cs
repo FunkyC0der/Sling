@@ -41,6 +41,7 @@ namespace Sling.Level.Player
       Execute<PlayerLaunchController>();
       Execute<PlayerFacingController>();
       Execute<PlayerDeathController>();
+      Execute<PlayerInAirAnimController>();
       
       Execute<PlayerAudioController>();
       Execute<PlayerLandingDustController>();

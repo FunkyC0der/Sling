@@ -18,6 +18,7 @@ namespace Sling.Level.Player
     public Vector3 Position => transform.position;
     public bool IsFacingLeft => _bodySprite.flipX;
     public float LinearVelocityX => _rigidbody.linearVelocityX;
+    public float LinearVelocityY => _rigidbody.linearVelocityY;
 
     public void SetPosition(Vector3 position) =>
       transform.position = position;
