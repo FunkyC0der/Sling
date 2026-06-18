@@ -22,6 +22,14 @@ namespace Sling.Level.Elements.DualGridFeature
     public Tilemap PhysicalTilemap => _physicalTilemap;
     public Tilemap VisualTilemap => _visualTilemap;
 
+    public void SetTileSetAndRebuildVisualTilemap(DualGridTileSet tileSet)
+    {
+      _tileSet = tileSet;
+      _tileVariants = CreateTileVariants();
+
+      RebuildVisualTilemap();
+    }
+
     private void OnEnable()
     {
       if (Application.isPlaying)
@@ -51,6 +59,9 @@ namespace Sling.Level.Elements.DualGridFeature
 
     public void RebuildVisualTilemap()
     {
+      if (_tileVariants == null)
+        _tileVariants = CreateTileVariants();
+
       if(!IsVisualTilemapAligned())
         ApplyVisualTilemapOffset();
       
