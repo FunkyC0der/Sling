@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GravityZone
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.GravityZoneConfig
   Force: 140
-  GravityScaleMultiplier: 0.2
+  GravityScaleMultiplier: 0.5
