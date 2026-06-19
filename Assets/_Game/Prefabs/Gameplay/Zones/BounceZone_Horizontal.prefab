@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.BounceWall.BounceWall
   _config: {fileID: 11400000, guid: 749f4ae9fce704d14a53198aed1885a6, type: 2}
   _bounceClipEmitter: {fileID: 8753774093704151989}
+  _bothDirection: 0
 --- !u!114 &834859293728516568
 MonoBehaviour:
   m_ObjectHideFlags: 0

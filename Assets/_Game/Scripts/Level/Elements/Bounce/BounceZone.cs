@@ -1,4 +1,6 @@
 using Sling.Audio;
+using Sling.Common.Extensions;
+using Sling.Level.Common;
 using UnityEngine;
 
 namespace Sling.Level.Elements.Bounce
@@ -8,9 +10,11 @@ namespace Sling.Level.Elements.Bounce
   {
     [SerializeField] private BounceZoneConfig _config;
     [SerializeField] private AudioClipEmitter _bounceClipEmitter;
+    [SerializeField] private bool _bothDirection;
 
     private Vector3 Forward => transform.right;
     private Vector3 Normal => transform.up;
+    private bool IsHorizontalZone => Mathf.Abs(Forward.x) > Mathf.Abs(Forward.y);
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,7 +22,7 @@ namespace Sling.Level.Elements.Bounce
       if (rb == null)
         return;
 
-      bool invert = _config.BothDirection && !IsVectorTowardsTo(rb.linearVelocity, Forward);
+      bool invert = NeedInvert(rb);
 
       Vector3 otherPositionInLocalSpace = rb.transform.position - transform.position;
       bool mirror = !IsVectorTowardsTo(otherPositionInLocalSpace, Normal);
@@ -27,11 +31,28 @@ namespace Sling.Level.Elements.Bounce
       rb.linearVelocity = CreateBounceVelocity(invert, mirror);
     }
 
+    private bool NeedInvert(Rigidbody2D rb)
+    {
+      if (!_bothDirection)
+        return false;
+
+      if (IsHorizontalZone)
+        return rb.GetComponent<IFaceDirectionProvider>()?.IsFacingLeft ?? false;
+      
+      return !IsVectorTowardsTo(rb.linearVelocity, Normal);
+    }
+
     private Vector2 CreateBounceVelocity(bool invert, bool mirror)
     {
-      Vector2 bounceDir = invert ? -Forward : Forward;
-      Vector2 rotatedDir = Quaternion.Euler(0, 0, mirror ? -_config.Angle : _config.Angle) * bounceDir;
-      return rotatedDir.normalized * _config.Impulse;
+      Vector2 bounceDir = Quaternion.Euler(0, 0, _config.Angle) * Forward;
+
+      if (mirror)
+        bounceDir = Vector2.Reflect(bounceDir, Normal);
+      
+      if (invert)
+        bounceDir = Vector2.Reflect(bounceDir, Forward);
+      
+      return bounceDir.normalized * _config.Impulse;
     }
     
     private static bool IsVectorTowardsTo(Vector2 vector, Vector2 target) =>
@@ -44,11 +65,10 @@ namespace Sling.Level.Elements.Bounce
         return;
 
       Gizmos.color = Color.cyan;
-      
       DrawBounceVelocity(invert: false, mirror: false);
       DrawBounceVelocity(invert: false, mirror: true);
 
-      if (_config.BothDirection)
+      if (_bothDirection)
       {
         DrawBounceVelocity(invert: true, mirror: false);
         DrawBounceVelocity(invert: true, mirror: true);

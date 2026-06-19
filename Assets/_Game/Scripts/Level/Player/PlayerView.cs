@@ -2,12 +2,13 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using Sling.Common.Views;
+using Sling.Level.Common;
 using UnityEngine;
 
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(Rigidbody2D))]
-  public class PlayerView : MonoBehaviour, IUniqueView
+  public class PlayerView : MonoBehaviour, IUniqueView, IFaceDirectionProvider
   {
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
