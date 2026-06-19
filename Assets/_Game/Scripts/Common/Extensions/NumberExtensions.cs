@@ -18,5 +18,8 @@ namespace Sling.Common.Extensions
       axis.Normalize();
       return 2f * Vector2.Dot(vector, axis) * axis - vector;
     }
+    
+    public static Vector3 Multiply(this Vector3 vector, float x, float y = 1, float z = 1) =>
+      new Vector3(x * vector.x, y * vector.y, z * vector.z);
   }
 }

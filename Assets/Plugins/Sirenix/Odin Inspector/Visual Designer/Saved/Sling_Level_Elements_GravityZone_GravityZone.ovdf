@@ -1,0 +1,27 @@
+OVDF v1.1
+Sling.Level.Elements.GravityZone.GravityZone, Assembly-CSharp
+MetaGuid:b113ab9c130045568a2edfe4ce1a7e66
+
+# $AmS4gmV4Tc8a9XnGge3Muw
+Position: $root:11
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Dependencies"
+
+# _config
+Position: $root:10
+
+# _triggerZone
+Position: $AmS4gmV4Tc8a9XnGge3Muw:0
+
+# _triggerZoneCollider
+Position: $AmS4gmV4Tc8a9XnGge3Muw:1
+
+# _spriteRoot
+Position: $AmS4gmV4Tc8a9XnGge3Muw:2
+
+# _windVFX
+Position: $AmS4gmV4Tc8a9XnGge3Muw:3
+
+# _triggerZoneSize
++ [Sirenix.OdinInspector.MinValueAttribute]
+	MinValue = 1
