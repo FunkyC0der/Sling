@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(Animator))]
-  public class PlayerAnimationsView : MonoBehaviour, IGameObjectView
+  public class PlayerAnimatorView : MonoBehaviour, IGameObjectView
   {
     [SerializeField, Required] private PlayerConfig _config;
     [SerializeField, Required] private Animator _animator;
@@ -21,16 +21,24 @@ namespace Sling.Level.Player
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
     private int _landTriggerId;
+    
+    [SerializeField] 
+    [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
+    private int _wallSlideTriggerId;
 
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Float)]
     private int _inAirBlendFloatId;
+    
     
     public void InAir() => 
       _animator.SetTrigger(_inAirTriggerId);
 
     public void Land() => 
       _animator.SetTrigger(_landTriggerId);
+
+    public void WallSlide() => 
+      _animator.SetTrigger(_wallSlideTriggerId);
 
     public void SetInAirBlendValue01(float value) => 
       _animator.SetFloat(_inAirBlendFloatId, value);

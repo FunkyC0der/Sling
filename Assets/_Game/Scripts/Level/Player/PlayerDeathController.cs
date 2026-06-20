@@ -10,7 +10,7 @@ namespace Sling.Level.Player
   {
     private readonly DamageableView _damageableView;
     private readonly PlayerView _playerView;
-    private readonly PlayerAnimationsView _animationsView;
+    private readonly PlayerAnimatorView _animatorView;
     private readonly PlayerInputView _inputView;
     private readonly LevelEvents _levelEvents;
     private readonly AudioEvents _audioEvents;
@@ -19,7 +19,7 @@ namespace Sling.Level.Player
     public PlayerDeathController(IControllerFactory controllerFactory,
       DamageableView damageableView,
       PlayerView playerView,
-      PlayerAnimationsView animationsView,
+      PlayerAnimatorView animatorView,
       PlayerInputView inputView,
       LevelEvents levelEvents, 
       AudioEvents audioEvents, 
@@ -28,7 +28,7 @@ namespace Sling.Level.Player
     {
       _damageableView = damageableView;
       _playerView = playerView;
-      _animationsView = animationsView;
+      _animatorView = animatorView;
       _inputView = inputView;
       _levelEvents = levelEvents;
       _audioEvents = audioEvents;
@@ -55,7 +55,7 @@ namespace Sling.Level.Player
 
       _audioEvents.PlaySFX(AudioClipId.PlayerDeath);
       
-      await _animationsView.Die(CancellationToken);
+      await _animatorView.Die(CancellationToken);
       
       _levelEvents.OnPlayerDied?.Invoke();
     }

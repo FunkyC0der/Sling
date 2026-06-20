@@ -35,15 +35,16 @@ namespace Sling.Level.Player
       
       builder.Register<PlayerModel>(Lifetime.Singleton);
       builder.Register<PlayerController>(Lifetime.Transient);
+      
+      builder.Register<PlayerAnimatorController>(Lifetime.Transient);
 
       builder.Register<PlayerStatesController>(Lifetime.Transient);
       builder.Register<IsInAirController>(Lifetime.Transient);
+      builder.Register<IsWallSlidingController>(Lifetime.Transient);
 
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
       builder.Register<PlayerPreLaunchFlowController>(Lifetime.Transient);
-      builder.Register<PlayerInAirAnimController>(Lifetime.Transient);
 
-      builder.Register<PlayerFacingController>(Lifetime.Transient);
       builder.Register<PlayerDeathController>(Lifetime.Transient);
 
       builder.Register<PlayerAudioController>(Lifetime.Transient);

@@ -47,8 +47,11 @@ namespace Sling.Common.Extensions
 
     public static void RegisterGameObjectViews(this IContainerBuilder builder, GameObject gameObject)
     {
-      foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>()) 
-        builder.RegisterInstance(view, view.GetType());
+      foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>())
+      {
+        builder.RegisterInstance(view, view.GetType())
+          .AsImplementedInterfaces();
+      }
     }
 
     private static void RegisterUnique(IContainerBuilder builder, Type viewType, List<IView> views)

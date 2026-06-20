@@ -37,7 +37,7 @@ namespace Sling.Level.Elements.Bounce
         return false;
 
       if (IsHorizontalZone)
-        return rb.GetComponent<IFaceDirectionProvider>()?.IsFacingLeft ?? false;
+        return rb.GetComponent<IFaceDirectionView>()?.IsFacingLeft ?? false;
       
       return !IsVectorTowardsTo(rb.linearVelocity, Normal);
     }

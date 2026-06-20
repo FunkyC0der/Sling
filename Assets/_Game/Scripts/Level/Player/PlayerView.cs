@@ -8,11 +8,11 @@ using UnityEngine;
 namespace Sling.Level.Player
 {
   [RequireComponent(typeof(Rigidbody2D))]
-  public class PlayerView : MonoBehaviour, IUniqueView, IFaceDirectionProvider
+  public class PlayerView : MonoBehaviour, IUniqueView, IFaceDirectionView, IPositionView
   {
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
-    [SerializeField, Required] private PlayerAnimationsView _animationsView;
+    [SerializeField, Required] private PlayerAnimatorView _animatorView;
     [SerializeField, Required] private SpriteRenderer _bodySprite;
     [SerializeField, Required] private Rigidbody2D _rigidbody;
 

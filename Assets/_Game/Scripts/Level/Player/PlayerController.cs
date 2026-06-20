@@ -1,11 +1,11 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common;
 using Sling.Level.Collision;
 using Sling.Level.Gameplay;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
 using Sling.Level.Player.States;
-using Sling.Level.Session;
 
 namespace Sling.Level.Player
 {
@@ -13,17 +13,17 @@ namespace Sling.Level.Player
   {
     private readonly PlayerView _view;
     private readonly PlayerModel _model;
-    private readonly LevelModel _levelModel;
+    private readonly PlayerConfig _config;
     
     public PlayerController(IControllerFactory controllerFactory,
       PlayerView view,
-      PlayerModel model, 
-      LevelModel levelModel) 
+      PlayerModel model,
+      PlayerConfig config) 
       : base(controllerFactory)
     {
       _view = view;
       _model = model;
-      _levelModel = levelModel;
+      _config = config;
     }
 
     protected override void OnStart() => 
@@ -34,15 +34,18 @@ namespace Sling.Level.Player
       await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(CancellationToken);
       
       Execute<PlayerStatesController>();
+      Execute<IsWallSlidingController, Observable<bool>>(_model.IsWallSliding);
       
       Execute<IsInAirController, IsInAirController.Context>(
-        new IsInAirController.Context(_model.IsInAir, _view.Config.GroundSurfaceLayerMask));
+        new IsInAirController.Context(_model.IsInAir, _config.GroundSurfaceLayerMask));
+      
       
       Execute<PlayerLaunchController>();
-      Execute<PlayerFacingController>();
       Execute<PlayerDeathController>();
-      Execute<PlayerInAirAnimController>();
       
+
+      
+      Execute<PlayerAnimatorController>();
       Execute<PlayerAudioController>();
       Execute<PlayerLandingDustController>();
     }

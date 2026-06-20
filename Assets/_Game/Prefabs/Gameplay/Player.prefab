@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   <Config>k__BackingField: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
-  _animationsView: {fileID: 1534344768608504927}
+  _animatorView: {fileID: 0}
   _bodySprite: {fileID: 3799020414547520204}
   _rigidbody: {fileID: 7531381223832247793}
 --- !u!61 &5717655998603572528
@@ -286,6 +286,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3799020414547520204}
   _inAirTriggerId: 861170204
   _landTriggerId: 137525990
+  _wallSlideTriggerId: -1437120513
   _inAirBlendFloatId: 67752084
 --- !u!114 &4438162892628949576
 MonoBehaviour:
