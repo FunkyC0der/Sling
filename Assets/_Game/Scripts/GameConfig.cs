@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NaughtyAttributes;
 using Sling.Audio;
 using Sling.Common.Scenes;
 using Sling.Levels;
@@ -13,11 +12,9 @@ namespace Sling
   {
     public AudioConfig AudioConfig;
     
-    [Header("Scenes")]
     public SceneReference MainMenuScene;
     public List<LevelConfig> Levels = new();
 
-    [Header("UI")]
     public VisualTreeAsset SelectLevelWindowUxml;
     public VisualTreeAsset SelectLevelLevelItemUxml;
     public VisualTreeAsset LevelCompleteWindowUxml;

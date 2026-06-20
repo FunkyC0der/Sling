@@ -1,0 +1,55 @@
+OVDF v1.1
+Sling.GameConfig, Assembly-CSharp
+
+# $AudioGroup
+Position: $root:0
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Audio"
+
+# $ScenesGroup
+Position: $root:1
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Scenes & Levels"
+
+# $UiTemplatesGroup
+Position: $root:2
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "UI Templates"
+
+# AudioConfig
+Position: $AudioGroup:0
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 132
+
+# MainMenuScene
+Position: $ScenesGroup:0
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 132
+
+# Levels
+Position: $ScenesGroup:1
++ [Sirenix.OdinInspector.ListDrawerSettingsAttribute]
+	Expanded = False
+	ShowIndexLabels = False
+	DraggableItems = True
+	NumberOfItemsPerPage = 15
+
+# SelectLevelWindowUxml
+Position: $UiTemplatesGroup:0
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 172
+
+# SelectLevelLevelItemUxml
+Position: $UiTemplatesGroup:1
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 172
+
+# LevelCompleteWindowUxml
+Position: $UiTemplatesGroup:2
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 172
+
+# PauseWindowUxml
+Position: $UiTemplatesGroup:3
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 172

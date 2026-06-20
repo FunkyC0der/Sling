@@ -8,7 +8,7 @@ Position: $root:0
 # $XWT1zLKjoRT9Fw8S3NTb5P
 Position: $7CPqvMexkcFBKqnghfmhKF:0
 + [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = 24 %
+	Size = 25 %
 
 # $CwRZPKDp5Vn5s77pFM9FRn
 Position: $7CPqvMexkcFBKqnghfmhKF:1
@@ -18,7 +18,7 @@ Position: $7CPqvMexkcFBKqnghfmhKF:1
 # Preview
 Position: $XWT1zLKjoRT9Fw8S3NTb5P:0
 + [Sirenix.OdinInspector.PreviewFieldAttribute]
-	Height = 96
+	Height = 128
 	alignment = Center
 	alignmentHasValue = True
 + [Sirenix.OdinInspector.HideLabelAttribute]
