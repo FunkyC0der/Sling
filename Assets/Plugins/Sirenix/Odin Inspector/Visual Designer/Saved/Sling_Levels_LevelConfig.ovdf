@@ -1,40 +1,31 @@
 OVDF v1.1
 Sling.Levels.LevelConfig, Assembly-CSharp
 
-# $7CPqvMexkcFBKqnghfmhKF
+# $BXCeT8Ly3DSBKyEM9sgN6w
 Position: $root:0
 + [Sirenix.OdinInspector.ColumnGroupAttribute]
 
-# $XWT1zLKjoRT9Fw8S3NTb5P
-Position: $7CPqvMexkcFBKqnghfmhKF:0
+# $3DJ5vGMuBKPWBg7B811L1A
+Position: $BXCeT8Ly3DSBKyEM9sgN6w:0
 + [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = 25 %
+	Size = 125 px
 
-# $CwRZPKDp5Vn5s77pFM9FRn
-Position: $7CPqvMexkcFBKqnghfmhKF:1
+# $R7J931kbE6he1pw9fUfDY9
+Position: $BXCeT8Ly3DSBKyEM9sgN6w:1
 + [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = Auto
 
 # Preview
-Position: $XWT1zLKjoRT9Fw8S3NTb5P:0
+Position: $3DJ5vGMuBKPWBg7B811L1A:0
 + [Sirenix.OdinInspector.PreviewFieldAttribute]
-	Height = 128
-	alignment = Center
-	alignmentHasValue = True
+	Height = 125
 + [Sirenix.OdinInspector.HideLabelAttribute]
 + [Sirenix.OdinInspector.ReadOnlyAttribute]
 
-# Type
-Position: $CwRZPKDp5Vn5s77pFM9FRn:1
-+ [Sirenix.OdinInspector.LabelWidthAttribute]
-	Width = 44
-
 # Scene
-Position: $CwRZPKDp5Vn5s77pFM9FRn:0
-+ [Sirenix.OdinInspector.LabelWidthAttribute]
-	Width = 44
+Position: $R7J931kbE6he1pw9fUfDY9:0
+
+# Type
+Position: $R7J931kbE6he1pw9fUfDY9:1
 
 # Track
-Position: $CwRZPKDp5Vn5s77pFM9FRn:2
-+ [Sirenix.OdinInspector.LabelWidthAttribute]
-	Width = 44
+Position: $R7J931kbE6he1pw9fUfDY9:2
