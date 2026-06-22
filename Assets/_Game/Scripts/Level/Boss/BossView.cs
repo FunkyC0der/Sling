@@ -93,7 +93,7 @@ namespace Sling.Level.Boss
     [Button]
     public void PlayHitAnim()
     {
-      Tween.ShakeLocalPosition(transform, _hitShakeSettings);
+      Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
       
       foreach (SpriteBlinkTweener blinkTweener in _blinkTweeners) 
         blinkTweener.PlayBlink(_hitBlinkCount, _hitShakeSettings.duration, _blinkAmount).Forget();
