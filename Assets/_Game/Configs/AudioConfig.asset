@@ -143,7 +143,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 23
+      Data: 53
     - Name: $v
       Entry: 7
       Data: 6|Sling.Audio.AudioClipConfig, Assembly-CSharp
@@ -164,7 +164,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 24
+      Data: 54
     - Name: $v
       Entry: 7
       Data: 7|Sling.Audio.AudioClipConfig, Assembly-CSharp
