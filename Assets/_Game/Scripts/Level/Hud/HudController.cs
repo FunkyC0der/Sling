@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Common.Extensions;
 using Sling.Common.UI.Windows;
 using Sling.Infrastructure;
 using Sling.Level.Player;
@@ -41,25 +42,26 @@ namespace Sling.Level.Hud
     protected override void OnStart()
     {
       _updateEvents.OnUpdate += Update;
+      this.AddDisposableAction(() => _updateEvents.OnUpdate -= Update);
       
-      _hudView.OnPauseClicked += HandlePauseClicked;
+      _hudView.OnPauseClicked += OnPauseClicked;
+      this.AddDisposableAction(() => _hudView.OnPauseClicked -= OnPauseClicked);
+      
+      _levelModel.PlayerDeathCount.OnValueChanged += OnPlayerDeathCountChanged;
+      this.AddDisposableAction(() => _levelModel.PlayerDeathCount.OnValueChanged -= OnPlayerDeathCountChanged);
+
       _hudView.SetLevelIndex(_gameModel.LevelIndex);
-      
-      _levelModel.PlayerDeathCount.OnValueChanged += (_, newValue) => _hudView.SetPlayerDeathCount(newValue);
       _hudView.SetPlayerDeathCount(_levelModel.PlayerDeathCount.Value);
     }
 
-    protected override void OnStop()
-    {
-      _updateEvents.OnUpdate -= Update;
-      _hudView.OnPauseClicked -= HandlePauseClicked;
-    }
-
-    private void HandlePauseClicked() =>
-      ShowPauseAsync().Forget();
-
     private void Update() => 
       _hudView.SetLevelTime(_levelModel.ElapsedTimeInSeconds);
+
+    private void OnPauseClicked() =>
+      ShowPauseAsync().Forget();
+
+    private void OnPlayerDeathCountChanged(int oldValue, int newValue) => 
+      _hudView.SetPlayerDeathCount(newValue);
 
     private async UniTaskVoid ShowPauseAsync()
     {

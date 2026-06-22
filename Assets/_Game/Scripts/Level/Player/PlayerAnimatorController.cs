@@ -1,10 +1,11 @@
 using Playtika.Controllers;
-using Sling.Common.Controllers;
+using Sling.Common.Extensions;
+using Sling.Infrastructure;
 using UnityEngine;
 
 namespace Sling.Level.Player
 {
-  public class PlayerAnimatorController : FixedUpdateControllerBase
+  public class PlayerAnimatorController : ControllerBase
   {
     private const float _kVelocityThreshold = 0.2f;
     
@@ -22,31 +23,32 @@ namespace Sling.Level.Player
     private readonly PlayerAnimatorView _animatorView;
     private readonly PlayerModel _model;
     private readonly PlayerConfig _config;
+    private readonly UpdateEvents _updateEvents;
 
     public PlayerAnimatorController(IControllerFactory controllerFactory,
       PlayerView view,
       PlayerAnimatorView animatorView,
       PlayerModel model, 
-      PlayerConfig config) : base(controllerFactory)
+      PlayerConfig config,
+      UpdateEvents updateEvents) : base(controllerFactory)
     {
       _view = view;
       _animatorView = animatorView;
       _model = model;
       _config = config;
+      _updateEvents = updateEvents;
     }
 
     protected override void OnStart()
     {
-      base.OnStart();
+      _updateEvents.OnFixedUpdate += FixedUpdate;
+      this.AddDisposableAction(() => _updateEvents.OnFixedUpdate -= FixedUpdate);
+      
+      _model.IsWin.OnValueChanged += OnIsWinChanged;
+      this.AddDisposableAction(() => _model.IsWin.OnValueChanged -= OnIsWinChanged);
       
       _state = EState.Idle;
       EnterState();
-      
-      _model.IsWin.OnValueChanged += (_, isWin) =>
-      {
-        if (isWin)
-          ChangeState(EState.Idle);
-      };
     }
 
     private void ChangeState(EState newState)
@@ -76,7 +78,13 @@ namespace Sling.Level.Player
       }
     }
 
-    protected override void FixedUpdate()
+    private void OnIsWinChanged(bool oldValue, bool isWin)
+    {
+      if (isWin)
+        ChangeState(EState.Idle);
+    }
+
+    private void FixedUpdate()
     {
       if(_model.IsDead.Value)
         ChangeState(EState.Dead);
