@@ -14,7 +14,8 @@ namespace Sling.Level.Player
       Idle,
       InAir,
       WallSliding,
-      Dead
+      Dead,
+      Win
     }
     
     private EState _state;
@@ -43,6 +44,9 @@ namespace Sling.Level.Player
     {
       _updateEvents.OnFixedUpdate += FixedUpdate;
       this.AddDisposableAction(() => _updateEvents.OnFixedUpdate -= FixedUpdate);
+
+      _model.IsDead.OnValueChanged += OnIsDeadChanged;
+      this.AddDisposableAction(() => _model.IsDead.OnValueChanged -= OnIsDeadChanged);
       
       _model.IsWin.OnValueChanged += OnIsWinChanged;
       this.AddDisposableAction(() => _model.IsWin.OnValueChanged -= OnIsWinChanged);
@@ -65,6 +69,7 @@ namespace Sling.Level.Player
       switch (_state)
       {
         case EState.Idle:
+        case EState.Win:
           _animatorView.Land();
           break;
         
@@ -76,12 +81,6 @@ namespace Sling.Level.Player
           _animatorView.WallSlide();
           break;
       }
-    }
-
-    private void OnIsWinChanged(bool oldValue, bool isWin)
-    {
-      if (isWin)
-        ChangeState(EState.Idle);
     }
 
     private void FixedUpdate()
@@ -127,6 +126,18 @@ namespace Sling.Level.Player
             ChangeState(_model.IsGrounded.Value ? EState.Idle : EState.InAir);
           break;
       }
+    }
+
+    private void OnIsDeadChanged(bool oldValue, bool newValue)
+    {
+      if(newValue)
+        ChangeState(EState.Dead);
+    }
+
+    private void OnIsWinChanged(bool oldValue, bool newValue)
+    {
+      if (newValue)
+        ChangeState(EState.Win);
     }
   }
 }
