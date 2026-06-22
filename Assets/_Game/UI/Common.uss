@@ -142,8 +142,10 @@
 
 .hud-text-h1 {
     color: rgb(243, 243, 243);
-    font-size: 35px;
-    -unity-font-style: bold;
+    font-size: 45px;
+    -unity-font-style: normal;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 3px;
 }
 
 .level-item__bg {

@@ -3,5 +3,7 @@
     <ui:VisualElement name="Root" picking-mode="Ignore" style="flex-grow: 1; align-items: flex-end; justify-content: flex-start; padding: 20px;">
         <ui:Button text="II" name="PauseButton" class="primary-button rounded" style="width: 100px; height: 100px; flex-grow: 0; top: 50px; right: 50px; position: absolute;"/>
         <ui:Label text="LEVEL 1" name="LevelName" class="hud-text-h1 rounded" style="position: absolute; top: 50px; left: 50px; background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px;"/>
+        <ui:Label text="TIME 00:00" name="ElapsedTime" class="hud-text-h1 rounded" style="position: absolute; top: 110px; left: 50px; background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px; width: 200px;"/>
+        <ui:Label text="DEATHs 0" name="PlayerDeathCount" class="hud-text-h1 rounded" style="position: absolute; background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px; left: 50px; bottom: 50px;"/>
     </ui:VisualElement>
 </ui:UXML>

@@ -6,7 +6,6 @@ using Sling.Common.Extensions;
 using Sling.Level.Boss;
 using Sling.Level.Finish;
 using Sling.Level.Gameplay;
-using Sling.Level.Hazards;
 using Sling.Level.Hud;
 using Sling.Level.LevelComplete;
 using Sling.Level.Player;
@@ -42,7 +41,9 @@ namespace Sling.Level
       
       builder.Register<LevelSessionController>(Lifetime.Transient);
       builder.Register<LevelTrackController>(Lifetime.Transient);
-
+      
+      builder.Register<LevelTimeController>(Lifetime.Transient);
+      builder.Register<PlayerDeathCountController>(Lifetime.Transient);
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 

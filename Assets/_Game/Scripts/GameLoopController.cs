@@ -2,6 +2,8 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Audio;
 using Sling.Flow;
+using Sling.Infrastructure;
+using Sling.Infrastructure.Analytics;
 
 namespace Sling
 {
@@ -15,16 +17,17 @@ namespace Sling
       _gameModel = gameModel;
     }
 
-    protected override void OnStart()
-    {
-      Execute<AudioController>();
-      
+    protected override void OnStart() => 
       GameLoopAsync().Forget();
-    }
 
     private async UniTask GameLoopAsync()
     {
+      Execute<UpdateController>();
+      Execute<AudioController>();
+      Execute<AnalyticsController>();
+      
       await ExecuteAndWaitResultAsync<InitFirstSceneController>(CancellationToken);
+      await ExecuteAndWaitResultAsync<InitUnityServicesFlowController>(CancellationToken);
 
       while (!CancellationToken.IsCancellationRequested)
       {

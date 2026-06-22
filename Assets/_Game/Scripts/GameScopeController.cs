@@ -3,6 +3,7 @@ using Sling.Audio;
 using Sling.Common.Controllers;
 using Sling.Flow;
 using Sling.Infrastructure;
+using Sling.Infrastructure.Analytics;
 using Sling.Level;
 using Sling.LevelLoading;
 using Sling.MainMenu.SelectLevel;
@@ -34,6 +35,9 @@ namespace Sling
       builder.RegisterInstance(_gameConfig);
       builder.Register<GameModel>(Lifetime.Singleton);
 
+      builder.Register<UpdateEvents>(Lifetime.Singleton);
+      builder.Register<UpdateController>(Lifetime.Transient);
+
       builder.RegisterInstance(_gameConfig.AudioConfig);
       builder.Register<AudioEvents>(Lifetime.Singleton);
       builder.Register<AudioController>(Lifetime.Transient);
@@ -47,6 +51,10 @@ namespace Sling
       builder.Register<LevelScopeController>(Lifetime.Transient);
 
       builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
+
+      builder.Register<InitUnityServicesFlowController>(Lifetime.Transient);
+      builder.Register<AnalyticsEvents>(Lifetime.Singleton);
+      builder.Register<AnalyticsController>(Lifetime.Transient);
     }
   }
 }

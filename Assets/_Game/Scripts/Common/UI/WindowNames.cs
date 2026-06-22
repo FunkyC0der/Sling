@@ -13,6 +13,8 @@ namespace Sling.Common.UI
     public const string LevelItemsContainer = "LevelItemsContainer";
     public const string SelectedRect = "SelectedRect";
     public const string LevelName = "LevelName";
+    public const string kElapsedTime = "ElapsedTime";
+    public const string kPlayerDeathCount = "PlayerDeathCount";
 
     public static class Classes
     {

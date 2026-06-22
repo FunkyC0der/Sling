@@ -13,11 +13,18 @@ namespace Sling.Level.Hud
     public event Action OnPauseClicked;
 
     private Button _pauseButton;
+    private Label _elapsedTimeLabel;
+    private Label _playerDeathCountLabel;
 
     private void Awake()
     {
-      _pauseButton = _uiDocument.rootVisualElement.Q<Button>(WindowNames.PauseButton);
+      VisualElement root = _uiDocument.rootVisualElement;
+      
+      _pauseButton = root.Q<Button>(WindowNames.PauseButton);
       _pauseButton.clicked += HandlePauseClicked;
+
+      _elapsedTimeLabel = root.Q<Label>(WindowNames.kElapsedTime);
+      _playerDeathCountLabel = root.Q<Label>(WindowNames.kPlayerDeathCount);
     }
 
     private void OnDestroy()
@@ -31,5 +38,11 @@ namespace Sling.Level.Hud
 
     public void SetLevelIndex(int levelIndex) => 
       _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LEVEL {levelIndex + 1}";
+
+    public void SetPlayerDeathCount(int playerDeathCount) => 
+      _playerDeathCountLabel.text = $"{playerDeathCount} DEATHs";
+
+    public void SetLevelTime(float elapsedTimeInSeconds) => 
+      _elapsedTimeLabel.text = $"TIME {TimeSpan.FromSeconds(elapsedTimeInSeconds):mm\\:ss}";
   }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.LevelComplete;
 
@@ -17,7 +16,9 @@ namespace Sling.Level.Session
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
+      Execute<LevelTimeController>();
       Execute<LevelTrackController>();
+      Execute<PlayerDeathCountController>();
       
       await ExecuteAndWaitResultAsync<SavePlayerStartStatsFlowController>(cancellationToken);
       
