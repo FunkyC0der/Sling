@@ -1,4 +1,5 @@
 # Unity generated
+.utmp/
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -6,6 +7,11 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+*.log
+*.blend1
+*.blend1.meta
+[Mm]emoryCaptures/
+[Rr]ecordings/
 
 # Unity asset meta files are required for assets kept in the repository
 # *.meta
@@ -13,17 +19,35 @@
 # Unity crash reports
 sysinfo.txt
 Crashes/
+mono_crash.*
 
 # Visual Studio / Rider
 .vs/
 .idea/
+.gradle/
+.consulo/
+[Aa]ssets/Plugins/Editor/JetBrains*
+*.DotSettings.user
 *.suo
 *.user
+*.userprefs
 *.userosscache
 *.sln.docstates
 *.csproj
+*.unityproj
 *.sln
 *.slnx
+*.tmp
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 
 # macOS
 .DS_Store
@@ -58,5 +82,31 @@ ExportedObj/
 *.aab
 *.ipa
 *.unitypackage
+*.unitypackage.meta
+*.app
 .vsconfig
-Assets/UI Toolkit/PanelSettings.asset
+
+# Unity generated content
+crashlytics-build.properties
+InitTestScene*.unity*
+[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Unity WebGL/Burst generated output
+Data/Plugins/lib_burst_generated.*
+
+# Addressables generated output
+ServerData/
+[Aa]ssets/StreamingAssets/aa*
+[Aa]ssets/AddressableAssetsData/link.xml*
+[Aa]ssets/Addressables_Temp*
+[Aa]ssets/AddressableAssetsData/*/*.bin*
+
+# Visual Scripting generated output
+[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
+[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
+[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+# UI Toolkit generated schemas
+UIElementsSchema/
