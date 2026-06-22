@@ -39,11 +39,8 @@ namespace Sling.Level.Player
       Execute<IsInAirController, IsInAirController.Context>(
         new IsInAirController.Context(_model.IsInAir, _config.GroundSurfaceLayerMask));
       
-      
       Execute<PlayerLaunchController>();
       Execute<PlayerDeathController>();
-      
-
       
       Execute<PlayerAnimatorController>();
       Execute<PlayerAudioController>();

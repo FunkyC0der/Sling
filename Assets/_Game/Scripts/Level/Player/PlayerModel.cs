@@ -9,9 +9,10 @@ namespace Sling.Level.Player
     public Action OnLaunched;
     public Action OnDamaged;
     
-    public readonly Observable<bool> IsInAir = new() { Value = false };
-    public readonly Observable<bool> IsGrounded = new() { Value = false };
-    public readonly Observable<bool> IsDead = new() { Value = false };
-    public readonly Observable<bool> IsWallSliding = new() { Value = false };
+    public readonly Observable<bool> IsInAir = new();
+    public readonly Observable<bool> IsGrounded = new();
+    public readonly Observable<bool> IsDead = new();
+    public readonly Observable<bool> IsWallSliding = new();
+    public readonly Observable<bool> IsWin = new ();
   }
 }

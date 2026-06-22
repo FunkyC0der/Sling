@@ -41,6 +41,12 @@ namespace Sling.Level.Player
       
       _state = EState.Idle;
       EnterState();
+      
+      _model.IsWin.OnValueChanged += (_, isWin) =>
+      {
+        if (isWin)
+          ChangeState(EState.Idle);
+      };
     }
 
     private void ChangeState(EState newState)
