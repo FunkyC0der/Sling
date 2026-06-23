@@ -1,10 +1,13 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Audio;
+using Sling.Common.Controllers;
 using Sling.Common.UI.Windows;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Analytics.Events;
+using Sling.Level.Finish;
 using Sling.Level.Player;
 using Sling.Level.Session;
 
@@ -45,7 +48,9 @@ namespace Sling.Level.LevelComplete
         _levelModel.PlayerDeathCount.Value,
         _levelModel.ElapsedTimeInSeconds));
 
-      await _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken);
+      await UniTask.WhenAll(
+        OptionalFinishZoneBlinkAnim(cancellationToken),
+        _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken));
 
       LevelCompleteFlowResult result =
         await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
@@ -53,5 +58,10 @@ namespace Sling.Level.LevelComplete
 
       Complete(result);
     }
+
+    private UniTask OptionalFinishZoneBlinkAnim(CancellationToken cancellationToken) => 
+      ExecuteAndWaitResultAsync<OptionalViewFlowController<FinishZoneView>, Func<FinishZoneView, UniTask>>(
+        finishZoneView => finishZoneView.Blink(),
+        cancellationToken);
   }
 }

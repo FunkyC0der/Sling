@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Sling.Common.Tweeners
 {
-  [RequireComponent(typeof(SpriteRenderer))]
   public class SpriteBlinkTweener : MonoBehaviour
   {
     private static readonly int _sDefaultBlinkAmountId = Shader.PropertyToID("_BlinkAmount");

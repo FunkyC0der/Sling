@@ -47,6 +47,7 @@ namespace Sling.Level
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 
+      builder.Register<OptionalViewFlowController<FinishZoneView>>(Lifetime.Transient);
       builder.Register<LevelCompleteFlowController>(Lifetime.Transient);
       builder.Register<LevelCompleteWindowController>(Lifetime.Transient);
 

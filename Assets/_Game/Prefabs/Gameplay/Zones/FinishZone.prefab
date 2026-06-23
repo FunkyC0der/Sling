@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2725139108698264742}
   - component: {fileID: 1107212624386838369}
   - component: {fileID: 5764161716693424824}
+  - component: {fileID: 1257405301112653257}
   m_Layer: 8
   m_Name: FinishZone
   m_TagString: Untagged
@@ -184,6 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f2f92f0e60b490eb31525720aa4b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.FinishView
+  _blinkTweener: {fileID: 1257405301112653257}
+  _blinkCount: 2
+  _blinkDuration: 0.5
+  _blinkAmount: 0.5
 --- !u!95 &5764161716693424824
 Animator:
   serializedVersion: 7
@@ -206,3 +211,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1257405301112653257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044291513562550794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49f996b9f3f402b9094819a7be687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.SpriteBlinkTweener
+  _spriteRenderer: {fileID: 5151068272560153405}
+  _blinkMaterial: {fileID: 2100000, guid: 2f07758086124cceb4a86841e013665f, type: 2}
+  _blinkAmountProperty: _BlinkAmount
