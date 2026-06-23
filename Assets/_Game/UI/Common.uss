@@ -32,9 +32,11 @@
 .popup-title {
     flex-grow: 1;
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
-    font-size: 55px;
+    -unity-font-style: normal;
+    font-size: 90px;
     color: var(--color-text-light);
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 3px;
 }
 
 .stacked-button {
