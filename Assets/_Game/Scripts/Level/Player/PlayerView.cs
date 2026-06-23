@@ -46,10 +46,13 @@ namespace Sling.Level.Player
 
       float deceleration = Mathf.Abs(_rigidbody.linearVelocityX) / duration;
 
-      while (!Mathf.Approximately(_rigidbody.linearVelocityX, 0))
+      while (!cancellationToken.IsCancellationRequested)
       {
         _rigidbody.linearVelocityX =
           Mathf.MoveTowards(_rigidbody.linearVelocityX, 0, deceleration * Time.fixedDeltaTime);
+        
+        if(Mathf.Approximately(_rigidbody.linearVelocityX, 0))
+          break;
 
         await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken);
       }
