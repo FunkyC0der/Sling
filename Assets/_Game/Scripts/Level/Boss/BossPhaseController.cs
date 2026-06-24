@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
@@ -22,30 +23,56 @@ namespace Sling.Level.Boss
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      var done = new UniTaskCompletionSource();
-      int remaining = _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex).Count;
+      IReadOnlyList<WeakPointView> weakPoints = _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex);
 
-      foreach (WeakPointView weakPoint in _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex))
+      List<WeakPointView> activeWeakPoints = new();
+
+      foreach (WeakPointView weakPoint in weakPoints)
       {
         weakPoint.Show();
-        WeakPointView captured = weakPoint;
-        Action handler = () =>
-        {
-          captured.Hide(showVFX: true);
-          remaining--;
-          if (remaining <= 0)
-            done.TrySetResult();
-
-          _view.PlayHitAnim();
-          _audioEvents.PlaySFX?.Invoke(AudioClipId.BossDamage);
-        };
-        captured.OnHit += handler;
-        AddDisposable(new DisposableToken(() => captured.OnHit -= handler));
+        activeWeakPoints.Add(weakPoint);
       }
+      
+      while (activeWeakPoints.Count > 0)
+      {
+        int hitIndex = await WaitAnyHitAsync(activeWeakPoints, cancellationToken);
+        WeakPointView hitWeakPoint = activeWeakPoints[hitIndex];
 
-      await done.Task.AttachExternalCancellation(cancellationToken);
+        activeWeakPoints.RemoveAt(hitIndex);
+        
+        _audioEvents.PlaySFX?.Invoke(AudioClipId.BossDamage);
+        
+        hitWeakPoint.Hide(showVFX: true);
+        await _view.PlayHitAnim().AttachExternalCancellation(cancellationToken);
+      }
       
       Complete();
+    }
+    
+    private static async UniTask<int> WaitAnyHitAsync(
+      IReadOnlyList<WeakPointView> weakPoints,
+      CancellationToken cancellationToken)
+    {
+      var source = new UniTaskCompletionSource<int>();
+      List<Action> handlers = new();
+
+      try
+      {
+        for (int i = 0; i < weakPoints.Count; i++)
+        {
+          int hitIndex = i;
+          Action handler = () => source.TrySetResult(hitIndex);
+          handlers.Add(handler);
+          weakPoints[i].OnHit += handler;
+        }
+
+        return await source.Task.AttachExternalCancellation(cancellationToken);
+      }
+      finally
+      {
+        for (int i = 0; i < handlers.Count; i++)
+          weakPoints[i].OnHit -= handlers[i];
+      }
     }
   }
 }

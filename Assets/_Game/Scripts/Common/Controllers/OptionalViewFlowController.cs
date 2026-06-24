@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
@@ -6,7 +5,8 @@ using VContainer;
 
 namespace Sling.Common.Controllers
 {
-  public class OptionalViewFlowController<TView> : FlowControllerBase<Func<TView, UniTask>>
+  public class OptionalViewFlowController<TController, TView> : ControllerWithResultBase
+    where TController : ControllerWithResultBase
   {
     private readonly IObjectResolver _resolver;
 
@@ -18,10 +18,8 @@ namespace Sling.Common.Controllers
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      if (_resolver.TryResolve(out TView view))
-        await Args(view);
-      
-      Complete();
+      if (_resolver.TryResolve<TView>(out _))
+        await ExecuteAndWaitResultAsync<TController>(cancellationToken);
     }
   }
 }

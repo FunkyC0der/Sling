@@ -48,7 +48,7 @@ namespace Sling.Common.Tweeners
 
       _sequence.OnComplete(() => _spriteRenderer.sharedMaterial = originalMaterial);
 
-      await _sequence.ToUniTask(cancellationToken: destroyCancellationToken);
+      await _sequence;
     }
 
     public void StopBlink() => 

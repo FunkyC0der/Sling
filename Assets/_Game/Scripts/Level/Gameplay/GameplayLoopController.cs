@@ -3,8 +3,6 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.Controllers;
 using Sling.Level.Boss;
-using Sling.Level.Finish;
-using Sling.Level.Hazards;
 using Sling.Level.Hud;
 using Sling.Level.Player;
 using Sling.Level.Session;
@@ -38,10 +36,11 @@ namespace Sling.Level.Gameplay
         _events.OnMenuRequested    -= OnMenu;
       }));
 
-      
       Execute<PlayerScopeController>();
-      Execute<OptionalFeatureController<BossController, BossView>>();
       Execute<HudController>();
+
+      if(await ExecuteAndWaitResultAsync<TryGetViewFlowController<BossView>, BossView>(cancellationToken))
+        ExecuteAndWaitResultAsync<BossFlowController>(cancellationToken).Forget();
 
       GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);
       Complete(loopResult);

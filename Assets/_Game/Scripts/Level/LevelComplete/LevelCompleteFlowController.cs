@@ -59,9 +59,13 @@ namespace Sling.Level.LevelComplete
       Complete(result);
     }
 
-    private UniTask OptionalFinishZoneBlinkAnim(CancellationToken cancellationToken) => 
-      ExecuteAndWaitResultAsync<OptionalViewFlowController<FinishZoneView>, Func<FinishZoneView, UniTask>>(
-        finishZoneView => finishZoneView.Blink(),
-        cancellationToken);
+    private async UniTask OptionalFinishZoneBlinkAnim(CancellationToken cancellationToken)
+    {
+      FinishZoneView finishZoneView = 
+        await ExecuteAndWaitResultAsync<TryGetViewFlowController<FinishZoneView>, FinishZoneView>(cancellationToken);
+
+      if (finishZoneView)
+        await finishZoneView.Blink();
+    }
   }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using Sirenix.OdinInspector;
@@ -61,22 +60,17 @@ namespace Sling.Level.Boss
       phase.Tweener.Rigidbody.rotation = phase.InitialRotation;
     }
 
-    public async UniTask TransitionToPhaseAsync(int phaseIndex, CancellationToken cancellationToken)
+    public async UniTask TransitionWithStartPhaseAsync(int phaseIndex, CancellationToken cancellationToken)
     {
-      BossPhaseSettings phase = _phases[phaseIndex];
-
       Vector3 origScale = _bossBody.lossyScale;
       
       Tween scaleDownTween = Tween.Scale(_bossBody, Vector3.zero, _phaseTransitionDuration / 2);
-      await using (cancellationToken.Register(scaleDownTween.Stop))
-        await scaleDownTween;
+      await scaleDownTween.WithCancellation(cancellationToken);
 
-      _bossBody.position = phase.Tweener.Rigidbody.position;
-      _bossBody.rotation = Quaternion.Euler(0f, 0f, phase.Tweener.Rigidbody.rotation);
+      StartPhase(phaseIndex);
 
       Tween scaleUpTween = Tween.Scale(_bossBody, origScale, _phaseTransitionDuration / 2);
-      await using (cancellationToken.Register(scaleUpTween.Stop))
-        await scaleUpTween;
+      await scaleUpTween.WithCancellation(cancellationToken);
     }
 
     public void StartPhase(int phaseIndex)
@@ -91,12 +85,17 @@ namespace Sling.Level.Boss
     }
 
     [Button]
-    public void PlayHitAnim()
+    public async UniTask PlayHitAnim()
     {
-      Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
+      PlayShakeAnim().Forget();
       
       foreach (SpriteBlinkTweener blinkTweener in _blinkTweeners) 
         blinkTweener.PlayBlink(_hitBlinkCount, _hitShakeSettings.duration, _blinkAmount).Forget();
+
+      await UniTask.WaitForSeconds(_hitShakeSettings.duration);
     }
+    
+    private async UniTask PlayShakeAnim() =>
+      await Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
   }
 }
