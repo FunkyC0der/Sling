@@ -2,18 +2,18 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using PrimeTween;
-using Sling.Common.Extensions;
+using Sling.Common.Tweeners;
 using Sling.Common.Views;
 using UnityEngine;
 
 namespace Sling.Level.Player
 {
-  [RequireComponent(typeof(Animator))]
   public class PlayerAnimatorView : MonoBehaviour, IGameObjectView
   {
     [SerializeField, Required] private PlayerConfig _config;
     [SerializeField, Required] private Animator _animator;
     [SerializeField, Required] private SpriteRenderer _spriteRenderer;
+    [SerializeField, Required] private SpriteBlinkTweener _blinkTweener;
 
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
@@ -56,11 +56,8 @@ namespace Sling.Level.Player
 
     public async UniTask Revive()
     {
-      ParticleSystem deathVfx = Instantiate(_config.DeathVFXPrefab, transform.position, Quaternion.identity);
-      await deathVfx.CoPlayBackward(withChildren: false, maxLifeTime: _config.ReviveDuration).ToUniTask();
-      Destroy(deathVfx.gameObject);
-      
       gameObject.SetActive(true);
+      await _blinkTweener.PlayBlink(_config.ReviveBlinkCount, _config.ReviveDuration, _config.ReviveBlinkStrength);
     }
   }
 }

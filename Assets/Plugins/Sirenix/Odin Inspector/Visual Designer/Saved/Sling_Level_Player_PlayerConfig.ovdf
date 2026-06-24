@@ -1,0 +1,23 @@
+OVDF v1.1
+Sling.Level.Player.PlayerConfig, Assembly-CSharp
+MetaGuid:1e74414af4b994d999f53e3154a581de
+
+# $U6tayHWnLnttzyaDsYZLJ8
+Position: $root:31
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "Revive"
+
+# ReviveBlinkCount
+Position: $U6tayHWnLnttzyaDsYZLJ8:1
++ [UnityEngine.RangeAttribute]
+	max = 5
+
+# ReviveDuration
+Position: $U6tayHWnLnttzyaDsYZLJ8:0
++ [UnityEngine.RangeAttribute]
+	max = 3
+
+# ReviveBlinkStrength
+Position: $U6tayHWnLnttzyaDsYZLJ8:2
++ [UnityEngine.RangeAttribute]
+	max = 1

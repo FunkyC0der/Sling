@@ -20,7 +20,6 @@ namespace Sling.Level.Player
     [field: Header("Death anim")]
     [field: SerializeField] public int DieFlickerCount { get; private set; } = 3;
     [field: SerializeField] public float DieDuration { get; private set; } = 1.5f;
-    public float ReviveDuration = 1f;
     
     [Min(0)]
     public float DieCameraShakeStrength = 1f;
@@ -29,6 +28,10 @@ namespace Sling.Level.Player
     public float DieCameraShakeFrequency = 5f;
     
     public ParticleSystem DeathVFXPrefab;
+    
+    public float ReviveDuration = 1f;
+    public int ReviveBlinkCount = 2;
+    public float ReviveBlinkStrength = 0.5f;
 
     [Header("Landing dust")]
     public ParticleSystem LandingDustVFXPrefab;
@@ -38,6 +41,5 @@ namespace Sling.Level.Player
 
     [Header("Physics Tweaks")] 
     public float GlobalGravity = -9.8f;
-
   }
 }

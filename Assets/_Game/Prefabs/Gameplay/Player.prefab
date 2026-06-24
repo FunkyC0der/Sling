@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 4794860568099122736}
   - component: {fileID: 7568797479002198353}
   - component: {fileID: 6128743320293764185}
+  - component: {fileID: 4576738806715326769}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -284,6 +285,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
   _animator: {fileID: 4794860568099122736}
   _spriteRenderer: {fileID: 3799020414547520204}
+  _blinkTweener: {fileID: 4576738806715326769}
   _inAirTriggerId: 861170204
   _landTriggerId: 137525990
   _wallSlideTriggerId: -1437120513
@@ -457,6 +459,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.LandingDust.PlayerLandingDustView
   _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
   _vfxSpawnPoint: {fileID: 3788143834159826571}
+--- !u!114 &4576738806715326769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276618756648720583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49f996b9f3f402b9094819a7be687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.SpriteBlinkTweener
+  _spriteRenderer: {fileID: 3799020414547520204}
+  _blinkMaterial: {fileID: 2100000, guid: 2f07758086124cceb4a86841e013665f, type: 2}
+  _blinkAmountProperty: _BlinkAmount
 --- !u!1 &4493491232001293797
 GameObject:
   m_ObjectHideFlags: 0
