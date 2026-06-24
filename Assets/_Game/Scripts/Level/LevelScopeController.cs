@@ -54,7 +54,6 @@ namespace Sling.Level
       builder.Register<PlayerScopeController>(Lifetime.Transient);
 
       builder.Register<SavePlayerStartStatsFlowController>(Lifetime.Transient);
-      builder.Register<RespawnPlayerFlowController>(Lifetime.Transient);
 
       builder.Register<BossModel>(Lifetime.Singleton);
       builder.Register<BossFlowController>(Lifetime.Transient);

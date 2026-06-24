@@ -20,6 +20,7 @@ namespace Sling.Level.Player
     [field: Header("Death anim")]
     [field: SerializeField] public int DieFlickerCount { get; private set; } = 3;
     [field: SerializeField] public float DieDuration { get; private set; } = 1.5f;
+    public float ReviveDuration = 1f;
     
     [Min(0)]
     public float DieCameraShakeStrength = 1f;

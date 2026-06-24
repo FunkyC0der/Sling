@@ -36,6 +36,8 @@ namespace Sling.Level.Player
       builder.Register<PlayerModel>(Lifetime.Singleton);
       builder.Register<PlayerController>(Lifetime.Transient);
       
+      builder.Register<RespawnPlayerFlowController>(Lifetime.Transient);
+      
       builder.Register<PlayerAnimatorController>(Lifetime.Transient);
 
       builder.Register<PlayerStatesController>(Lifetime.Transient);

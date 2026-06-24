@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Gameplay;
 using Sling.Level.LevelComplete;
+using Sling.Level.Player;
 
 namespace Sling.Level.Session
 {
@@ -30,10 +31,7 @@ namespace Sling.Level.Session
           await ExecuteAndWaitResultAsync<GameplayLoopController, GameplayLoopResult>(cancellationToken);
 
         if (loopResult == GameplayLoopResult.Death)
-        {
-          await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(cancellationToken);
           continue;
-        }
 
         if (loopResult == GameplayLoopResult.Win)
         {

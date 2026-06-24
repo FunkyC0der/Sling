@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using PrimeTween;
+using Sling.Common.Extensions;
 using Sling.Common.Views;
 using UnityEngine;
 
@@ -47,8 +48,19 @@ namespace Sling.Level.Player
     {
       gameObject.SetActive(false);
       Instantiate(_config.DeathVFXPrefab, transform.position, Quaternion.identity);
-      Tween.ShakeCamera(Camera.main, _config.DieCameraShakeStrength, frequency: _config.DieCameraShakeFrequency);
+      
+      _ = Tween.ShakeCamera(Camera.main, _config.DieCameraShakeStrength, frequency: _config.DieCameraShakeFrequency);
+      
       await UniTask.WaitForSeconds(_config.DieDuration, cancellationToken: cancellationToken);
+    }
+
+    public async UniTask Revive()
+    {
+      ParticleSystem deathVfx = Instantiate(_config.DeathVFXPrefab, transform.position, Quaternion.identity);
+      await deathVfx.CoPlayBackward(withChildren: false, maxLifeTime: _config.ReviveDuration).ToUniTask();
+      Destroy(deathVfx.gameObject);
+      
+      gameObject.SetActive(true);
     }
   }
 }
