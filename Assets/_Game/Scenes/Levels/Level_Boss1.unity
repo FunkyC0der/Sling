@@ -1726,7 +1726,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Ease
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Speed
