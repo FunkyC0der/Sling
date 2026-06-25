@@ -21,32 +21,36 @@ namespace Sling.Level.Boss
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      for (int i = 0; i < _bossView.PhaseCount; i++)
-        foreach (WeakPointView weakPoint in _bossView.GetPhaseWeakPoints(i))
-          weakPoint.Hide(showVFX: false);
-      
       if (_model.IsFirstRun)
       {
         _model.CurrentPhaseIndex = 0;
-        _bossView.StartPhase(_model.CurrentPhaseIndex);
+        
+        for (int i = 0; i < _bossView.PhaseCount; i++)
+          foreach (WeakPointView weakPoint in _bossView.GetPhaseWeakPoints(i))
+            weakPoint.Hide();
       }
       else if (_model.CurrentPhaseIndex > 0)
       {
-        _bossView.StopPhase(_model.CurrentPhaseIndex);
+        int prevPhase = _model.CurrentPhaseIndex;
         _model.CurrentPhaseIndex = 0;
-        await _bossView.TransitionWithStartPhaseAsync(_model.CurrentPhaseIndex, cancellationToken);
+        
+        await _bossView.TransitionToPhaseAsync(prevPhase, _model.CurrentPhaseIndex, cancellationToken);
       }
 
       while (true)
       {
-        await ExecuteAndWaitResultAsync<BossPhaseController>(cancellationToken);
-        _bossView.StopPhase(_model.CurrentPhaseIndex);
+        await ExecuteAndWaitResultAsync<BossPhaseFlowController>(cancellationToken);
 
+        int prevPhaseIndex = _model.CurrentPhaseIndex;
         ++_model.CurrentPhaseIndex;
-        if (_model.CurrentPhaseIndex >= _bossView.PhaseCount)
-          break;
         
-        await _bossView.TransitionWithStartPhaseAsync(_model.CurrentPhaseIndex, cancellationToken);
+        if (_model.CurrentPhaseIndex < _bossView.PhaseCount)
+        {
+          await _bossView.TransitionToPhaseAsync(prevPhaseIndex, _model.CurrentPhaseIndex, cancellationToken);
+          continue;
+        }
+        
+        break;
       }
       
       _events.OnLevelCompleted?.Invoke();

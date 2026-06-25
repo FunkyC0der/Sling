@@ -47,6 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Boss.WeakPointView
   _hideVFXPrefab: {fileID: 5248711072832501588, guid: 716cf1d8c3331480f91336ed06c0e7f8, type: 3}
+  _showScaleTweenSettings:
+    duration: 0.25
+    ease: 0
+    customEase:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
 --- !u!212 &4964083907149227954
 SpriteRenderer:
   serializedVersion: 2

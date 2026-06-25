@@ -57,7 +57,7 @@ namespace Sling.Level
 
       builder.Register<BossModel>(Lifetime.Singleton);
       builder.Register<BossFlowController>(Lifetime.Transient);
-      builder.Register<BossPhaseController>(Lifetime.Transient);
+      builder.Register<BossPhaseFlowController>(Lifetime.Transient);
       builder.Register<TryGetViewFlowController<BossView>>(Lifetime.Transient);
 
       builder.Register<HudController>(Lifetime.Transient);

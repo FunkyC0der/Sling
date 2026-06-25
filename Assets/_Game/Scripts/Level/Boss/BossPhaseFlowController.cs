@@ -7,13 +7,13 @@ using Sling.Audio;
 
 namespace Sling.Level.Boss
 {
-  public class BossPhaseController : ControllerWithResultBase
+  public class BossPhaseFlowController : ControllerWithResultBase
   {
     private readonly BossView _view;
     private readonly BossModel _model;
     private readonly AudioEvents _audioEvents;
 
-    public BossPhaseController(IControllerFactory factory, BossView view, BossModel model, AudioEvents audioEvents)
+    public BossPhaseFlowController(IControllerFactory factory, BossView view, BossModel model, AudioEvents audioEvents)
       : base(factory)
     {
       _view = view;
@@ -23,15 +23,10 @@ namespace Sling.Level.Boss
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      IReadOnlyList<WeakPointView> weakPoints = _view.GetPhaseWeakPoints(_model.CurrentPhaseIndex);
-
-      List<WeakPointView> activeWeakPoints = new();
-
-      foreach (WeakPointView weakPoint in weakPoints)
-      {
-        weakPoint.Show();
-        activeWeakPoints.Add(weakPoint);
-      }
+      await _view.GetPhases()[_model.CurrentPhaseIndex].ShowWeakPointsAnim(cancellationToken);
+      
+      _view.StartPhase(_model.CurrentPhaseIndex);
+      List<WeakPointView> activeWeakPoints = new(_view.GetPhaseWeakPoints(_model.CurrentPhaseIndex));
       
       while (activeWeakPoints.Count > 0)
       {
@@ -42,13 +37,15 @@ namespace Sling.Level.Boss
         
         _audioEvents.PlaySFX?.Invoke(AudioClipId.BossDamage);
         
-        hitWeakPoint.Hide(showVFX: true);
+        hitWeakPoint.HideAfterHit();
         await _view.PlayHitAnim().AttachExternalCancellation(cancellationToken);
       }
       
+      _view.StopPhase(_model.CurrentPhaseIndex);
+      
       Complete();
     }
-    
+
     private static async UniTask<int> WaitAnyHitAsync(
       IReadOnlyList<WeakPointView> weakPoints,
       CancellationToken cancellationToken)

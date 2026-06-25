@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -10,25 +9,16 @@ using UnityEngine;
 
 namespace Sling.Level.Boss
 {
-  [Serializable]
-  public class BossPhaseSettings
-  {
-    public PhysicsTweenerBase Tweener;
-    public List<WeakPointView> WeakPoints;
-    
-    public Vector3 InitialPosition { get; set; }
-    public float InitialRotation { get; set; }
-  }
-
   public class BossView : MonoBehaviour, IUniqueView
   {
     [SerializeField] private Transform _bossBody;
-    [SerializeField] private float _phaseTransitionDuration = 0.5f;
     [SerializeField] private List<BossPhaseSettings> _phases;
     [SerializeField] private ShakeSettings _hitShakeSettings;
     [SerializeField] private float _blinkAmount;
     [SerializeField] private int _hitBlinkCount = 3;
-
+    [SerializeField] private Rigidbody2D _transitionRigidbody;
+    [SerializeField] private float _phaseTransitionMoveSpeed = 10f;
+    
     private SpriteBlinkTweener[] _blinkTweeners;
 
     public int PhaseCount => _phases.Count;
@@ -41,48 +31,45 @@ namespace Sling.Level.Boss
 
     private void Start()
     {
-      foreach (BossPhaseSettings phases in _phases)
-      {
-        phases.InitialPosition = phases.Tweener.Rigidbody.position;
-        phases.InitialRotation = phases.Tweener.Rigidbody.rotation;
-      }
-
+      foreach (BossPhaseSettings phases in _phases) 
+        phases.SaveInitialTransform();
     }
 
-    public void StopPhase(int phaseIndex)
+    public async UniTask TransitionToPhaseAsync(int phaseIndex, int nextPhaseIndex, CancellationToken cancellationToken)
     {
       BossPhaseSettings phase = _phases[phaseIndex];
-      phase.Tweener.StopTween();
+      phase.Stop();
       
-      _bossBody.SetParent(transform);
+      BossPhaseSettings nextPhase = _phases[nextPhaseIndex];
+      nextPhase.Tweener.Rigidbody.position = phase.Tweener.Rigidbody.position;
       
-      phase.Tweener.Rigidbody.position = phase.InitialPosition;
-      phase.Tweener.Rigidbody.rotation = phase.InitialRotation;
-    }
+      await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
 
-    public async UniTask TransitionWithStartPhaseAsync(int phaseIndex, CancellationToken cancellationToken)
-    {
-      Vector3 origScale = _bossBody.lossyScale;
+      nextPhase.AttachBossBody(_bossBody);
+      phase.ResetToInitialTransform();
       
-      Tween scaleDownTween = Tween.Scale(_bossBody, Vector3.zero, _phaseTransitionDuration / 2);
-      await scaleDownTween.WithCancellation(cancellationToken);
+      await phase.HideWeakPointsAnim(cancellationToken);
 
-      StartPhase(phaseIndex);
+      float distance = Vector2.Distance(nextPhase.Tweener.Rigidbody.position, nextPhase.InitialPosition);
 
-      Tween scaleUpTween = Tween.Scale(_bossBody, origScale, _phaseTransitionDuration / 2);
-      await scaleUpTween.WithCancellation(cancellationToken);
+      await Tween.RigidbodyMovePosition(
+          nextPhase.Tweener.Rigidbody,
+          nextPhase.InitialPosition,
+          duration: distance / _phaseTransitionMoveSpeed,
+          Easing.Standard(Ease.InOutSine))
+        .WithCancellation(cancellationToken);
     }
 
     public void StartPhase(int phaseIndex)
     {
       BossPhaseSettings phase = _phases[phaseIndex];
-      _bossBody.SetParent(phase.Tweener.transform);
-      
-      _bossBody.localPosition = Vector3.zero;
-      _bossBody.localRotation = Quaternion.identity;
-      
-      phase.Tweener.StartTween();
+
+      phase.AttachBossBody(_bossBody);
+      phase.Start();
     }
+
+    public void StopPhase(int phaseIndex) => 
+      _phases[phaseIndex].Stop();
 
     [Button]
     public async UniTask PlayHitAnim()
@@ -94,7 +81,7 @@ namespace Sling.Level.Boss
 
       await UniTask.WaitForSeconds(_hitShakeSettings.duration);
     }
-    
+
     private async UniTask PlayShakeAnim() =>
       await Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
   }
