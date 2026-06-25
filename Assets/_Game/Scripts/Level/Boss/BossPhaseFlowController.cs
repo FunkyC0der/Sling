@@ -23,10 +23,13 @@ namespace Sling.Level.Boss
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await _view.GetPhases()[_model.CurrentPhaseIndex].ShowWeakPointsAnim(cancellationToken);
+      BossPhaseSettings phase = _view.GetPhases()[_model.CurrentPhaseIndex];
+      if(!phase.Tweener.IsActive)
+        phase.Start();
       
-      _view.StartPhase(_model.CurrentPhaseIndex);
-      List<WeakPointView> activeWeakPoints = new(_view.GetPhaseWeakPoints(_model.CurrentPhaseIndex));
+      await phase.ShowWeakPointsAnim(cancellationToken);
+      
+      List<WeakPointView> activeWeakPoints = new(phase.WeakPoints);
       
       while (activeWeakPoints.Count > 0)
       {
@@ -41,7 +44,7 @@ namespace Sling.Level.Boss
         await _view.PlayHitAnim().AttachExternalCancellation(cancellationToken);
       }
       
-      _view.StopPhase(_model.CurrentPhaseIndex);
+      phase.Stop();
       
       Complete();
     }

@@ -12,6 +12,7 @@ namespace Sling.Common.Tweeners
     protected Sequence _sequence;
     
     public Rigidbody2D Rigidbody => _rigidbody;
+    public bool IsActive => _sequence.isAlive;
 
     protected virtual void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
 

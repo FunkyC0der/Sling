@@ -29,10 +29,17 @@ namespace Sling.Level.Boss
     private void Awake() => 
       _blinkTweeners = GetComponentsInChildren<SpriteBlinkTweener>();
 
-    private void Start()
+    public void Init()
     {
-      foreach (BossPhaseSettings phases in _phases) 
-        phases.SaveInitialTransform();
+      foreach (BossPhaseSettings phase in _phases)
+      {
+        phase.SaveInitialTransform();
+
+        foreach (WeakPointView weakPoint in phase.WeakPoints) 
+          weakPoint.Hide();
+      }
+      
+      _phases[0].AttachBossBody(_bossBody);
     }
 
     public async UniTask TransitionToPhaseAsync(int phaseIndex, int nextPhaseIndex, CancellationToken cancellationToken)
@@ -59,17 +66,6 @@ namespace Sling.Level.Boss
           Easing.Standard(Ease.InOutSine))
         .WithCancellation(cancellationToken);
     }
-
-    public void StartPhase(int phaseIndex)
-    {
-      BossPhaseSettings phase = _phases[phaseIndex];
-
-      phase.AttachBossBody(_bossBody);
-      phase.Start();
-    }
-
-    public void StopPhase(int phaseIndex) => 
-      _phases[phaseIndex].Stop();
 
     [Button]
     public async UniTask PlayHitAnim()

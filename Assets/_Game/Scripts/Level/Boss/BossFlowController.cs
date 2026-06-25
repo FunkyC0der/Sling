@@ -23,11 +23,8 @@ namespace Sling.Level.Boss
     {
       if (_model.IsFirstRun)
       {
+        _bossView.Init();
         _model.CurrentPhaseIndex = 0;
-        
-        for (int i = 0; i < _bossView.PhaseCount; i++)
-          foreach (WeakPointView weakPoint in _bossView.GetPhaseWeakPoints(i))
-            weakPoint.Hide();
       }
       else if (_model.CurrentPhaseIndex > 0)
       {
