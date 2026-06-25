@@ -51,6 +51,7 @@ namespace Sling.Level.Boss
       }
       
       _events.OnLevelCompleted?.Invoke();
+      Complete();
     }
   }
 }
