@@ -29,6 +29,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 4c813208bc050c149b2e99e6bcb8dc13, type: 3}
     - {fileID: 8300000, guid: 03ee5399875ff6e41a74153c233ace24, type: 3}
     - {fileID: 8300000, guid: c788b071fcf3f854f94dc63b356bd0af, type: 3}
+    - {fileID: 8300000, guid: e3333f33389172445829763236ef3dbd, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -53,7 +54,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -321,6 +322,27 @@ MonoBehaviour:
     - Name: Volume
       Entry: 4
       Data: 1.30224025
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 104
+    - Name: $v
+      Entry: 7
+      Data: 15|Sling.Audio.AudioClipConfig, Assembly-CSharp
+    - Name: AudioClip
+      Entry: 10
+      Data: 13
+    - Name: Volume
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

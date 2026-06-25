@@ -15,6 +15,7 @@ namespace Sling.Audio
     PlayerStretch = 101,
     PlayerLaunch = 102,
     PlayerLand = 103,
+    PlayerRevive = 104,
     
     BounceZone = 121,
     StickyZone = 122,
