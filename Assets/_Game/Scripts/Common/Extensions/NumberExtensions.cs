@@ -15,5 +15,8 @@ namespace Sling.Common.Extensions
 
     public static Vector3 Multiply(this Vector3 vector, float x, float y = 1, float z = 1) =>
       new Vector3(x * vector.x, y * vector.y, z * vector.z);
+
+    public static float RandomRange(this Vector2 range) =>
+      Random.Range(range.x, range.y);
   }
 }
