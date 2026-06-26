@@ -12,6 +12,7 @@ namespace Sling.Level.Boss
   {
     public PhysicsTweenerBase Tweener;
     public List<WeakPointView> WeakPoints;
+    public Sprite BodySprite;
     
     public Vector3 InitialPosition { get; set; }
 

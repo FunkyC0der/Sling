@@ -372,6 +372,14 @@ PrefabInstance:
       value: WeakPoint_1_3
       objectReference: {fileID: 0}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[0].BodySprite
+      value: 
+      objectReference: {fileID: 4088507899557720417, guid: b730c41ab231d774eac0831220c39f55, type: 3}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[1].BodySprite
+      value: 
+      objectReference: {fileID: 6620000629166477315, guid: e77a623e0f1dfee4582467b46e7bf35c, type: 3}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: _phases.Array.data[0].WeakPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -8502,6 +8510,10 @@ PrefabInstance:
     - target: {fileID: 7070061232733126315, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_Name
       value: LevelBasicObjects
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855321156565275568, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8990528018166405162, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_Size.x

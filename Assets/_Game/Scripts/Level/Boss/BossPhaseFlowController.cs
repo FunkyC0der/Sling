@@ -23,9 +23,10 @@ namespace Sling.Level.Boss
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      BossPhaseSettings phase = _view.GetPhases()[_model.CurrentPhaseIndex];
-      if(!phase.Tweener.IsActive)
-        phase.Start();
+      if(!_view.IsPhaseStarted(_model.CurrentPhaseIndex))
+        _view.StartPhase(_model.CurrentPhaseIndex);
+      
+      BossPhaseSettings phase = _view.GetPhase(_model.CurrentPhaseIndex);
       
       await phase.ShowWeakPointsAnim(cancellationToken);
       

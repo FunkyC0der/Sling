@@ -12,19 +12,16 @@ namespace Sling.Level.Boss
   public class BossView : MonoBehaviour, IUniqueView
   {
     [SerializeField] private Transform _bossBody;
+    [SerializeField] private SpriteRenderer _bodySprite;
     [SerializeField] private List<BossPhaseSettings> _phases;
     [SerializeField] private ShakeSettings _hitShakeSettings;
     [SerializeField] private float _blinkAmount;
     [SerializeField] private int _hitBlinkCount = 3;
-    [SerializeField] private Rigidbody2D _transitionRigidbody;
     [SerializeField] private float _phaseTransitionMoveSpeed = 10f;
     
     private SpriteBlinkTweener[] _blinkTweeners;
 
     public int PhaseCount => _phases.Count;
-
-    public IReadOnlyList<WeakPointView> GetPhaseWeakPoints(int index) => _phases[index].WeakPoints;
-    public IReadOnlyList<BossPhaseSettings> GetPhases() => _phases;
 
     private void Awake() => 
       _blinkTweeners = GetComponentsInChildren<SpriteBlinkTweener>();
@@ -38,8 +35,23 @@ namespace Sling.Level.Boss
         foreach (WeakPointView weakPoint in phase.WeakPoints) 
           weakPoint.Hide();
       }
+    }
+
+    public BossPhaseSettings GetPhase(int index) => 
+      _phases[index];
+
+    public bool IsPhaseStarted(int index) =>
+      GetPhase(index).Tweener.IsActive;
+
+    public void StartPhase(int index)
+    {
+      BossPhaseSettings phase = GetPhase(index);
+
+      if (phase.BodySprite != null) 
+        _bodySprite.sprite = phase.BodySprite;
       
-      _phases[0].AttachBossBody(_bossBody);
+      phase.AttachBossBody(_bossBody);
+      phase.Start();
     }
 
     public async UniTask TransitionToPhaseAsync(int phaseIndex, int nextPhaseIndex, CancellationToken cancellationToken)
