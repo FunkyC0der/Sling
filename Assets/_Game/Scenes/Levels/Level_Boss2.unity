@@ -1004,7 +1004,7 @@ PrefabInstance:
     - target: {fileID: 2268944150550002034, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6620000629166477315, guid: e77a623e0f1dfee4582467b46e7bf35c, type: 3}
+      objectReference: {fileID: 1030633595518862179, guid: 1af391fc5f9cd294ab898c91758181fd, type: 3}
     - target: {fileID: 2268944150550002034, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: m_Color.b
       value: 0.9860737
@@ -1313,6 +1313,14 @@ PrefabInstance:
       propertyPath: _phases.Array.data[1].Tweener
       value: 
       objectReference: {fileID: 1816399077}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[0].BodySprite
+      value: 
+      objectReference: {fileID: 1030633595518862179, guid: 1af391fc5f9cd294ab898c91758181fd, type: 3}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[1].BodySprite
+      value: 
+      objectReference: {fileID: -7652859400466849888, guid: 1f7c1d66ea934dc4d9e8171b740ca699, type: 3}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: _phases.Array.data[0].WeakPoints.Array.size
       value: 4
