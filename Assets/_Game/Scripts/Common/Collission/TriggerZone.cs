@@ -13,5 +13,8 @@ namespace Sling.Common.Collission
 
     private void OnTriggerExit2D(Collider2D other) => 
       OnExit?.Invoke(other);
+
+    public bool IsColliding() =>
+      GetComponent<Collider2D>().IsTouchingLayers();
   }
 }

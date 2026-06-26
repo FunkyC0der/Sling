@@ -29,6 +29,7 @@ namespace Sling.Level.Player.States
 
     protected override void OnStart()
     {
+      _model.IsGrounded.Value = _groundedView.IsColliding();
       _groundedView.OnGrounded += OnGrounded;
       this.AddDisposableAction(() => _groundedView.OnGrounded -= OnGrounded);
       

@@ -20,5 +20,8 @@ namespace Sling.Level.Player.States
       get => _triggerZone.OnExit;
       set => _triggerZone.OnExit = value;
     }
+    
+    public bool IsColliding() =>
+      _triggerZone.IsColliding();
   }
 }
