@@ -5,6 +5,7 @@ using Sling;
 using Sling.Common.UI;
 using Sling.Common.UI.Windows;
 using Sling.Levels;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Sling.MainMenu.SelectLevel
@@ -53,14 +54,15 @@ namespace Sling.MainMenu.SelectLevel
       }
     }
 
-    protected override UniTask<int> WaitForResult(CancellationToken cancellationToken)
+    protected override async UniTask<int> WaitForResult(CancellationToken cancellationToken)
     {
       var completionSource = new UniTaskCompletionSource<int>();
       
-      _window.Q<Button>(WindowNames.PlayButton).clicked += () => 
+      _window.Q<Button>(WindowNames.PlayButton).clicked += () =>
         completionSource.TrySetResult(_selectedLevelIndex);
       
-      return completionSource.Task.AttachExternalCancellation(cancellationToken);
+      await completionSource.Task.AttachExternalCancellation(cancellationToken);
+      return _selectedLevelIndex;
     }
     
     private void SelectItem(int levelIndex, VisualElement levelItem)

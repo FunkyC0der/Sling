@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Sling.LevelLoading
@@ -12,10 +13,15 @@ namespace Sling.LevelLoading
     {
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await SceneManager.LoadSceneAsync(Args)
-        .ToUniTask(cancellationToken: ct);
+      AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(Args);
+      asyncOperation.allowSceneActivation = false;
+
+      await UniTask.WaitWhile(() => asyncOperation.progress < 0.9f, cancellationToken: cancellationToken);
+
+      asyncOperation.allowSceneActivation = true;
+      await UniTask.WaitUntil(() => asyncOperation.isDone, cancellationToken: cancellationToken);
       
       Complete(new EmptyControllerResult());
     }
