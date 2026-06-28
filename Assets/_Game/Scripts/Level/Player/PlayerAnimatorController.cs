@@ -11,7 +11,7 @@ namespace Sling.Level.Player
     
     private enum EState
     {
-      Idle,
+      OnGround,
       InAir,
       WallSliding,
       Dead,
@@ -51,7 +51,7 @@ namespace Sling.Level.Player
       _model.IsWin.OnValueChanged += OnIsWinChanged;
       this.AddDisposableAction(() => _model.IsWin.OnValueChanged -= OnIsWinChanged);
       
-      _state = EState.Idle;
+      _state = EState.OnGround;
       EnterState();
     }
 
@@ -68,7 +68,7 @@ namespace Sling.Level.Player
     {
       switch (_state)
       {
-        case EState.Idle:
+        case EState.OnGround:
         case EState.Win:
           _animatorView.Land();
           break;
@@ -90,16 +90,21 @@ namespace Sling.Level.Player
       
       switch (_state)
       {
-        case EState.Idle:
+        case EState.OnGround:
           if(!_model.IsGrounded.Value)
+          {
             ChangeState(EState.InAir);
+            break;
+          }
+          
+          UpdateFacingDirection();
           break;
 
         case EState.InAir:
         {
           if (_model.IsGrounded.Value)
           {
-            ChangeState(EState.Idle);
+            ChangeState(EState.OnGround);
             break;
           }
 
@@ -109,10 +114,7 @@ namespace Sling.Level.Player
             break;
           }
           
-          if (_view.LinearVelocityX > _kVelocityThreshold)
-            _view.SetFacingLeft(false);
-          else if (_view.LinearVelocityX < -_kVelocityThreshold)
-            _view.SetFacingLeft(true);
+          UpdateFacingDirection();
           
           float maxSpeedY = _config.MaxDragDistance * _config.LaunchForceMultiplier;
           float currentSpeedRatio = Mathf.Clamp(_view.LinearVelocityY / maxSpeedY, -1, 1);
@@ -121,11 +123,20 @@ namespace Sling.Level.Player
           
           break;
         }
+        
         case EState.WallSliding:
           if(!_model.IsWallSliding.Value)
-            ChangeState(_model.IsGrounded.Value ? EState.Idle : EState.InAir);
+            ChangeState(_model.IsGrounded.Value ? EState.OnGround : EState.InAir);
           break;
       }
+    }
+
+    private void UpdateFacingDirection()
+    {
+      if (_view.LinearVelocityX > _kVelocityThreshold)
+        _view.SetFacingLeft(false);
+      else if (_view.LinearVelocityX < -_kVelocityThreshold)
+        _view.SetFacingLeft(true);
     }
 
     private void OnIsDeadChanged(bool oldValue, bool newValue)
