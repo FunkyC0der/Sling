@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: dd42c2becdc7e3849acdd4c17ffead09
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3786658402623161820
+    second: SlingHero_Tutorial_0
+  - first:
+      213: 32943780620857390
+    second: SlingHero_Tutorial_1
+  - first:
+      213: -4818892258005813957
+    second: SlingHero_Tutorial_2
+  - first:
+      213: -1426195536125961207
+    second: SlingHero_Tutorial_3
+  - first:
+      213: 6277610338300198429
+    second: SlingHero_Tutorial_4
+  - first:
+      213: -8996582664013045858
+    second: SlingHero_Tutorial_5
+  - first:
+      213: 1756544907444923161
+    second: SlingHero_Tutorial_6
+  - first:
+      213: 4490626679814525383
+    second: SlingHero_Tutorial_7
+  - first:
+      213: 2828624981917039779
+    second: SlingHero_Tutorial_8
+  - first:
+      213: -5854110997776339666
+    second: SlingHero_Tutorial_9
+  - first:
+      213: -6580836088445270184
+    second: SlingHero_Tutorial_10
+  - first:
+      213: 6095350620422977539
+    second: SlingHero_Tutorial_11
+  - first:
+      213: -2727538985761214550
+    second: SlingHero_Tutorial_12
+  - first:
+      213: 8928804925284652139
+    second: SlingHero_Tutorial_13
+  - first:
+      213: 9111853433335137668
+    second: SlingHero_Tutorial_14
+  - first:
+      213: 7530521381072373467
+    second: SlingHero_Tutorial_15
+  - first:
+      213: -5292989394312559393
+    second: SlingHero_Tutorial_16
+  - first:
+      213: -6195573990746520559
+    second: SlingHero_Tutorial_17
+  - first:
+      213: 1259213535569893121
+    second: SlingHero_Tutorial_18
+  - first:
+      213: 8746740347796250741
+    second: SlingHero_Tutorial_19
+  - first:
+      213: -1040689136844472499
+    second: SlingHero_Tutorial_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 20
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_0
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 537
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd50a1e21c9ec8430800000000000000
+      internalID: 3786658402623161820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_1
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 551
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e20f675a13a057000800000000000000
+      internalID: 32943780620857390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_2
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 561
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b35feaed50bdf1db0800000000000000
+      internalID: -4818892258005813957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_3
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 505
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90cd6f857b2253ce0800000000000000
+      internalID: -1426195536125961207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_4
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 522
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1ef3bca75d8e1750800000000000000
+      internalID: 6277610338300198429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_5
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 464
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f9017abb7b52380800000000000000
+      internalID: -8996582664013045858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_6
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 486
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ba6486940806810800000000000000
+      internalID: 1756544907444923161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_7
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 418
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c19c354c29e15e30800000000000000
+      internalID: 4490626679814525383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_8
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 442
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3acf5f13f6b414720800000000000000
+      internalID: 2828624981917039779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_9
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 294
+        width: 96
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2d65dd501502cea0800000000000000
+      internalID: -5854110997776339666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_10
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 367
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 857062fb17c2ca4a0800000000000000
+      internalID: -6580836088445270184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_11
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 393
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 308b4cf3819079450800000000000000
+      internalID: 6095350620422977539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_12
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 281
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf6caa5eb5d52ad0800000000000000
+      internalID: -2727538985761214550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_13
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 295
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b649950d5cc79eb70800000000000000
+      internalID: 8928804925284652139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_14
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 154
+        width: 141
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4854d53cb6ec37e70800000000000000
+      internalID: 9111853433335137668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_15
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 254
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd68d443c49c18860800000000000000
+      internalID: 7530521381072373467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_16
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 210
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd4071870368b86b0800000000000000
+      internalID: -5292989394312559393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_17
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 229
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11487ede746e40aa0800000000000000
+      internalID: -6195573990746520559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_18
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 163
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107d10cf900a97110800000000000000
+      internalID: 1259213535569893121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_19
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 189
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 570e8fc010aa26970800000000000000
+      internalID: 8746740347796250741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlingHero_Tutorial_20
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 17
+        width: 108
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4ff6cc6ebabe81f0800000000000000
+      internalID: -1040689136844472499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SlingHero_Tutorial_0: 3786658402623161820
+      SlingHero_Tutorial_1: 32943780620857390
+      SlingHero_Tutorial_10: -6580836088445270184
+      SlingHero_Tutorial_11: 6095350620422977539
+      SlingHero_Tutorial_12: -2727538985761214550
+      SlingHero_Tutorial_13: 8928804925284652139
+      SlingHero_Tutorial_14: 9111853433335137668
+      SlingHero_Tutorial_15: 7530521381072373467
+      SlingHero_Tutorial_16: -5292989394312559393
+      SlingHero_Tutorial_17: -6195573990746520559
+      SlingHero_Tutorial_18: 1259213535569893121
+      SlingHero_Tutorial_19: 8746740347796250741
+      SlingHero_Tutorial_2: -4818892258005813957
+      SlingHero_Tutorial_20: -1040689136844472499
+      SlingHero_Tutorial_3: -1426195536125961207
+      SlingHero_Tutorial_4: 6277610338300198429
+      SlingHero_Tutorial_5: -8996582664013045858
+      SlingHero_Tutorial_6: 1756544907444923161
+      SlingHero_Tutorial_7: 4490626679814525383
+      SlingHero_Tutorial_8: 2828624981917039779
+      SlingHero_Tutorial_9: -5854110997776339666
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
