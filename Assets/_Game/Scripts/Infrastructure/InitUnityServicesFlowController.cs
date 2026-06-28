@@ -1,6 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Unity.Services.Core;
+using Unity.Services.Core.Environments;
 using UnityEngine.UnityConsent;
 
 namespace Sling.Infrastructure
@@ -13,7 +15,12 @@ namespace Sling.Infrastructure
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-      await Unity.Services.Core.UnityServices.InitializeAsync()
+      var options = new InitializationOptions();
+      
+      if(!string.IsNullOrEmpty(UnityServicesOverrides.Name))  
+        options.SetEnvironmentName(UnityServicesOverrides.Name);
+
+      await UnityServices.InitializeAsync(options)
         .AsUniTask()
         .AttachExternalCancellation(cancellationToken);
 

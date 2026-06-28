@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Web - Desktop - Release
+  m_Name: Web - Itch - PlayTest
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfile
   m_AssetVersion: 1
   m_BuildTarget: 20
@@ -20,8 +20,9 @@ MonoBehaviour:
     rid: 3583957692443262980
   m_OverrideGlobalSceneList: 0
   m_Scenes: []
-  m_HasScriptingDefines: 0
-  m_ScriptingDefines: []
+  m_HasScriptingDefines: 1
+  m_ScriptingDefines:
+  - UGS_ENV_PLAYTEST
   m_PlayerSettingsYaml:
     m_Settings:
     - line: '| PlayerSettings:'
