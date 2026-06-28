@@ -8,5 +8,6 @@ namespace Sling.Level.Session
     public Action OnLevelCompleted;
     public Action OnRestartRequested;
     public Action OnMenuRequested;
+    public Action OnPlayerLaunched;
   }
 }

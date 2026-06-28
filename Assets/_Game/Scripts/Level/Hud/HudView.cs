@@ -43,6 +43,6 @@ namespace Sling.Level.Hud
       _playerDeathCountLabel.text = $"{playerDeathCount} DEATHs";
 
     public void SetLevelTime(float elapsedTimeInSeconds) => 
-      _elapsedTimeLabel.text = $"TIME {TimeSpan.FromSeconds(elapsedTimeInSeconds):mm\\:ss}";
+      _elapsedTimeLabel.text = $"TIME {TimeSpan.FromSeconds(elapsedTimeInSeconds):mm\\:ss\\.ff}";
   }
 }

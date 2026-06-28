@@ -9,16 +9,30 @@ namespace Sling.Level.Session
   {
     private readonly LevelModel _levelModel;
     private readonly UpdateEvents _updateEvents;
+    private readonly LevelEvents _levelEvents;
 
-    public LevelTimeController(IControllerFactory controllerFactory, LevelModel levelModel, UpdateEvents updateEvents)
+    public LevelTimeController(
+      IControllerFactory controllerFactory,
+      LevelModel levelModel,
+      UpdateEvents updateEvents,
+      LevelEvents levelEvents)
       : base(controllerFactory)
     {
       _levelModel = levelModel;
       _updateEvents = updateEvents;
+      _levelEvents = levelEvents;
     }
 
     protected override void OnStart()
     {
+      _levelEvents.OnPlayerLaunched += OnPlayerFirstLaunch;
+      this.AddDisposableAction(() => _levelEvents.OnPlayerLaunched -= OnPlayerFirstLaunch);
+    }
+
+    private void OnPlayerFirstLaunch()
+    {
+      _levelEvents.OnPlayerLaunched -= OnPlayerFirstLaunch;
+      
       _updateEvents.OnUpdate += Update;
       this.AddDisposableAction(() => _updateEvents.OnUpdate -= Update);
     }

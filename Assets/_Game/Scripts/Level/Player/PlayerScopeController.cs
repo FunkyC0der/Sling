@@ -2,7 +2,6 @@ using Playtika.Controllers;
 using Sling.Common.Controllers;
 using Sling.Common.Extensions;
 using Sling.Level.Collision;
-using Sling.Level.Gameplay;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
 using Sling.Level.Player.States;
@@ -51,6 +50,8 @@ namespace Sling.Level.Player
 
       builder.Register<PlayerAudioController>(Lifetime.Transient);
       builder.Register<PlayerLandingDustController>(Lifetime.Transient);
+
+      builder.Register<PlayerEventsBroadcastController>(Lifetime.Transient);
       
       builder.RegisterGameObjectViews(_playerView.gameObject);
     }
