@@ -15,6 +15,9 @@ namespace Sling.Level.Player
     }
 
     protected override void OnStart() => 
-      _model.OnLaunched += _levelEvents.OnPlayerLaunched;
+      _model.OnLaunched += ForwardLaunchEvent;
+
+    private void ForwardLaunchEvent() =>
+      _levelEvents.OnPlayerLaunched?.Invoke();
   }
 }
