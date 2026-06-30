@@ -28,13 +28,15 @@ namespace Sling.Level.Player.Launch
     protected override void OnStart()
     {
       _inputView.OnPreLaunchUpdate += OnPreLaunchUpdate;
-      _inputView.OnPreLaunchStop += OnPreLaunchStop;  
+      _inputView.OnPreLaunchStop += OnPreLaunchStop;
+      _inputView.OnPreLaunchCancel += OnPreLaunchCancel;
     }
 
     protected override void OnStop()
     {
       _inputView.OnPreLaunchUpdate -= OnPreLaunchUpdate;  
-      _inputView.OnPreLaunchStop -= OnPreLaunchStop;  
+      _inputView.OnPreLaunchStop -= OnPreLaunchStop;
+      _inputView.OnPreLaunchCancel -= OnPreLaunchCancel;
       
       _launchView.HideHint();
     }
@@ -53,6 +55,9 @@ namespace Sling.Level.Player.Launch
 
     private void OnPreLaunchStop(Vector2 worldPos) => 
       Complete(_launchVelocity);
+
+    private void OnPreLaunchCancel() => 
+      Complete(Vector2.zero);
 
     private Vector3 SamplePosition(float t) =>
       _launchVelocity * t + Physics2D.gravity * (0.5f * t * t);

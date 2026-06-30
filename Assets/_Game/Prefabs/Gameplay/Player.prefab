@@ -245,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Player.Views.PlayerInputView
   _pointerPressActionRef: {fileID: 2007806119289100819, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _pointerPositionActionRef: {fileID: 4104080155975257287, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _cancelPreLaunchActionRef: {fileID: 8332039919140656309, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &568652647998110355
 MonoBehaviour:
   m_ObjectHideFlags: 0

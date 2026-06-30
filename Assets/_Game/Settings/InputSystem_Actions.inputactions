@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "CancelPreLaunch",
+                    "type": "Button",
+                    "id": "2b0cc80b-9ba8-4dc2-8f58-029d11cd6496",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -511,6 +520,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Touch",
                     "action": "PointerPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3798a79-d9ae-4921-91d2-d288abe0b44f",
+                    "path": "<Touchscreen>/touch1/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelPreLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c3ba30d-a3cf-404e-a24f-739c87e0eb6b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelPreLaunch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

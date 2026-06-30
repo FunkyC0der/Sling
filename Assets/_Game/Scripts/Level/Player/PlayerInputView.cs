@@ -10,10 +10,12 @@ namespace Sling.Level.Player
   {
     [SerializeField] private InputActionReference _pointerPressActionRef;
     [SerializeField] private InputActionReference _pointerPositionActionRef;
+    [SerializeField] private InputActionReference _cancelPreLaunchActionRef;
 
     public event Action<Vector2> OnPreLaunchStart;
     public event Action<Vector2> OnPreLaunchUpdate;
     public event Action<Vector2> OnPreLaunchStop;
+    public event Action OnPreLaunchCancel;
 
     private Camera _cam;
 
@@ -23,6 +25,7 @@ namespace Sling.Level.Player
 
       _pointerPressActionRef.action.performed += HandlePress;
       _pointerPressActionRef.action.canceled += HandleRelease;
+      _cancelPreLaunchActionRef.action.performed += HandleCancelPreLaunch;
     }
 
     private IEnumerator Start()
@@ -31,26 +34,28 @@ namespace Sling.Level.Player
       // I don't know why ???
       yield return null;
 
-      _pointerPressActionRef.action.Enable();
-      _pointerPositionActionRef.action.Enable();
+      EnableInput();
     }
 
     private void OnDestroy()
     {
       _pointerPressActionRef.action.performed -= HandlePress;
       _pointerPressActionRef.action.canceled -= HandleRelease;
+      _cancelPreLaunchActionRef.action.performed -= HandleCancelPreLaunch;
     }
 
     public void EnableInput()
     {
       _pointerPressActionRef.action.Enable();
       _pointerPositionActionRef.action.Enable();
+      _cancelPreLaunchActionRef.action.Enable();
     }
 
     public void DisableInput()
     {
       _pointerPressActionRef.action.Disable();
       _pointerPositionActionRef.action.Disable();
+      _cancelPreLaunchActionRef.action.Disable();
     }
 
     private void Update() =>
@@ -67,6 +72,9 @@ namespace Sling.Level.Player
 
     private void HandleRelease(InputAction.CallbackContext _) =>
       OnPreLaunchStop?.Invoke(PointerWorldPos());
+
+    private void HandleCancelPreLaunch(InputAction.CallbackContext ctx) => 
+      OnPreLaunchCancel?.Invoke();
 
     private Vector2 PointerWorldPos()
     {
