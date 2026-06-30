@@ -39,7 +39,7 @@ namespace Sling.Level.Gameplay
       Execute<PlayerScopeController>();
       Execute<HudController>();
 
-      if(await ExecuteAndWaitResultAsync<TryGetViewFlowController<BossView>, BossView>(cancellationToken))
+      if(await ExecuteAndWaitResultAsync<TryGetUniqueViewFlowController<BossView>, BossView>(cancellationToken))
         ExecuteAndWaitResultAsync<BossFlowController>(cancellationToken).Forget();
 
       GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);

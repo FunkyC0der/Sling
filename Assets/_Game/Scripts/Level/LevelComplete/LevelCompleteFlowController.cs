@@ -62,7 +62,7 @@ namespace Sling.Level.LevelComplete
     private async UniTask OptionalFinishZoneBlinkAnim(CancellationToken cancellationToken)
     {
       FinishZoneView finishZoneView = 
-        await ExecuteAndWaitResultAsync<TryGetViewFlowController<FinishZoneView>, FinishZoneView>(cancellationToken);
+        await ExecuteAndWaitResultAsync<TryGetUniqueViewFlowController<FinishZoneView>, FinishZoneView>(cancellationToken);
 
       if (finishZoneView)
         await finishZoneView.Blink();

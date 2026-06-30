@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Playtika.Controllers;
 using Sling.Common.Views;
 using UnityEngine;
@@ -12,60 +11,43 @@ namespace Sling.Common.Extensions
 {
   public static class VContainerExtensions
   {
-    private static Type[] _cachedNonUniqueViewTypes;
-
     public static IControllerFactory GetControllerFactory(this LifetimeScope scope) =>
       scope.Container.Resolve<IControllerFactory>();
 
     public static void RegisterSceneViews(this IContainerBuilder builder, Scene scene)
     {
-      var viewsByType = new Dictionary<Type, List<IView>>();
+      var viewArraysByType = new Dictionary<Type, List<IViewArrayItem>>();
 
+      // Iterate all MonoBehaviours
       foreach (GameObject root in scene.GetRootGameObjects())
-      foreach (IView view in root.GetComponentsInChildren<IView>(true))
-        viewsByType.GetOrAdd(view.GetType()).Add(view);
-
-      foreach (KeyValuePair<Type, List<IView>> entry in viewsByType)
       {
-        // IsAssignableFrom reads backward: checks that entry.Key implements IUniqueView
-        bool isUnique = typeof(IUniqueView).IsAssignableFrom(entry.Key);
-        if (isUnique)
-          RegisterUnique(builder, entry.Key, entry.Value);
-        else
-          RegisterCollection(builder, entry.Key, entry.Value);
+        foreach (MonoBehaviour monoBehaviour in root.GetComponentsInChildren<MonoBehaviour>(includeInactive: true))
+        {
+          Type componentType = monoBehaviour.GetType();
+
+          if (monoBehaviour is IUniqueView)
+            RegisterUnique(builder, componentType, monoBehaviour);
+          else if (monoBehaviour is IViewArrayItem viewArrayItem)
+            viewArraysByType.GetOrAdd(componentType).Add(viewArrayItem);
+        }
       }
 
-      foreach (Type viewType in GetAllNonUniqueViewTypes())
-      {
-        if (viewsByType.ContainsKey(viewType))
-          continue;
-
-        Array emptyArray = Array.CreateInstance(viewType, 0);
-        builder.RegisterInstance(emptyArray, viewType.MakeArrayType());
-      }
+      foreach (KeyValuePair<Type, List<IViewArrayItem>> entry in viewArraysByType) 
+        RegisterViewList(builder, entry.Key, entry.Value);
     }
 
-    public static void RegisterGameObjectViews(this IContainerBuilder builder, GameObject gameObject)
+    private static void RegisterUnique(IContainerBuilder builder, Type viewType, MonoBehaviour instance)
     {
-      foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>())
-      {
-        builder.RegisterInstance(view, view.GetType())
-          .AsImplementedInterfaces();
-      }
-    }
-
-    private static void RegisterUnique(IContainerBuilder builder, Type viewType, List<IView> views)
-    {
-      if (views.Count != 1)
+      if (builder.Exists(viewType))
       {
         throw new InvalidOperationException(
-          $"IUniqueView '{viewType.Name}' must have exactly 1 instance in scene, found {views.Count}.");
+          $"IUniqueView '{viewType.Name}' must have exactly 1 instance in scene, found {instance.name}.");
       }
 
-      builder.RegisterInstance(views[0], viewType);
+      builder.RegisterInstance(instance, viewType);
     }
 
-    private static void RegisterCollection(IContainerBuilder builder, Type viewType, List<IView> views)
+    private static void RegisterViewList(IContainerBuilder builder, Type viewType, List<IViewArrayItem> views)
     {
       var typedArray = Array.CreateInstance(viewType, views.Count);
 
@@ -75,44 +57,13 @@ namespace Sling.Common.Extensions
       builder.RegisterInstance(typedArray, viewType.MakeArrayType());
     }
 
-    private static Type[] GetAllNonUniqueViewTypes()
+    public static void RegisterGameObjectViews(this IContainerBuilder builder, GameObject gameObject)
     {
-      if (_cachedNonUniqueViewTypes != null)
-        return _cachedNonUniqueViewTypes;
-
-      var result = new List<Type>();
-      Type iViewType = typeof(IView);
-      Type iUniqueViewType = typeof(IUniqueView);
-
-      foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+      foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>())
       {
-        Type[] types;
-        try
-        {
-          types = assembly.GetTypes();
-        }
-        catch (ReflectionTypeLoadException ex)
-        {
-          types = ex.Types;
-        }
-
-        foreach (Type type in types)
-        {
-          if (type == null)
-            continue;
-          if (type.IsInterface || type.IsAbstract)
-            continue;
-          if (!iViewType.IsAssignableFrom(type))
-            continue;
-          if (iUniqueViewType.IsAssignableFrom(type))
-            continue;
-
-          result.Add(type);
-        }
+        builder.RegisterInstance(view, view.GetType())
+          .AsImplementedInterfaces();
       }
-
-      _cachedNonUniqueViewTypes = result.ToArray();
-      return _cachedNonUniqueViewTypes;
     }
   }
 }

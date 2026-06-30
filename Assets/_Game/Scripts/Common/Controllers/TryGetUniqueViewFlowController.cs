@@ -4,11 +4,11 @@ using VContainer;
 
 namespace Sling.Common.Controllers
 {
-  public class TryGetViewFlowController<TView> : ControllerWithResultBase<TView> where TView : IView
+  public class TryGetUniqueViewFlowController<TView> : ControllerWithResultBase<TView> where TView : IUniqueView
   {
     private readonly IObjectResolver _objectResolver;
 
-    public TryGetViewFlowController(IControllerFactory controllerFactory, IObjectResolver objectResolver)
+    public TryGetUniqueViewFlowController(IControllerFactory controllerFactory, IObjectResolver objectResolver)
       : base(controllerFactory)
     {
       _objectResolver = objectResolver;
