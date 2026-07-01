@@ -1,6 +1,6 @@
 namespace Sling.Common.Views
 {
-  public interface IViewArrayItem
+  public interface IViewListItem
   {
     
   }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Playtika.Controllers;
 using Sling.Common.Views;
@@ -16,7 +17,7 @@ namespace Sling.Common.Extensions
 
     public static void RegisterSceneViews(this IContainerBuilder builder, Scene scene)
     {
-      var viewArraysByType = new Dictionary<Type, List<IViewArrayItem>>();
+      var viewListsByType = new Dictionary<Type, List<IViewListItem>>();
 
       // Iterate all MonoBehaviours
       foreach (GameObject root in scene.GetRootGameObjects())
@@ -27,12 +28,12 @@ namespace Sling.Common.Extensions
 
           if (monoBehaviour is IUniqueView)
             RegisterUnique(builder, componentType, monoBehaviour);
-          else if (monoBehaviour is IViewArrayItem viewArrayItem)
-            viewArraysByType.GetOrAdd(componentType).Add(viewArrayItem);
+          else if (monoBehaviour is IViewListItem viewArrayItem)
+            viewListsByType.GetOrAdd(componentType).Add(viewArrayItem);
         }
       }
 
-      foreach (KeyValuePair<Type, List<IViewArrayItem>> entry in viewArraysByType) 
+      foreach (KeyValuePair<Type, List<IViewListItem>> entry in viewListsByType)
         RegisterViewList(builder, entry.Key, entry.Value);
     }
 
@@ -47,14 +48,15 @@ namespace Sling.Common.Extensions
       builder.RegisterInstance(instance, viewType);
     }
 
-    private static void RegisterViewList(IContainerBuilder builder, Type viewType, List<IViewArrayItem> views)
+    private static void RegisterViewList(IContainerBuilder builder, Type viewType, List<IViewListItem> views)
     {
-      var typedArray = Array.CreateInstance(viewType, views.Count);
+      Type listType = typeof(List<>).MakeGenericType(viewType);
+      var typedList = (IList)Activator.CreateInstance(listType);
 
-      for (int i = 0; i < views.Count; i++)
-        typedArray.SetValue(views[i], i);
+      foreach (IViewListItem view in views)
+        typedList.Add(view);
 
-      builder.RegisterInstance(typedArray, viewType.MakeArrayType());
+      builder.RegisterInstance(typedList, listType);
     }
 
     public static void RegisterGameObjectViews(this IContainerBuilder builder, GameObject gameObject)
