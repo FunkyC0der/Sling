@@ -25,7 +25,7 @@ namespace Sling.Bootstrap
           builder.Register<GameRootController>(Lifetime.Transient);
           builder.Register<GameScopeController>(Lifetime.Transient);
 
-          builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
+          builder.Register<IControllerFactory, DiControllerFactory>(Lifetime.Scoped);
 
           builder.RegisterSceneViews(gameObject.scene);
         },

@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.Controllers;
+using Sling.Common.Views;
 using Sling.Level.Boss;
 using Sling.Level.Hud;
 using Sling.Level.Player;
@@ -12,11 +13,13 @@ namespace Sling.Level.Gameplay
   public class GameplayLoopController : ControllerWithResultBase<GameplayLoopResult>
   {
     private readonly LevelEvents _events;
+    private readonly IViewsProvider _viewsProvider;
 
-    public GameplayLoopController(IControllerFactory factory, LevelEvents events)
+    public GameplayLoopController(IControllerFactory factory, LevelEvents events, IViewsProvider viewsProvider)
       : base(factory)
     {
       _events = events;
+      _viewsProvider = viewsProvider;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -38,8 +41,8 @@ namespace Sling.Level.Gameplay
 
       Execute<PlayerScopeController>();
       Execute<HudController>();
-
-      if(await ExecuteAndWaitResultAsync<TryGetUniqueViewFlowController<BossView>, BossView>(cancellationToken))
+      
+      if(_viewsProvider.Get<BossView>())
         ExecuteAndWaitResultAsync<BossFlowController>(cancellationToken).Forget();
 
       GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);

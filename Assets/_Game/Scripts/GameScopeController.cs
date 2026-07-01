@@ -1,6 +1,7 @@
 using Playtika.Controllers;
 using Sling.Audio;
 using Sling.Common.Controllers;
+using Sling.Common.Views;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
@@ -35,6 +36,9 @@ namespace Sling
       builder.RegisterInstance(_gameConfig);
       builder.Register<GameModel>(Lifetime.Singleton);
 
+      builder.Register<IViewsProvider, DiViewsProvider>(Lifetime.Scoped);
+      builder.Register<IControllerFactory, DiControllerFactory>(Lifetime.Scoped);
+
       builder.Register<UpdateEvents>(Lifetime.Singleton);
       builder.Register<UpdateController>(Lifetime.Transient);
 
@@ -49,8 +53,6 @@ namespace Sling
       builder.Register<PlayLevelsStateController>(Lifetime.Transient);
       builder.Register<LoadLevelController>(Lifetime.Transient);
       builder.Register<LevelScopeController>(Lifetime.Transient);
-
-      builder.Register<IControllerFactory, VContainerControllerFactory>(Lifetime.Scoped);
 
       builder.Register<InitUnityServicesFlowController>(Lifetime.Transient);
       builder.Register<AnalyticsEvents>(Lifetime.Singleton);

@@ -5,6 +5,7 @@ using Playtika.Controllers;
 using Sling.Audio;
 using Sling.Common.Controllers;
 using Sling.Common.UI.Windows;
+using Sling.Common.Views;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Analytics.Events;
 using Sling.Level.Finish;
@@ -15,8 +16,7 @@ namespace Sling.Level.LevelComplete
 {
   public class LevelCompleteFlowController : ControllerWithResultBase<LevelCompleteFlowResult>
   {
-    private readonly PlayerView _playerView;
-    private readonly PopupWindowsRootView _popupRootView;
+    private readonly IViewsProvider _viewsProvider;
     private readonly AudioEvents _audioEvents;
     private readonly GameModel _gameModel;
     private readonly LevelModel _levelModel;
@@ -24,16 +24,14 @@ namespace Sling.Level.LevelComplete
 
     public LevelCompleteFlowController(
       IControllerFactory factory,
-      PlayerView playerView,
-      PopupWindowsRootView popupRootView, 
-      AudioEvents audioEvents, 
+      IViewsProvider viewsProvider,
+      AudioEvents audioEvents,
       GameModel gameModel,
       LevelModel levelModel,
       AnalyticsEvents analyticsEvents)
       : base(factory)
     {
-      _playerView = playerView;
-      _popupRootView = popupRootView;
+      _viewsProvider = viewsProvider;
       _audioEvents = audioEvents;
       _gameModel = gameModel;
       _levelModel = levelModel;
@@ -48,22 +46,25 @@ namespace Sling.Level.LevelComplete
         _levelModel.PlayerDeathCount.Value,
         _levelModel.ElapsedTimeInSeconds));
 
+      var playerView = _viewsProvider.Get<PlayerView>();
+      
       await UniTask.WhenAll(
-        OptionalFinishZoneBlinkAnim(cancellationToken),
-        _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken));
+        OptionalFinishZoneBlinkAnim(),
+        playerView.StopHorizontalMovementAsync(playerView.Config.FinishStopDuration, cancellationToken));
 
+
+      var popupRootView = _viewsProvider.Get<PopupWindowsRootView>();
+      
       LevelCompleteFlowResult result =
         await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
-          _popupRootView.NonSkippable(), cancellationToken);
+          popupRootView.NonSkippable(), cancellationToken);
 
       Complete(result);
     }
 
-    private async UniTask OptionalFinishZoneBlinkAnim(CancellationToken cancellationToken)
+    private async UniTask OptionalFinishZoneBlinkAnim()
     {
-      FinishZoneView finishZoneView = 
-        await ExecuteAndWaitResultAsync<TryGetUniqueViewFlowController<FinishZoneView>, FinishZoneView>(cancellationToken);
-
+      var finishZoneView = _viewsProvider.Get<FinishZoneView>();
       if (finishZoneView)
         await finishZoneView.Blink();
     }

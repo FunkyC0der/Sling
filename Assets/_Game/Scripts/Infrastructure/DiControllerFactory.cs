@@ -4,12 +4,12 @@ using VContainer.Unity;
 
 namespace Sling.Infrastructure
 {
-  public sealed class VContainerControllerFactory : IControllerFactory
+  public sealed class DiControllerFactory : IControllerFactory
   {
     private readonly IObjectResolver _resolver;
     private readonly string _scopeName;
 
-    public VContainerControllerFactory(IObjectResolver resolver, LifetimeScope scope)
+    public DiControllerFactory(IObjectResolver resolver, LifetimeScope scope)
     {
       _resolver = resolver;
       _scopeName = scope.name;

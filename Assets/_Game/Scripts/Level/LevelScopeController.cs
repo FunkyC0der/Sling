@@ -47,7 +47,6 @@ namespace Sling.Level
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 
-      builder.Register<TryGetUniqueViewFlowController<FinishZoneView>>(Lifetime.Transient);
       builder.Register<LevelCompleteFlowController>(Lifetime.Transient);
       builder.Register<LevelCompleteWindowController>(Lifetime.Transient);
 
@@ -58,7 +57,6 @@ namespace Sling.Level
       builder.Register<BossModel>(Lifetime.Singleton);
       builder.Register<BossFlowController>(Lifetime.Transient);
       builder.Register<BossPhaseFlowController>(Lifetime.Transient);
-      builder.Register<TryGetUniqueViewFlowController<BossView>>(Lifetime.Transient);
 
       builder.Register<HudController>(Lifetime.Transient);
       builder.Register<PauseWindowController>(Lifetime.Transient);
