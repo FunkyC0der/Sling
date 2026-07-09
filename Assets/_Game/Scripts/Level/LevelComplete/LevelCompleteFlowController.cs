@@ -1,13 +1,12 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Audio;
-using Sling.Common.Controllers;
 using Sling.Common.UI.Windows;
 using Sling.Common.Views;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Analytics.Events;
+using Sling.Infrastructure.Progress;
 using Sling.Level.Finish;
 using Sling.Level.Player;
 using Sling.Level.Session;
@@ -21,6 +20,7 @@ namespace Sling.Level.LevelComplete
     private readonly GameModel _gameModel;
     private readonly LevelModel _levelModel;
     private readonly AnalyticsEvents _analyticsEvents;
+    private readonly PlayerProgressService _playerProgressService;
 
     public LevelCompleteFlowController(
       IControllerFactory factory,
@@ -28,7 +28,8 @@ namespace Sling.Level.LevelComplete
       AudioEvents audioEvents,
       GameModel gameModel,
       LevelModel levelModel,
-      AnalyticsEvents analyticsEvents)
+      AnalyticsEvents analyticsEvents,
+      PlayerProgressService playerProgressService)
       : base(factory)
     {
       _viewsProvider = viewsProvider;
@@ -36,6 +37,7 @@ namespace Sling.Level.LevelComplete
       _gameModel = gameModel;
       _levelModel = levelModel;
       _analyticsEvents = analyticsEvents;
+      _playerProgressService = playerProgressService;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -45,6 +47,8 @@ namespace Sling.Level.LevelComplete
       _analyticsEvents.RecordEvent?.Invoke(new LevelCompletedEvent(_gameModel.LevelIndex,
         _levelModel.PlayerDeathCount.Value,
         _levelModel.ElapsedTimeInSeconds));
+
+      SaveBestResultIfNeeded();
 
       var playerView = _viewsProvider.Get<PlayerView>();
       
@@ -67,6 +71,18 @@ namespace Sling.Level.LevelComplete
       var finishZoneView = _viewsProvider.Get<FinishZoneView>();
       if (finishZoneView)
         await finishZoneView.Blink();
+    }
+
+    private void SaveBestResultIfNeeded()
+    {
+      var result = new LevelBestResult(_levelModel.PlayerDeathCount.Value, _levelModel.ElapsedTimeInSeconds);
+
+      if (_playerProgressService.TryGetBestResult(_gameModel.SceneToLoad, out LevelBestResult currentResult) &&
+          !LevelBestResultComparer.IsBetter(result, currentResult))
+        return;
+
+      _playerProgressService.SetBestResult(_gameModel.SceneToLoad, result);
+      _playerProgressService.Save();
     }
   }
 }

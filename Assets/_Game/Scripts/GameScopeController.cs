@@ -5,6 +5,7 @@ using Sling.Common.Views;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
+using Sling.Infrastructure.Progress;
 using Sling.Level;
 using Sling.LevelLoading;
 using Sling.MainMenu.SelectLevel;
@@ -57,6 +58,9 @@ namespace Sling
       builder.Register<InitUnityServicesFlowController>(Lifetime.Transient);
       builder.Register<AnalyticsEvents>(Lifetime.Singleton);
       builder.Register<AnalyticsController>(Lifetime.Transient);
+
+      builder.Register<IPlayerProgressStorage, PlayerPrefsPlayerProgressStorage>(Lifetime.Singleton);
+      builder.Register<PlayerProgressService>(Lifetime.Singleton);
     }
   }
 }

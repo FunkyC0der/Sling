@@ -4,17 +4,23 @@ using Sling.Audio;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
+using Sling.Infrastructure.Progress;
 
 namespace Sling
 {
   public class GameLoopController : ControllerBase
   {
     private readonly GameModel _gameModel;
+    private readonly PlayerProgressService _playerProgressService;
 
-    public GameLoopController(IControllerFactory factory, GameModel gameModel)
+    public GameLoopController(
+      IControllerFactory factory,
+      GameModel gameModel,
+      PlayerProgressService playerProgressService)
       : base(factory)
     {
       _gameModel = gameModel;
+      _playerProgressService = playerProgressService;
     }
 
     protected override void OnStart() => 
@@ -25,6 +31,7 @@ namespace Sling
       Execute<UpdateController>();
       Execute<AudioController>();
       Execute<AnalyticsController>();
+      _playerProgressService.Load();
       
       await ExecuteAndWaitResultAsync<InitFirstSceneController>(CancellationToken);
       await ExecuteAndWaitResultAsync<InitUnityServicesFlowController>(CancellationToken);
