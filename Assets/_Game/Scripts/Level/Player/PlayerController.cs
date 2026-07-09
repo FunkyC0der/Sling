@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common;
 using Sling.Level.Collision;
+using Sling.Level.Common.OffScreenMarker;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
 using Sling.Level.Player.States;
@@ -47,6 +48,7 @@ namespace Sling.Level.Player
       Execute<PlayerAnimatorController>();
       Execute<PlayerAudioController>();
       Execute<PlayerLandingDustController>();
+      Execute<OffScreenMarkerController>();
       
       Execute<PlayerEventsBroadcastController>();
     }

@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 7568797479002198353}
   - component: {fileID: 6128743320293764185}
   - component: {fileID: 4576738806715326769}
+  - component: {fileID: 3319328128685230070}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -475,6 +476,20 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3799020414547520204}
   _blinkMaterial: {fileID: 2100000, guid: 2f07758086124cceb4a86841e013665f, type: 2}
   _blinkAmountProperty: _BlinkAmount
+--- !u!114 &3319328128685230070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276618756648720583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34613f51b5c243e3b8d5e857d52d0467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Common.OffScreenMarker.OffScreenMarkerView
+  Renderer: {fileID: 3799020414547520204}
+  MarkerPrefab: {fileID: 701752144740190095, guid: 04bf53fe1affe413bacd48e571b3c49c, type: 3}
 --- !u!1 &4493491232001293797
 GameObject:
   m_ObjectHideFlags: 0

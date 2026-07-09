@@ -2,6 +2,8 @@ using Playtika.Controllers;
 using Sling.Common.Controllers;
 using Sling.Common.Extensions;
 using Sling.Level.Collision;
+using Sling.Level.Common;
+using Sling.Level.Common.OffScreenMarker;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
 using Sling.Level.Player.States;
@@ -31,6 +33,9 @@ namespace Sling.Level.Player
     protected override void InitScopeBuilder(IContainerBuilder builder)
     {
       builder.RegisterInstance(_playerView.Config);
+
+      builder.RegisterInstance<IPositionView>(_playerView);
+      builder.RegisterInstance<IFaceDirectionView>(_playerView);
       
       builder.Register<PlayerModel>(Lifetime.Singleton);
       builder.Register<PlayerController>(Lifetime.Transient);
@@ -52,6 +57,9 @@ namespace Sling.Level.Player
       builder.Register<PlayerLandingDustController>(Lifetime.Transient);
 
       builder.Register<PlayerEventsBroadcastController>(Lifetime.Transient);
+      
+      builder.RegisterComponentInChildren<OffScreenMarkerView>(_playerView.gameObject);
+      builder.Register<OffScreenMarkerController>(Lifetime.Transient);
       
       builder.RegisterGameObjectViews(_playerView.gameObject);
     }

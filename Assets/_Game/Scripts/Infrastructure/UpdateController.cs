@@ -17,6 +17,7 @@ namespace Sling.Infrastructure
     protected override void OnStart()
     {
       UpdateAsync(PlayerLoopTiming.Update, () => _updateEvents.OnUpdate?.Invoke()).Forget();
+      UpdateAsync(PlayerLoopTiming.PostLateUpdate, () => _updateEvents.OnPostLateUpdate?.Invoke()).Forget();
       UpdateAsync(PlayerLoopTiming.FixedUpdate, () => _updateEvents.OnFixedUpdate?.Invoke()).Forget();
     }
     

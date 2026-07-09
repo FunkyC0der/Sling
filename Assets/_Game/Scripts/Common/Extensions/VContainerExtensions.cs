@@ -63,9 +63,24 @@ namespace Sling.Common.Extensions
     {
       foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>())
       {
-        builder.RegisterInstance(view, view.GetType())
-          .AsImplementedInterfaces();
+        builder.RegisterInstance(view, view.GetType());
       }
+    }
+
+    public static void RegisterComponentInChildren<TComponent>(
+      this IContainerBuilder builder,
+      GameObject gameObject,
+      bool includeInactive = true)
+    {
+      var instance = gameObject.GetComponentInChildren<TComponent>(includeInactive);
+      
+      if (instance == null)
+      {
+        throw new InvalidOperationException(
+          $"{typeof(TComponent).Name} is required under '{gameObject.name}' hierarchy.");
+      }
+
+      builder.RegisterInstance(instance);
     }
   }
 }
