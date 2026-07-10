@@ -10,5 +10,6 @@ namespace Sling.Level.Session
     
     public readonly Observable<int> PlayerDeathCount = new();
     public float ElapsedTimeInSeconds;
+    public bool IsNewBestScore;
   }
 }

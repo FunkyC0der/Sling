@@ -1,10 +1,18 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
-    <ui:VisualElement name="Window" class="rounded popup-window" style="width: 981px; height: 330px;">
+    <ui:VisualElement name="Window" class="rounded popup-window" style="width: 981px; height: auto;">
         <ui:VisualElement name="TitleContainer" class="rounded popup-title-container">
             <ui:Label text="LEVEL COMPLETE" name="Title" class="popup-title"/>
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: row; align-content: center; align-self: stretch;">
+        <ui:VisualElement name="BestScoreInfoContainer" style="flex-grow: 0; justify-content: center; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px; flex-shrink: 0;">
+            <ui:Label text="YOUR BEST SCORE" name="Title" class="text-h1" style="padding-left: 30px; color: rgb(0, 0, 0);"/>
+            <ui:VisualElement name="ScoreValuesContainer" style="flex-grow: 0; flex-direction: row; flex-basis: auto; flex-shrink: 0; justify-content: space-between; width: 462px; align-self: center;">
+                <ui:Label text="0 DEATHs" name="PlayerDeathCount" class="hud-text-h1 rounded" style="background-color: rgb(0, 0, 0); padding-left: 20px; padding-right: 20px;"/>
+                <ui:Label text="TIME 00:00:00" name="ElapsedTime" class="hud-text-h1 rounded" style="background-color: rgb(0, 0, 0); padding-left: 20px; padding-right: 20px; width: 247px;"/>
+                <ui:Label text="NEW" name="NewScoreLabel" class="primary-button rounded" style="position: absolute; top: -31px; left: 421px; width: auto; font-size: 35px; padding-left: 15px; padding-right: 15px; rotate: 16deg; display: none;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-direction: row; align-content: center; align-self: stretch; flex-basis: auto; flex-shrink: 0; margin-top: 25px;">
             <ui:Button text="RESTART" name="RestartButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>
             <ui:Button text="MENU" name="MenuButton" class="primary-button rounded" style="flex-grow: 0; margin-top: 2px; flex-shrink: 0; margin-right: 10px; margin-left: 10px; translate: 0 0;"/>
             <ui:Button text="NEXT" name="NextLevelButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>

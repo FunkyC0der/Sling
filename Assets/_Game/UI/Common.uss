@@ -143,7 +143,7 @@
 }
 
 .hud-text-h1 {
-    color: rgb(243, 243, 243);
+    color: rgb(199, 189, 184);
     font-size: 45px;
     -unity-font-style: normal;
     -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
@@ -158,4 +158,12 @@
 
 .image-tint-hover:hover {
     -unity-background-image-tint-color: rgb(192, 192, 192);
+}
+
+.text-h1 {
+    color: rgb(243, 243, 243);
+    font-size: 55px;
+    -unity-font-style: normal;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 3px;
 }

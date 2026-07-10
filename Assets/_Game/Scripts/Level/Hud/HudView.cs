@@ -40,9 +40,9 @@ namespace Sling.Level.Hud
       _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LEVEL {levelIndex + 1}";
 
     public void SetPlayerDeathCount(int playerDeathCount) => 
-      _playerDeathCountLabel.text = $"{playerDeathCount} DEATHs";
+      _playerDeathCountLabel.text = LevelScoreTextFormatter.FormatPlayerDeathCount(playerDeathCount);
 
     public void SetLevelTime(float elapsedTimeInSeconds) => 
-      _elapsedTimeLabel.text = $"TIME {TimeSpan.FromSeconds(elapsedTimeInSeconds):mm\\:ss\\.ff}";
+      _elapsedTimeLabel.text = LevelScoreTextFormatter.FormatElapsedTime(elapsedTimeInSeconds);
   }
 }

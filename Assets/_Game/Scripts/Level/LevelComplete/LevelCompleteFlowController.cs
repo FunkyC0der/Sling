@@ -81,6 +81,7 @@ namespace Sling.Level.LevelComplete
           !LevelBestResultComparer.IsBetter(result, currentResult))
         return;
 
+      _levelModel.IsNewBestScore = true;
       _playerProgressService.SetBestResult(_gameModel.SceneToLoad, result);
       _playerProgressService.Save();
     }
