@@ -9,6 +9,20 @@
         ":/automap-tiles.tsx": {
             "scaleInDock": 1
         },
+        "Maps/Prototype_Tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/TestMap.tmx": {
+            "scale": 0.699140625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639.3563526651023,
+                "y": 367.59414459716174
+            }
+        },
+        "Maps/TestTileset.tsx": {
+            "scaleInDock": 1
+        },
         "Prototype_Tileset.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 3.16
@@ -33,24 +47,24 @@
             "scale": 2.0933,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 108.68007452347966,
-                "y": 144.50867052023122
+                "x": 108.44121721683464,
+                "y": 217.36014904695935
             }
         },
         "Rules/02_ground_grass_variations.tmx": {
             "scale": 3.5491,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 105.23794764869966,
-                "y": 81.5699754867431
+                "x": 105.09706686202136,
+                "y": 124.25685385027191
             }
         },
         "Rules/03_ground_rocks_variations.tmx": {
             "scale": 11.18625,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 40.00446977315901,
-                "y": 24.00268186389541
+                "x": 39.9597720415689,
+                "y": 37.546094535702316
             }
         },
         "Rules/Test_AutotileRules.tmx": {
@@ -74,7 +88,8 @@
             "scaleInEditor": 3.16
         }
     },
-    "last.imagePath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled",
+    "last.externalTilesetPath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled/Tilesets",
+    "last.imagePath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled/Sprites",
     "map.height": 1,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,

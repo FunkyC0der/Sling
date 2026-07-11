@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" source="TestTileset.tsx"/>
- <tileset firstgid="626" source="Prototype_Tileset.tsx"/>
+ <tileset firstgid="1" source="../Tilesets/TestTileset.tsx"/>
+ <tileset firstgid="626" source="../Tilesets/Prototype_Tileset.tsx"/>
  <layer id="2" name="terrain" width="40" height="23">
   <properties>
    <property name="unity:SortingLayer" value="Ground"/>
