@@ -1,0 +1,4 @@
+Rules/00_reset.tmx
+Rules/01_ground.tmx
+Rules/02_ground_grass_variations.tmx
+Rules/03_ground_rocks_variations.tmx

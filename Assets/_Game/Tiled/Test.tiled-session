@@ -1,0 +1,110 @@
+{
+    "activeFile": "TestMap.tmx",
+    "expandedProjectPaths": [
+        ".",
+        "Rules"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Prototype_Tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.16
+        },
+        "Rules/00_reset.tmx": {
+            "scale": 53.675,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 7.992547741034001,
+                "y": 7.9925477410340005
+            }
+        },
+        "Rules/01_generate_ground.tmx": {
+            "scale": 1.39828125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.0357581852721,
+                "y": 184.15465415130186
+            }
+        },
+        "Rules/01_ground.tmx": {
+            "scale": 2.0933,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 108.68007452347966,
+                "y": 144.50867052023122
+            }
+        },
+        "Rules/02_ground_grass_variations.tmx": {
+            "scale": 3.5491,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 105.23794764869966,
+                "y": 81.5699754867431
+            }
+        },
+        "Rules/03_ground_rocks_variations.tmx": {
+            "scale": 11.18625,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 40.00446977315901,
+                "y": 24.00268186389541
+            }
+        },
+        "Rules/Test_AutotileRules.tmx": {
+            "scale": 1.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 234.96240601503754,
+                "y": 125.18796992481205
+            }
+        },
+        "TestMap.tmx": {
+            "scale": 0.5713,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 518.9917731489585,
+                "y": 156.66024855592514
+            }
+        },
+        "TestTileset.tsx": {
+            "scaleInDock": 2.222,
+            "scaleInEditor": 3.16
+        }
+    },
+    "last.imagePath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled",
+    "map.height": 1,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 1,
+    "openFiles": [
+        "TestMap.tmx",
+        "TestTileset.tsx",
+        "Prototype_Tileset.tsx",
+        "Rules/00_reset.tmx",
+        "Rules/01_ground.tmx",
+        "Rules/02_ground_grass_variations.tmx",
+        "Rules/03_ground_rocks_variations.tmx"
+    ],
+    "project": "Test.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "Rules/03_ground_rocks_variations.tmx",
+        "Rules/02_ground_grass_variations.tmx",
+        "Rules/01_ground.tmx",
+        "Rules/00_reset.tmx",
+        "Prototype_Tileset.tsx",
+        "TestTileset.tsx",
+        "TestMap.tmx",
+        "Rules/01_generate_ground.tmx",
+        "Rules/Test_AutotileRules.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
