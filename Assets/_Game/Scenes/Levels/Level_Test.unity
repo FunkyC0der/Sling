@@ -21800,17 +21800,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestMap
       objectReference: {fileID: 0}
-    - target: {fileID: 5337908303825540900, guid: 0bcf7180341374004a81d59d1bf835d6, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5945035071617724016, guid: 0bcf7180341374004a81d59d1bf835d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5945035071617724016, guid: 0bcf7180341374004a81d59d1bf835d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 46
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5945035071617724016, guid: 0bcf7180341374004a81d59d1bf835d6, type: 3}
       propertyPath: m_LocalPosition.z
