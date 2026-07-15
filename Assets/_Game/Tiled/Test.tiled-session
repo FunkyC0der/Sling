@@ -1,8 +1,12 @@
 {
-    "activeFile": "TestMap.tmx",
+    "activeFile": "Maps/b1/biome_1_test.tmx",
     "expandedProjectPaths": [
+        "Maps/b1",
+        "Rules",
+        "Maps/b1/Rules",
         ".",
-        "Rules"
+        "Tilesets",
+        "Maps"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -16,23 +20,108 @@
             "scale": 0.699140625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 639.3563526651023,
-                "y": 367.59414459716174
+                "x": 640.0715163705443,
+                "y": 367.59414459716163
             }
         },
         "Maps/TestTileset.tsx": {
             "scaleInDock": 1
+        },
+        "Maps/Tilesets/tileset_biome_1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Maps/b1/Level_1.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.232,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 394.0746753246753,
+                "y": 301.94805194805195
+            }
+        },
+        "Maps/b1/Rules/00_reset.tmx": {
+            "scale": 50.76,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 8.008274231678488,
+                "y": 7.998423955870765
+            }
+        },
+        "Maps/b1/Rules/01_b1_terrain.tmx": {
+            "scale": 2.3364,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 179.54973463448042,
+                "y": 94.58996747132342
+            }
+        },
+        "Maps/b1/Rules/02_b1_terrain_variations.tmx": {
+            "scale": 3.5292,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 57.94514337526918,
+                "y": 63.753825229513794
+            }
+        },
+        "Maps/b1/Tilesets/Prototype_Tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/b1/Tilesets/b1.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/b1/biome_1_test.tmx": {
+            "scale": 1.651,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 291.0357359176257,
+                "y": 258.02543912780135
+            }
+        },
+        "Maps/b1_tileset_map.tmx": {
+            "scale": 1.5135,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 199.86785596299967,
+                "y": 120.25107367030063
+            }
+        },
+        "Maps/biome_1_test.tmx": {
+            "scale": 1.3346,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 308.3320845197063,
+                "y": 230.7807582796343
+            }
+        },
+        "Maps/template.tmx": {
+            "scale": 1.9381,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 200.1960683143285,
+                "y": 120.22083483824363
+            }
         },
         "Prototype_Tileset.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 3.16
         },
         "Rules/00_reset.tmx": {
-            "scale": 53.675,
+            "scale": 53.67,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 7.992547741034001,
-                "y": 7.9925477410340005
+                "x": 8.002608533631452,
+                "y": 7.881498043599776
+            }
+        },
+        "Rules/01_b1_terrain.tmx": {
+            "scale": 9.4634,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 50.351881987446376,
+                "y": 26.41756662510303
             }
         },
         "Rules/01_generate_ground.tmx": {
@@ -45,26 +134,26 @@
         },
         "Rules/01_ground.tmx": {
             "scale": 2.0933,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 108.44121721683464,
-                "y": 217.36014904695935
+                "x": 319.82993359766874,
+                "y": 183.9201261166579
             }
         },
         "Rules/02_ground_grass_variations.tmx": {
             "scale": 3.5491,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 105.09706686202136,
-                "y": 124.25685385027191
+                "x": 39.86926262996252,
+                "y": 23.949733735313174
             }
         },
         "Rules/03_ground_rocks_variations.tmx": {
             "scale": 11.18625,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 39.9597720415689,
-                "y": 37.546094535702316
+                "x": 40.004469773159016,
+                "y": 23.95798413230529
             }
         },
         "Rules/Test_AutotileRules.tmx": {
@@ -86,40 +175,76 @@
         "TestTileset.tsx": {
             "scaleInDock": 2.222,
             "scaleInEditor": 3.16
+        },
+        "Tilesets/Prototype_Tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SlingTest_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/SlingTest_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/TestTileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.8678,
+            "scaleInEditor": 1
+        },
+        "Tilesets/b1.tsx": {
+            "scaleInDock": 2.9054,
+            "scaleInEditor": 1
+        },
+        "Tilesets/b1_p1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/prototype.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/tileset_biome_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 9.471
         }
     },
     "last.externalTilesetPath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled/Tilesets",
     "last.imagePath": "/Users/ruksov/Work/Programming/Sling/Assets/_Game/Tiled/Sprites",
-    "map.height": 1,
+    "map.fixedSize": true,
+    "map.height": 23,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 1,
+    "map.width": 40,
     "openFiles": [
-        "TestMap.tmx",
-        "TestTileset.tsx",
-        "Prototype_Tileset.tsx",
         "Rules/00_reset.tmx",
         "Rules/01_ground.tmx",
-        "Rules/02_ground_grass_variations.tmx",
-        "Rules/03_ground_rocks_variations.tmx"
+        "Maps/b1/biome_1_test.tmx",
+        "Tilesets/b1.tsx",
+        "Maps/b1/Rules/00_reset.tmx",
+        "Maps/b1/Rules/01_b1_terrain.tmx",
+        "Maps/b1/Rules/02_b1_terrain_variations.tmx"
     ],
     "project": "Test.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "Rules/03_ground_rocks_variations.tmx",
-        "Rules/02_ground_grass_variations.tmx",
-        "Rules/01_ground.tmx",
         "Rules/00_reset.tmx",
-        "Prototype_Tileset.tsx",
-        "TestTileset.tsx",
-        "TestMap.tmx",
-        "Rules/01_generate_ground.tmx",
-        "Rules/Test_AutotileRules.tmx"
+        "Rules/01_ground.tmx",
+        "Maps/b1/Rules/02_b1_terrain_variations.tmx",
+        "Maps/b1/Rules/01_b1_terrain.tmx",
+        "Maps/b1/Rules/00_reset.tmx",
+        "Tilesets/b1.tsx",
+        "Maps/b1/biome_1_test.tmx",
+        "Tilesets/prototype.tsx",
+        "Maps/biome_1_test.tmx",
+        "Maps/b1_tileset_map.tmx",
+        "Tilesets/SlingTest_2.tsx",
+        "Tilesets/SlingTest_1.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 32,
-        "width": 32
+        "height": 16,
+        "width": 16
     }
 }

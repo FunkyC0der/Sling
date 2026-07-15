@@ -10,5 +10,19 @@
     "properties": [
     ],
     "propertyTypes": [
+        {
+            "color": "#ff1ab2b3",
+            "drawFill": false,
+            "id": 1,
+            "members": [
+            ],
+            "name": "MainCamera",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        }
     ]
 }

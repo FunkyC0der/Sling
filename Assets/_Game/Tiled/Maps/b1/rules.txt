@@ -1,0 +1,3 @@
+Rules/00_reset.tmx
+Rules/01_b1_terrain.tmx
+Rules/02_b1_terrain_variations.tmx
