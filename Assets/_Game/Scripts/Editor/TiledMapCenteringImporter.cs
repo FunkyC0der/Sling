@@ -20,8 +20,9 @@ namespace Sling.Editor
       float inversePixelsPerUnit = args.AssetImporter.InversePPU;
       float width = map.m_Width * map.m_TileWidth * inversePixelsPerUnit;
       float height = map.m_Height * map.m_TileHeight * inversePixelsPerUnit;
+      float halfTileHeight = map.m_TileHeight * inversePixelsPerUnit * 0.5f;
 
-      grid.transform.localPosition = new Vector3(-width * 0.5f, height * 0.5f, 0f);
+      grid.transform.localPosition = new Vector3(-width * 0.5f, height * 0.5f + halfTileHeight, 0f);
     }
   }
 }

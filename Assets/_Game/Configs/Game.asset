@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.GameConfig
   AudioConfig: {fileID: 11400000, guid: cd6f63594643448f8ab978e7c68e4f66, type: 2}
   FixedViewport:
-    ReferenceResolution: {x: 16, y: 9}
+    ReferenceAspectRatio: {x: 16, y: 9}
     BarsColor: {r: 0.05882353, g: 0.043137256, b: 0.10980392, a: 1}
   MainMenuScene:
     Scene: {fileID: 102900000, guid: 3cc6e5c3fc86d423c950fc16caf45fb0, type: 3}
