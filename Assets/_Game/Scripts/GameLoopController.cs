@@ -4,6 +4,7 @@ using Sling.Audio;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
+using Sling.Infrastructure.FixedViewport;
 using Sling.Infrastructure.Progress;
 
 namespace Sling
@@ -29,6 +30,7 @@ namespace Sling
     private async UniTask GameLoopAsync()
     {
       Execute<UpdateController>();
+      Execute<FixedViewportController>();
       Execute<AudioController>();
       Execute<AnalyticsController>();
       _playerProgressService.Load();

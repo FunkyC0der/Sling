@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sling.Audio;
 using Sling.Common.Scenes;
+using Sling.Infrastructure.FixedViewport;
 using Sling.Levels;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,6 +12,7 @@ namespace Sling
   public class GameConfig : ScriptableObject
   {
     public AudioConfig AudioConfig;
+    public FixedViewportConfig FixedViewport = new();
     
     public SceneReference MainMenuScene;
     public List<LevelConfig> Levels = new();

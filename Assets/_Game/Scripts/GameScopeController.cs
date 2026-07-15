@@ -5,6 +5,7 @@ using Sling.Common.Views;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
+using Sling.Infrastructure.FixedViewport;
 using Sling.Infrastructure.Progress;
 using Sling.Level;
 using Sling.LevelLoading;
@@ -42,6 +43,9 @@ namespace Sling
 
       builder.Register<UpdateEvents>(Lifetime.Singleton);
       builder.Register<UpdateController>(Lifetime.Transient);
+
+      builder.RegisterInstance(_gameConfig.FixedViewport);
+      builder.Register<FixedViewportController>(Lifetime.Transient);
 
       builder.RegisterInstance(_gameConfig.AudioConfig);
       builder.Register<AudioEvents>(Lifetime.Singleton);
