@@ -31,7 +31,7 @@
  </layer>
  <layer id="2" name="output1_terrain" width="40" height="23" opacity="0.8">
   <properties>
-   <property name="Probability" type="float" value="30"/>
+   <property name="Probability" type="float" value="20"/>
   </properties>
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">

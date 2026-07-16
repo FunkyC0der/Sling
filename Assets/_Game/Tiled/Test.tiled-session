@@ -84,6 +84,17 @@
                 "y": 216.03708267323827
             }
         },
+        "Maps/b1/Level_5.tmx": {
+            "expandedObjectLayers": [
+                12
+            ],
+            "scale": 1.9912,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 431.3981518682201,
+                "y": 190.58858979509841
+            }
+        },
         "Maps/b1/Level_Template.tmx": {
             "scale": 1.210440340909091,
             "selectedLayer": 0,
@@ -120,8 +131,8 @@
             "scale": 10.7729,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 19.07564351288882,
-                "y": 24.041808612351367
+                "x": 19.029230754949918,
+                "y": 24.088221370290267
             }
         },
         "Maps/b1/Tilesets/Prototype_Tileset.tsx": {
