@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="1" nextlayerid="5" nextobjectid="1">
+ <properties>
+  <property name="IgnoreLock" type="bool" value="true"/>
+ </properties>
  <tileset firstgid="1" source="../../../Tilesets/b1.tsx"/>
- <tileset firstgid="376" source=":/automap-tiles.tsx"/>
- <tileset firstgid="381" source="../../../Tilesets/prototype.tsx"/>
+ <tileset firstgid="61" source=":/automap-tiles.tsx"/>
+ <tileset firstgid="66" source="../../../Tilesets/prototype.tsx"/>
  <layer id="1" name="input_terrain" width="40" height="23">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,2,0,26,0,30,0,102,0,0,0,0,0,0,0,0,
+0,2,0,11,0,2147483659,0,42,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -29,7 +32,7 @@
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,2,0,26,0,30,0,102,0,0,0,0,0,0,0,0,
+0,2,0,11,0,2147483659,0,42,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -51,7 +54,7 @@
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,3,0,51,0,55,0,103,0,0,0,0,0,0,0,0,
+0,3,0,21,0,2147483669,0,43,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -73,7 +76,7 @@
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,4,0,76,0,80,0,104,0,0,0,0,0,0,0,0,
+0,4,0,31,0,2147483679,0,44,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
