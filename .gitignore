@@ -76,6 +76,10 @@ AGENTS.md
 # Graphify
 graphify-out/
 
+# Tiled local files
+Assets/_Game/Tiled/Test.tiled-session
+Assets/_Game/Tiled/Test.tiled-session.meta
+
 # Builds output
 ExportedObj/
 *.apk
