@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="44" height="27" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="6">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="44" height="27" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="7">
  <tileset firstgid="1" source="../../Tilesets/prototype.tsx"/>
  <tileset firstgid="15" source="../../Tilesets/b1.tsx"/>
+ <tileset firstgid="75" source="../../Tilesets/levels_refs.tsx"/>
  <layer id="1" name="prototype" width="44" height="27">
   <properties>
    <property name="physicsMaterial" value="PM_Ground"/>
@@ -78,5 +79,11 @@
    <property name="unity:ignore" value="True"/>
   </properties>
   <object id="2" name="CameraView_16_9" type="MainCamera" x="32" y="40" width="640" height="360" opacity="0.5"/>
+ </objectgroup>
+ <objectgroup id="9" name="ref" visible="0" opacity="0.45">
+  <properties>
+   <property name="unity:ignore" value="True"/>
+  </properties>
+  <object id="6" gid="75" x="31.8354" y="401.619" width="640" height="360"/>
  </objectgroup>
 </map>
