@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Infrastructure.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using UnityEngine;
@@ -11,8 +12,14 @@ namespace Sling.Infrastructure
 {
   public class InitUnityServicesFlowController : ControllerWithResultBase
   {
-    public InitUnityServicesFlowController(IControllerFactory controllerFactory) : base(controllerFactory)
+    private readonly PlayerAuthenticationService _playerAuthenticationService;
+
+    public InitUnityServicesFlowController(
+      IControllerFactory controllerFactory,
+      PlayerAuthenticationService playerAuthenticationService)
+      : base(controllerFactory)
     {
+      _playerAuthenticationService = playerAuthenticationService;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -30,6 +37,20 @@ namespace Sling.Infrastructure
       {
         consentState.AnalyticsIntent = ConsentStatus.Granted;
         EndUserConsent.SetConsentState(consentState);
+      }
+
+      try
+      {
+        await _playerAuthenticationService.LoginAsync(cancellationToken);
+        await _playerAuthenticationService.CacheOrCreateNameAsync(cancellationToken);
+      }
+      catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+      {
+        throw;
+      }
+      catch (Exception exception)
+      {
+        Debug.LogException(exception);
       }
       
       Complete();

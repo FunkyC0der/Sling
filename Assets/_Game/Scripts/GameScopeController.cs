@@ -5,7 +5,9 @@ using Sling.Common.Views;
 using Sling.Flow;
 using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
+using Sling.Infrastructure.Authentication;
 using Sling.Infrastructure.FixedViewport;
+using Sling.Infrastructure.Leaderboards;
 using Sling.Infrastructure.Progress;
 using Sling.Level;
 using Sling.LevelLoading;
@@ -60,6 +62,8 @@ namespace Sling
       builder.Register<LevelScopeController>(Lifetime.Transient);
 
       builder.Register<InitUnityServicesFlowController>(Lifetime.Transient);
+      builder.Register<PlayerAuthenticationService>(Lifetime.Singleton);
+      builder.Register<LeaderboardService>(Lifetime.Singleton);
       builder.Register<AnalyticsEvents>(Lifetime.Singleton);
       builder.Register<AnalyticsController>(Lifetime.Transient);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
@@ -6,10 +7,13 @@ using Sling.Common.UI.Windows;
 using Sling.Common.Views;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Analytics.Events;
+using Sling.Infrastructure.Authentication;
+using Sling.Infrastructure.Leaderboards;
 using Sling.Infrastructure.Progress;
 using Sling.Level.Finish;
 using Sling.Level.Player;
 using Sling.Level.Session;
+using UnityEngine;
 
 namespace Sling.Level.LevelComplete
 {
@@ -21,6 +25,8 @@ namespace Sling.Level.LevelComplete
     private readonly LevelModel _levelModel;
     private readonly AnalyticsEvents _analyticsEvents;
     private readonly PlayerProgressService _playerProgressService;
+    private readonly PlayerAuthenticationService _playerAuthenticationService;
+    private readonly LeaderboardService _leaderboardService;
 
     public LevelCompleteFlowController(
       IControllerFactory factory,
@@ -29,7 +35,9 @@ namespace Sling.Level.LevelComplete
       GameModel gameModel,
       LevelModel levelModel,
       AnalyticsEvents analyticsEvents,
-      PlayerProgressService playerProgressService)
+      PlayerProgressService playerProgressService,
+      PlayerAuthenticationService playerAuthenticationService,
+      LeaderboardService leaderboardService)
       : base(factory)
     {
       _viewsProvider = viewsProvider;
@@ -38,6 +46,8 @@ namespace Sling.Level.LevelComplete
       _levelModel = levelModel;
       _analyticsEvents = analyticsEvents;
       _playerProgressService = playerProgressService;
+      _playerAuthenticationService = playerAuthenticationService;
+      _leaderboardService = leaderboardService;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -48,11 +58,12 @@ namespace Sling.Level.LevelComplete
         _levelModel.PlayerDeathCount.Value,
         _levelModel.ElapsedTimeInSeconds));
 
-      SaveBestResultIfNeeded();
+      LevelBestResult bestResult = SaveBestResultIfNeeded();
 
       var playerView = _viewsProvider.Get<PlayerView>();
       
       await UniTask.WhenAll(
+        SubmitBestScoreIfSignedInAsync(bestResult, cancellationToken),
         OptionalFinishZoneBlinkAnim(),
         playerView.StopHorizontalMovementAsync(playerView.Config.FinishStopDuration, cancellationToken));
 
@@ -73,17 +84,43 @@ namespace Sling.Level.LevelComplete
         await finishZoneView.Blink();
     }
 
-    private void SaveBestResultIfNeeded()
+    private LevelBestResult SaveBestResultIfNeeded()
     {
       var result = new LevelBestResult(_levelModel.PlayerDeathCount.Value, _levelModel.ElapsedTimeInSeconds);
 
       if (_playerProgressService.TryGetBestResult(_gameModel.SceneToLoad, out LevelBestResult currentResult) &&
           !LevelBestResultComparer.IsBetter(result, currentResult))
-        return;
+        return currentResult;
 
       _levelModel.IsNewBestScore = true;
       _playerProgressService.SetBestResult(_gameModel.SceneToLoad, result);
       _playerProgressService.Save();
+      return result;
+    }
+
+    private async UniTask SubmitBestScoreIfSignedInAsync(
+      LevelBestResult bestResult,
+      CancellationToken cancellationToken)
+    {
+      if (!_playerAuthenticationService.IsSignedIn())
+        return;
+
+      try
+      {
+        await _leaderboardService.SetPlayerScoreAsync(
+          _gameModel.SceneToLoad,
+          bestResult.DeathCount,
+          bestResult.TimeInSeconds,
+          cancellationToken);
+      }
+      catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+      {
+        throw;
+      }
+      catch (Exception exception)
+      {
+        Debug.LogException(exception);
+      }
     }
   }
 }
