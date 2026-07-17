@@ -67,7 +67,12 @@ namespace Sling
       builder.Register<AnalyticsEvents>(Lifetime.Singleton);
       builder.Register<AnalyticsController>(Lifetime.Transient);
 
+#if UNITY_EDITOR
+      builder.Register<PlayerPrefsPlayerProgressStorage>(Lifetime.Singleton);
+      builder.Register<IPlayerProgressStorage, EditorProfilePlayerProgressStorageDecorator>(Lifetime.Singleton);
+#else
       builder.Register<IPlayerProgressStorage, PlayerPrefsPlayerProgressStorage>(Lifetime.Singleton);
+#endif
       builder.Register<PlayerProgressService>(Lifetime.Singleton);
     }
   }

@@ -7,12 +7,21 @@ namespace Sling.Infrastructure.Progress
   {
     private const string _kProgressKey = "Sling.Progress";
 
+    private string _currentProgressKey = _kProgressKey;
+
+    public void SetProfile(string profile)
+    {
+      _currentProgressKey = string.IsNullOrEmpty(profile)
+        ? _kProgressKey
+        : $"{_kProgressKey}.{profile}";
+    }
+
     public PlayerProgressData Load()
     {
-      if (!PlayerPrefs.HasKey(_kProgressKey))
+      if (!PlayerPrefs.HasKey(_currentProgressKey))
         return new PlayerProgressData();
 
-      string json = PlayerPrefs.GetString(_kProgressKey);
+      string json = PlayerPrefs.GetString(_currentProgressKey);
       PlayerProgressData data;
       try
       {
@@ -33,7 +42,7 @@ namespace Sling.Infrastructure.Progress
     public void Save(PlayerProgressData data)
     {
       string json = JsonConvert.SerializeObject(data);
-      PlayerPrefs.SetString(_kProgressKey, json);
+      PlayerPrefs.SetString(_currentProgressKey, json);
       PlayerPrefs.Save();
     }
   }

@@ -7,11 +7,21 @@ using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using UnityEngine;
 using UnityEngine.UnityConsent;
+#if UNITY_EDITOR
+using Unity.Services.Authentication;
+using UnityEditor;
+#endif
 
 namespace Sling.Infrastructure
 {
   public class InitUnityServicesFlowController : ControllerWithResultBase
   {
+#if UNITY_EDITOR
+    public const string kEditorAuthenticationProfilePrefsKey =
+      "Sling.UnityServices.Authentication.Profile";
+    public const string kEditorAuthenticationDefaultProfile = "default";
+#endif
+
     private readonly PlayerAuthenticationService _playerAuthenticationService;
 
     public InitUnityServicesFlowController(
@@ -25,7 +35,10 @@ namespace Sling.Infrastructure
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
       var options = new InitializationOptions();
-      
+
+#if UNITY_EDITOR
+      SetEditorAuthenticationProfile(options);
+#endif
       SetUnityEnvironmentName(options);
 
       await UnityServices.InitializeAsync(options)
@@ -52,9 +65,19 @@ namespace Sling.Infrastructure
       {
         Debug.LogException(exception);
       }
-      
+
       Complete();
     }
+
+#if UNITY_EDITOR
+    private static void SetEditorAuthenticationProfile(InitializationOptions options)
+    {
+      string profile = EditorPrefs.GetString(
+        kEditorAuthenticationProfilePrefsKey,
+        kEditorAuthenticationDefaultProfile);
+      options.SetProfile(profile);
+    }
+#endif
 
     private static void SetUnityEnvironmentName(InitializationOptions options)
     {
@@ -66,7 +89,7 @@ namespace Sling.Infrastructure
         throw new InvalidOperationException(
           $"Unity Services environment must be 'development' in Editor, but was '{UnityServicesOverrides.Name}'.");
 #endif
-      
+
       options.SetEnvironmentName(UnityServicesOverrides.Name);
     }
   }
