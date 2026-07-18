@@ -74,7 +74,11 @@
 51,54,52,53,53,54,54,54,52,52,52,54,52,52,53,53,52,54,54,52,54,52,54,54,54,52,52,54,54,52,53,52,54,53,53,53,53,52,54,54,53,52,52,2147483699
 </data>
  </layer>
- <layer id="14" name="decoration" width="44" height="27">
+ <layer id="14" name="decorations" width="44" height="27">
+  <properties>
+   <property name="unity:SortingLayer" value="Ground"/>
+   <property name="unity:ignore" value="Collision"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

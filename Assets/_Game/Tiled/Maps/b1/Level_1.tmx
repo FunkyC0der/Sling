@@ -74,6 +74,10 @@
 </data>
  </layer>
  <layer id="9" name="decorations" width="44" height="27">
+  <properties>
+   <property name="unity:SortingLayer" value="Ground"/>
+   <property name="unity:ignore" value="Collision"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
