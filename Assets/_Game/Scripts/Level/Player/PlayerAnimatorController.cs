@@ -12,6 +12,7 @@ namespace Sling.Level.Player
     private enum EState
     {
       OnGround,
+      PreLaunch,
       InAir,
       WallSliding,
       Dead,
