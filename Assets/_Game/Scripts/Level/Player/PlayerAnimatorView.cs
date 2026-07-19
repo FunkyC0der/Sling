@@ -21,28 +21,41 @@ namespace Sling.Level.Player
     
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
-    private int _landTriggerId;
+    private int _idleTriggerId;
     
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
     private int _wallSlideTriggerId;
+    
+    [SerializeField] 
+    [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
+    private int _launchTriggerId;
 
     [SerializeField] 
     [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Float)]
     private int _inAirBlendFloatId;
     
+    [SerializeField] 
+    [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Float)]
+    private int _launchForceBlendFloatId;
     
     public void InAir() => 
       _animator.SetTrigger(_inAirTriggerId);
 
-    public void Land() => 
-      _animator.SetTrigger(_landTriggerId);
+    public void Idle() => 
+      _animator.SetTrigger(_idleTriggerId);
 
     public void WallSlide() => 
       _animator.SetTrigger(_wallSlideTriggerId);
 
+    public void Launch() => 
+      _animator.SetTrigger(_launchTriggerId);
+
     public void SetInAirBlendValue01(float value) => 
       _animator.SetFloat(_inAirBlendFloatId, value);
+
+    public void SetLaunchForceBlend01(float value) => 
+      _animator.SetFloat(_launchForceBlendFloatId, value);
 
     public async UniTask Die(CancellationToken cancellationToken)
     {

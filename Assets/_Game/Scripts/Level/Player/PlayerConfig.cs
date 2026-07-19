@@ -41,5 +41,8 @@ namespace Sling.Level.Player
 
     [Header("Physics Tweaks")] 
     public float GlobalGravity = -9.8f;
+
+    public float GetMaxLaunchForce() =>
+      MaxDragDistance * LaunchForceMultiplier;
   }
 }

@@ -14,5 +14,8 @@ namespace Sling.Level.Player
     public readonly Observable<bool> IsDead = new();
     public readonly Observable<bool> IsWallSliding = new();
     public readonly Observable<bool> IsWin = new ();
+    
+    public readonly Observable<bool> IsInPreLaunch = new();
+    public float PreLaunchForce;
   }
 }

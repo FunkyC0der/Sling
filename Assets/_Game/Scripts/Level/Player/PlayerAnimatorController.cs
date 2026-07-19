@@ -11,15 +11,16 @@ namespace Sling.Level.Player
     
     private enum EState
     {
+      Invalid,
       OnGround,
-      PreLaunch,
+      Launch,
       InAir,
       WallSliding,
       Dead,
       Win
     }
     
-    private EState _state;
+    private EState _state = EState.Invalid;
     
     private readonly PlayerView _view;
     private readonly PlayerAnimatorView _animatorView;
@@ -51,9 +52,10 @@ namespace Sling.Level.Player
       
       _model.IsWin.OnValueChanged += OnIsWinChanged;
       this.AddDisposableAction(() => _model.IsWin.OnValueChanged -= OnIsWinChanged);
+
+      _model.OnLaunched += OnLaunched;
       
-      _state = EState.OnGround;
-      EnterState();
+      ChangeState(EState.OnGround);
     }
 
     private void ChangeState(EState newState)
@@ -61,25 +63,43 @@ namespace Sling.Level.Player
       if(_state == newState)
         return;
       
+      ExitState();
+
+      EState prevState = _state;
       _state = newState;
-      EnterState();
+      
+      EnterState(prevState);
     }
 
-    private void EnterState()
+    private void EnterState(EState prevState)
     {
       switch (_state)
       {
         case EState.OnGround:
+          _animatorView.Idle();
+          break;
+        
         case EState.Win:
-          _animatorView.Land();
+          _animatorView.Idle();
           break;
         
         case EState.InAir:
-          _animatorView.InAir();
+          if(prevState != EState.Launch)
+            _animatorView.InAir();
+          
           break;
         
         case EState.WallSliding:
           _animatorView.WallSlide();
+          break;
+      }
+    }
+
+    private void ExitState()
+    {
+      switch (_state)
+      {
+        case EState.OnGround:
           break;
       }
     }
@@ -94,6 +114,7 @@ namespace Sling.Level.Player
         case EState.OnGround:
           if(!_model.IsGrounded.Value)
           {
+            UpdateLaunchForceBlendValue();
             ChangeState(EState.InAir);
             break;
           }
@@ -101,6 +122,13 @@ namespace Sling.Level.Player
           UpdateFacingDirection();
           break;
 
+        case EState.Launch:
+          UpdateLaunchForceBlendValue();
+          _animatorView.Launch();
+          
+          ChangeState(EState.InAir);
+          break;
+          
         case EState.InAir:
         {
           if (_model.IsGrounded.Value)
@@ -116,12 +144,8 @@ namespace Sling.Level.Player
           }
           
           UpdateFacingDirection();
-          
-          float maxSpeedY = _config.MaxDragDistance * _config.LaunchForceMultiplier;
-          float currentSpeedRatio = Mathf.Clamp(_view.LinearVelocityY / maxSpeedY, -1, 1);
-          float currentSpeedRation10 = (currentSpeedRatio + 1) / 2;
-          _animatorView.SetInAirBlendValue01(1 - currentSpeedRation10);
-          
+          UpdateInAirBlendValue();
+
           break;
         }
         
@@ -132,6 +156,17 @@ namespace Sling.Level.Player
       }
     }
 
+    private void UpdateInAirBlendValue()
+    {
+      float maxSpeedY = _config.GetMaxLaunchForce();
+      float currentSpeedRatio = Mathf.Clamp(_view.LinearVelocityY / maxSpeedY, -1, 1);
+      float currentSpeedRation10 = (currentSpeedRatio + 1) / 2;
+      _animatorView.SetInAirBlendValue01(1 - currentSpeedRation10);
+    }
+
+    private void UpdateLaunchForceBlendValue() => 
+      _animatorView.SetLaunchForceBlend01(_model.PreLaunchForce / _config.GetMaxLaunchForce());
+
     private void UpdateFacingDirection()
     {
       if (_view.LinearVelocityX > _kVelocityThreshold)
@@ -139,6 +174,9 @@ namespace Sling.Level.Player
       else if (_view.LinearVelocityX < -_kVelocityThreshold)
         _view.SetFacingLeft(true);
     }
+
+    private void OnLaunched() => 
+      ChangeState(EState.Launch);
 
     private void OnIsDeadChanged(bool oldValue, bool newValue)
     {

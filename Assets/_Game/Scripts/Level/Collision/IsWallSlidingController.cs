@@ -51,8 +51,6 @@ namespace Sling.Level.Collision
       
       _collidedObjects.Add(obj);
       Args.Value = true;
-      
-      _faceDirectionView.SetFacingLeft(_positionView.Position.x < obj.transform.position.x);
     }
 
     private void RemoveCollidedObject(GameObject obj)
