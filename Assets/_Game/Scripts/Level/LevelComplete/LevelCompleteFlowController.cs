@@ -19,7 +19,9 @@ namespace Sling.Level.LevelComplete
 {
   public class LevelCompleteFlowController : ControllerWithResultBase<LevelCompleteFlowResult>
   {
-    private readonly IViewsProvider _viewsProvider;
+    private readonly PlayerView _playerView;
+    private readonly PopupWindowsRootView _popupRootView;
+    private readonly FinishZoneView _finishZoneView;
     private readonly AudioEvents _audioEvents;
     private readonly GameModel _gameModel;
     private readonly LevelModel _levelModel;
@@ -30,7 +32,9 @@ namespace Sling.Level.LevelComplete
 
     public LevelCompleteFlowController(
       IControllerFactory factory,
-      IViewsProvider viewsProvider,
+      PlayerView playerView,
+      PopupWindowsRootView popupRootView,
+      IOptionalViewProvider optionalViewProvider,
       AudioEvents audioEvents,
       GameModel gameModel,
       LevelModel levelModel,
@@ -40,7 +44,9 @@ namespace Sling.Level.LevelComplete
       ILeaderboardService leaderboardService)
       : base(factory)
     {
-      _viewsProvider = viewsProvider;
+      _playerView = playerView;
+      _popupRootView = popupRootView;
+      _finishZoneView = optionalViewProvider.Get<FinishZoneView>();
       _audioEvents = audioEvents;
       _gameModel = gameModel;
       _levelModel = levelModel;
@@ -60,30 +66,24 @@ namespace Sling.Level.LevelComplete
 
       LevelBestResult bestResult = SaveBestResultIfNeeded();
 
-      var playerView = _viewsProvider.Get<PlayerView>();
-      
       if(_levelModel.IsNewBestScore)
         SubmitBestScoreIfSignedInAsync(bestResult, cancellationToken).Forget();
       
       await UniTask.WhenAll(
         OptionalFinishZoneBlinkAnim(),
-        playerView.StopHorizontalMovementAsync(playerView.Config.FinishStopDuration, cancellationToken));
-
-
-      var popupRootView = _viewsProvider.Get<PopupWindowsRootView>();
+        _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken));
       
       LevelCompleteFlowResult result =
         await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
-          popupRootView.NonSkippable(), cancellationToken);
+          _popupRootView.NonSkippable(), cancellationToken);
 
       Complete(result);
     }
 
     private async UniTask OptionalFinishZoneBlinkAnim()
     {
-      var finishZoneView = _viewsProvider.Get<FinishZoneView>();
-      if (finishZoneView)
-        await finishZoneView.Blink();
+      if (_finishZoneView)
+        await _finishZoneView.Blink();
     }
 
     private LevelBestResult SaveBestResultIfNeeded()

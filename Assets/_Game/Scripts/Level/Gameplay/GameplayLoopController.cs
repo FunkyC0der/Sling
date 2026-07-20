@@ -13,13 +13,16 @@ namespace Sling.Level.Gameplay
   public class GameplayLoopController : ControllerWithResultBase<GameplayLoopResult>
   {
     private readonly LevelEvents _events;
-    private readonly IViewsProvider _viewsProvider;
+    private readonly BossView _bossView;
 
-    public GameplayLoopController(IControllerFactory factory, LevelEvents events, IViewsProvider viewsProvider)
+    public GameplayLoopController(
+      IControllerFactory factory,
+      LevelEvents events,
+      IOptionalViewProvider optionalViewProvider)
       : base(factory)
     {
       _events = events;
-      _viewsProvider = viewsProvider;
+      _bossView = optionalViewProvider.Get<BossView>();
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
@@ -42,7 +45,7 @@ namespace Sling.Level.Gameplay
       Execute<PlayerScopeController>();
       Execute<HudController>();
       
-      if(_viewsProvider.Get<BossView>())
+      if (_bossView)
         ExecuteAndWaitResultAsync<BossFlowController>(cancellationToken).Forget();
 
       GameplayLoopResult loopResult = await outcomeSource.Task.AttachExternalCancellation(cancellationToken);

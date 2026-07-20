@@ -40,7 +40,7 @@ namespace Sling
       builder.RegisterInstance(_gameConfig);
       builder.Register<GameModel>(Lifetime.Singleton);
 
-      builder.Register<IViewsProvider, DiViewsProvider>(Lifetime.Scoped);
+      builder.Register<IOptionalViewProvider, DiOptionalViewProvider>(Lifetime.Scoped);
       builder.Register<IControllerFactory, DiControllerFactory>(Lifetime.Scoped);
 
       builder.Register<UpdateEvents>(Lifetime.Singleton);
