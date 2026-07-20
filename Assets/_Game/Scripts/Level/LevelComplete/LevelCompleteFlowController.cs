@@ -62,8 +62,10 @@ namespace Sling.Level.LevelComplete
 
       var playerView = _viewsProvider.Get<PlayerView>();
       
+      if(_levelModel.IsNewBestScore)
+        SubmitBestScoreIfSignedInAsync(bestResult, cancellationToken).Forget();
+      
       await UniTask.WhenAll(
-        SubmitBestScoreIfSignedInAsync(bestResult, cancellationToken),
         OptionalFinishZoneBlinkAnim(),
         playerView.StopHorizontalMovementAsync(playerView.Config.FinishStopDuration, cancellationToken));
 
