@@ -9,7 +9,7 @@ using Unity.Services.Leaderboards.Models;
 
 namespace Sling.Infrastructure.Leaderboards
 {
-  public class LeaderboardService
+  public class UnityLeaderboardService : ILeaderboardService
   {
     public async UniTask<IReadOnlyList<LeaderboardPlayerScore>> GetTopPlayersForLevelAsync(
       string levelId,

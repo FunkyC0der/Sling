@@ -2,15 +2,17 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
+using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Authentication;
+#if USE_UNITY_SERVICES
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
-using UnityEngine;
-using UnityEngine.UnityConsent;
 #if UNITY_EDITOR
 using Unity.Services.Authentication;
 using UnityEditor;
 #endif
+#endif
+using UnityEngine;
 
 namespace Sling.Infrastructure
 {
@@ -22,18 +24,22 @@ namespace Sling.Infrastructure
     public const string kEditorAuthenticationDefaultProfile = "default";
 #endif
 
-    private readonly PlayerAuthenticationService _playerAuthenticationService;
+    private readonly IAnalyticsService _analyticsService;
+    private readonly IPlayerAuthenticationService _playerAuthenticationService;
 
     public InitUnityServicesFlowController(
       IControllerFactory controllerFactory,
-      PlayerAuthenticationService playerAuthenticationService)
+      IAnalyticsService analyticsService,
+      IPlayerAuthenticationService playerAuthenticationService)
       : base(controllerFactory)
     {
+      _analyticsService = analyticsService;
       _playerAuthenticationService = playerAuthenticationService;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
+#if USE_UNITY_SERVICES
       var options = new InitializationOptions();
 
 #if UNITY_EDITOR
@@ -45,12 +51,8 @@ namespace Sling.Infrastructure
         .AsUniTask()
         .AttachExternalCancellation(cancellationToken);
 
-      ConsentState consentState = EndUserConsent.GetConsentState();
-      if (consentState.AnalyticsIntent != ConsentStatus.Granted)
-      {
-        consentState.AnalyticsIntent = ConsentStatus.Granted;
-        EndUserConsent.SetConsentState(consentState);
-      }
+      _analyticsService.GrantConsent();
+#endif
 
       try
       {
@@ -69,6 +71,7 @@ namespace Sling.Infrastructure
       Complete();
     }
 
+#if USE_UNITY_SERVICES
 #if UNITY_EDITOR
     private static void SetEditorAuthenticationProfile(InitializationOptions options)
     {
@@ -92,5 +95,6 @@ namespace Sling.Infrastructure
 
       options.SetEnvironmentName(UnityServicesOverrides.Name);
     }
+#endif
   }
 }

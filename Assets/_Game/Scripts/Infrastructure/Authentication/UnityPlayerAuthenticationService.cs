@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Sling.Infrastructure.Authentication
 {
-  public class PlayerAuthenticationService
+  public class UnityPlayerAuthenticationService : IPlayerAuthenticationService
   {
     public async UniTask LoginAsync(CancellationToken cancellationToken)
     {
@@ -25,14 +25,14 @@ namespace Sling.Infrastructure.Authentication
           .AsUniTask()
           .AttachExternalCancellation(cancellationToken);
       }
-      
+
       Debug.Log($"Player auth name: {GetName()}");
     }
 
-    public string GetName() => 
+    public string GetName() =>
       AuthenticationService.Instance.PlayerName;
 
-    public bool IsSignedIn() => 
+    public bool IsSignedIn() =>
       AuthenticationService.Instance.IsSignedIn;
   }
 }

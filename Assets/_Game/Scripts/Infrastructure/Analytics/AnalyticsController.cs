@@ -1,25 +1,30 @@
 using Playtika.Controllers;
-using Unity.Services.Analytics;
 
 namespace Sling.Infrastructure.Analytics
 {
   public class AnalyticsController : ControllerBase
   {
     private readonly AnalyticsEvents _analyticsEvents;
+    private readonly IAnalyticsService _analyticsService;
 
-    public AnalyticsController(IControllerFactory controllerFactory, AnalyticsEvents analyticsEvents) 
+    public AnalyticsController(
+      IControllerFactory controllerFactory,
+      AnalyticsEvents analyticsEvents,
+      IAnalyticsService analyticsService)
       : base(controllerFactory)
     {
       _analyticsEvents = analyticsEvents;
+      _analyticsService = analyticsService;
     }
 
-    protected override void OnStart() => 
+    protected override void OnStart()
+    {
       _analyticsEvents.RecordEvent += OnRecordEventRequested;
-    
-    protected override void OnStop() =>
-      _analyticsEvents.RecordEvent -= OnRecordEventRequested;
+      AddDisposable(new DisposableToken(() =>
+        _analyticsEvents.RecordEvent -= OnRecordEventRequested));
+    }
 
-    private static void OnRecordEventRequested(Event ev) => 
-      AnalyticsService.Instance.RecordEvent(ev);
+    private void OnRecordEventRequested(Unity.Services.Analytics.Event analyticsEvent) =>
+      _analyticsService.RecordEvent(analyticsEvent);
   }
 }

@@ -62,8 +62,15 @@ namespace Sling
       builder.Register<LevelScopeController>(Lifetime.Transient);
 
       builder.Register<InitUnityServicesFlowController>(Lifetime.Transient);
-      builder.Register<PlayerAuthenticationService>(Lifetime.Singleton);
-      builder.Register<LeaderboardService>(Lifetime.Singleton);
+#if USE_UNITY_SERVICES
+      builder.Register<IPlayerAuthenticationService, UnityPlayerAuthenticationService>(Lifetime.Singleton);
+      builder.Register<ILeaderboardService, UnityLeaderboardService>(Lifetime.Singleton);
+      builder.Register<IAnalyticsService, UnityAnalyticsService>(Lifetime.Singleton);
+#else
+      builder.Register<IPlayerAuthenticationService, DummyPlayerAuthenticationService>(Lifetime.Singleton);
+      builder.Register<ILeaderboardService, DummyLeaderboardService>(Lifetime.Singleton);
+      builder.Register<IAnalyticsService, DummyAnalyticsService>(Lifetime.Singleton);
+#endif
       builder.Register<AnalyticsEvents>(Lifetime.Singleton);
       builder.Register<AnalyticsController>(Lifetime.Transient);
 

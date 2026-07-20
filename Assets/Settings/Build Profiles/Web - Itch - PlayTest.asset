@@ -23,6 +23,7 @@ MonoBehaviour:
   m_HasScriptingDefines: 1
   m_ScriptingDefines:
   - UGS_ENV_PLAYTEST
+  - USE_UNITY_SERVICES
   m_PlayerSettingsYaml:
     m_Settings:
     - line: '| PlayerSettings:'

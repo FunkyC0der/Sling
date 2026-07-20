@@ -25,8 +25,8 @@ namespace Sling.Level.LevelComplete
     private readonly LevelModel _levelModel;
     private readonly AnalyticsEvents _analyticsEvents;
     private readonly PlayerProgressService _playerProgressService;
-    private readonly PlayerAuthenticationService _playerAuthenticationService;
-    private readonly LeaderboardService _leaderboardService;
+    private readonly IPlayerAuthenticationService _playerAuthenticationService;
+    private readonly ILeaderboardService _leaderboardService;
 
     public LevelCompleteFlowController(
       IControllerFactory factory,
@@ -36,8 +36,8 @@ namespace Sling.Level.LevelComplete
       LevelModel levelModel,
       AnalyticsEvents analyticsEvents,
       PlayerProgressService playerProgressService,
-      PlayerAuthenticationService playerAuthenticationService,
-      LeaderboardService leaderboardService)
+      IPlayerAuthenticationService playerAuthenticationService,
+      ILeaderboardService leaderboardService)
       : base(factory)
     {
       _viewsProvider = viewsProvider;
