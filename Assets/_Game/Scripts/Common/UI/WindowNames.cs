@@ -2,8 +2,7 @@ namespace Sling.Common.UI
 {
   public static class WindowNames
   {
-    public const string MenuLayer        = "MenuLayer";
-    public const string PopupLayer       = "PopupLayer";
+    public const string PopupLayer = "PopupLayer";
     
     public const string PlayButton = "PlayButton";
     public const string NextLevelButton = "NextLevelButton";

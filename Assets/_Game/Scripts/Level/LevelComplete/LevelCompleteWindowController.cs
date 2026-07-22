@@ -1,17 +1,17 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling;
 using Sling.Common.UI;
-using Sling.Common.UI.Windows;
 using Sling.Infrastructure.Progress;
+using Sling.Infrastructure.UI;
 using Sling.Level.Session;
 using UnityEngine.UIElements;
 
 namespace Sling.Level.LevelComplete
 {
-  public class LevelCompleteWindowController : WindowControllerBase<LevelCompleteFlowResult>
+  public class LevelCompleteWindowController : ControllerWithResultBase<LevelCompleteFlowResult>
   {
+    private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
     private readonly GameModel _gameModel;
     private readonly LevelModel _levelModel;
@@ -19,12 +19,14 @@ namespace Sling.Level.LevelComplete
 
     public LevelCompleteWindowController(
       IControllerFactory factory,
+      PopUpWindowsRootView popUpWindowsRootView,
       GameConfig gameConfig,
       GameModel gameModel,
       LevelModel levelModel,
       PlayerProgressService playerProgressService)
       : base(factory)
     {
+      _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
       _gameModel = gameModel;
       _levelModel = levelModel;
@@ -35,12 +37,31 @@ namespace Sling.Level.LevelComplete
     private Label _playerDeathCountLabel;
     private Label _elapsedTimeLabel;
     private Label _newScoreLabel;
-    
-    protected override VisualTreeAsset WindowTemplate => _gameConfig.LevelCompleteWindowUxml;
-    
-    protected override void InitWindow(VisualElement window)
+
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      _window = window;
+      _window = _popUpWindowsRootView.CreateWindow(_gameConfig.LevelCompleteWindowUxml, hasBackground: true);
+
+      LevelCompleteFlowResult result;
+      try
+      {
+        InitWindow();
+
+        await _popUpWindowsRootView.ShowWindow(_window, ct);
+
+        result = await WaitForResult(ct);
+        await _popUpWindowsRootView.HideWindow(_window, ct);
+      }
+      finally
+      {
+        _popUpWindowsRootView.RemoveWindow(_window);
+      }
+
+      Complete(result);
+    }
+
+    private void InitWindow()
+    {
       _playerDeathCountLabel = _window.Q<Label>(WindowNames.kPlayerDeathCount);
       _elapsedTimeLabel = _window.Q<Label>(WindowNames.kElapsedTime);
       _newScoreLabel = _window.Q<Label>(WindowNames.NewScoreLabel);
@@ -49,7 +70,7 @@ namespace Sling.Level.LevelComplete
       SetNewScoreLabelVisibility();
     }
 
-    protected override UniTask<LevelCompleteFlowResult> WaitForResult(CancellationToken cancellationToken)
+    private UniTask<LevelCompleteFlowResult> WaitForResult(CancellationToken ct)
     {
       var completionSource = new UniTaskCompletionSource<LevelCompleteFlowResult>();
       
@@ -62,7 +83,7 @@ namespace Sling.Level.LevelComplete
       _window.Q<Button>(WindowNames.MenuButton).clicked += () =>
         completionSource.TrySetResult(LevelCompleteFlowResult.Menu);
       
-      return completionSource.Task.AttachExternalCancellation(cancellationToken);
+      return completionSource.Task.AttachExternalCancellation(ct);
     }
 
     private void SetBestResultInfo()

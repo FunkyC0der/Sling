@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.Extensions;
-using Sling.Common.UI.Windows;
 using Sling.Infrastructure;
 using Sling.Level.Player;
 using Sling.Level.Session;
@@ -12,7 +11,6 @@ namespace Sling.Level.Hud
   public class HudController : ControllerBase
   {
     private readonly HudView _hudView;
-    private readonly PopupWindowsRootView _popupRootView;
     private readonly PlayerInputView _playerInput;
     private readonly LevelEvents _events;
     private readonly GameModel _gameModel;
@@ -22,7 +20,6 @@ namespace Sling.Level.Hud
     public HudController(
       IControllerFactory factory,
       HudView hudView,
-      PopupWindowsRootView popupRootView,
       PlayerInputView playerInput,
       LevelEvents events, 
       GameModel gameModel, 
@@ -31,7 +28,6 @@ namespace Sling.Level.Hud
       : base(factory)
     {
       _hudView = hudView;
-      _popupRootView = popupRootView;
       _playerInput = playerInput;
       _events = events;
       _gameModel = gameModel;
@@ -71,8 +67,7 @@ namespace Sling.Level.Hud
       PauseWindowResult result;
       try
       {
-        result = await ExecuteAndWaitResultAsync<PauseWindowController, IWindowRootView, PauseWindowResult>(
-          _popupRootView, CancellationToken);
+        result = await ExecuteAndWaitResultAsync<PauseWindowController, PauseWindowResult>(CancellationToken);
       }
       finally
       {

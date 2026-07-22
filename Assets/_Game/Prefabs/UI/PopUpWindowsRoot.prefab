@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 619875894487543687}
   - component: {fileID: 3931537499029836386}
-  - component: {fileID: 3125759180308058709}
   - component: {fileID: 1219791834892061771}
   - component: {fileID: 2742238977003516540}
   m_Layer: 5
-  m_Name: WindowsRoot
+  m_Name: PopUpWindowsRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,19 +57,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &3125759180308058709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4052737455992248855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce60e584534444a16bd5cf515cabe1ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.UI.Windows.MenuWindowsRootView
-  _uiDocument: {fileID: 3931537499029836386}
 --- !u!114 &1219791834892061771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,11 +66,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4052737455992248855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b653d6f49910a41ec87fc40c3b474c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cd3f1e8112f4351b27d82802d484897, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.UI.Windows.PopupWindowsRootView
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Infrastructure.UI.PopUpWindowsRootView
   _uiDocument: {fileID: 3931537499029836386}
-  _popupContainerTemplate: {fileID: 9197481963319205126, guid: 5e60d40e78f6a457c8b4363f8a33a599, type: 3}
+  _backgroundTemplate: {fileID: 9197481963319205126, guid: 5e60d40e78f6a457c8b4363f8a33a599, type: 3}
 --- !u!114 &2742238977003516540
 MonoBehaviour:
   m_ObjectHideFlags: 0

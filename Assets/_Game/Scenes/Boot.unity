@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4052737455992248855, guid: dc0f42eee4f1147c9a7788ec112d69e2, type: 3}
       propertyPath: m_Name
-      value: WindowsRoot
+      value: PopUpWindowsRoot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

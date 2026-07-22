@@ -3,33 +3,54 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling;
 using Sling.Common.UI;
-using Sling.Common.UI.Windows;
+using Sling.Infrastructure.UI;
 using Sling.Levels;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Sling.MainMenu.SelectLevel
 {
-  public class SelectLevelWindowController : WindowControllerBase<int>
+  public class SelectLevelWindowController : ControllerWithResultBase<int>
   {
     private VisualElement _window;
     private int _selectedLevelIndex;
     private VisualElement _selectedRect;
 
+    private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
 
-    public SelectLevelWindowController(IControllerFactory controllerFactory, GameConfig gameConfig)
+    public SelectLevelWindowController(
+      IControllerFactory controllerFactory,
+      PopUpWindowsRootView popUpWindowsRootView,
+      GameConfig gameConfig)
       : base(controllerFactory)
     {
+      _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
     }
 
-    protected override VisualTreeAsset WindowTemplate => _gameConfig.SelectLevelWindowUxml;
-    
-    protected override void InitWindow(VisualElement window)
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      _window = window;
-      
+      _window = _popUpWindowsRootView.CreateWindow(_gameConfig.SelectLevelWindowUxml, hasBackground: false);
+
+      int result;
+      try
+      {
+        InitWindow();
+        await _popUpWindowsRootView.ShowWindow(_window, ct);
+        result = await WaitForResult(ct);
+        await _popUpWindowsRootView.HideWindow(_window, ct);
+      }
+      finally
+      {
+        _popUpWindowsRootView.RemoveWindow(_window);
+      }
+
+      Complete(result);
+    }
+
+    private void InitWindow()
+    {
       VisualElement levelItemsContainer = _window.Q(WindowNames.LevelItemsContainer);
       levelItemsContainer.Clear();
 
@@ -54,15 +75,14 @@ namespace Sling.MainMenu.SelectLevel
       }
     }
 
-    protected override async UniTask<int> WaitForResult(CancellationToken cancellationToken)
+    private UniTask<int> WaitForResult(CancellationToken ct)
     {
       var completionSource = new UniTaskCompletionSource<int>();
       
       _window.Q<Button>(WindowNames.PlayButton).clicked += () =>
         completionSource.TrySetResult(_selectedLevelIndex);
-      
-      await completionSource.Task.AttachExternalCancellation(cancellationToken);
-      return _selectedLevelIndex;
+
+      return completionSource.Task.AttachExternalCancellation(ct);
     }
     
     private void SelectItem(int levelIndex, VisualElement levelItem)

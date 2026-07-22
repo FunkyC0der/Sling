@@ -3,7 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Audio;
-using Sling.Common.UI.Windows;
 using Sling.Common.Views;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Analytics.Events;
@@ -20,7 +19,6 @@ namespace Sling.Level.LevelComplete
   public class LevelCompleteFlowController : ControllerWithResultBase<LevelCompleteFlowResult>
   {
     private readonly PlayerView _playerView;
-    private readonly PopupWindowsRootView _popupRootView;
     private readonly FinishZoneView _finishZoneView;
     private readonly AudioEvents _audioEvents;
     private readonly GameModel _gameModel;
@@ -33,7 +31,6 @@ namespace Sling.Level.LevelComplete
     public LevelCompleteFlowController(
       IControllerFactory factory,
       PlayerView playerView,
-      PopupWindowsRootView popupRootView,
       IOptionalViewProvider optionalViewProvider,
       AudioEvents audioEvents,
       GameModel gameModel,
@@ -45,7 +42,6 @@ namespace Sling.Level.LevelComplete
       : base(factory)
     {
       _playerView = playerView;
-      _popupRootView = popupRootView;
       _finishZoneView = optionalViewProvider.Get<FinishZoneView>();
       _audioEvents = audioEvents;
       _gameModel = gameModel;
@@ -56,7 +52,7 @@ namespace Sling.Level.LevelComplete
       _leaderboardService = leaderboardService;
     }
 
-    protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
       _audioEvents.PlaySFX?.Invoke(AudioClipId.LevelComplete);
       
@@ -67,15 +63,14 @@ namespace Sling.Level.LevelComplete
       LevelBestResult bestResult = SaveBestResultIfNeeded();
 
       if(_levelModel.IsNewBestScore)
-        SubmitBestScoreIfSignedInAsync(bestResult, cancellationToken).Forget();
+        SubmitBestScoreIfSignedInAsync(bestResult, ct).Forget();
       
       await UniTask.WhenAll(
         OptionalFinishZoneBlinkAnim(),
-        _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, cancellationToken));
+        _playerView.StopHorizontalMovementAsync(_playerView.Config.FinishStopDuration, ct));
       
       LevelCompleteFlowResult result =
-        await ExecuteAndWaitResultAsync<LevelCompleteWindowController, IWindowRootView, LevelCompleteFlowResult>(
-          _popupRootView.NonSkippable(), cancellationToken);
+        await ExecuteAndWaitResultAsync<LevelCompleteWindowController, LevelCompleteFlowResult>(ct);
 
       Complete(result);
     }

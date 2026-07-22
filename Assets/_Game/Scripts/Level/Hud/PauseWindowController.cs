@@ -1,31 +1,50 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling;
+using Sling.Common;
 using Sling.Common.UI;
-using Sling.Common.UI.Windows;
+using Sling.Infrastructure.UI;
 using UnityEngine.UIElements;
 
 namespace Sling.Level.Hud
 {
-  public class PauseWindowController : WindowControllerBase<PauseWindowResult>
+  public class PauseWindowController : ControllerWithResultBase<PauseWindowResult>
   {
+    private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
 
     private VisualElement _window;
 
-    public PauseWindowController(IControllerFactory factory, GameConfig gameConfig)
+    public PauseWindowController(
+      IControllerFactory factory,
+      PopUpWindowsRootView popUpWindowsRootView,
+      GameConfig gameConfig)
       : base(factory)
     {
+      _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
     }
 
-    protected override VisualTreeAsset WindowTemplate => _gameConfig.PauseWindowUxml;
+    protected override async UniTask OnFlowAsync(CancellationToken ct)
+    {
+      _window = _popUpWindowsRootView.CreateWindow(_gameConfig.PauseWindowUxml, hasBackground: true);
 
-    protected override void InitWindow(VisualElement window) =>
-      _window = window;
+      PauseWindowResult result;
+      try
+      {
+        await _popUpWindowsRootView.ShowWindow(_window, ct);
+        result = await WaitForResult(ct);
+        await _popUpWindowsRootView.HideWindow(_window, ct);
+      }
+      finally
+      {
+        _popUpWindowsRootView.RemoveWindow(_window);
+      }
 
-    protected override UniTask<PauseWindowResult> WaitForResult(CancellationToken cancellationToken)
+      Complete(result);
+    }
+
+    private async UniTask<PauseWindowResult> WaitForResult(CancellationToken ct)
     {
       var completionSource = new UniTaskCompletionSource<PauseWindowResult>();
 
@@ -35,7 +54,13 @@ namespace Sling.Level.Hud
       _window.Q<Button>(WindowNames.MenuButton).clicked += () =>
         completionSource.TrySetResult(PauseWindowResult.Menu);
 
-      return completionSource.Task.AttachExternalCancellation(cancellationToken);
+      (bool buttonClicked, PauseWindowResult result) =
+        await UniTaskUtils.WhenAnyWithAutoCancel(
+          token => completionSource.Task.AttachExternalCancellation(token),
+          token => _popUpWindowsRootView.GetClickOnBackgroundWaitTask(_window, token),
+          ct);
+
+      return buttonClicked ? result : PauseWindowResult.Resume;
     }
   }
 }
