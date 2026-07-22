@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5364220955754806325, guid: 7d5f64f18459b48a981a941d187e176a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d5f64f18459b48a981a941d187e176a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 2, y: 4}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -139,7 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Views.HorizontalSizeEditorView
   _stepsCount: 1
-  _stepSize: 2
+  _stepSize: 4
+  _isVertical: 0
+  _rendererSizeToAdd: 0
   _collider: {fileID: 1698434795264424354}
   _renderer: {fileID: 2180003156700755326}
 --- !u!114 &7500360534249774184
@@ -198,5 +200,5 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 4, y: 2}
   m_EdgeRadius: 0

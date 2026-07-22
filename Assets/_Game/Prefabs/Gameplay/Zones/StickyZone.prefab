@@ -26,12 +26,12 @@ Transform:
   m_GameObject: {fileID: 5175690496650896845}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.42, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1125984343119530135}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &7312915624021209324
 SpriteRenderer:
   serializedVersion: 2
@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1ac89f05ab75c41d9bc2f643dd63198e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 838e1461aa6e441728e64aa97baba813, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 4, y: 5.99}
+  m_Size: {x: 6.5, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -141,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Views.HorizontalSizeEditorView
   _stepsCount: 1
   _stepSize: 4
+  _isVertical: 0
+  _rendererSizeToAdd: 2.5
   _collider: {fileID: 6730474392159276202}
   _renderer: {fileID: 7312915624021209324}
 --- !u!114 &8448423460967158777
@@ -191,7 +193,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.64}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -201,7 +203,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4, y: 1.55}
+  m_Size: {x: 4, y: 3}
   m_EdgeRadius: 0
 --- !u!1001 &4737996899338668703
 PrefabInstance:
