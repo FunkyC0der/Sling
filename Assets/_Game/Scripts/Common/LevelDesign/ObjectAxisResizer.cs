@@ -12,7 +12,7 @@ namespace Sling.Common.LevelDesign
     [SerializeField] private float _rendererSizeToAdd;
 
     [Header("References")] 
-    [SerializeField] private BoxCollider2D _collider;
+    [SerializeField] private BoxCollider2D[] _colliders;
     [SerializeField] private SpriteRenderer _renderer;
 
 #if UNITY_EDITOR
@@ -36,11 +36,16 @@ namespace Sling.Common.LevelDesign
           ? new Vector2(_renderer.size.x, rendererAxisSize)
           : new Vector2(rendererAxisSize, _renderer.size.y);
       }
-      
-      if(_collider)
-        _collider.size = _isVertical 
-          ? new Vector2(_collider.size.x, axisSize) 
-          : new Vector2(axisSize, _collider.size.y);    
+
+      foreach (BoxCollider2D boxCollider in _colliders)
+      {
+        if(!boxCollider)
+          continue;
+        
+        boxCollider.size = _isVertical 
+          ? new Vector2(boxCollider.size.x, axisSize) 
+          : new Vector2(axisSize, boxCollider.size.y); 
+      }
     }
 #endif
   }

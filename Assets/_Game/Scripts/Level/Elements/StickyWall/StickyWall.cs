@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sling.Audio;
+using Sling.Common.Collission;
 using Sling.Level.Common;
 using UnityEngine;
 
@@ -10,32 +11,45 @@ namespace Sling.Level.Elements.StickyWall
   {
     [field: SerializeField] public StickyWallConfig Config { get; private set; }
     [SerializeField] private AudioClipEmitter _stickClipEmitter;
+    
+    [SerializeField] private TriggerZone _slowdownTriggerZone;
+    [SerializeField] private TriggerZone _applyPhysMaterialTriggerZone;
 
     private readonly HashSet<Rigidbody2D> _collidedRbs = new();
     private readonly Dictionary<ILaunchable, Action> _launchSubscriptions = new();
+    private readonly Dictionary<Collider2D, PhysicsMaterial2D> _origPhysMaterials = new();
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void Awake()
     {
-      if (other.rigidbody)
-        AddRigidbody(other.rigidbody);     
+      _slowdownTriggerZone.OnEnter += OnEnterSlowdownZone;
+      _slowdownTriggerZone.OnExit += OnExitSlowdownZone;
+      
+      _applyPhysMaterialTriggerZone.OnEnter += ApplyPhysMaterial;
+      _applyPhysMaterialTriggerZone.OnExit += ResetPhysMaterial;
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    private void OnEnterSlowdownZone(Collider2D obj)
     {
-      if (other.rigidbody)
-        RemoveRigidbody(other.rigidbody);
+      if(obj.attachedRigidbody)
+        AddRigidbody(obj.attachedRigidbody);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnExitSlowdownZone(Collider2D obj)
     {
-      if(other.attachedRigidbody)
-        AddRigidbody(other.attachedRigidbody);     
+      if(obj.attachedRigidbody)
+        RemoveRigidbody(obj.attachedRigidbody);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void ApplyPhysMaterial(Collider2D obj)
     {
-      if(other.attachedRigidbody)
-        RemoveRigidbody(other.attachedRigidbody);     
+      _origPhysMaterials[obj] = obj.sharedMaterial;
+      obj.sharedMaterial = Config.PhysMaterialToApply;
+    }
+
+    private void ResetPhysMaterial(Collider2D obj)
+    {
+      obj.sharedMaterial = _origPhysMaterials[obj];
+      _origPhysMaterials.Remove(obj);
     }
 
     private void AddRigidbody(Rigidbody2D rb)
@@ -60,8 +74,9 @@ namespace Sling.Level.Elements.StickyWall
 
     private void RemoveRigidbody(Rigidbody2D rb)
     {
-      _collidedRbs.Remove(rb);
-
+      if (!_collidedRbs.Remove(rb))
+        return;
+      
       var launchable = rb.GetComponent<ILaunchable>();
       if (launchable == null)
         return;
@@ -75,8 +90,8 @@ namespace Sling.Level.Elements.StickyWall
 
     private void FixedUpdate()
     {
-      foreach (Rigidbody2D rb in _collidedRbs)
-        rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, Config.MaxSpeed);
+      foreach (Rigidbody2D rb in _collidedRbs) 
+        rb.linearVelocityY = Mathf.Clamp(rb.linearVelocityY, -Config.MaxSpeed, Config.MaxSpeed);
     }
 
     private void OnDisable()

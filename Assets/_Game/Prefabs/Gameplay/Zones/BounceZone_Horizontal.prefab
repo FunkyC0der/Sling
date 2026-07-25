@@ -65,7 +65,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Views.HorizontalSizeEditorView
   _stepsCount: 4
   _stepSize: 4
-  _collider: {fileID: 7513706232280236616}
+  _isVertical: 0
+  _rendererSizeToAdd: 0
+  _colliders:
+  - {fileID: 7513706232280236616}
   _renderer: {fileID: 4274549369245640835}
 --- !u!61 &7513706232280236616
 BoxCollider2D:
@@ -191,7 +194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1393915797
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 519f8818ca3354ad781b31bf55136dc9, type: 3}

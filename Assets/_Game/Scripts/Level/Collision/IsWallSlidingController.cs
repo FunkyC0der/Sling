@@ -46,7 +46,7 @@ namespace Sling.Level.Collision
 
     private void AddCollidedObject(GameObject obj)
     {
-      if (!obj.GetComponent<StickyWall>())
+      if (!obj.GetComponentInParent<StickyWall>())
         return;
       
       _collidedObjects.Add(obj);
@@ -55,7 +55,7 @@ namespace Sling.Level.Collision
 
     private void RemoveCollidedObject(GameObject obj)
     {
-      if (!obj.GetComponent<StickyWall>())
+      if (!obj.GetComponentInParent<StickyWall>())
         return;
       
       _collidedObjects.Remove(obj);
