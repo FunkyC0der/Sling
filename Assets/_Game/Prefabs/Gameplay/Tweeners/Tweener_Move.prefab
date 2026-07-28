@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6285321397718217855}
   - component: {fileID: 535411732277990038}
   - component: {fileID: 2861151453502068371}
+  - component: {fileID: 950526549650052573}
   m_Layer: 0
   m_Name: Tweener_Move
   m_TagString: Untagged
@@ -78,3 +79,18 @@ MonoBehaviour:
   DelayBeforeNextPoint: 0.5
   Ease: 7
   Cycles: -1
+--- !u!114 &950526549650052573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456078844270890790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22264f59b86a4babb997d6aa891ff545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.LinearTrajectorySpriteLine
+  _tweener: {fileID: 2861151453502068371}
+  _trajectoryPrefab: {fileID: 6930269577562682816, guid: bb1dd163ea2b540ff8ac045801bf21ca, type: 3}
+  _renderObject: {fileID: 0}
