@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Sling.Audio;
 using Sling.Common.Extensions;
 using Sling.Level.Common;
@@ -10,6 +11,13 @@ namespace Sling.Level.Elements.Bounce
   {
     [SerializeField] private BounceZoneConfig _config;
     [SerializeField] private AudioClipEmitter _bounceClipEmitter;
+    [SerializeField, Required] private Animator _animator;
+
+    [SerializeField]
+    [AnimatorParam(nameof(_animator), AnimatorControllerParameterType.Trigger)]
+    private int _bounceTriggerId;
+
+    [SerializeField] private bool _invert;
     [SerializeField] private bool _bothDirection;
 
     private Vector3 Forward => transform.right;
@@ -24,11 +32,9 @@ namespace Sling.Level.Elements.Bounce
 
       bool invert = NeedInvert(rb);
 
-      Vector3 otherPositionInLocalSpace = rb.transform.position - transform.position;
-      bool mirror = !IsVectorTowardsTo(otherPositionInLocalSpace, Normal);
-      
       _bounceClipEmitter.PlayOneShot();
-      rb.linearVelocity = CreateBounceVelocity(invert, mirror);
+      _animator.SetTrigger(_bounceTriggerId);
+      rb.linearVelocity = CreateBounceVelocity(invert);
     }
 
     private bool NeedInvert(Rigidbody2D rb)
@@ -42,13 +48,13 @@ namespace Sling.Level.Elements.Bounce
       return !IsVectorTowardsTo(rb.linearVelocity, Normal);
     }
 
-    private Vector2 CreateBounceVelocity(bool invert, bool mirror)
+    private Vector2 CreateBounceVelocity(bool invert)
     {
+      if(_invert && !_bothDirection)
+        invert = !invert;
+      
       Vector2 bounceDir = Quaternion.Euler(0, 0, _config.Angle) * Forward;
 
-      if (mirror)
-        bounceDir = Vector2.Reflect(bounceDir, Normal);
-      
       if (invert)
         bounceDir = Vector2.Reflect(bounceDir, Forward);
       
@@ -65,22 +71,18 @@ namespace Sling.Level.Elements.Bounce
         return;
 
       Gizmos.color = Color.cyan;
-      DrawBounceVelocity(invert: false, mirror: false);
-      DrawBounceVelocity(invert: false, mirror: true);
+      DrawBounceVelocity(invert: false);
 
-      if (_bothDirection)
-      {
-        DrawBounceVelocity(invert: true, mirror: false);
-        DrawBounceVelocity(invert: true, mirror: true);
-      }
+      if (_bothDirection) 
+        DrawBounceVelocity(invert: true);
     }
 
-    private void DrawBounceVelocity(bool invert, bool mirror)
+    private void DrawBounceVelocity(bool invert)
     {
       const int kBounceVectorLength = 20;
       
       Vector2 origin = transform.position;
-      Vector2 velocity = CreateBounceVelocity(invert, mirror);
+      Vector2 velocity = CreateBounceVelocity(invert);
 
       Gizmos.DrawLine(origin, origin + velocity.normalized * kBounceVectorLength);
     }
