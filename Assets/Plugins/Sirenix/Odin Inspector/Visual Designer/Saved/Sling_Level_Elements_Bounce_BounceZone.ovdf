@@ -1,0 +1,11 @@
+OVDF v1.1
+Sling.Level.Elements.Bounce.BounceZone, Assembly-CSharp
+MetaGuid:8790ae840d444206b82d391730cf4932
+
+# _bothDirection
++ [Sirenix.OdinInspector.EnableIfAttribute]
+	Condition = "@!_invert"
+
+# _invert
++ [Sirenix.OdinInspector.EnableIfAttribute]
+	Condition = "@!_bothDirection"
