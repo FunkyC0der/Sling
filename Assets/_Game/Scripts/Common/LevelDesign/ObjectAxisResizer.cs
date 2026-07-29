@@ -31,20 +31,32 @@ namespace Sling.Common.LevelDesign
       if (_renderer)
       {
         float rendererAxisSize = axisSize + _rendererSizeToAdd;
-        
+
         _renderer.size = _isVertical
           ? new Vector2(_renderer.size.x, rendererAxisSize)
           : new Vector2(rendererAxisSize, _renderer.size.y);
+
+        if (PrefabUtility.IsPartOfPrefabInstance(_renderer))
+        {
+          PrefabUtility.RecordPrefabInstancePropertyModifications(_renderer);
+          EditorUtility.SetDirty(_renderer);
+        }
       }
 
       foreach (BoxCollider2D boxCollider in _colliders)
       {
         if(!boxCollider)
           continue;
-        
-        boxCollider.size = _isVertical 
-          ? new Vector2(boxCollider.size.x, axisSize) 
-          : new Vector2(axisSize, boxCollider.size.y); 
+
+        boxCollider.size = _isVertical
+          ? new Vector2(boxCollider.size.x, axisSize)
+          : new Vector2(axisSize, boxCollider.size.y);
+
+        if (PrefabUtility.IsPartOfPrefabInstance(boxCollider))
+        {
+          PrefabUtility.RecordPrefabInstancePropertyModifications(boxCollider);
+          EditorUtility.SetDirty(boxCollider);
+        }
       }
     }
 #endif

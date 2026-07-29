@@ -15,7 +15,7 @@ namespace Sling.Level.Elements.StickyWall
     [SerializeField] private TriggerZone _slowdownTriggerZone;
     [SerializeField] private TriggerZone _applyPhysMaterialTriggerZone;
 
-    private readonly HashSet<Rigidbody2D> _collidedRbs = new();
+    private readonly Dictionary<Rigidbody2D, HashSet<Collider2D>> _collidedRbs = new();
     private readonly Dictionary<ILaunchable, Action> _launchSubscriptions = new();
     private readonly Dictionary<Collider2D, PhysicsMaterial2D> _origPhysMaterials = new();
 
@@ -31,13 +31,13 @@ namespace Sling.Level.Elements.StickyWall
     private void OnEnterSlowdownZone(Collider2D obj)
     {
       if(obj.attachedRigidbody)
-        AddRigidbody(obj.attachedRigidbody);
+        AddRigidbody(obj.attachedRigidbody, obj);
     }
 
     private void OnExitSlowdownZone(Collider2D obj)
     {
       if(obj.attachedRigidbody)
-        RemoveRigidbody(obj.attachedRigidbody);
+        RemoveRigidbody(obj.attachedRigidbody, obj);
     }
 
     private void ApplyPhysMaterial(Collider2D obj)
@@ -52,10 +52,15 @@ namespace Sling.Level.Elements.StickyWall
       _origPhysMaterials.Remove(obj);
     }
 
-    private void AddRigidbody(Rigidbody2D rb)
+    private void AddRigidbody(Rigidbody2D rb, Collider2D otherCollider)
     {
-      if (!_collidedRbs.Add(rb))
+      if (_collidedRbs.TryGetValue(rb, out HashSet<Collider2D> colliders))
+      {
+        colliders.Add(otherCollider);
         return;
+      }
+
+      _collidedRbs.Add(rb, new HashSet<Collider2D> { otherCollider });
 
       _stickClipEmitter.PlayOneShot();
       
@@ -70,6 +75,18 @@ namespace Sling.Level.Elements.StickyWall
         _launchSubscriptions.Add(launchable, onLaunched);
         launchable.OnLaunched += onLaunched;
       }
+    }
+
+    private void RemoveRigidbody(Rigidbody2D rb, Collider2D otherCollider)
+    {
+      if (!_collidedRbs.TryGetValue(rb, out HashSet<Collider2D> colliders))
+        return;
+
+      colliders.Remove(otherCollider);
+      if (colliders.Count > 0)
+        return;
+
+      RemoveRigidbody(rb);
     }
 
     private void RemoveRigidbody(Rigidbody2D rb)
@@ -90,7 +107,7 @@ namespace Sling.Level.Elements.StickyWall
 
     private void FixedUpdate()
     {
-      foreach (Rigidbody2D rb in _collidedRbs) 
+      foreach (Rigidbody2D rb in _collidedRbs.Keys)
         rb.linearVelocityY = Mathf.Clamp(rb.linearVelocityY, -Config.MaxSpeed, Config.MaxSpeed);
     }
 
