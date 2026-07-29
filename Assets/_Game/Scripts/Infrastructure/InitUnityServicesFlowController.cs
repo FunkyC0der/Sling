@@ -4,10 +4,10 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.Authentication;
-#if USE_UNITY_SERVICES
+#if USE_UNITY_ANALYTICS || USE_UNITY_LEADERBOARDS
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
-#if UNITY_EDITOR
+#if USE_UNITY_LEADERBOARDS && UNITY_EDITOR
 using Unity.Services.Authentication;
 using UnityEditor;
 #endif
@@ -39,10 +39,10 @@ namespace Sling.Infrastructure
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
-#if USE_UNITY_SERVICES
+#if USE_UNITY_ANALYTICS || USE_UNITY_LEADERBOARDS
       var options = new InitializationOptions();
 
-#if UNITY_EDITOR
+#if USE_UNITY_LEADERBOARDS && UNITY_EDITOR
       SetEditorAuthenticationProfile(options);
 #endif
       SetUnityEnvironmentName(options);
@@ -51,9 +51,12 @@ namespace Sling.Infrastructure
         .AsUniTask()
         .AttachExternalCancellation(cancellationToken);
 
+#if USE_UNITY_ANALYTICS
       _analyticsService.GrantConsent();
 #endif
+#endif
 
+#if USE_UNITY_LEADERBOARDS
       try
       {
         await _playerAuthenticationService.LoginAsync(cancellationToken);
@@ -67,12 +70,13 @@ namespace Sling.Infrastructure
       {
         Debug.LogException(exception);
       }
+#endif
 
       Complete();
     }
 
-#if USE_UNITY_SERVICES
-#if UNITY_EDITOR
+#if USE_UNITY_ANALYTICS || USE_UNITY_LEADERBOARDS
+#if USE_UNITY_LEADERBOARDS && UNITY_EDITOR
     private static void SetEditorAuthenticationProfile(InitializationOptions options)
     {
       string profile = EditorPrefs.GetString(
