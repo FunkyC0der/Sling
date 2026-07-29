@@ -58,6 +58,9 @@ namespace Sling.Level.Player
       ChangeState(EState.OnGround);
     }
 
+    protected override void OnStop() => 
+      _animatorView.Idle();
+
     private void ChangeState(EState newState)
     {
       if(_state == newState)
