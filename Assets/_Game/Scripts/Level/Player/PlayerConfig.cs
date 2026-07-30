@@ -6,6 +6,9 @@ namespace Sling.Level.Player
   [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Game/PlayerConfig")]
   public class PlayerConfig : ScriptableObject
   {
+    [field: Header("Input")]
+    [field: SerializeField] public float PointerDeltaSensitivity { get; private set; } = 2f;
+
     [field: SerializeField] public float MaxDragDistance { get; private set; } = 5f;
     [field: SerializeField] public float LaunchForceMultiplier { get; private set; } = 10f;
 

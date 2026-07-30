@@ -97,13 +97,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PointerPosition",
+                    "name": "PointerDelta",
                     "type": "Value",
                     "id": "697314c6-809e-4080-89d2-066cbe180bdf",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "9b6d5e61-c4a8-4dad-a438-c054dc921a0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "CancelPreLaunch",
@@ -515,11 +524,22 @@
                 {
                     "name": "",
                     "id": "38a1b08a-1345-4511-bfe2-ee1017b08d74",
-                    "path": "<Pointer>/position",
+                    "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Touch",
-                    "action": "PointerPosition",
+                    "action": "PointerDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ff616e9-92d2-46bb-ac7a-76449ccd1577",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

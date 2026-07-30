@@ -7,6 +7,7 @@ using Sling.Level.Boss;
 using Sling.Level.Hud;
 using Sling.Level.Player;
 using Sling.Level.Session;
+using UnityEngine;
 
 namespace Sling.Level.Gameplay
 {
@@ -27,6 +28,17 @@ namespace Sling.Level.Gameplay
 
     protected override async UniTask OnFlowAsync(CancellationToken cancellationToken)
     {
+      bool wasCursorVisible = Cursor.visible;
+      CursorLockMode previousCursorLockState = Cursor.lockState;
+
+      Cursor.visible = false;
+      Cursor.lockState = CursorLockMode.Locked;
+      AddDisposable(new DisposableToken(() =>
+      {
+        Cursor.visible = wasCursorVisible;
+        Cursor.lockState = previousCursorLockState;
+      }));
+
       var outcomeSource = new UniTaskCompletionSource<GameplayLoopResult>();
 
       _events.OnPlayerDied       += OnDied;

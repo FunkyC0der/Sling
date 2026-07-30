@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sling.Level.Player.Launch
 {
-  public class PlayerPreLaunchFlowController : ControllerWithResultBase<Vector2, Vector2>
+  public class PlayerPreLaunchFlowController : ControllerWithResultBase<Vector2>
   {
     private readonly PlayerConfig _config;
     private readonly PlayerLaunchView _launchView;
@@ -48,9 +48,9 @@ namespace Sling.Level.Player.Launch
       _model.IsInPreLaunch.Value = false;
     }
 
-    private void OnPreLaunchUpdate(Vector2 worldPos)
+    private void OnPreLaunchUpdate(Vector2 pointerWorldDelta)
     {
-      Vector2 launchVector = Args - worldPos;
+      Vector2 launchVector = -pointerWorldDelta * _config.PointerDeltaSensitivity;
       launchVector = Vector2.ClampMagnitude(launchVector, _config.MaxDragDistance);
 
       _launchVelocity = launchVector * _config.LaunchForceMultiplier;
@@ -62,7 +62,7 @@ namespace Sling.Level.Player.Launch
       _model.PreLaunchForce = _launchVelocity.magnitude;
     }
 
-    private void OnPreLaunchStop(Vector2 worldPos) => 
+    private void OnPreLaunchStop() =>
       Complete(_launchVelocity);
 
     private void OnPreLaunchCancel() => 

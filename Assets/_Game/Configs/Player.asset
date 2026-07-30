@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e74414af4b994d999f53e3154a581de, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerConfig
+  <PointerDeltaSensitivity>k__BackingField: 3
   <MaxDragDistance>k__BackingField: 24
   <LaunchForceMultiplier>k__BackingField: 4.5
   GroundSurfaceLayerMask:

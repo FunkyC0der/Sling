@@ -40,20 +40,20 @@ namespace Sling.Level.Player.Launch
       _inputView.OnPreLaunchStart -= OnPreLaunchStart;
     }
 
-    private void OnPreLaunchStart(Vector2 worldPos)
+    private void OnPreLaunchStart()
     {
       if (_model.IsInAir.Value && _remainingLaunches <= 0)
         return;
 
-      LaunchFlowAsync(worldPos).Forget();
+      LaunchFlowAsync().Forget();
     }
 
-    private async UniTask LaunchFlowAsync(Vector2 worldPos)
+    private async UniTask LaunchFlowAsync()
     {
       _model.OnPreLaunch?.Invoke();
       
       Vector2 launchVelocity =
-        await ExecuteAndWaitResultAsync<PlayerPreLaunchFlowController, Vector2, Vector2>(worldPos, CancellationToken);
+        await ExecuteAndWaitResultAsync<PlayerPreLaunchFlowController, Vector2>(CancellationToken);
 
       if (launchVelocity.sqrMagnitude > 0)
       {

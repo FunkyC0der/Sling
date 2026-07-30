@@ -9,15 +9,18 @@ namespace Sling.Level.Player
   public class PlayerInputView : MonoBehaviour, IUniqueView
   {
     [SerializeField] private InputActionReference _pointerPressActionRef;
-    [SerializeField] private InputActionReference _pointerPositionActionRef;
+    [SerializeField] private InputActionReference _pointerDeltaActionRef;
     [SerializeField] private InputActionReference _cancelPreLaunchActionRef;
+    [SerializeField] private InputActionReference _pauseActionRef;
 
-    public event Action<Vector2> OnPreLaunchStart;
+    public event Action OnPreLaunchStart;
     public event Action<Vector2> OnPreLaunchUpdate;
-    public event Action<Vector2> OnPreLaunchStop;
+    public event Action OnPreLaunchStop;
     public event Action OnPreLaunchCancel;
+    public event Action OnPauseRequested;
 
     private Camera _cam;
+    private Vector2 _pointerWorldDelta;
 
     private void Awake()
     {
@@ -26,6 +29,7 @@ namespace Sling.Level.Player
       _pointerPressActionRef.action.performed += HandlePress;
       _pointerPressActionRef.action.canceled += HandleRelease;
       _cancelPreLaunchActionRef.action.performed += HandleCancelPreLaunch;
+      _pauseActionRef.action.performed += HandlePause;
     }
 
     private IEnumerator Start()
@@ -42,20 +46,23 @@ namespace Sling.Level.Player
       _pointerPressActionRef.action.performed -= HandlePress;
       _pointerPressActionRef.action.canceled -= HandleRelease;
       _cancelPreLaunchActionRef.action.performed -= HandleCancelPreLaunch;
+      _pauseActionRef.action.performed -= HandlePause;
     }
 
     public void EnableInput()
     {
       _pointerPressActionRef.action.Enable();
-      _pointerPositionActionRef.action.Enable();
+      _pointerDeltaActionRef.action.Enable();
       _cancelPreLaunchActionRef.action.Enable();
+      _pauseActionRef.action.Enable();
     }
 
     public void DisableInput()
     {
       _pointerPressActionRef.action.Disable();
-      _pointerPositionActionRef.action.Disable();
+      _pointerDeltaActionRef.action.Disable();
       _cancelPreLaunchActionRef.action.Disable();
+      _pauseActionRef.action.Disable();
     }
 
     private void Update() =>
@@ -63,24 +70,39 @@ namespace Sling.Level.Player
 
     private void PreLaunchUpdate()
     {
-      if (_pointerPressActionRef.action.IsPressed())
-        OnPreLaunchUpdate?.Invoke(PointerWorldPos());
+      if (!_pointerPressActionRef.action.IsPressed())
+        return;
+
+      AccumulatePointerDelta();
+      OnPreLaunchUpdate?.Invoke(_pointerWorldDelta);
     }
 
-    private void HandlePress(InputAction.CallbackContext _) =>
-      OnPreLaunchStart?.Invoke(PointerWorldPos());
+    private void HandlePress(InputAction.CallbackContext _)
+    {
+      _pointerWorldDelta = Vector2.zero;
+      OnPreLaunchStart?.Invoke();
+    }
 
-    private void HandleRelease(InputAction.CallbackContext _) =>
-      OnPreLaunchStop?.Invoke(PointerWorldPos());
+    private void HandleRelease(InputAction.CallbackContext _)
+    {
+      AccumulatePointerDelta();
+      OnPreLaunchUpdate?.Invoke(_pointerWorldDelta);
+      OnPreLaunchStop?.Invoke();
+    }
 
     private void HandleCancelPreLaunch(InputAction.CallbackContext ctx) => 
       OnPreLaunchCancel?.Invoke();
 
-    private Vector2 PointerWorldPos()
+    private void HandlePause(InputAction.CallbackContext _) =>
+      OnPauseRequested?.Invoke();
+
+    private void AccumulatePointerDelta()
     {
-      var screenPos = _pointerPositionActionRef.action.ReadValue<Vector2>();
-      Vector3 worldPos = _cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, _cam.nearClipPlane));
-      return worldPos;
+      Vector2 screenDelta = _pointerDeltaActionRef.action.ReadValue<Vector2>();
+      Vector3 screenOrigin = new Vector3(0f, 0f, _cam.nearClipPlane);
+      Vector3 worldOrigin = _cam.ScreenToWorldPoint(screenOrigin);
+      Vector3 worldOffset = _cam.ScreenToWorldPoint(screenOrigin + (Vector3)screenDelta) - worldOrigin;
+      _pointerWorldDelta += (Vector2)worldOffset;
     }
   }
 }

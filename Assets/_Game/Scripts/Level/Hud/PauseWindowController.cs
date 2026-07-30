@@ -4,7 +4,9 @@ using Playtika.Controllers;
 using Sling.Common;
 using Sling.Common.UI;
 using Sling.Infrastructure.UI;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 namespace Sling.Level.Hud
 {
@@ -27,18 +29,32 @@ namespace Sling.Level.Hud
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      _window = _popUpWindowsRootView.CreateWindow(_gameConfig.PauseWindowUxml, hasBackground: true);
+      bool wasCursorVisible = Cursor.visible;
+      CursorLockMode previousCursorLockState = Cursor.lockState;
+
+      Cursor.lockState = CursorLockMode.None;
+      Cursor.visible = true;
 
       PauseWindowResult result;
       try
       {
-        await _popUpWindowsRootView.ShowWindow(_window, ct);
-        result = await WaitForResult(ct);
-        await _popUpWindowsRootView.HideWindow(_window, ct);
+        _window = _popUpWindowsRootView.CreateWindow(_gameConfig.PauseWindowUxml, hasBackground: true);
+
+        try
+        {
+          await _popUpWindowsRootView.ShowWindow(_window, ct);
+          result = await WaitForResult(ct);
+          await _popUpWindowsRootView.HideWindow(_window, ct);
+        }
+        finally
+        {
+          _popUpWindowsRootView.RemoveWindow(_window);
+        }
       }
       finally
       {
-        _popUpWindowsRootView.RemoveWindow(_window);
+        Cursor.visible = wasCursorVisible;
+        Cursor.lockState = previousCursorLockState;
       }
 
       Complete(result);
