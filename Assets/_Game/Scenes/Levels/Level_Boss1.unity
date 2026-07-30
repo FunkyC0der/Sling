@@ -396,6 +396,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 92268804, guid: 48c693bda08794af8b3cf46e83b890a5, type: 3}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[0].AnimatorController
+      value: 
+      objectReference: {fileID: 9100000, guid: b0a5eaff04ca045098895b3e0f20e19f, type: 2}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[1].AnimatorController
+      value: 
+      objectReference: {fileID: 9100000, guid: d06d74cf02ed9435bb79534d217855c7, type: 2}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: _phases.Array.data[0].WeakPoints.Array.size
       value: 4
       objectReference: {fileID: 0}

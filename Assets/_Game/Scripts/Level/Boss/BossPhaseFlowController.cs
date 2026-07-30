@@ -42,7 +42,7 @@ namespace Sling.Level.Boss
         _audioEvents.PlaySFX?.Invoke(AudioClipId.BossDamage);
         
         hitWeakPoint.HideAfterHit();
-        await _view.PlayHitAnim().AttachExternalCancellation(cancellationToken);
+        await _view.PlayHitAnim(cancellationToken);
       }
       
       phase.Stop();

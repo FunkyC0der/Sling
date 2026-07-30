@@ -193,15 +193,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Boss.BossView
   _bossBody: {fileID: 3772980208495210530}
   _bodySprite: {fileID: 2268944150550002034}
+  _animator: {fileID: 1513763150421013018}
   _phases:
   - Tweener: {fileID: 5932929541682809343}
     WeakPoints:
     - {fileID: 2821687121773488112}
     BodySprite: {fileID: 0}
+    AnimatorController: {fileID: 0}
   - Tweener: {fileID: 5418916311888171328}
     WeakPoints:
     - {fileID: 2536439293183331239}
     BodySprite: {fileID: 0}
+    AnimatorController: {fileID: 0}
   _hitShakeSettings:
     strength: {x: 0.5, y: 0.5, z: 0}
     duration: 0.5
@@ -222,8 +225,8 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
-  _blinkAmount: 0.5
-  _hitBlinkCount: 3
+  _blinkAmount: 0.8
+  _hitBlinkCount: 2
   _phaseTransitionMoveSpeed: 30
 --- !u!1 &6729289364589355069
 GameObject:
@@ -234,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3772980208495210530}
+  - component: {fileID: 1513763150421013018}
   m_Layer: 8
   m_Name: BodyRoot
   m_TagString: Untagged
@@ -259,6 +263,28 @@ Transform:
   - {fileID: 1593224199690347642}
   m_Father: {fileID: 7887320911632918912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1513763150421013018
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6729289364589355069}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2580868641383162952
 PrefabInstance:
   m_ObjectHideFlags: 0

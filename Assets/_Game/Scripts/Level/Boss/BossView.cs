@@ -11,8 +11,12 @@ namespace Sling.Level.Boss
 {
   public class BossView : MonoBehaviour, IUniqueView
   {
+    private static readonly int _hitTriggerId = Animator.StringToHash("Hit");
+    private static readonly int _idleTriggerId = Animator.StringToHash("Idle");
+
     [SerializeField] private Transform _bossBody;
     [SerializeField] private SpriteRenderer _bodySprite;
+    [SerializeField] private Animator _animator;
     [SerializeField] private List<BossPhaseSettings> _phases;
     [SerializeField] private ShakeSettings _hitShakeSettings;
     [SerializeField] private float _blinkAmount;
@@ -47,7 +51,9 @@ namespace Sling.Level.Boss
     {
       BossPhaseSettings phase = GetPhase(index);
 
-      if (phase.BodySprite != null) 
+      SetAnimatorController(phase.AnimatorController);
+
+      if (!HasAnimator() && phase.BodySprite != null)
         _bodySprite.sprite = phase.BodySprite;
       
       phase.AttachBossBody(_bossBody);
@@ -79,16 +85,44 @@ namespace Sling.Level.Boss
         .WithCancellation(cancellationToken);
     }
 
-    [Button]
-    public async UniTask PlayHitAnim()
+    [Button("Play Hit Anim")]
+    private void PlayHitAnimInEditor() =>
+      PlayHitAnim(this.GetCancellationTokenOnDestroy()).Forget();
+
+    public async UniTask PlayHitAnim(CancellationToken cancellationToken)
     {
+      bool hasAnimator = HasAnimator();
+
+      if (hasAnimator)
+        _animator.SetTrigger(_hitTriggerId);
+
       PlayShakeAnim().Forget();
       
       foreach (SpriteBlinkTweener blinkTweener in _blinkTweeners) 
         blinkTweener.PlayBlink(_hitBlinkCount, _hitShakeSettings.duration, _blinkAmount).Forget();
 
-      await UniTask.WaitForSeconds(_hitShakeSettings.duration);
+      await UniTask.WaitForSeconds(_hitShakeSettings.duration, cancellationToken: cancellationToken);
+
+      if (hasAnimator)
+        _animator.SetTrigger(_idleTriggerId);
     }
+
+    private void SetAnimatorController(RuntimeAnimatorController animatorController)
+    {
+      if (_animator == null)
+        return;
+
+      _animator.runtimeAnimatorController = animatorController;
+
+      if (HasAnimator())
+      {
+        _animator.Rebind();
+        _animator.Update(0f);
+      }
+    }
+
+    private bool HasAnimator() =>
+      _animator != null && _animator.runtimeAnimatorController != null;
 
     private async UniTask PlayShakeAnim() =>
       await Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
