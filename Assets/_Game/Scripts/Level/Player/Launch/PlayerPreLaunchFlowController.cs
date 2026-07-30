@@ -12,6 +12,7 @@ namespace Sling.Level.Player.Launch
     private readonly PlayerLaunchView.SamplePositionFunc _samplePositionFunc;
 
     private Vector2 _launchVelocity;
+    private bool _firstDrag = true;
 
     public PlayerPreLaunchFlowController(IControllerFactory controllerFactory,
       PlayerConfig config,
@@ -50,6 +51,12 @@ namespace Sling.Level.Player.Launch
 
     private void OnPreLaunchUpdate(Vector2 pointerWorldDelta)
     {
+      if (_firstDrag && pointerWorldDelta.sqrMagnitude > 0)
+      {
+        _firstDrag = false;
+        _model.OnPreLaunch?.Invoke();
+      }
+      
       Vector2 launchVector = -pointerWorldDelta * _config.PointerDeltaSensitivity;
       launchVector = Vector2.ClampMagnitude(launchVector, _config.MaxDragDistance);
 

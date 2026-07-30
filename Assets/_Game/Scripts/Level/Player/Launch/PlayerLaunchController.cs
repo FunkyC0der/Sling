@@ -50,8 +50,6 @@ namespace Sling.Level.Player.Launch
 
     private async UniTask LaunchFlowAsync()
     {
-      _model.OnPreLaunch?.Invoke();
-      
       Vector2 launchVelocity =
         await ExecuteAndWaitResultAsync<PlayerPreLaunchFlowController, Vector2>(CancellationToken);
 
