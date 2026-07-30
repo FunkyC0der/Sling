@@ -9,6 +9,7 @@ namespace Sling.Level.Session
     public bool PlayerIsFacingLeft;
     
     public readonly Observable<int> PlayerDeathCount = new();
+    public readonly Observable<int> PlayerLaunchCount = new();
     public float ElapsedTimeInSeconds;
     public bool IsNewBestScore;
   }

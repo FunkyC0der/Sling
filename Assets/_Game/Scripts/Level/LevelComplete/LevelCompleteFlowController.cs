@@ -58,6 +58,7 @@ namespace Sling.Level.LevelComplete
       
       _analyticsEvents.RecordEvent?.Invoke(new LevelCompletedEvent(_gameModel.LevelIndex,
         _levelModel.PlayerDeathCount.Value,
+        _levelModel.PlayerLaunchCount.Value,
         _levelModel.ElapsedTimeInSeconds));
 
       LevelBestResult bestResult = SaveBestResultIfNeeded();
@@ -83,7 +84,10 @@ namespace Sling.Level.LevelComplete
 
     private LevelBestResult SaveBestResultIfNeeded()
     {
-      var result = new LevelBestResult(_levelModel.PlayerDeathCount.Value, _levelModel.ElapsedTimeInSeconds);
+      var result = new LevelBestResult(
+        _levelModel.PlayerDeathCount.Value,
+        _levelModel.ElapsedTimeInSeconds,
+        _levelModel.PlayerLaunchCount.Value);
 
       if (_playerProgressService.TryGetBestResult(_gameModel.SceneToLoad, out LevelBestResult currentResult) &&
           !LevelBestResultComparer.IsBetter(result, currentResult))
@@ -108,6 +112,7 @@ namespace Sling.Level.LevelComplete
           _gameModel.SceneToLoad,
           bestResult.DeathCount,
           bestResult.TimeInSeconds,
+          bestResult.PlayerLaunchCount,
           cancellationToken);
       }
       catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)

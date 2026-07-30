@@ -41,6 +41,7 @@ namespace Sling.Infrastructure.Leaderboards
       string levelId,
       int deathCount,
       float timeInSeconds,
+      int playerLaunchCount,
       CancellationToken cancellationToken)
     {
       long packedScore = PackScore(deathCount, timeInSeconds);
@@ -49,7 +50,8 @@ namespace Sling.Infrastructure.Leaderboards
         Metadata = new LeaderboardScoreMetadata
         {
           DeathCount = deathCount,
-          TimeInSeconds = timeInSeconds
+          TimeInSeconds = timeInSeconds,
+          PlayerLaunchCount = playerLaunchCount
         }
       };
 
@@ -107,7 +109,8 @@ namespace Sling.Infrastructure.Leaderboards
             entry.PlayerName,
             entry.Rank,
             metadata.DeathCount,
-            metadata.TimeInSeconds);
+            metadata.TimeInSeconds,
+            metadata.PlayerLaunchCount);
       }
 
       return DecodePlayerScore(entry);
@@ -128,13 +131,15 @@ namespace Sling.Infrastructure.Leaderboards
         entry.PlayerName,
         entry.Rank,
         deathCount,
-        timeMilliseconds / 1000f);
+        timeMilliseconds / 1000f,
+        0);
     }
 
     private class LeaderboardScoreMetadata
     {
       public int DeathCount;
       public float TimeInSeconds;
+      public int PlayerLaunchCount;
     }
   }
 }

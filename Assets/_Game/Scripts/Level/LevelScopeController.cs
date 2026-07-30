@@ -44,6 +44,7 @@ namespace Sling.Level
       
       builder.Register<LevelTimeController>(Lifetime.Transient);
       builder.Register<PlayerDeathCountController>(Lifetime.Transient);
+      builder.Register<PlayerLaunchCountController>(Lifetime.Transient);
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 

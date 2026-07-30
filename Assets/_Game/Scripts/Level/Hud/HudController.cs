@@ -34,8 +34,12 @@ namespace Sling.Level.Hud
       _levelModel.PlayerDeathCount.OnValueChanged += OnPlayerDeathCountChanged;
       this.AddDisposableAction(() => _levelModel.PlayerDeathCount.OnValueChanged -= OnPlayerDeathCountChanged);
 
+      _levelModel.PlayerLaunchCount.OnValueChanged += OnPlayerLaunchCountChanged;
+      this.AddDisposableAction(() => _levelModel.PlayerLaunchCount.OnValueChanged -= OnPlayerLaunchCountChanged);
+
       _hudView.SetLevelIndex(_gameModel.LevelIndex);
       _hudView.SetPlayerDeathCount(_levelModel.PlayerDeathCount.Value);
+      _hudView.SetPlayerLaunchCount(_levelModel.PlayerLaunchCount.Value);
     }
 
     private void Update() => 
@@ -43,5 +47,8 @@ namespace Sling.Level.Hud
 
     private void OnPlayerDeathCountChanged(int oldValue, int newValue) => 
       _hudView.SetPlayerDeathCount(newValue);
+
+    private void OnPlayerLaunchCountChanged(int oldValue, int newValue) =>
+      _hudView.SetPlayerLaunchCount(newValue);
   }
 }

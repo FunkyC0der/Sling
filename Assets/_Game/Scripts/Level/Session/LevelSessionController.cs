@@ -20,6 +20,7 @@ namespace Sling.Level.Session
       Execute<LevelTimeController>();
       Execute<LevelTrackController>();
       Execute<PlayerDeathCountController>();
+      Execute<PlayerLaunchCountController>();
       
       await ExecuteAndWaitResultAsync<SavePlayerStartStatsFlowController>(cancellationToken);
       

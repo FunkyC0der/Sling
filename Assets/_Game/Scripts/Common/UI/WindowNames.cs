@@ -14,6 +14,7 @@ namespace Sling.Common.UI
     public const string LevelName = "LevelName";
     public const string kElapsedTime = "ElapsedTime";
     public const string kPlayerDeathCount = "PlayerDeathCount";
+    public const string kPlayerLaunchCount = "PlayerLaunchCount";
     public const string NewScoreLabel = "NewScoreLabel";
 
     public static class Classes

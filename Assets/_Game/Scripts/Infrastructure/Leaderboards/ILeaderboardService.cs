@@ -15,6 +15,7 @@ namespace Sling.Infrastructure.Leaderboards
       string levelId,
       int deathCount,
       float timeInSeconds,
+      int playerLaunchCount,
       CancellationToken cancellationToken);
 
     UniTask<int?> GetPlayerRankAsync(
