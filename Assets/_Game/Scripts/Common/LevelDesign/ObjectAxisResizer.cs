@@ -31,15 +31,19 @@ namespace Sling.Common.LevelDesign
       if (_renderer)
       {
         float rendererAxisSize = axisSize + _rendererSizeToAdd;
+        float currentRendererAxisSize = _isVertical ? _renderer.size.y : _renderer.size.x;
 
-        _renderer.size = _isVertical
-          ? new Vector2(_renderer.size.x, rendererAxisSize)
-          : new Vector2(rendererAxisSize, _renderer.size.y);
-
-        if (PrefabUtility.IsPartOfPrefabInstance(_renderer))
+        if (!Mathf.Approximately(currentRendererAxisSize, rendererAxisSize))
         {
-          PrefabUtility.RecordPrefabInstancePropertyModifications(_renderer);
-          EditorUtility.SetDirty(_renderer);
+          _renderer.size = _isVertical
+            ? new Vector2(_renderer.size.x, rendererAxisSize)
+            : new Vector2(rendererAxisSize, _renderer.size.y);
+
+          if (PrefabUtility.IsPartOfPrefabInstance(_renderer))
+          {
+            PrefabUtility.RecordPrefabInstancePropertyModifications(_renderer);
+            EditorUtility.SetDirty(_renderer);
+          }
         }
       }
 
@@ -48,14 +52,19 @@ namespace Sling.Common.LevelDesign
         if(!boxCollider)
           continue;
 
-        boxCollider.size = _isVertical
-          ? new Vector2(boxCollider.size.x, axisSize)
-          : new Vector2(axisSize, boxCollider.size.y);
+        float currentColliderAxisSize = _isVertical ? boxCollider.size.y : boxCollider.size.x;
 
-        if (PrefabUtility.IsPartOfPrefabInstance(boxCollider))
+        if (!Mathf.Approximately(currentColliderAxisSize, axisSize))
         {
-          PrefabUtility.RecordPrefabInstancePropertyModifications(boxCollider);
-          EditorUtility.SetDirty(boxCollider);
+          boxCollider.size = _isVertical
+            ? new Vector2(boxCollider.size.x, axisSize)
+            : new Vector2(axisSize, boxCollider.size.y);
+
+          if (PrefabUtility.IsPartOfPrefabInstance(boxCollider))
+          {
+            PrefabUtility.RecordPrefabInstancePropertyModifications(boxCollider);
+            EditorUtility.SetDirty(boxCollider);
+          }
         }
       }
     }
