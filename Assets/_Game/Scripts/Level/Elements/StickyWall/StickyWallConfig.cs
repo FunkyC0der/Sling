@@ -8,6 +8,9 @@ namespace Sling.Level.Elements.StickyWall
     [field: Min(0)]
     [field: SerializeField] public float MaxSpeed { get; private set; } = 1f;
 
+    [field: Min(0)]
+    [field: SerializeField] public float LaunchImmunityDuration { get; private set; } = 0.5f;
+
     public PhysicsMaterial2D PhysMaterialToApply;
   }
 }

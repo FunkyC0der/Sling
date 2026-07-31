@@ -18,6 +18,7 @@ namespace Sling.Level.Elements.StickyWall
     private readonly Dictionary<Rigidbody2D, HashSet<Collider2D>> _collidedRbs = new();
     private readonly Dictionary<ILaunchable, Action> _launchSubscriptions = new();
     private readonly Dictionary<Collider2D, PhysicsMaterial2D> _origPhysMaterials = new();
+    private readonly Dictionary<Rigidbody2D, LaunchImmunity> _launchImmunities = new();
 
     private void Awake()
     {
@@ -68,9 +69,7 @@ namespace Sling.Level.Elements.StickyWall
       if (launchable != null)
       {
         Action onLaunched = () =>
-        {
-          RemoveRigidbody(rb);
-        };
+          ResetLaunchImmunity(rb);
 
         _launchSubscriptions.Add(launchable, onLaunched);
         launchable.OnLaunched += onLaunched;
@@ -93,6 +92,8 @@ namespace Sling.Level.Elements.StickyWall
     {
       if (!_collidedRbs.Remove(rb))
         return;
+
+      _launchImmunities.Remove(rb);
       
       var launchable = rb.GetComponent<ILaunchable>();
       if (launchable == null)
@@ -107,8 +108,54 @@ namespace Sling.Level.Elements.StickyWall
 
     private void FixedUpdate()
     {
+      UpdateLaunchImmunity();
+      ApplySlowdown();
+    }
+
+    private void UpdateLaunchImmunity()
+    {
+      foreach (LaunchImmunity immunity in _launchImmunities.Values)
+        immunity.RemainingTime -= Time.fixedDeltaTime;
+
+      while (TryGetExpiredLaunchImmunity(out Rigidbody2D rb))
+        _launchImmunities.Remove(rb);
+    }
+
+    private void ResetLaunchImmunity(Rigidbody2D rb)
+    {
+      if (!_launchImmunities.TryGetValue(rb, out LaunchImmunity immunity))
+      {
+        immunity = new LaunchImmunity();
+        _launchImmunities.Add(rb, immunity);
+      }
+
+      immunity.RemainingTime = Config.LaunchImmunityDuration;
+    }
+
+    private bool TryGetExpiredLaunchImmunity(out Rigidbody2D rb)
+    {
+      foreach (KeyValuePair<Rigidbody2D, LaunchImmunity> entry in _launchImmunities)
+      {
+        if (entry.Value.RemainingTime >= 0f)
+          continue;
+
+        rb = entry.Key;
+        return true;
+      }
+
+      rb = null;
+      return false;
+    }
+
+    private void ApplySlowdown()
+    {
       foreach (Rigidbody2D rb in _collidedRbs.Keys)
+      {
+        if (_launchImmunities.ContainsKey(rb))
+          continue;
+
         rb.linearVelocityY = Mathf.Clamp(rb.linearVelocityY, -Config.MaxSpeed, Config.MaxSpeed);
+      }
     }
 
     private void OnDisable()
@@ -118,6 +165,12 @@ namespace Sling.Level.Elements.StickyWall
 
       _launchSubscriptions.Clear();
       _collidedRbs.Clear();
+      _launchImmunities.Clear();
+    }
+
+    private sealed class LaunchImmunity
+    {
+      public float RemainingTime { get; set; }
     }
   }
 }

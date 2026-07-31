@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: StickyWall
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.StickyWall.StickyWallConfig
   <MaxSpeed>k__BackingField: 0.5
+  <LaunchImmunityDuration>k__BackingField: 0.2
   PhysMaterialToApply: {fileID: 6200000, guid: c7aa97732e7c74d64be78c39dc8262f8, type: 2}
