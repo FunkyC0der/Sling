@@ -13,6 +13,13 @@
       "source": "local-tarball",
       "dependencies": {}
     },
+    "com.mackysoft.serializereference-extensions": {
+      "version": "1.6.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.playtika.controllers-tree": {
       "version": "https://github.com/PlaytikaOSS/controllers-tree.git?path=src/ControllersTree#v1.2.0",
       "depth": 0,
@@ -478,6 +485,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.xk.cms": {
+      "version": "https://github.com/koster/CMS.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c7024868ba3ca337e60a1824814a68a0143d3eec"
     },
     "jp.hadashikick.vcontainer": {
       "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.17.0",

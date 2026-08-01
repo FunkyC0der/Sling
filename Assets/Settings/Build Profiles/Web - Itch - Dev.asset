@@ -625,7 +625,7 @@ MonoBehaviour:
     - line: '|   scriptingBackend:'
     - line: '|     Android: 1'
     - line: '|   il2cppCompilerConfiguration:'
-    - line: '|     WebGL: 2'
+    - line: '|     WebGL: 1'
     - line: '|   il2cppCodeGeneration:'
     - line: '|     WebGL: 1'
     - line: '|   il2cppStacktraceInformation: {}'
