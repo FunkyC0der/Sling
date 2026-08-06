@@ -16,7 +16,7 @@ MonoBehaviour:
   CrumbleAnimDuration: 1
   RespawnAnimDelay: 2
   RespawnAnimDuration: 0.5
-  DisableColliderAnimTimePoint01: 0.459
+  DisableColliderAnimTimePoint01: 0.486
   FullVisibleFadeAmount: 0.4
   FullHideFadeAmount: 1
   OnlyTopSurface: 1
