@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4206917070080229055, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -34.02497
       objectReference: {fileID: 0}
     - target: {fileID: 4206917070080229055, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.73758364
       objectReference: {fileID: 0}
     - target: {fileID: 4206917070080229055, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: m_LocalPosition.z
@@ -130,6 +130,10 @@ PrefabInstance:
     - target: {fileID: -3387248923021656505, guid: 8a4f85554e1774b6b8f7290d8773bc3c, type: 3}
       propertyPath: m_Name
       value: CrumblePlatform_1x1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2388483890796260292, guid: 8a4f85554e1774b6b8f7290d8773bc3c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
