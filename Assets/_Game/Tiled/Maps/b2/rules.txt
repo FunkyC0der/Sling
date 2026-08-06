@@ -1,0 +1,4 @@
+Rules/00_reset.tmx
+Rules/01_terrain.tmx
+Rules/02_terrain_variations.tmx
+Rules/03_terrain_full_tile_variations.tmx
