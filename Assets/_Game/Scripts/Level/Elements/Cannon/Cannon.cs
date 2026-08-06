@@ -1,15 +1,19 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Sling.Level.Elements.Cannon
 {
   public class Cannon : MonoBehaviour
   {
+    [InlineEditor]
     [SerializeField] private CannonConfig _config;
-    [SerializeField, Required] private CannonProjectile _projectilePrefab;
+    
+    [NaughtyAttributes.Required]
+    [SerializeField] private CannonProjectile _projectilePrefab;
+    
     [SerializeField] private Transform _muzzle;
 
     private Vector2 Direction => _muzzle.right;
