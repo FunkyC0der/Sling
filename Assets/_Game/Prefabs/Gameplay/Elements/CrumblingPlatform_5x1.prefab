@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5783843872836946604}
+  - {fileID: 1952728579664948427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7641607956217958718
@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.CrumblingObject.CrumblingObject
   _config: {fileID: 11400000, guid: a89b9d15c389e497294b7a7a5c7e24dc, type: 2}
-  _renderer: {fileID: 3200599161129906903}
-  _collider: {fileID: 8390331310748868509}
-  _triggerZone: {fileID: 6969048651654912709}
+  _renderer: {fileID: 2246473940852760306}
+  _collider: {fileID: 434210760760716999}
+  _triggerZone: {fileID: 4737308678335192799}
 --- !u!1001 &4396855183552439249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,39 +109,39 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: -5844610988935496315, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7062214649578390827, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6969048651654912709}
+      addedObject: {fileID: 4737308678335192799}
   m_SourcePrefab: {fileID: -2695619058785784247, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
---- !u!1 &1434116363455946324 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -5844610988935496315, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+--- !u!60 &434210760760716999 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4252071072174771478, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
   m_PrefabInstance: {fileID: 4396855183552439249}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6969048651654912709
+--- !u!4 &1952728579664948427 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6476818162492584166, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+  m_PrefabInstance: {fileID: 4396855183552439249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!483693784 &2246473940852760306 stripped
+TilemapRenderer:
+  m_CorrespondingSourceObject: {fileID: 2461727764517567779, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+  m_PrefabInstance: {fileID: 4396855183552439249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6847374344831919866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7062214649578390827, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+  m_PrefabInstance: {fileID: 4396855183552439249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4737308678335192799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434116363455946324}
+  m_GameObject: {fileID: 6847374344831919866}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00be14926eff475b872637bc1574d398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Collission.TriggerZone
---- !u!483693784 &3200599161129906903 stripped
-TilemapRenderer:
-  m_CorrespondingSourceObject: {fileID: 1255954010665767174, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
-  m_PrefabInstance: {fileID: 4396855183552439249}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5783843872836946604 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1350918097787262595, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
-  m_PrefabInstance: {fileID: 4396855183552439249}
-  m_PrefabAsset: {fileID: 0}
---- !u!60 &8390331310748868509 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5293055169414331468, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
-  m_PrefabInstance: {fileID: 4396855183552439249}
-  m_PrefabAsset: {fileID: 0}
