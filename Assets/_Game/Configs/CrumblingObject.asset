@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b50f7219974710aad334717aee47b9, type: 3}
   m_Name: CrumblingObject
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.CrumblingObject.CrumblingObjectConfig
-  TimeToCrumble: 2
-  Cooldown: 2
-  CrumbleAnimDuration: 0.5
+  CrumbleAnimDelay: 1
+  CrumbleAnimDuration: 1
+  RespawnAnimDelay: 2
+  RespawnAnimDuration: 0.5
+  DisableColliderAnimTimePoint01: 0.459
   FullVisibleFadeAmount: 0.4
   FullHideFadeAmount: 1
   OnlyTopSurface: 1

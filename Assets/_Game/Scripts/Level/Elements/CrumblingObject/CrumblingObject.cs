@@ -64,22 +64,24 @@ namespace Sling.Level.Elements.CrumblingObject
 
       try
       {
-        await TweenFade(
-          _config.FullVisibleFadeAmount,
-          _config.FullHideFadeAmount,
-          _config.CrumbleAnimDuration,
-          _config.TimeToCrumble - _config.CrumbleAnimDuration,
-          ct);
+        if (_config != null)
+        {
+          await TweenFade(
+              _config.FullVisibleFadeAmount,
+              _config.FullHideFadeAmount,
+              _config.CrumbleAnimDuration,
+              _config.CrumbleAnimDelay)
+            .InsertCallback(atTime: _config.DisableColliderAnimTimePoint, () => _collider.enabled = false)
+            .WithCancellation(ct);
 
-        _collider.enabled = false;
+          await TweenFade(
+              _config.FullHideFadeAmount,
+              _config.FullVisibleFadeAmount,
+              _config.RespawnAnimDuration,
+              delay: _config.RespawnAnimDelay)
+            .WithCancellation(ct);
+        }
 
-        await TweenFade(
-          _config.FullHideFadeAmount,
-          _config.FullVisibleFadeAmount,
-          _config.CrumbleAnimDuration,
-          _config.Cooldown - _config.CrumbleAnimDuration,
-          ct);
-        
         _collider.enabled = true;
       }
       finally
@@ -88,22 +90,20 @@ namespace Sling.Level.Elements.CrumblingObject
       }
     }
 
-    private async UniTask TweenFade(
+    private  Sequence TweenFade(
       float startValue,
       float endValue,
       float duration,
-      float delay,
-      CancellationToken ct)
+      float delay)
     {
-      await Sequence.Create()
+      return Sequence.Create()
         .ChainDelay(delay)
         .Chain(Tween.Custom(
           this,
           startValue,
           endValue,
           duration,
-          (_, value) => SetFadeAmount(value)))
-        .WithCancellation(ct);
+          (_, value) => SetFadeAmount(value)));
     }
 
     private void SetFadeAmount(float value)
