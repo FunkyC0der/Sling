@@ -4,7 +4,7 @@
   <property name="IgnoreLock" type="bool" value="true"/>
   <property name="MatchOutsideMap" type="bool" value="true"/>
  </properties>
- <tileset firstgid="1" source="../../../Tilesets/b1.tsx"/>
+ <tileset firstgid="1" source="../../../Tilesets/b2.tsx"/>
  <tileset firstgid="64" source=":/automap-tiles.tsx"/>
  <tileset firstgid="69" source="../../../Tilesets/prototype.tsx"/>
  <layer id="1" name="input_terrain" width="40" height="23">
