@@ -50,6 +50,7 @@ namespace Sling.Level.Player
 
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
       builder.Register<PlayerPreLaunchFlowController>(Lifetime.Transient);
+      builder.Register<PlayerMaxPullCameraShakeController>(Lifetime.Transient);
       builder.Register<PlayerPauseController>(Lifetime.Transient);
 
       builder.Register<PlayerDeathController>(Lifetime.Transient);
