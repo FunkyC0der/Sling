@@ -15,9 +15,12 @@ MonoBehaviour:
   <PointerDeltaSensitivity>k__BackingField: 3
   <MaxDragDistance>k__BackingField: 24
   <LaunchForceMultiplier>k__BackingField: 4.5
-  <MaxPullCameraShakeThreshold>k__BackingField: 0.85
-  <MaxPullCameraShakeStrength>k__BackingField: 0.2
-  <MaxPullCameraShakeFrequency>k__BackingField: 15
+  <MaxPullCameraShakeThreshold>k__BackingField: 1
+  <MaxPullCameraShakeStrength>k__BackingField: 0
+  <MaxPullCameraShakeFrequency>k__BackingField: 0
+  <StrongLaunchCameraShakeThreshold>k__BackingField: 0.85
+  <StrongLaunchCameraShakeStrength>k__BackingField: 0.45
+  <StrongLaunchCameraShakeFrequency>k__BackingField: 12
   GroundSurfaceLayerMask:
     serializedVersion: 2
     m_Bits: 320

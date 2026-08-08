@@ -17,6 +17,17 @@ namespace Sling.Level.Player
     [field: SerializeField, Min(0f)] public float MaxPullCameraShakeStrength { get; private set; } = 0.2f;
     [field: SerializeField, Min(0f)] public float MaxPullCameraShakeFrequency { get; private set; } = 15f;
 
+    [Header("Strong launch camera shake")]
+    [Range(0f, 1f)]
+    public float StrongLaunchCameraShakeThreshold = 0.85f;
+
+    [Min(0)]
+    public float StrongLaunchCameraShakeStrength = 0.45f;
+
+    [Min(0)]
+    public float StrongLaunchCameraShakeFrequency = 12f;
+
+    [Space]
     public LayerMask GroundSurfaceLayerMask;
     
     [Min(0)] 

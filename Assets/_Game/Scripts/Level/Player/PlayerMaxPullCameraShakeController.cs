@@ -38,11 +38,42 @@ namespace Sling.Level.Player
     {
       _updateEvents.OnUpdate += OnUpdate;
       this.AddDisposableAction(() => _updateEvents.OnUpdate -= OnUpdate);
+
+      _model.OnLaunched += OnLaunched;
+      this.AddDisposableAction(() => _model.OnLaunched -= OnLaunched);
+
       this.AddDisposableAction(StopShake);
     }
 
     protected override void OnStop() =>
       StopShake();
+
+    private void OnLaunched()
+    {
+      StopShake();
+
+      float maxForce = _config.GetMaxLaunchForce();
+      if (maxForce <= 0f)
+        return;
+
+      float forceFraction = _model.PreLaunchForce / maxForce;
+      if (forceFraction < _config.StrongLaunchCameraShakeThreshold)
+        return;
+
+      PlayStrongLaunchShake();
+    }
+
+    private void PlayStrongLaunchShake()
+    {
+      Camera camera = Camera.main;
+      if (!camera)
+        return;
+
+      _ = Tween.ShakeCamera(
+        camera,
+        _config.StrongLaunchCameraShakeStrength,
+        frequency: _config.StrongLaunchCameraShakeFrequency);
+    }
 
     private void OnUpdate()
     {
@@ -150,5 +181,9 @@ namespace Sling.Level.Player
       if (!_forcePreview && GetDesiredStrength() <= 0f)
         StopShake();
     }
+
+    [DebugMethod("Play Strong Launch Camera Shake")]
+    private void PlayStrongLaunchCameraShakePreview() =>
+      PlayStrongLaunchShake();
   }
 }

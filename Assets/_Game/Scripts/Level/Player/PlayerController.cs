@@ -43,7 +43,7 @@ namespace Sling.Level.Player
         new IsInAirController.Context(_model.IsInAir, _config.GroundSurfaceLayerMask));
       
       Execute<PlayerLaunchController>();
-      Execute<PlayerMaxPullCameraShakeController>();
+      //Execute<PlayerMaxPullCameraShakeController>();
       Execute<PlayerPauseController>();
       Execute<PlayerDeathController>();
       
