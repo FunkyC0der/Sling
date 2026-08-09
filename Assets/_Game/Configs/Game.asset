@@ -302,6 +302,38 @@ MonoBehaviour:
       sceneIndex: 34
       sceneEnabled: 1
     Track: 1
+  - Preview: {fileID: 0}
+    Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 4101039fb17ed1243a9212ea2bec9143, type: 3}
+      SceneName: Level_World2_6
+      sceneIndex: 38
+      sceneEnabled: 1
+    Track: 1
+  - Preview: {fileID: 0}
+    Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: 5743d835287c0764fb1c7e5fba928344, type: 3}
+      SceneName: Level_World2_8
+      sceneIndex: 39
+      sceneEnabled: 1
+    Track: 1
+  - Preview: {fileID: 0}
+    Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: a6214fa16f1bf864ebd60e20c0c1e07b, type: 3}
+      SceneName: Level_World2_9
+      sceneIndex: 40
+      sceneEnabled: 1
+    Track: 1
+  - Preview: {fileID: 0}
+    Type: 0
+    Scene:
+      Scene: {fileID: 102900000, guid: ca6f8e1ee699f8d4fa25c2dd29dc70d8, type: 3}
+      SceneName: Level_World2_7
+      sceneIndex: 41
+      sceneEnabled: 1
+    Track: 1
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
   LevelCompleteWindowUxml: {fileID: 9197481963319205126, guid: 0066c9393c3414aacb820d7101ea4cd4, type: 3}

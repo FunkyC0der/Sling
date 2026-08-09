@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.CannonConfig
   FireInterval: 5
-  ProjectileSpeed: 20
+  ProjectileSpeed: 40
   ProjectileLifetime: 20
   CollisionIgnoreDuration: 0.1
   DestroyDelay: 0.2

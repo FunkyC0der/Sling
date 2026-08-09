@@ -119,6 +119,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Levels/Level_World2_5.unity
     guid: b9b93dc11b7e4eb459f7f97a0db3aeb9
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_World2_6.unity
+    guid: 4101039fb17ed1243a9212ea2bec9143
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_World2_8.unity
+    guid: 5743d835287c0764fb1c7e5fba928344
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_World2_9.unity
+    guid: a6214fa16f1bf864ebd60e20c0c1e07b
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/Level_World2_7.unity
+    guid: ca6f8e1ee699f8d4fa25c2dd29dc70d8
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
