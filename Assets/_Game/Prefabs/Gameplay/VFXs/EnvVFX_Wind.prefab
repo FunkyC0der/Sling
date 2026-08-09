@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.21176471}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.05882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4132,7 +4132,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.113983154
+          value: 0
           inSlope: 0.023074413
           outSlope: 0.023074413
           tangentMode: 0
@@ -4140,8 +4140,17 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 1
         - serializedVersion: 3
+          time: 0.46644217
+          value: 0.2066355
+          inSlope: -0.005806803
+          outSlope: -0.005806803
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.22830892
+          outWeight: 0.33333334
+        - serializedVersion: 3
           time: 1
-          value: 0.119170815
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -4837,7 +4846,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: f5206dcc94fa14ffcaddcae415d41680, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

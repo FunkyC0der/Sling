@@ -101,6 +101,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 089a9706b4e1d4071adbbf3cac1c7c16, type: 2}
+    - target: {fileID: 2461727764517567779, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 089a9706b4e1d4071adbbf3cac1c7c16, type: 2}
     - target: {fileID: 7152464610584417003, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
       propertyPath: m_Name
       value: CrumblePlatform_5x1
