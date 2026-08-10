@@ -278,7 +278,7 @@ MonoBehaviour:
       sceneIndex: 37
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: 069c7b5d8fe4b084ba32dc73e8d0dedb, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: 024fee5ce7cf79e4d979c67da53af526, type: 3}
@@ -286,7 +286,7 @@ MonoBehaviour:
       sceneIndex: 35
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: 9f340deaf1c645943bbb3cc26f5c6725, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: ceaf46dacdf98b9469c3b76ef8f540d5, type: 3}
@@ -294,7 +294,7 @@ MonoBehaviour:
       sceneIndex: 36
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: fb1b35d48bfe25a4cacb352b95c69e5a, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: c2acd789d1b737c478dadd19849c49f6, type: 3}
@@ -302,7 +302,7 @@ MonoBehaviour:
       sceneIndex: 34
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: d031c330eadd3474ca9fb788fa0c040c, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: 4101039fb17ed1243a9212ea2bec9143, type: 3}
@@ -310,7 +310,7 @@ MonoBehaviour:
       sceneIndex: 38
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: 88f5f59311ca4cb4ab0523882ab221c6, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: 5743d835287c0764fb1c7e5fba928344, type: 3}
@@ -318,7 +318,7 @@ MonoBehaviour:
       sceneIndex: 39
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: f2fcd873d33c3264480200e02a85571a, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: a6214fa16f1bf864ebd60e20c0c1e07b, type: 3}
@@ -326,7 +326,7 @@ MonoBehaviour:
       sceneIndex: 40
       sceneEnabled: 1
     Track: 1
-  - Preview: {fileID: 0}
+  - Preview: {fileID: 2800000, guid: 629317d69c99efc4a8a39e104704e94a, type: 3}
     Type: 0
     Scene:
       Scene: {fileID: 102900000, guid: ca6f8e1ee699f8d4fa25c2dd29dc70d8, type: 3}
