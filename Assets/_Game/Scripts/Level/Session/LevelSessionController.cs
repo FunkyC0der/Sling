@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Gameplay;
 using Sling.Level.LevelComplete;
-using Sling.Level.Player;
 
 namespace Sling.Level.Session
 {
