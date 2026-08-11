@@ -380,15 +380,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1144108022511119428, guid: 204605ac79ed0468789908912af017fe, type: 3}
       propertyPath: m_LocalScale.x
-      value: 11.034135
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 1144108022511119428, guid: 204605ac79ed0468789908912af017fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 7.44421
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 1144108022511119428, guid: 204605ac79ed0468789908912af017fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12.26015
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 2066146913702911658, guid: 204605ac79ed0468789908912af017fe, type: 3}
       propertyPath: _triggerZoneSize.x
@@ -7202,6 +7202,10 @@ PrefabInstance:
     - target: {fileID: 7698834819318818333, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855321156565275568, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8990528018166405162, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_Size.x
