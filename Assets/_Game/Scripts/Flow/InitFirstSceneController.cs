@@ -1,5 +1,6 @@
 using Playtika.Controllers;
 using Sling;
+using Sling.Common.Extensions;
 using UnityEditor;
 
 namespace Sling.Flow
@@ -33,9 +34,11 @@ namespace Sling.Flow
         {
           _gameModel.GameState = GameState.PlayLevels;
 
-          int levelIndex = _gameConfig.Levels.FindIndex(level => level.Scene.SceneName == editorScene);
-          if (levelIndex > -1)
+          if (_gameConfig.TryFindLevel(editorScene, out int worldIndex, out int levelIndex))
+          {
+            _gameModel.WorldIndex = worldIndex;
             _gameModel.LevelIndex = levelIndex;
+          }
         }
       }
 #endif

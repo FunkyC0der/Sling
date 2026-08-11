@@ -1,5 +1,6 @@
 using Playtika.Controllers;
 using Sling.Audio;
+using Sling.Common.Extensions;
 using Sling.Levels;
 
 namespace Sling.Level.Session
@@ -23,7 +24,7 @@ namespace Sling.Level.Session
 
     protected override void OnStart()
     {
-      LevelConfig levelConfig = _gameConfig.Levels[_gameModel.LevelIndex];
+      LevelConfig levelConfig = _gameConfig.GetLevel(_gameModel.WorldIndex, _gameModel.LevelIndex);
       _audioEvents.PlayMusic?.Invoke(levelConfig.Track);
     }
   }

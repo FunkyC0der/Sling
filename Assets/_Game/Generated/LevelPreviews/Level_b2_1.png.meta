@@ -4,7 +4,7 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -1982854740194764306
-    second: Level_World2_1_0
+    second: Level_b2_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Level_World2_1_0
+      name: Level_b2_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Level_World2_1_0: -1982854740194764306
+      Level_b2_1_0: -1982854740194764306
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

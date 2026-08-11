@@ -24,25 +24,32 @@ namespace Sling.Editor
       {
         string configPath = AssetDatabase.GUIDToAssetPath(gameConfigGuids[configIndex]);
         GameConfig gameConfig = AssetDatabase.LoadAssetAtPath<GameConfig>(configPath);
-        if (gameConfig == null || gameConfig.Levels == null)
+        if (gameConfig == null || gameConfig.Worlds == null)
           continue;
 
-        for (int levelIndex = 0; levelIndex < gameConfig.Levels.Count; levelIndex++)
+        for (int worldIndex = 0; worldIndex < gameConfig.Worlds.Count; worldIndex++)
         {
-          LevelConfig levelConfig = gameConfig.Levels[levelIndex];
-          if (levelConfig == null || levelConfig.Scene == null || levelConfig.Scene.Scene == null)
+          List<LevelConfig> levels = gameConfig.Worlds[worldIndex].Levels;
+          if (levels == null)
             continue;
 
-          string sceneName = levelConfig.Scene.Scene.name;
-          if (!processedSceneNames.Add(sceneName))
-            continue;
+          for (int levelIndex = 0; levelIndex < levels.Count; levelIndex++)
+          {
+            LevelConfig levelConfig = levels[levelIndex];
+            if (levelConfig == null || levelConfig.Scene == null || levelConfig.Scene.Scene == null)
+              continue;
 
-          string leaderboardConfigPath = $"{_kLeaderboardConfigsFolderPath}/{sceneName}.lb";
-          if (File.Exists(leaderboardConfigPath))
-            continue;
+            string sceneName = levelConfig.Scene.Scene.name;
+            if (!processedSceneNames.Add(sceneName))
+              continue;
 
-          File.WriteAllText(leaderboardConfigPath, CreateConfigJson(sceneName));
-          createdCount++;
+            string leaderboardConfigPath = $"{_kLeaderboardConfigsFolderPath}/{sceneName}.lb";
+            if (File.Exists(leaderboardConfigPath))
+              continue;
+
+            File.WriteAllText(leaderboardConfigPath, CreateConfigJson(sceneName));
+            createdCount++;
+          }
         }
       }
 

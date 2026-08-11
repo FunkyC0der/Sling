@@ -9,6 +9,7 @@ namespace Sling.Infrastructure.Analytics
 
     public static class Parameters
     {
+      public const string kWorldNumber = "worldNumber";
       public const string kLevelNumber = "levelNumber";
       public const string kPlayerDeathCount = "playerDeathCount";
       public const string kPlayerLaunchCount = "playerLaunchCount";

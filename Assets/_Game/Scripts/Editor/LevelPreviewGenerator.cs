@@ -81,19 +81,23 @@ namespace Sling.Editor
         if (gameConfig == null)
           continue;
 
-        for (int levelIndex = 0; levelIndex < gameConfig.Levels.Count; levelIndex++)
+        for (int worldIndex = 0; worldIndex < gameConfig.Worlds.Count; worldIndex++)
         {
-          LevelConfig levelConfig = gameConfig.Levels[levelIndex];
-          if (levelConfig.Scene == null || levelConfig.Scene.Scene == null)
-            continue;
+          List<LevelConfig> levels = gameConfig.Worlds[worldIndex].Levels;
+          for (int levelIndex = 0; levelIndex < levels.Count; levelIndex++)
+          {
+            LevelConfig levelConfig = levels[levelIndex];
+            if (levelConfig.Scene == null || levelConfig.Scene.Scene == null)
+              continue;
 
-          string levelScenePath = AssetDatabase.GetAssetPath(levelConfig.Scene.Scene);
-          if (levelScenePath != scene.path)
-            continue;
+            string levelScenePath = AssetDatabase.GetAssetPath(levelConfig.Scene.Scene);
+            if (levelScenePath != scene.path)
+              continue;
 
-          levelConfig.Preview = preview;
-          EditorUtility.SetDirty(gameConfig);
-          changed = true;
+            levelConfig.Preview = preview;
+            EditorUtility.SetDirty(gameConfig);
+            changed = true;
+          }
         }
       }
 
@@ -124,15 +128,19 @@ namespace Sling.Editor
       for (int configIndex = 0; configIndex < gameConfigs.Count; configIndex++)
       {
         GameConfig gameConfig = gameConfigs[configIndex];
-        for (int levelIndex = 0; levelIndex < gameConfig.Levels.Count; levelIndex++)
+        for (int worldIndex = 0; worldIndex < gameConfig.Worlds.Count; worldIndex++)
         {
-          LevelConfig levelConfig = gameConfig.Levels[levelIndex];
-          if (levelConfig.Scene == null || levelConfig.Scene.Scene == null)
-            continue;
+          List<LevelConfig> levels = gameConfig.Worlds[worldIndex].Levels;
+          for (int levelIndex = 0; levelIndex < levels.Count; levelIndex++)
+          {
+            LevelConfig levelConfig = levels[levelIndex];
+            if (levelConfig.Scene == null || levelConfig.Scene.Scene == null)
+              continue;
 
-          string scenePath = AssetDatabase.GetAssetPath(levelConfig.Scene.Scene);
-          if (!string.IsNullOrEmpty(scenePath) && addedScenePaths.Add(scenePath))
-            scenePaths.Add(scenePath);
+            string scenePath = AssetDatabase.GetAssetPath(levelConfig.Scene.Scene);
+            if (!string.IsNullOrEmpty(scenePath) && addedScenePaths.Add(scenePath))
+              scenePaths.Add(scenePath);
+          }
         }
       }
 

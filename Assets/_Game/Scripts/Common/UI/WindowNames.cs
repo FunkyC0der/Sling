@@ -10,6 +10,9 @@ namespace Sling.Common.UI
     public const string MenuButton      = "MenuButton";
     public const string PauseButton     = "PauseButton";
     public const string LevelItemsContainer = "LevelItemsContainer";
+    public const string PrevWorldButton = "PrevWorldButton";
+    public const string NextWorldButton = "NextWorldButton";
+    public const string WorldName = "WorldName";
     public const string SelectedRect = "SelectedRect";
     public const string LevelName = "LevelName";
     public const string kElapsedTime = "ElapsedTime";

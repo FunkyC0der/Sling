@@ -56,7 +56,7 @@ namespace Sling.Level.LevelComplete
     {
       _audioEvents.PlaySFX?.Invoke(AudioClipId.LevelComplete);
       
-      _analyticsEvents.RecordEvent?.Invoke(new LevelCompletedEvent(_gameModel.LevelIndex,
+      _analyticsEvents.RecordEvent?.Invoke(new LevelCompletedEvent(_gameModel.WorldIndex, _gameModel.LevelIndex,
         _levelModel.PlayerDeathCount.Value,
         _levelModel.PlayerLaunchCount.Value,
         _levelModel.ElapsedTimeInSeconds));

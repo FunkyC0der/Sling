@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling;
 using Sling.Audio;
+using Sling.Common.Extensions;
+using Sling.Levels;
 using Sling.MainMenu.SelectLevel;
 
 namespace Sling.Flow
@@ -32,11 +34,12 @@ namespace Sling.Flow
 
       _audioEvents.PlayMusic?.Invoke(AudioClipId.MainMenuTrack);
       
-      int levelIndex = await ExecuteAndWaitResultAsync<SelectLevelWindowController, int>(ct);
+      LevelAddress levelAddress = await ExecuteAndWaitResultAsync<SelectLevelWindowController, LevelAddress>(ct);
 
       _gameModel.GameState = GameState.PlayLevels;
-      _gameModel.LevelIndex = levelIndex;
-      _gameModel.SceneToLoad = _gameConfig.Levels[levelIndex].Scene.SceneName;
+      _gameModel.WorldIndex = levelAddress.WorldIndex;
+      _gameModel.LevelIndex = levelAddress.LevelIndex;
+      _gameModel.SceneToLoad = _gameConfig.GetLevel(levelAddress.WorldIndex, levelAddress.LevelIndex).Scene.SceneName;
 
       Complete();
     }

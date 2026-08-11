@@ -2,10 +2,10 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling;
+using Sling.Common.Extensions;
 using Sling.Level;
 using Sling.Level.Session;
 using Sling.LevelLoading;
-using UnityEngine;
 
 namespace Sling.Flow
 {
@@ -36,10 +36,13 @@ namespace Sling.Flow
           break;
         }
 
-        if (sessionResult == LevelSessionResult.Next)
+        if (sessionResult == LevelSessionResult.Next &&
+            _gameConfig.TryGetNextLevel(_gameModel.WorldIndex, _gameModel.LevelIndex,
+              out int nextWorldIndex, out int nextLevelIndex))
         {
-          _gameModel.LevelIndex = Mathf.Min(_gameModel.LevelIndex + 1, _gameConfig.Levels.Count - 1);
-          _gameModel.SceneToLoad = _gameConfig.Levels[_gameModel.LevelIndex].Scene.SceneName;
+          _gameModel.WorldIndex = nextWorldIndex;
+          _gameModel.LevelIndex = nextLevelIndex;
+          _gameModel.SceneToLoad = _gameConfig.GetLevel(nextWorldIndex, nextLevelIndex).Scene.SceneName;
         }
       } while (true);
 

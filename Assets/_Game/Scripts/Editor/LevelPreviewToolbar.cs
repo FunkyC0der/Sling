@@ -21,7 +21,7 @@ namespace Sling.Editor
     public LevelPreviewToolbarButton()
     {
       text = "Level Previews";
-      tooltip = "Regenerate previews for every scene listed in GameConfig.Levels.";
+      tooltip = "Regenerate previews for every scene listed in GameConfig.Worlds.";
       icon = EditorGUIUtility.IconContent("Camera Icon").image as Texture2D;
       clicked += LevelPreviewGenerator.RegenerateAllLevelPreviews;
     }

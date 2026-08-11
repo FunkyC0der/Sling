@@ -15,7 +15,7 @@ namespace Sling
     public FixedViewportConfig FixedViewport = new();
     
     public SceneReference MainMenuScene;
-    public List<LevelConfig> Levels = new();
+    public List<WorldConfig> Worlds = new();
 
     public VisualTreeAsset SelectLevelWindowUxml;
     public VisualTreeAsset SelectLevelLevelItemUxml;

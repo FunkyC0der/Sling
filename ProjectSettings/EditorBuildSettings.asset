@@ -105,31 +105,31 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/Levels/b1/Level_Boss1.unity
     guid: 82b9d28d9323a864e93df2cd1d3efd4d
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_1.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_1.unity
     guid: 05acf3c876758f84b8cf3c7d3a8a2495
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_2.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_2.unity
     guid: c2acd789d1b737c478dadd19849c49f6
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_3.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_3.unity
     guid: 024fee5ce7cf79e4d979c67da53af526
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_4.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_4.unity
     guid: ceaf46dacdf98b9469c3b76ef8f540d5
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_5.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_5.unity
     guid: b9b93dc11b7e4eb459f7f97a0db3aeb9
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_6.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_6.unity
     guid: 4101039fb17ed1243a9212ea2bec9143
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_8.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_8.unity
     guid: 5743d835287c0764fb1c7e5fba928344
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_9.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_9.unity
     guid: a6214fa16f1bf864ebd60e20c0c1e07b
   - enabled: 1
-    path: Assets/_Game/Scenes/Levels/b2/Level_World2_7.unity
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_7.unity
     guid: ca6f8e1ee699f8d4fa25c2dd29dc70d8
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}

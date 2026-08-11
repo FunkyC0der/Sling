@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
@@ -10,30 +12,38 @@ using UnityEngine.UIElements;
 
 namespace Sling.MainMenu.SelectLevel
 {
-  public class SelectLevelWindowController : ControllerWithResultBase<int>
+  public class SelectLevelWindowController : ControllerWithResultBase<LevelAddress>
   {
+    // Extension point: subscribe here to drive a camera transition between world anchors in the MainMenu scene.
+    public event Action<int> OnWorldChanged;
+
     private VisualElement _window;
+    private VisualElement _levelItemsContainer;
+    private int _selectedWorldIndex;
     private int _selectedLevelIndex;
     private VisualElement _selectedRect;
 
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
+    private readonly GameModel _gameModel;
 
     public SelectLevelWindowController(
       IControllerFactory controllerFactory,
       PopUpWindowsRootView popUpWindowsRootView,
-      GameConfig gameConfig)
+      GameConfig gameConfig,
+      GameModel gameModel)
       : base(controllerFactory)
     {
       _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
+      _gameModel = gameModel;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
       _window = _popUpWindowsRootView.CreateWindow(_gameConfig.SelectLevelWindowUxml, hasBackground: false);
 
-      int result;
+      LevelAddress result;
       try
       {
         InitWindow();
@@ -51,17 +61,41 @@ namespace Sling.MainMenu.SelectLevel
 
     private void InitWindow()
     {
-      VisualElement levelItemsContainer = _window.Q(WindowNames.LevelItemsContainer);
-      levelItemsContainer.Clear();
+      _levelItemsContainer = _window.Q(WindowNames.LevelItemsContainer);
 
-      for (int i = 0; i < _gameConfig.Levels.Count; i++)
+      _window.Q<Button>(WindowNames.PrevWorldButton).clicked += () => SelectWorld(_selectedWorldIndex - 1);
+      _window.Q<Button>(WindowNames.NextWorldButton).clicked += () => SelectWorld(_selectedWorldIndex + 1);
+
+      SelectWorld(_gameModel.WorldIndex);
+    }
+
+    private void SelectWorld(int worldIndex)
+    {
+      worldIndex = Mathf.Clamp(worldIndex, 0, _gameConfig.Worlds.Count - 1);
+      _selectedWorldIndex = worldIndex;
+
+      _window.Q<Label>(WindowNames.WorldName).text = _gameConfig.Worlds[worldIndex].Name;
+      _window.Q<Button>(WindowNames.PrevWorldButton).SetEnabled(worldIndex > 0);
+      _window.Q<Button>(WindowNames.NextWorldButton).SetEnabled(worldIndex < _gameConfig.Worlds.Count - 1);
+
+      BuildLevelItems(worldIndex);
+      OnWorldChanged?.Invoke(worldIndex);
+    }
+
+    private void BuildLevelItems(int worldIndex)
+    {
+      _levelItemsContainer.Clear();
+      _selectedRect = null;
+
+      List<LevelConfig> levels = _gameConfig.Worlds[worldIndex].Levels;
+      for (int i = 0; i < levels.Count; i++)
       {
-        _gameConfig.SelectLevelLevelItemUxml.CloneTree(levelItemsContainer.contentContainer);
-        VisualElement levelItem = levelItemsContainer.ElementAt(i);
+        _gameConfig.SelectLevelLevelItemUxml.CloneTree(_levelItemsContainer.contentContainer);
+        VisualElement levelItem = _levelItemsContainer.ElementAt(i);
 
         levelItem.dataSource = new LevelItemViewData() {Name = $"{i + 1}"};
 
-        LevelType levelType = _gameConfig.Levels[i].Type;
+        LevelType levelType = levels[i].Type;
         if(levelType == LevelType.Boss)
           levelItem.AddToClassList(WindowNames.Classes.BossLevelItem);
         else if(levelType == LevelType.SuperBoss)
@@ -75,12 +109,12 @@ namespace Sling.MainMenu.SelectLevel
       }
     }
 
-    private UniTask<int> WaitForResult(CancellationToken ct)
+    private UniTask<LevelAddress> WaitForResult(CancellationToken ct)
     {
-      var completionSource = new UniTaskCompletionSource<int>();
+      var completionSource = new UniTaskCompletionSource<LevelAddress>();
       
       _window.Q<Button>(WindowNames.PlayButton).clicked += () =>
-        completionSource.TrySetResult(_selectedLevelIndex);
+        completionSource.TrySetResult(new LevelAddress(_selectedWorldIndex, _selectedLevelIndex));
 
       return completionSource.Task.AttachExternalCancellation(ct);
     }
