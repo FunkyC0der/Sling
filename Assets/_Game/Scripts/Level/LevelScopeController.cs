@@ -8,6 +8,7 @@ using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hud;
 using Sling.Level.LevelComplete;
+using Sling.Level.Elements.MovingLevelPart;
 using Sling.Level.Player;
 using Sling.Level.Session;
 using UnityEngine.SceneManagement;
@@ -45,6 +46,7 @@ namespace Sling.Level
       builder.Register<LevelTimeController>(Lifetime.Transient);
       builder.Register<PlayerDeathCountController>(Lifetime.Transient);
       builder.Register<PlayerLaunchCountController>(Lifetime.Transient);
+      builder.Register<MovingLevelPartsController>(Lifetime.Transient);
 
       builder.Register<GameplayLoopController>(Lifetime.Transient);
 

@@ -49,6 +49,7 @@ namespace Sling.Level.Player
       _damageableView.OnDamaged -= OnDamaged;
 
       _model.IsDead.Value = true;
+      _levelEvents.OnPlayerDeathStarted?.Invoke();
       
       _playerView.FreezePhysics();
       _inputView.DisableInput();
