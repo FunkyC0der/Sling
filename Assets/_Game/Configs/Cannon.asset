@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4786b9cf9d5346d4bafd0c897c864f4, type: 3}
   m_Name: Cannon
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.CannonConfig
-  FireInterval: 5
+  FireInterval: 4
   ProjectileSpeed: 40
   ProjectileLifetime: 20
   CollisionIgnoreDuration: 0.1
