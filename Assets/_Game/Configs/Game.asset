@@ -378,6 +378,54 @@ MonoBehaviour:
         sceneIndex: 46
         sceneEnabled: 1
       Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 178132b41e0800d4d8e50df5ce61d3eb, type: 3}
+        SceneName: Level_b2_15
+        sceneIndex: 47
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 9b3248b69597124458b7866865f0e614, type: 3}
+        SceneName: Level_b2_16
+        sceneIndex: 48
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 5cb8fd73fd56dad42a39e397da0bdbaf, type: 3}
+        SceneName: Level_b2_17
+        sceneIndex: 49
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: edceb040a6b88f54d863bd237335d277, type: 3}
+        SceneName: Level_b2_18
+        sceneIndex: 50
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: f280a7cf1e358d14ea6cb8df1f1ab013, type: 3}
+        SceneName: Level_b2_19
+        sceneIndex: 51
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 97aa49a43dd46d148a9d2af63b9eb489, type: 3}
+        SceneName: Level_b2_20
+        sceneIndex: 52
+        sceneEnabled: 1
+      Track: 1
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
   LevelCompleteWindowUxml: {fileID: 9197481963319205126, guid: 0066c9393c3414aacb820d7101ea4cd4, type: 3}
