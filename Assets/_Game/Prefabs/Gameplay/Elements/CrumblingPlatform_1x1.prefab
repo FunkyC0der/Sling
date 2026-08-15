@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1792006929990725917, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792006929990725917, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792006929990725917, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4206917070080229055, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.02497

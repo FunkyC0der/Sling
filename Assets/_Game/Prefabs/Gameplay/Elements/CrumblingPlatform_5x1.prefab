@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1952728579664948427}
+  - {fileID: 6784265206262936772}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7641607956217958718
@@ -49,6 +50,7 @@ MonoBehaviour:
   _renderer: {fileID: 2246473940852760306}
   _collider: {fileID: 434210760760716999}
   _triggerZone: {fileID: 4737308678335192799}
+  _crumbleVFX: {fileID: 1792006929990725917}
 --- !u!1001 &4396855183552439249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,6 +59,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4206917070080229055}
     m_Modifications:
+    - target: {fileID: -6476818162492584166, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: -1350918097787262595, guid: f38b464efa3db46cc9010d981f90198d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -149,3 +155,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00be14926eff475b872637bc1574d398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Collission.TriggerZone
+--- !u!1001 &4622471679800495262
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4206917070080229055}
+    m_Modifications:
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862199667173684703, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+      propertyPath: m_Name
+      value: VFX_CrumblingSandFall
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+--- !u!198 &1792006929990725917 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6410923884940197251, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+  m_PrefabInstance: {fileID: 4622471679800495262}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6784265206262936772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2161970550335338586, guid: 2bcd4c954af6d44caae892e88092899b, type: 3}
+  m_PrefabInstance: {fileID: 4622471679800495262}
+  m_PrefabAsset: {fileID: 0}

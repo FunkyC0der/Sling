@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
@@ -16,7 +17,9 @@ namespace Sling.Level.Elements.CrumblingObject
     [SerializeField, Required] private Renderer _renderer;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private TriggerZone _triggerZone;
+    [SerializeField, Required] private ParticleSystem _crumbleVFX;
 
+    private readonly List<Collider2D> _overlapResults = new();
     private MaterialPropertyBlock _propertyBlock;
     private bool _isCrumbling;
 
@@ -28,8 +31,10 @@ namespace Sling.Level.Elements.CrumblingObject
       _triggerZone.OnCollideEnter += OnCollideEnter;
     }
 
-    private void OnDestroy() =>
+    private void OnDestroy()
+    {
       _triggerZone.OnCollideEnter -= OnCollideEnter;
+    }
 
     private void OnCollideEnter(Collision2D collision)
     {
@@ -71,7 +76,8 @@ namespace Sling.Level.Elements.CrumblingObject
               _config.FullHideFadeAmount,
               _config.CrumbleAnimDuration,
               _config.CrumbleAnimDelay)
-            .InsertCallback(atTime: _config.DisableColliderAnimTimePoint, () => _collider.enabled = false)
+            .InsertCallback(atTime: 0, PlayCrumbleVFX)
+            .InsertCallback(atTime: _config.DisableColliderAnimTimePoint, DisableColliderAndStopVFX)
             .WithCancellation(ct);
 
           await TweenFade(
@@ -82,12 +88,60 @@ namespace Sling.Level.Elements.CrumblingObject
             .WithCancellation(ct);
         }
 
+        if (!_collider.enabled)
+        {
+          ContactFilter2D contactFilter = new();
+          contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(_collider.gameObject.layer));
+          contactFilter.useTriggers = false;
+
+          await UniTask.WaitUntil(
+            () => !HasBlockingOverlap(contactFilter),
+            PlayerLoopTiming.FixedUpdate,
+            ct);
+        }
+
         _collider.enabled = true;
       }
       finally
       {
         _isCrumbling = false;
       }
+    }
+
+    private void PlayCrumbleVFX()
+    {
+      if (_crumbleVFX == null)
+        return;
+
+      _crumbleVFX.Play(true);
+    }
+
+    private void DisableColliderAndStopVFX()
+    {
+      _collider.enabled = false;
+
+      if (_crumbleVFX == null)
+        return;
+
+      _crumbleVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    private bool HasBlockingOverlap(ContactFilter2D contactFilter)
+    {
+      Physics2D.OverlapCollider(_collider, contactFilter, _overlapResults);
+
+      foreach (Collider2D other in _overlapResults)
+      {
+        if (other == null || other == _collider)
+          continue;
+
+        if (other.transform == transform || other.transform.IsChildOf(transform))
+          continue;
+
+        return true;
+      }
+
+      return false;
     }
 
     private  Sequence TweenFade(
