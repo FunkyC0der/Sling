@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Level.Gameplay;
 using Sling.Level.Elements.MovingLevelPart;
+using Sling.Level.Elements.Switchers;
 using Sling.Level.LevelComplete;
 
 namespace Sling.Level.Session
@@ -22,6 +23,7 @@ namespace Sling.Level.Session
       Execute<PlayerDeathCountController>();
       Execute<PlayerLaunchCountController>();
       Execute<MovingLevelPartsController>();
+      Execute<SwitchersController>();
       
       await ExecuteAndWaitResultAsync<SavePlayerStartStatsFlowController>(cancellationToken);
       

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sling.Common.Collission;
+using Sling.Common.Views;
 using UnityEngine;
 
 namespace Sling.Level.Elements.Switchers
 {
-  public class Switcher : MonoBehaviour
+  public class Switcher : MonoBehaviour, IViewListItem
   {
     [SerializeField] private TriggerZone _interactZone;
     [SerializeField] private List<SwitcherStateChangeStrategy> _stateChangeStrategies = new();
@@ -13,36 +14,18 @@ namespace Sling.Level.Elements.Switchers
     [SerializeField] private bool _endlessSwitch;
 
     private Coroutine _setStateCoroutine;
-    private bool _isOn;
-    private bool _isFirstSwitch = true;
 
-    private void Awake()
-    {
-      _interactZone.OnEnter += OnEnter;
-
-      _isOn = _isOnByDefault;
-      SetState(_isOn, immediate: true);
-    }
+    public TriggerZone InteractZone => _interactZone;
+    public bool IsOnByDefault => _isOnByDefault;
+    public bool EndlessSwitch => _endlessSwitch;
 
     private void OnDestroy()
     {
-      _interactZone.OnEnter -= OnEnter;
-
       if (_setStateCoroutine != null)
         StopCoroutine(_setStateCoroutine);
     }
 
-    private void OnEnter(Collider2D collider)
-    {
-      if (!_endlessSwitch && !_isFirstSwitch)
-        return;
-
-      _isFirstSwitch = false;
-      _isOn = !_isOn;
-      SetState(_isOn, immediate: false);
-    }
-
-    private void SetState(bool isOn, bool immediate)
+    public void SetState(bool isOn, bool immediate)
     {
       if (_setStateCoroutine != null)
         StopCoroutine(_setStateCoroutine);
