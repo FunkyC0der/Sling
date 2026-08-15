@@ -12,6 +12,7 @@ namespace Sling.Common.LevelDesign.ObjectSize
   {
     [SerializeField] private Transform _target;
     [SerializeField] private Vector2 _originalSize = Vector2.one;
+    [SerializeField] private Vector2 _resizePivot;
 
     public override void Apply(Vector2 size)
     {
@@ -24,11 +25,28 @@ namespace Sling.Common.LevelDesign.ObjectSize
       float scaleX = size.x / _originalSize.x;
       float scaleY = size.y / _originalSize.y;
       Vector3 currentScale = _target.localScale;
+      Vector2 resizePivot = new Vector2(
+        Mathf.Clamp(_resizePivot.x, -1f, 1f),
+        Mathf.Clamp(_resizePivot.y, -1f, 1f));
+      Vector2 pivotOffset = -Vector2.Scale(resizePivot, size) * 0.5f;
+      Vector3 currentPosition = _target.localPosition;
+      bool hasChanges = false;
 
-      if (Mathf.Approximately(currentScale.x, scaleX) && Mathf.Approximately(currentScale.y, scaleY))
+      if (!Mathf.Approximately(currentScale.x, scaleX) || !Mathf.Approximately(currentScale.y, scaleY))
+      {
+        _target.localScale = new Vector3(scaleX, scaleY, currentScale.z);
+        hasChanges = true;
+      }
+
+      if (!Mathf.Approximately(currentPosition.x, pivotOffset.x) ||
+          !Mathf.Approximately(currentPosition.y, pivotOffset.y))
+      {
+        _target.localPosition = new Vector3(pivotOffset.x, pivotOffset.y, currentPosition.z);
+        hasChanges = true;
+      }
+
+      if (!hasChanges)
         return;
-
-      _target.localScale = new Vector3(scaleX, scaleY, currentScale.z);
 
 #if UNITY_EDITOR
       if (PrefabUtility.IsPartOfPrefabInstance(_target))
