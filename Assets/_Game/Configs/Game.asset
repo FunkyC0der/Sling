@@ -378,7 +378,7 @@ MonoBehaviour:
         sceneIndex: 46
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 61db3517995bbdd438b40f7ae2adb587, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 178132b41e0800d4d8e50df5ce61d3eb, type: 3}
@@ -386,7 +386,7 @@ MonoBehaviour:
         sceneIndex: 47
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 263dc56d33bb0fa4792c1a9f72fc2fae, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 9b3248b69597124458b7866865f0e614, type: 3}
@@ -394,7 +394,7 @@ MonoBehaviour:
         sceneIndex: 48
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 239ecea07d29bee48a3e288efa9348c6, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 5cb8fd73fd56dad42a39e397da0bdbaf, type: 3}
@@ -402,7 +402,7 @@ MonoBehaviour:
         sceneIndex: 49
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: b706d5ed02d8cde4b88d82e04823a0ea, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: edceb040a6b88f54d863bd237335d277, type: 3}
@@ -410,7 +410,7 @@ MonoBehaviour:
         sceneIndex: 50
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 675b8b14b21e3d842be0f43aeb998dfa, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: f280a7cf1e358d14ea6cb8df1f1ab013, type: 3}
@@ -418,7 +418,7 @@ MonoBehaviour:
         sceneIndex: 51
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 239266d0ac31bcc4bbcbcf741c7ecf9e, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 97aa49a43dd46d148a9d2af63b9eb489, type: 3}
