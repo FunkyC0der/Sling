@@ -164,6 +164,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Levels/b2/Level_b2_20.unity
     guid: 97aa49a43dd46d148a9d2af63b9eb489
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_21.unity
+    guid: 884eef93b8cd6db40af563d4df463ea2
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_22.unity
+    guid: 1145c30542eabd040ac94bf4505086d4
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_23.unity
+    guid: df4b04b268cc09647806b0034fc737e9
+  - enabled: 1
+    path: Assets/_Game/Scenes/Levels/b2/Level_b2_24.unity
+    guid: 6b942e895233fa44583c012a1f31896a
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

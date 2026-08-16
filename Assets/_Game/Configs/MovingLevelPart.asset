@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MovingLevelPart
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.MovingLevelPart.MovingLevelPartConfig
   MoveSpeed: 5
-  ResetDuration: 0.25
+  ResetDuration: 0.5
