@@ -8,6 +8,7 @@ using Sling.Level.Finish;
 using Sling.Level.Gameplay;
 using Sling.Level.Hud;
 using Sling.Level.LevelComplete;
+using Sling.Level.Elements.CrumblingObject;
 using Sling.Level.Elements.MovingLevelPart;
 using Sling.Level.Elements.Switchers;
 using Sling.Level.Player;
@@ -48,6 +49,8 @@ namespace Sling.Level
       builder.Register<PlayerDeathCountController>(Lifetime.Transient);
       builder.Register<PlayerLaunchCountController>(Lifetime.Transient);
       builder.Register<MovingLevelPartsController>(Lifetime.Transient);
+      builder.Register<CrumblingObjectController>(Lifetime.Transient);
+      builder.Register<CrumblingObjectsController>(Lifetime.Transient);
       builder.Register<SwitcherController>(Lifetime.Transient);
       builder.Register<SwitchersController>(Lifetime.Transient);
 

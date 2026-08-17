@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717195ea3c104cc18fbb7342867b30a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.CrumblingObject.CrumblingObject
-  _config: {fileID: 11400000, guid: a89b9d15c389e497294b7a7a5c7e24dc, type: 2}
-  _renderer: {fileID: 2246473940852760306}
-  _collider: {fileID: 434210760760716999}
-  _triggerZone: {fileID: 4737308678335192799}
-  _crumbleVFX: {fileID: 1792006929990725917}
+  Config: {fileID: 11400000, guid: a89b9d15c389e497294b7a7a5c7e24dc, type: 2}
+  Renderer: {fileID: 2246473940852760306}
+  Collider: {fileID: 434210760760716999}
+  TriggerZone: {fileID: 4737308678335192799}
+  CrumbleVFX: {fileID: 1792006929990725917}
 --- !u!1001 &4396855183552439249
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -65,6 +65,14 @@ PrefabInstance:
       value: CrumblingPlatform_1x1
       objectReference: {fileID: 0}
     - target: {fileID: 7641607956217958718, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: Collider
+      value: 
+      objectReference: {fileID: 5735500168204608175}
+    - target: {fileID: 7641607956217958718, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: Renderer
+      value: 
+      objectReference: {fileID: 7478082968928100655}
+    - target: {fileID: 7641607956217958718, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: _collider
       value: 
       objectReference: {fileID: 5735500168204608175}
@@ -72,6 +80,10 @@ PrefabInstance:
       propertyPath: _renderer
       value: 
       objectReference: {fileID: 7478082968928100655}
+    - target: {fileID: 7641607956217958718, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+      propertyPath: TriggerZone
+      value: 
+      objectReference: {fileID: 5659857724163271422}
     - target: {fileID: 7641607956217958718, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
       propertyPath: _triggerZone
       value: 

@@ -1,56 +1,40 @@
 using System.Collections.Generic;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using NaughtyAttributes;
-using PrimeTween;
 using Sling.Common.Collission;
-using Sling.Level.Player;
+using Sling.Common.Views;
 using UnityEngine;
 
 namespace Sling.Level.Elements.CrumblingObject
 {
-  public class CrumblingObject : MonoBehaviour
+  public class CrumblingObject : MonoBehaviour, IViewListItem
   {
     private static readonly int _sFadeAmountId = Shader.PropertyToID("_FadeAmount");
 
-    [SerializeField] private CrumblingObjectConfig _config;
-    [SerializeField, Required] private Renderer _renderer;
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private TriggerZone _triggerZone;
-    [SerializeField, Required] private ParticleSystem _crumbleVFX;
+    public CrumblingObjectConfig Config;
+    public Renderer Renderer;
+    public Collider2D Collider;
+    public TriggerZone TriggerZone;
+    public ParticleSystem CrumbleVFX;
 
     private readonly List<Collider2D> _overlapResults = new();
     private MaterialPropertyBlock _propertyBlock;
-    private bool _isCrumbling;
+
+    public float FadeAmount { get; private set; }
 
     private void Awake()
     {
       _propertyBlock = new MaterialPropertyBlock();
-      SetFadeAmount(_config.FullVisibleFadeAmount);
-
-      _triggerZone.OnCollideEnter += OnCollideEnter;
+      SetFadeAmount(Config.FullVisibleFadeAmount);
     }
 
-    private void OnDestroy()
+    public void SetFadeAmount(float value)
     {
-      _triggerZone.OnCollideEnter -= OnCollideEnter;
+      FadeAmount = value;
+      Renderer.GetPropertyBlock(_propertyBlock);
+      _propertyBlock.SetFloat(_sFadeAmountId, value);
+      Renderer.SetPropertyBlock(_propertyBlock);
     }
 
-    private void OnCollideEnter(Collision2D collision)
-    {
-      if (_isCrumbling)
-        return;
-
-      if (collision.rigidbody == null || !collision.rigidbody.TryGetComponent(out PlayerView _))
-        return;
-
-      if (_config.OnlyTopSurface && !IsTopSurfaceContact(collision))
-        return;
-
-      CrumbleCycleAsync(this.GetCancellationTokenOnDestroy()).Forget();
-    }
-
-    private static bool IsTopSurfaceContact(Collision2D collision)
+    public bool IsTopSurfaceContact(Collision2D collision)
     {
       for (int i = 0; i < collision.contactCount; i++)
       {
@@ -63,76 +47,17 @@ namespace Sling.Level.Elements.CrumblingObject
       return false;
     }
 
-    private async UniTaskVoid CrumbleCycleAsync(CancellationToken ct)
+    public bool HasBlockingOverlap()
     {
-      _isCrumbling = true;
+      ContactFilter2D contactFilter = new();
+      contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(Collider.gameObject.layer));
+      contactFilter.useTriggers = false;
 
-      try
-      {
-        if (_config != null)
-        {
-          await TweenFade(
-              _config.FullVisibleFadeAmount,
-              _config.FullHideFadeAmount,
-              _config.CrumbleAnimDuration,
-              _config.CrumbleAnimDelay)
-            .InsertCallback(atTime: 0, PlayCrumbleVFX)
-            .InsertCallback(atTime: _config.DisableColliderAnimTimePoint, DisableColliderAndStopVFX)
-            .WithCancellation(ct);
-
-          await TweenFade(
-              _config.FullHideFadeAmount,
-              _config.FullVisibleFadeAmount,
-              _config.RespawnAnimDuration,
-              delay: _config.RespawnAnimDelay)
-            .WithCancellation(ct);
-        }
-
-        if (!_collider.enabled)
-        {
-          ContactFilter2D contactFilter = new();
-          contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(_collider.gameObject.layer));
-          contactFilter.useTriggers = false;
-
-          await UniTask.WaitUntil(
-            () => !HasBlockingOverlap(contactFilter),
-            PlayerLoopTiming.FixedUpdate,
-            ct);
-        }
-
-        _collider.enabled = true;
-      }
-      finally
-      {
-        _isCrumbling = false;
-      }
-    }
-
-    private void PlayCrumbleVFX()
-    {
-      if (_crumbleVFX == null)
-        return;
-
-      _crumbleVFX.Play(true);
-    }
-
-    private void DisableColliderAndStopVFX()
-    {
-      _collider.enabled = false;
-
-      if (_crumbleVFX == null)
-        return;
-
-      _crumbleVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-    }
-
-    private bool HasBlockingOverlap(ContactFilter2D contactFilter)
-    {
-      Physics2D.OverlapCollider(_collider, contactFilter, _overlapResults);
+      Physics2D.OverlapCollider(Collider, contactFilter, _overlapResults);
 
       foreach (Collider2D other in _overlapResults)
       {
-        if (other == null || other == _collider)
+        if (other == null || other == Collider)
           continue;
 
         if (other.transform == transform || other.transform.IsChildOf(transform))
@@ -142,29 +67,6 @@ namespace Sling.Level.Elements.CrumblingObject
       }
 
       return false;
-    }
-
-    private  Sequence TweenFade(
-      float startValue,
-      float endValue,
-      float duration,
-      float delay)
-    {
-      return Sequence.Create()
-        .ChainDelay(delay)
-        .Chain(Tween.Custom(
-          this,
-          startValue,
-          endValue,
-          duration,
-          (_, value) => SetFadeAmount(value)));
-    }
-
-    private void SetFadeAmount(float value)
-    {
-      _renderer.GetPropertyBlock(_propertyBlock);
-      _propertyBlock.SetFloat(_sFadeAmountId, value);
-      _renderer.SetPropertyBlock(_propertyBlock);
     }
   }
 }
