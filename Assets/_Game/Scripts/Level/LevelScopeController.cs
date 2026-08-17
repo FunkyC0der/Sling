@@ -48,6 +48,7 @@ namespace Sling.Level
       builder.Register<LevelTimeController>(Lifetime.Transient);
       builder.Register<PlayerDeathCountController>(Lifetime.Transient);
       builder.Register<PlayerLaunchCountController>(Lifetime.Transient);
+      builder.Register<MovingLevelPartController>(Lifetime.Transient);
       builder.Register<MovingLevelPartsController>(Lifetime.Transient);
       builder.Register<CrumblingObjectController>(Lifetime.Transient);
       builder.Register<CrumblingObjectsController>(Lifetime.Transient);
