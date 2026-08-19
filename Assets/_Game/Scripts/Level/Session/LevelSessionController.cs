@@ -21,8 +21,10 @@ namespace Sling.Level.Session
     {
       Execute<LevelTimeController>();
       Execute<LevelTrackController>();
+      
       Execute<PlayerDeathCountController>();
       Execute<PlayerLaunchCountController>();
+      
       Execute<MovingLevelPartsController>();
       Execute<CrumblingObjectsController>();
       Execute<SwitchersController>();
