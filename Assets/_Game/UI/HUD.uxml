@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
     <ui:VisualElement name="Root" picking-mode="Ignore" style="flex-grow: 1; align-items: flex-end; justify-content: flex-start; padding: 20px;">
-        <ui:Button text="II" name="PauseButton" class="primary-button rounded" style="width: 80px; height: 80px; flex-grow: 0; top: 50px; right: 50px; position: absolute;"/>
-        <ui:Label text="LEVEL 1" name="LevelName" class="hud-text-h1 rounded" style="position: absolute; top: 50px; left: 50px; background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px;"/>
-        <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: space-between; align-self: center; width: auto; height: 75px; top: 50px; position: absolute;">
+        <ui:Button text="II" name="PauseButton" class="primary-button rounded" style="width: 80px; height: 80px; flex-grow: 0; top: auto; right: 50px; position: absolute; bottom: 25px; background-color: rgba(152, 51, 51, 0.784);"/>
+        <ui:Label text="LEVEL 1" name="LevelName" class="hud-text-h1 rounded" style="position: absolute; top: auto; left: 50px; background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px; bottom: 25px;"/>
+        <ui:VisualElement name="LevelStats" style="flex-grow: 0; flex-direction: row; align-items: flex-end; justify-content: space-between; align-self: center; width: auto; height: 75px; top: auto; position: absolute; bottom: 25px;">
             <ui:Label text="{0} DEATHs" name="PlayerDeathCount" class="hud-text-h1 rounded" style="background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px;"/>
             <ui:Label text="TIME {0}" name="ElapsedTime" class="hud-text-h1 rounded" style="background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px; width: 247px;"/>
             <ui:Label text="{0} LAUNCHs" name="PlayerLaunchCount" class="hud-text-h1 rounded" style="background-color: rgba(152, 51, 51, 0.79); padding-left: 20px; padding-right: 20px; width: auto;"/>
