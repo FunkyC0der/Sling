@@ -20,8 +20,15 @@ namespace Sling.Level.Elements.StickyWall
     private readonly Dictionary<Collider2D, PhysicsMaterial2D> _origPhysMaterials = new();
     private readonly Dictionary<Rigidbody2D, LaunchImmunity> _launchImmunities = new();
 
+    private Rigidbody2D _carrierRb;
+    private Vector2 _lastCarrierPosition;
+
     private void Awake()
     {
+      _carrierRb = GetComponentInParent<Rigidbody2D>();
+      if (_carrierRb != null)
+        _lastCarrierPosition = _carrierRb.position;
+
       _slowdownTriggerZone.OnEnter += OnEnterSlowdownZone;
       _slowdownTriggerZone.OnExit += OnExitSlowdownZone;
       
@@ -147,14 +154,33 @@ namespace Sling.Level.Elements.StickyWall
       return false;
     }
 
+    private Vector2 GetCarrierVelocity()
+    {
+      if (_carrierRb == null)
+        return Vector2.zero;
+
+      Vector2 currentPosition = _carrierRb.position;
+      Vector2 velocity = _carrierRb.linearVelocity;
+      if (velocity.sqrMagnitude <= 0f && Time.fixedDeltaTime > 0f)
+        velocity = (currentPosition - _lastCarrierPosition) / Time.fixedDeltaTime;
+
+      _lastCarrierPosition = currentPosition;
+      return velocity;
+    }
+
     private void ApplySlowdown()
     {
+      Vector2 carrierVel = GetCarrierVelocity();
+
       foreach (Rigidbody2D rb in _collidedRbs.Keys)
       {
         if (_launchImmunities.ContainsKey(rb))
           continue;
 
-        rb.linearVelocityY = Mathf.Clamp(rb.linearVelocityY, -Config.MaxSpeed, Config.MaxSpeed);
+        Vector2 relative = rb.linearVelocity - carrierVel;
+        relative.x = 0f;
+        relative.y = Mathf.Clamp(relative.y, -Config.MaxSpeed, Config.MaxSpeed);
+        rb.linearVelocity = carrierVel + relative;
       }
     }
 
