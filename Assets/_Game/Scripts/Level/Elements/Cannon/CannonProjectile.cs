@@ -7,10 +7,12 @@ namespace Sling.Level.Elements.Cannon
   public class CannonProjectile : MonoBehaviour
   {
     [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private ParticleSystem _destroyVFXPrefab;
 
     private float _collisionIgnoreUntilTime;
     private float _destroyDelay;
     private bool _isDestroying;
+    private bool _isMovingRight;
 
     public void Launch(
       Vector2 direction,
@@ -25,6 +27,8 @@ namespace Sling.Level.Elements.Cannon
       _rigidbody.linearVelocity = direction.normalized * speed;
       _collisionIgnoreUntilTime = Time.time + collisionIgnoreDuration;
       _destroyDelay = destroyDelay;
+
+      _isMovingRight = direction.x > 0;
 
       Destroy(gameObject, lifetime);
     }
@@ -52,6 +56,19 @@ namespace Sling.Level.Elements.Cannon
 
       _isDestroying = true;
       Destroy(gameObject, _destroyDelay);
+    }
+
+    private void OnDestroy() => 
+      SpawnDestroyVFX();
+
+    private void SpawnDestroyVFX()
+    {
+      if (_destroyVFXPrefab == null || !gameObject.scene.isLoaded)
+        return;
+
+      Quaternion destroyVFXRotation = _isMovingRight ? Quaternion.AngleAxis(180, Vector3.up) : Quaternion.identity;
+      
+      Instantiate(_destroyVFXPrefab, transform.position, destroyVFXRotation);
     }
 
     private static bool IsPlayer(Rigidbody2D rigidbody) =>

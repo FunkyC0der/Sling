@@ -16,4 +16,4 @@ MonoBehaviour:
   ProjectileSpeed: 40
   ProjectileLifetime: 20
   CollisionIgnoreDuration: 0.1
-  DestroyDelay: 0.2
+  DestroyDelay: 0.08
