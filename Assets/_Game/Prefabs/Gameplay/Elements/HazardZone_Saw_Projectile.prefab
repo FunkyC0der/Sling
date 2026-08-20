@@ -117,3 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.CannonProjectile
   _rigidbody: {fileID: 4157014459337241799}
   _destroyVFXPrefab: {fileID: 7428245886722799732, guid: d9c46874f67cb4065a6b355bb1c94481, type: 3}
+  LeftMoveDestroyVFXPrefab: {fileID: 7428245886722799732, guid: d9c46874f67cb4065a6b355bb1c94481, type: 3}
+  RightMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: 89a7f459c2fec44ea8e494fe7e3059da, type: 3}
+  DownMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: f61700aaa291c4caea56359b4d7bfc7a, type: 3}
+  UpMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: 76dff1a1e5372424fb4481016096e58b, type: 3}

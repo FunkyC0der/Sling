@@ -8,12 +8,16 @@ namespace Sling.Level.Elements.Cannon
   public class CannonProjectile : MonoBehaviour
   {
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private ParticleSystem _destroyVFXPrefab;
+    
+    public ParticleSystem LeftMoveDestroyVFXPrefab;
+    public ParticleSystem RightMoveDestroyVFXPrefab;
+    public ParticleSystem DownMoveDestroyVFXPrefab;
+    public ParticleSystem UpMoveDestroyVFXPrefab;
 
     private float _collisionIgnoreUntilTime;
     private float _destroyDelay;
     private bool _isDestroying;
-    private bool _isMovingRight;
+    private Vector2 _moveDirection;
 
     public void Launch(
       Vector2 direction,
@@ -22,16 +26,14 @@ namespace Sling.Level.Elements.Cannon
       float collisionIgnoreDuration,
       float destroyDelay)
     {
-      transform.right = direction;
-
+      _moveDirection = direction;
+      
       _rigidbody.bodyType = RigidbodyType2D.Kinematic;
       _rigidbody.linearVelocity = direction.normalized * speed;
       _collisionIgnoreUntilTime = Time.time + collisionIgnoreDuration;
       _destroyDelay = destroyDelay;
 
-      _isMovingRight = direction.x > 0;
-
-      if (_isMovingRight) 
+      if (_moveDirection.x > 0) 
         transform.localScale = transform.localScale.Multiply(-1);
 
       Destroy(gameObject, lifetime);
@@ -67,12 +69,19 @@ namespace Sling.Level.Elements.Cannon
 
     private void SpawnDestroyVFX()
     {
-      if (_destroyVFXPrefab == null || !gameObject.scene.isLoaded)
+      if (!gameObject.scene.isLoaded)
         return;
 
-      ParticleSystem vfx = Instantiate(_destroyVFXPrefab, transform.position, Quaternion.identity);
-      if (_isMovingRight) 
-        vfx.transform.localScale = vfx.transform.localScale.Multiply(-1);
+      ParticleSystem prefab = LeftMoveDestroyVFXPrefab;
+      
+      if(_moveDirection.x > 0)
+        prefab = RightMoveDestroyVFXPrefab;
+      else if (_moveDirection.y < 0)
+        prefab = DownMoveDestroyVFXPrefab;
+      else if (_moveDirection.y > 0)
+        prefab = UpMoveDestroyVFXPrefab;
+      
+      Instantiate(prefab, transform.position, Quaternion.identity);
     }
 
     private static bool IsPlayer(Rigidbody2D rigidbody) =>

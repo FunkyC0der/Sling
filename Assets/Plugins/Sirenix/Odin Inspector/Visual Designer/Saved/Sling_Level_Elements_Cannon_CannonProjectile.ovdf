@@ -1,0 +1,20 @@
+OVDF v1.1
+Sling.Level.Elements.Cannon.CannonProjectile, Assembly-CSharp
+MetaGuid:d7a60538e3efd47709a810d5934a6132
+
+# $4CxkyngiaeXTYeXQF54eM8
+Position: $root:15
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Destroy VFXs"
+
+# LeftMoveDestroyVFXPrefab
+Position: $4CxkyngiaeXTYeXQF54eM8:0
+
+# RightMoveDestroyVFXPrefab
+Position: $4CxkyngiaeXTYeXQF54eM8:1
+
+# DownMoveDestroyVFXPrefab
+Position: $4CxkyngiaeXTYeXQF54eM8:2
+
+# UpMoveDestroyVFXPrefab
+Position: $4CxkyngiaeXTYeXQF54eM8:3
