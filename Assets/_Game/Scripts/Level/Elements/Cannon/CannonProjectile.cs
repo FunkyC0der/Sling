@@ -1,3 +1,4 @@
+using Sling.Common.Extensions;
 using Sling.Level.Player;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ namespace Sling.Level.Elements.Cannon
       _destroyDelay = destroyDelay;
 
       _isMovingRight = direction.x > 0;
+
+      if (_isMovingRight) 
+        transform.localScale = transform.localScale.Multiply(-1);
 
       Destroy(gameObject, lifetime);
     }
@@ -66,9 +70,9 @@ namespace Sling.Level.Elements.Cannon
       if (_destroyVFXPrefab == null || !gameObject.scene.isLoaded)
         return;
 
-      Quaternion destroyVFXRotation = _isMovingRight ? Quaternion.AngleAxis(180, Vector3.up) : Quaternion.identity;
-      
-      Instantiate(_destroyVFXPrefab, transform.position, destroyVFXRotation);
+      ParticleSystem vfx = Instantiate(_destroyVFXPrefab, transform.position, Quaternion.identity);
+      if (_isMovingRight) 
+        vfx.transform.localScale = vfx.transform.localScale.Multiply(-1);
     }
 
     private static bool IsPlayer(Rigidbody2D rigidbody) =>
