@@ -386,6 +386,14 @@ MonoBehaviour:
         sceneIndex: 47
         sceneEnabled: 1
       Track: 1
+    - Preview: {fileID: 0}
+      Type: 1
+      Scene:
+        Scene: {fileID: 102900000, guid: 6ba0d21e0102ef046bab8ecc44307cb0, type: 3}
+        SceneName: Level_b2_Boss1
+        sceneIndex: 61
+        sceneEnabled: 1
+      Track: 53
     - Preview: {fileID: 2800000, guid: 263dc56d33bb0fa4792c1a9f72fc2fae, type: 3}
       Type: 0
       Scene:
@@ -458,6 +466,46 @@ MonoBehaviour:
         sceneIndex: 56
         sceneEnabled: 1
       Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 60cadd64406cc6f4c865666f7465f11c, type: 3}
+        SceneName: Level_b2_25
+        sceneIndex: 57
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 830b585d936550c4bb50d4a9b6ef46db, type: 3}
+        SceneName: Level_b2_26
+        sceneIndex: 58
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 4e8eda14ef8f3774382cfad9b25f84f6, type: 3}
+        SceneName: Level_b2_27
+        sceneIndex: 59
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 0
+      Scene:
+        Scene: {fileID: 102900000, guid: 488ee44240dfa2f49a4012f5d1a08241, type: 3}
+        SceneName: Level_b2_28
+        sceneIndex: 60
+        sceneEnabled: 1
+      Track: 1
+    - Preview: {fileID: 0}
+      Type: 1
+      Scene:
+        Scene: {fileID: 102900000, guid: 7e28516ec05b8f441a9718346a0732a2, type: 3}
+        SceneName: Level_b2_Boss2
+        sceneIndex: 62
+        sceneEnabled: 1
+      Track: 54
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}
   SelectLevelLevelItemUxml: {fileID: 9197481963319205126, guid: 0561a3968ed404be0beb3e0290c01e0c, type: 3}
   LevelCompleteWindowUxml: {fileID: 9197481963319205126, guid: 0066c9393c3414aacb820d7101ea4cd4, type: 3}
