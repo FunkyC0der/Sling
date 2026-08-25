@@ -9,42 +9,50 @@ namespace Sling.Common.LevelDesign.ObjectSize
 {
   public class ObjectSizeSetter : MonoBehaviour
   {
-    [SerializeField] private Vector2 _size = Vector2.one;
+    [SerializeReference] private ObjectSizeSource _sizeSource;
     [SerializeReference] private List<ObjectSizeStrategy> _strategies = new();
 
     public Vector2 Size
     {
-      get => _size;
+      get => ResolveSize();
       set
       {
-        _size = value;
+        if (_sizeSource is DirectSizeSource direct)
+          direct.SetSize(value);
+
         Apply();
       }
     }
 
     public float SizeX
     {
-      get => _size.x;
+      get => ResolveSize().x;
       set
       {
-        _size.x = value;
+        if (_sizeSource is DirectSizeSource direct)
+          direct.SetSize(new Vector2(value, direct.GetSize().y));
+
         Apply();
       }
     }
 
     public float SizeY
     {
-      get => _size.y;
+      get => ResolveSize().y;
       set
       {
-        _size.y = value;
+        if (_sizeSource is DirectSizeSource direct)
+          direct.SetSize(new Vector2(direct.GetSize().x, value));
+
         Apply();
       }
     }
 
     public void SetSize(float x, float y)
     {
-      _size = new Vector2(x, y);
+      if (_sizeSource is DirectSizeSource direct)
+        direct.SetSize(new Vector2(x, y));
+
       Apply();
     }
 
@@ -53,14 +61,21 @@ namespace Sling.Common.LevelDesign.ObjectSize
       if (_strategies == null)
         return;
 
+      Vector2 size = ResolveSize();
+
       for (int i = 0; i < _strategies.Count; i++)
       {
         ObjectSizeStrategy strategy = _strategies[i];
         if (strategy == null)
           continue;
 
-        strategy.Apply(_size);
+        strategy.Apply(size);
       }
+    }
+
+    private Vector2 ResolveSize()
+    {
+      return _sizeSource != null ? _sizeSource.GetSize() : Vector2.one;
     }
 
 #if UNITY_EDITOR
