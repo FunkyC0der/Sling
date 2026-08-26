@@ -459,14 +459,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmptyHall
       objectReference: {fileID: 0}
-    - target: {fileID: 878123213304116930, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 3986150962528092830, guid: b767d5b78abfb42438362eaaf84b9be4, type: 3}
-    - target: {fileID: 878123213304116930, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1098559406756351351, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

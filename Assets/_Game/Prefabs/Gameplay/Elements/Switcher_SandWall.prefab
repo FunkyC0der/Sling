@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 6498399870552970374}
   - component: {fileID: 878123213304116930}
   m_Layer: 8
-  m_Name: Hall
+  m_Name: EmptyHall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,9 +239,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1393915797
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3218269851855058546, guid: 8f2ac2b8aaefe4610979e675c2fccd41, type: 3}
+  m_Sprite: {fileID: 3986150962528092830, guid: b767d5b78abfb42438362eaaf84b9be4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -456,7 +456,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 3
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 9045641834440965650, guid: 92195b622f2e04e9b872c8cde049ea93, type: 3}
+  m_Sprite: {fileID: -9164417417661507083, guid: 4126e562cafe24b7d8f182355c1cbf65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -608,8 +608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.Switcher
   _interactZone: {fileID: 227201342269619672}
   _stateChangeStrategies:
-  - {fileID: 6271536430325323716}
   - {fileID: 6691161185457681084}
+  - {fileID: 6271536430325323716}
   _isOnByDefault: 1
   _endlessSwitch: 0
 --- !u!114 &6691161185457681084
