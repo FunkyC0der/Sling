@@ -12,50 +12,6 @@ namespace Sling.Common.LevelDesign.ObjectSize
     [SerializeReference] private ObjectSizeSource _sizeSource;
     [SerializeReference] private List<ObjectSizeStrategy> _strategies = new();
 
-    public Vector2 Size
-    {
-      get => ResolveSize();
-      set
-      {
-        if (_sizeSource is DirectSizeSource direct)
-          direct.SetSize(value);
-
-        Apply();
-      }
-    }
-
-    public float SizeX
-    {
-      get => ResolveSize().x;
-      set
-      {
-        if (_sizeSource is DirectSizeSource direct)
-          direct.SetSize(new Vector2(value, direct.GetSize().y));
-
-        Apply();
-      }
-    }
-
-    public float SizeY
-    {
-      get => ResolveSize().y;
-      set
-      {
-        if (_sizeSource is DirectSizeSource direct)
-          direct.SetSize(new Vector2(direct.GetSize().x, value));
-
-        Apply();
-      }
-    }
-
-    public void SetSize(float x, float y)
-    {
-      if (_sizeSource is DirectSizeSource direct)
-        direct.SetSize(new Vector2(x, y));
-
-      Apply();
-    }
-
     public void Apply()
     {
       if (_strategies == null)

@@ -25,10 +25,7 @@ namespace Sling.Common.LevelDesign.ObjectSize
       float scaleX = size.x / _originalSize.x;
       float scaleY = size.y / _originalSize.y;
       Vector3 currentScale = _target.localScale;
-      Vector2 resizePivot = new Vector2(
-        Mathf.Clamp(_resizePivot.x, -1f, 1f),
-        Mathf.Clamp(_resizePivot.y, -1f, 1f));
-      Vector2 pivotOffset = -Vector2.Scale(resizePivot, size) * 0.5f;
+      Vector2 pivotOffset = GetPivotOffset(_resizePivot, size);
       Vector3 currentPosition = _target.localPosition;
       bool hasChanges = false;
 

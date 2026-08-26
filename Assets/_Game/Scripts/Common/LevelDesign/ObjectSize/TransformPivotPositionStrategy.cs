@@ -18,7 +18,7 @@ namespace Sling.Common.LevelDesign.ObjectSize
       if (_target == null)
         return;
 
-      Vector2 pivotOffset = -Vector2.Scale(_resizePivot, size) * 0.5f;
+      Vector2 pivotOffset = GetPivotOffset(_resizePivot, size);
       Vector3 currentPosition = _target.localPosition;
 
       if (Mathf.Approximately(currentPosition.x, pivotOffset.x) &&

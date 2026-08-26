@@ -12,10 +12,5 @@ namespace Sling.Common.LevelDesign.ObjectSize
     {
       return _size;
     }
-
-    public void SetSize(Vector2 size)
-    {
-      _size = size;
-    }
   }
 }

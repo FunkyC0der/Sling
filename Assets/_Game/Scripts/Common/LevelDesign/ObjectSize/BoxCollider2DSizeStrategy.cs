@@ -18,10 +18,7 @@ namespace Sling.Common.LevelDesign.ObjectSize
       if (_collider == null)
         return;
 
-      Vector2 resizePivot = new Vector2(
-        Mathf.Clamp(_resizePivot.x, -1f, 1f),
-        Mathf.Clamp(_resizePivot.y, -1f, 1f));
-      Vector2 pivotOffset = -Vector2.Scale(resizePivot, size) * 0.5f;
+      Vector2 pivotOffset = GetPivotOffset(_resizePivot, size);
       bool hasChanges = false;
 
       if (!Mathf.Approximately(_collider.size.x, size.x) ||

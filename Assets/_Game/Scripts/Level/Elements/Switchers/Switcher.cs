@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Sling.Common.Collission;
 using Sling.Common.Views;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Sling.Level.Elements.Switchers
     [SerializeField] private bool _endlessSwitch;
 
     private Coroutine _setStateCoroutine;
+    private bool _currentState;
+    private bool _hasCurrentState;
 
     public TriggerZone InteractZone => _interactZone;
     public bool IsOnByDefault => _isOnByDefault;
@@ -30,7 +33,19 @@ namespace Sling.Level.Elements.Switchers
       if (_setStateCoroutine != null)
         StopCoroutine(_setStateCoroutine);
 
+      _currentState = isOn;
+      _hasCurrentState = true;
       _setStateCoroutine = StartCoroutine(SetStateCoroutine(isOn, immediate));
+    }
+
+    [Button("Debug Switch")]
+    private void DebugSwitch()
+    {
+      if (!Application.isPlaying)
+        return;
+
+      bool currentState = _hasCurrentState ? _currentState : _isOnByDefault;
+      SetState(!currentState, immediate: false);
     }
 
     private IEnumerator SetStateCoroutine(bool isOn, bool immediate)

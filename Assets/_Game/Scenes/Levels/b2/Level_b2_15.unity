@@ -455,6 +455,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 122504007529977457, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: m_Name
+      value: EmptyHall
+      objectReference: {fileID: 0}
+    - target: {fileID: 878123213304116930, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3986150962528092830, guid: b767d5b78abfb42438362eaaf84b9be4, type: 3}
+    - target: {fileID: 878123213304116930, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1098559406756351351, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -500,12 +512,76 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: _strategies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: '_strategies.Array.data[3]'
+      value: 1052525693309026304
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: '_strategies.Array.data[4]'
+      value: 1052525693309026430
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: 'managedReferences[1052525693309026304]'
+      value: Assembly-CSharp Sling.Common.LevelDesign.ObjectSize.SpriteScaleSizeStrategy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: 'managedReferences[1052525693309026430]'
+      value: Assembly-CSharp Sling.Common.LevelDesign.ObjectSize.TransformAdditionalSizeStrategy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026304]._target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026430]._target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: managedReferences[1052525671736148137]._stepsCount.y
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: managedReferences[1052525671736148138]._resizePivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026304]._resizePivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026304]._resizePivot.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026304]._originalSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026304]._originalSize.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026430]._originalSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026430]._originalSize.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026430]._additionalSize.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556000361616250033, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: managedReferences[1052525693309026430]._additionalSize.y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4126399109979512662, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -551,6 +627,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 6947783070629535425, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8797357583516581603, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -52
@@ -560,9 +640,9 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9126804164598523787, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
-      propertyPath: _endlessSwitch
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: '_stateChangeStrategies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1160465117}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -732,6 +812,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30a32c38f8c7148d6a431729a4d9fb6b, type: 3}
+--- !u!114 &1160465117 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6271536430325323716, guid: 7d15a192570984ab0b85a0f6cc6e34c5, type: 3}
+  m_PrefabInstance: {fileID: 475961633}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c8c965c90243debc6fae90d8254fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.SandWallSwitcherStrategy
 --- !u!1001 &1340581657
 PrefabInstance:
   m_ObjectHideFlags: 0
