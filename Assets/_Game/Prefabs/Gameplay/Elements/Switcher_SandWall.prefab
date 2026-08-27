@@ -644,7 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.Switcher
   _interactZone: {fileID: 227201342269619672}
   _stateChangeStrategies:
-  - rid: 1052525722044989557
+  - rid: 1052525722044989581
   - rid: 1052525722044989558
   - rid: 1052525722044989559
   - rid: 1052525722044989560
@@ -653,13 +653,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1052525722044989557
-      type: {class: SpriteBlinkSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
-      data:
-        BlinkTweener: {fileID: 7068818354448746225}
-        BlinkCount: 3
-        BlinkDuration: 0.5
-        BlinkAmount: 0.5
     - rid: 1052525722044989558
       type: {class: AnimatorTriggerSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
       data:
@@ -696,6 +689,20 @@ MonoBehaviour:
           useUnscaledTime: 0
           _useFixedUpdate: 0
           _updateType: 0
+    - rid: 1052525722044989581
+      type: {class: SkipSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        SkipOn: 0
+        SkipOff: 1
+        Strategy:
+          rid: 1052525722044989582
+    - rid: 1052525722044989582
+      type: {class: SpriteBlinkSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        BlinkTweener: {fileID: 7068818354448746225}
+        BlinkCount: 3
+        BlinkDuration: 0.5
+        BlinkAmount: 0.5
 --- !u!1 &5472004772335996403
 GameObject:
   m_ObjectHideFlags: 0
