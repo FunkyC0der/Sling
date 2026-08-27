@@ -5,12 +5,13 @@ using Sling.Common.Collission;
 using Sling.Common.Views;
 using UnityEngine;
 
+
 namespace Sling.Level.Elements.Switchers
 {
   public class Switcher : MonoBehaviour, IViewListItem
   {
     [SerializeField] private TriggerZone _interactZone;
-    [SerializeField] private List<SwitcherStateChangeStrategy> _stateChangeStrategies = new();
+    [SerializeReference] private List<SwitcherStateChangeStrategy> _stateChangeStrategies = new();
     [SerializeField] private bool _isOnByDefault;
     [SerializeField] private bool _endlessSwitch;
 
@@ -24,18 +25,28 @@ namespace Sling.Level.Elements.Switchers
 
     private void OnDestroy()
     {
-      if (_setStateCoroutine != null)
-        StopCoroutine(_setStateCoroutine);
+      StopStateChange();
     }
 
     public void SetState(bool isOn, bool immediate)
     {
-      if (_setStateCoroutine != null)
-        StopCoroutine(_setStateCoroutine);
+      StopStateChange();
 
       _currentState = isOn;
       _hasCurrentState = true;
       _setStateCoroutine = StartCoroutine(SetStateCoroutine(isOn, immediate));
+    }
+
+    private void StopStateChange()
+    {
+      if (_setStateCoroutine != null)
+      {
+        StopCoroutine(_setStateCoroutine);
+        _setStateCoroutine = null;
+      }
+
+      foreach (SwitcherStateChangeStrategy strategy in _stateChangeStrategies)
+        strategy?.Stop();
     }
 
     [Button("Debug Switch")]

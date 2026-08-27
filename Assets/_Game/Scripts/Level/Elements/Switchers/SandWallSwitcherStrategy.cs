@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using PrimeTween;
@@ -5,17 +6,18 @@ using UnityEngine;
 
 namespace Sling.Level.Elements.Switchers
 {
+  [Serializable]
   public class SandWallSwitcherStrategy : SwitcherStateChangeStrategy
   {
     private static readonly int _sFadeYId = Shader.PropertyToID("_FadeY");
     private static readonly int _sInvertId = Shader.PropertyToID("_Invert");
 
-    [SerializeField] private SpriteRenderer _mainSpriteRenderer;
-    [SerializeField] private BoxCollider2D _collider;
-    [SerializeField] private List<SpriteRenderer> _additionalSpriteRenderers = new();
-    [SerializeField] private Material _fadeMaterial;
-    [SerializeField, Min(0f)] private float _edgePaddingY;
-    [SerializeField] private TweenSettings _tweenSettings = new(0.5f, Ease.InOutSine);
+    public SpriteRenderer MainSpriteRenderer;
+    public BoxCollider2D Collider;
+    public List<SpriteRenderer> AdditionalSpriteRenderers = new();
+    public Material FadeMaterial;
+    [Min(0f)] public float EdgePaddingY;
+    public TweenSettings TweenSettings = new(0.5f, Ease.InOutSine);
 
     private readonly List<RendererState> _rendererStates = new();
 
@@ -25,7 +27,7 @@ namespace Sling.Level.Elements.Switchers
     private float _fadeBottomY;
     private bool _isAppearing;
 
-    private void OnDestroy() =>
+    public override void Stop() =>
       StopTransition();
 
     public override IEnumerator SetState(bool isOn, bool immediate)
@@ -48,7 +50,7 @@ namespace Sling.Level.Elements.Switchers
         this,
         0f,
         1f,
-        _tweenSettings,
+        TweenSettings,
         (strategy, value) => strategy.ApplyTransitionValue(value));
 
       while (_tween.isAlive)
@@ -58,14 +60,14 @@ namespace Sling.Level.Elements.Switchers
     }
 
     private bool CanAnimate() =>
-      _mainSpriteRenderer != null &&
-      _collider != null &&
-      _fadeMaterial != null;
+      MainSpriteRenderer != null &&
+      Collider != null &&
+      FadeMaterial != null;
 
     private void CaptureGeometry()
     {
-      Bounds bounds = _mainSpriteRenderer.bounds;
-      float padding = Mathf.Max(0f, _edgePaddingY);
+      Bounds bounds = MainSpriteRenderer.bounds;
+      float padding = Mathf.Max(0f, EdgePaddingY);
 
       _fadeTopY = bounds.max.y + padding;
       _fadeBottomY = bounds.min.y - padding;
@@ -74,7 +76,7 @@ namespace Sling.Level.Elements.Switchers
 
     private ColliderGeometry CalculateColliderGeometry(Bounds rendererBounds)
     {
-      Transform colliderTransform = _collider.transform;
+      Transform colliderTransform = Collider.transform;
       float minX = float.PositiveInfinity;
       float maxX = float.NegativeInfinity;
       float minY = float.PositiveInfinity;
@@ -100,15 +102,15 @@ namespace Sling.Level.Elements.Switchers
 
     private void CaptureAndApplyFadeMaterial()
     {
-      AddRendererState(_mainSpriteRenderer);
+      AddRendererState(MainSpriteRenderer);
 
-      foreach (SpriteRenderer spriteRenderer in _additionalSpriteRenderers)
+      foreach (SpriteRenderer spriteRenderer in AdditionalSpriteRenderers)
         AddRendererState(spriteRenderer);
 
       foreach (RendererState state in _rendererStates)
       {
         state.Renderer.enabled = true;
-        state.Renderer.sharedMaterial = _fadeMaterial;
+        state.Renderer.sharedMaterial = FadeMaterial;
       }
     }
 
@@ -178,9 +180,9 @@ namespace Sling.Level.Elements.Switchers
       }
 
       float height = Mathf.Max(0f, maxY - minY);
-      _collider.size = new Vector2(_colliderGeometry.Width, height);
-      _collider.offset = new Vector2(_colliderGeometry.CenterX, (minY + maxY) * 0.5f);
-      _collider.enabled = height > Mathf.Epsilon;
+      Collider.size = new Vector2(_colliderGeometry.Width, height);
+      Collider.offset = new Vector2(_colliderGeometry.CenterX, (minY + maxY) * 0.5f);
+      Collider.enabled = height > Mathf.Epsilon;
     }
 
     private void CompleteTransition(bool isOn)
@@ -198,10 +200,10 @@ namespace Sling.Level.Elements.Switchers
     {
       SetRenderersEnabled(isOn);
 
-      if (_mainSpriteRenderer == null || _collider == null)
+      if (MainSpriteRenderer == null || Collider == null)
         return;
 
-      _colliderGeometry = CalculateColliderGeometry(_mainSpriteRenderer.bounds);
+      _colliderGeometry = CalculateColliderGeometry(MainSpriteRenderer.bounds);
 
       if (isOn)
         ApplyFullCollider();
@@ -211,23 +213,23 @@ namespace Sling.Level.Elements.Switchers
 
     private void ApplyFullCollider()
     {
-      _collider.size = new Vector2(_colliderGeometry.Width, _colliderGeometry.Height);
-      _collider.offset = new Vector2(_colliderGeometry.CenterX, _colliderGeometry.CenterY);
-      _collider.enabled = true;
+      Collider.size = new Vector2(_colliderGeometry.Width, _colliderGeometry.Height);
+      Collider.offset = new Vector2(_colliderGeometry.CenterX, _colliderGeometry.CenterY);
+      Collider.enabled = true;
     }
 
     private void ApplyHiddenCollider()
     {
-      _collider.size = new Vector2(_colliderGeometry.Width, 0f);
-      _collider.offset = new Vector2(_colliderGeometry.CenterX, _colliderGeometry.MinY);
-      _collider.enabled = false;
+      Collider.size = new Vector2(_colliderGeometry.Width, 0f);
+      Collider.offset = new Vector2(_colliderGeometry.CenterX, _colliderGeometry.MinY);
+      Collider.enabled = false;
     }
 
     private void SetRenderersEnabled(bool isEnabled)
     {
-      SetRendererEnabled(_mainSpriteRenderer, isEnabled);
+      SetRendererEnabled(MainSpriteRenderer, isEnabled);
 
-      foreach (SpriteRenderer spriteRenderer in _additionalSpriteRenderers)
+      foreach (SpriteRenderer spriteRenderer in AdditionalSpriteRenderers)
         SetRendererEnabled(spriteRenderer, isEnabled);
     }
 

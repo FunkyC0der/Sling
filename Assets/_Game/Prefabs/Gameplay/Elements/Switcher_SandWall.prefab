@@ -260,6 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4126399109979512662}
+  - component: {fileID: 2385141496850050615}
   m_Layer: 8
   m_Name: Switcher
   m_TagString: Untagged
@@ -284,6 +285,28 @@ Transform:
   - {fileID: 288308701446487456}
   m_Father: {fileID: 1098559406756351351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2385141496850050615
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501878891191251802}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a25206c4a6c2142639a8db45f779c093, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2301950163404093930
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3246716747167340972}
   - component: {fileID: 1089812880409060906}
+  - component: {fileID: 7068818354448746225}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -311,7 +335,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 4, y: 8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4126399109979512662}
@@ -365,7 +389,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -4975777349343190230, guid: 852f863b05e4e433881afa1e6e8770d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -375,6 +399,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7068818354448746225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2301950163404093930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49f996b9f3f402b9094819a7be687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.SpriteBlinkTweener
+  _spriteRenderer: {fileID: 1089812880409060906}
+  _blinkMaterial: {fileID: 2100000, guid: 2f07758086124cceb4a86841e013665f, type: 2}
+  _blinkAmountProperty: _BlinkAmount
 --- !u!1 &2832612831780965034
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,9 +606,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1098559406756351351}
   - component: {fileID: 9126804164598523787}
-  - component: {fileID: 6691161185457681084}
-  - component: {fileID: 2551083969421914498}
-  - component: {fileID: 6271536430325323716}
   m_Layer: 8
   m_Name: Switcher_SandWall
   m_TagString: Untagged
@@ -608,73 +644,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.Switcher
   _interactZone: {fileID: 227201342269619672}
   _stateChangeStrategies:
-  - {fileID: 6691161185457681084}
-  - {fileID: 6271536430325323716}
+  - rid: 1052525722044989557
+  - rid: 1052525722044989558
+  - rid: 1052525722044989559
+  - rid: 1052525722044989560
   _isOnByDefault: 1
   _endlessSwitch: 0
---- !u!114 &6691161185457681084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5093443329981842626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f31ad1b46a4f62ae02b989c56c681f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.SpriteColorSwitcherStrategy
-  _spriteRenderer: {fileID: 1089812880409060906}
-  _onColor: {r: 0.6822321, g: 0.9622642, b: 0.45843717, a: 1}
-  _offColor: {r: 1, g: 0.6084906, b: 0.6084906, a: 1}
---- !u!114 &2551083969421914498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5093443329981842626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b4cabb8a4664304a9a302525ea703a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.GameObjectSwitcherStrategy
-  _gameObject: {fileID: 64687964973066917}
---- !u!114 &6271536430325323716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5093443329981842626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c8c965c90243debc6fae90d8254fe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Switchers.SandWallSwitcherStrategy
-  _mainSpriteRenderer: {fileID: 6947783070629535425}
-  _collider: {fileID: 5684506838512577731}
-  _additionalSpriteRenderers:
-  - {fileID: 1673103468855419516}
-  - {fileID: 3097868607499065658}
-  _fadeMaterial: {fileID: 2100000, guid: a1137af878d0648a8a0cacc42626b472, type: 2}
-  _edgePaddingY: 4
-  _tweenSettings:
-    duration: 0.75
-    ease: 2
-    customEase:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    cycles: 1
-    cycleMode: 0
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1052525722044989557
+      type: {class: SpriteBlinkSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        BlinkTweener: {fileID: 7068818354448746225}
+        BlinkCount: 3
+        BlinkDuration: 0.5
+        BlinkAmount: 0.5
+    - rid: 1052525722044989558
+      type: {class: AnimatorTriggerSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        Animator: {fileID: 2385141496850050615}
+        OnTriggerId: 105971860
+        OffTriggerId: 1231988661
+    - rid: 1052525722044989559
+      type: {class: DelaySwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        Duration: 0.5
+    - rid: 1052525722044989560
+      type: {class: SandWallSwitcherStrategy, ns: Sling.Level.Elements.Switchers, asm: Assembly-CSharp}
+      data:
+        MainSpriteRenderer: {fileID: 6947783070629535425}
+        Collider: {fileID: 5684506838512577731}
+        AdditionalSpriteRenderers:
+        - {fileID: 1673103468855419516}
+        - {fileID: 3097868607499065658}
+        FadeMaterial: {fileID: 2100000, guid: a1137af878d0648a8a0cacc42626b472, type: 2}
+        EdgePaddingY: 4
+        TweenSettings:
+          duration: 0.75
+          ease: 2
+          customEase:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          cycles: 1
+          cycleMode: 0
+          startDelay: 0
+          endDelay: 0
+          useUnscaledTime: 0
+          _useFixedUpdate: 0
+          _updateType: 0
 --- !u!1 &5472004772335996403
 GameObject:
   m_ObjectHideFlags: 0

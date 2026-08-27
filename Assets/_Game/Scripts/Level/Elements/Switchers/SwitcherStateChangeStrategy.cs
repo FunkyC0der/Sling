@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
-using UnityEngine;
 
 namespace Sling.Level.Elements.Switchers
 {
-  public abstract class SwitcherStateChangeStrategy : MonoBehaviour
+  [Serializable]
+  public abstract class SwitcherStateChangeStrategy
   {
     public abstract IEnumerator SetState(bool isOn, bool immediate);
+
+    public virtual void Stop()
+    {
+    }
   }
 }
