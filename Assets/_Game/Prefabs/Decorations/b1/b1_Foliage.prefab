@@ -100,6 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3752961739986392991}
+  - component: {fileID: 8714303619119621602}
   m_Layer: 0
   m_Name: b1_Foliage
   m_TagString: Untagged
@@ -124,6 +125,19 @@ Transform:
   - {fileID: 5305120481894382642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &8714303619119621602
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4422711146637406914}
+  m_Enabled: 1
+  m_SortingLayerID: -933712921
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &4602491101538422238
 GameObject:
   m_ObjectHideFlags: 0
