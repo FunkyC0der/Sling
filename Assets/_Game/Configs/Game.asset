@@ -386,7 +386,7 @@ MonoBehaviour:
         sceneIndex: 47
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 240a3af186299454a9eb64e52a1c6482, type: 3}
       Type: 1
       Scene:
         Scene: {fileID: 102900000, guid: 6ba0d21e0102ef046bab8ecc44307cb0, type: 3}
