@@ -1,5 +1,10 @@
 # Unity generated
 .utmp/
+
+# Editor MCP screenshots
+[Aa]ssets/[Ss]creenshots/
+[Aa]ssets/[Ss]creenshots.meta
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/

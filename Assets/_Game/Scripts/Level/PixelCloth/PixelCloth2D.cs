@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using UnityEngine.Sprites;
 
 namespace Sling.Level.PixelCloth
@@ -15,48 +16,68 @@ namespace Sling.Level.PixelCloth
 
     [Header("Grid")]
     [Tooltip("Horizontal point count. More columns = finer left-right folds and stretch, higher CPU.")]
-    [Min(2)] public int _columns = 5;
+    [FormerlySerializedAs("_columns")]
+    [Range(2, 24)] public int Columns = 5;
     [Tooltip("Vertical point count. Row 0 is pinned to the anchor; more rows = longer, smoother drape, higher CPU.")]
-    [Min(2)] public int _rows = 13;
+    [FormerlySerializedAs("_rows")]
+    [Range(2, 48)] public int Rows = 13;
     [Tooltip("Rest size in world units (X = width, Y = hang length downward from the anchor). Mismatch with the sprite aspect stretches the texture.")]
-    public Vector2 _size = new(4f, 12f);
+    [FormerlySerializedAs("_size")]
+    public Vector2 Size = new(4f, 12f);
 
     [Header("Simulation")]
-    [Tooltip("How much Verlet velocity is kept each physics step. 1 = no energy loss (jittery); lower = cloth settles faster.")]
-    [Range(0f, 1f)] public float _damping = 0.96f;
-    [Tooltip("Fixed timestep this damping value is calibrated for. Damping is scaled as Pow(damping, deltaTime / this), so feel stays similar if the project timestep changes.")]
-    [Min(0.0001f)] public float _referenceTimeStep = 0.02f;
-    [Tooltip("Distance-constraint solver passes per FixedUpdate. Higher = less stretch, stiffer cloth, more CPU.")]
-    [Min(1)] public int _constraintIterations = 4;
-    [Tooltip("If the anchor jumps farther than this (world units) in one physics step, the cloth teleports/resets instead of stretching across the gap. 0 disables the check.")]
-    [Min(0f)] public float _teleportThreshold = 12f;
+    [Tooltip("How many times per second the cloth pose updates. Lower values look like stop-motion pixel animation. Mesh is not interpolated between ticks.")]
+    [FormerlySerializedAs("_simulationFps")]
+    [Range(1, 60)] public int SimulationFps = 12;
+    [Tooltip("How much Verlet velocity is kept each simulation tick. 1 = no energy loss (jittery); lower = cloth settles faster. Lower this further if simulation FPS is low.")]
+    [FormerlySerializedAs("_damping")]
+    [Range(0f, 1f)] public float Damping = 0.8f;
+    [Tooltip("How strongly fibers hold their rest length. 1 = taut (less stretch under gravity); 0 = limp. If it still stretches at 1, raise Constraint Iterations.")]
+    [FormerlySerializedAs("_fiberStrength")]
+    [Range(0f, 1f)] public float FiberStrength = 1f;
+    [Tooltip("Distance-constraint solver passes per simulation tick. Higher = less stretch under gravity, stiffer cloth, more CPU.")]
+    [FormerlySerializedAs("_constraintIterations")]
+    [Range(1, 16)] public int ConstraintIterations = 6;
+    [Tooltip("If the anchor jumps farther than this (world units) in one simulation tick, the cloth teleports/resets instead of stretching across the gap. 0 disables the check.")]
+    [FormerlySerializedAs("_teleportThreshold")]
+    [Range(0f, 40f)] public float TeleportThreshold = 12f;
 
     [Header("Rendering")]
-    [Tooltip("Snap rendered vertices to a pixel grid. Physics still runs in continuous world space; this only affects how the mesh looks.")]
-    public bool _pixelSnapEnabled = true;
+    [Tooltip("Snap simulated points to a pixel grid after each tick so the cape jumps pixel-to-pixel.")]
+    [FormerlySerializedAs("_pixelSnapEnabled")]
+    public bool PixelSnapEnabled = true;
     [Tooltip("Pixel grid used for snapping: world positions round to 1 / this. Match the sprite Pixels Per Unit so texels stay stable.")]
-    [Min(0.0001f)] public float _pixelsPerUnit = 4f;
+    [FormerlySerializedAs("_pixelsPerUnit")]
+    [Range(0.25f, 32f)] public float PixelsPerUnit = 4f;
     [Tooltip("2D sorting layer for the MeshRenderer. Must be a layer the camera and Light2D include, or the cloth is culled/unlit.")]
-    [SortingLayer] public int _sortingLayerId;
+    [FormerlySerializedAs("_sortingLayerId")]
+    [SortingLayer] public int SortingLayerId;
     [Tooltip("Draw order inside the sorting layer. Higher draws in front of other renderers on the same layer.")]
-    public int _orderInLayer;
+    [FormerlySerializedAs("_orderInLayer")]
+    [Range(-100, 100)] public int OrderInLayer;
 
     [Header("Strategies")]
     [Tooltip("How the pinned top row follows the anchor. Translation Only moves the top edge with the anchor and ignores rotation.")]
+    [FormerlySerializedAs("_anchorMotionStrategy")]
     [SerializeReference, SubclassSelector]
-    public PixelClothAnchorMotionStrategy _anchorMotionStrategy = new TranslationOnlyAnchorMotionStrategy();
-    [Tooltip("Extra accelerations on free points (not the pinned row). Add Unity Gravity or the cloth will not sag — it only keeps inertia and constraints.")]
-    [SerializeReference, SubclassSelector] public List<PixelClothForceModifier> _forceModifiers = new();
+    public PixelClothAnchorMotionStrategy AnchorMotionStrategy = new TranslationOnlyAnchorMotionStrategy();
+    [Tooltip("Extra accelerations on free points (not the pinned row). Add Gravity Mass or the cloth will not sag — it only keeps inertia and constraints.")]
+    [FormerlySerializedAs("_forceModifiers")]
+    [SerializeReference] public List<PixelClothForceModifier> ForceModifiers = new();
 
     [Header("References")]
     [Tooltip("Transform the top row follows. Leave empty to use this object's transform.")]
-    public Transform _anchor;
+    [FormerlySerializedAs("_anchor")]
+    public Transform Anchor;
     [Tooltip("Sprite sampled onto the cloth mesh. UVs map the sprite's outer rect across the grid (sprite top = pinned row).")]
-    [Required] public Sprite _sprite;
+    [FormerlySerializedAs("_sprite")]
+    [Required] public Sprite Sprite;
     [Tooltip("Receives the runtime cloth mesh. Must be on this GameObject.")]
-    [Required] public MeshFilter _meshFilter;
+    [FormerlySerializedAs("_meshFilter")]
+    [Required] public MeshFilter MeshFilter;
     [Tooltip("Draws the cloth mesh. Sorting and the sprite texture are applied here at runtime.")]
-    [Required] public MeshRenderer _meshRenderer;
+    [FormerlySerializedAs("_meshRenderer")]
+    [Required] public MeshRenderer MeshRenderer;
 
     private readonly List<RuntimeModifierRegistration> _runtimeModifiers = new();
 
@@ -74,6 +95,10 @@ namespace Sling.Level.PixelCloth
     private Quaternion _initialAnchorRotation;
     private Vector2 _initialAnchorPosition;
     private Vector2 _previousAnchorPosition;
+    private float _simulationAccumulator;
+    private int _builtColumns;
+    private int _builtRows;
+    private Vector2 _builtSize;
     private bool _isInitialized;
     private bool _requiresReset = true;
 
@@ -98,41 +123,47 @@ namespace Sling.Level.PixelCloth
       Initialize();
     }
 
-    private void OnValidate() =>
+    private void OnValidate()
+    {
       ApplySorting();
 
-    private void FixedUpdate()
+      if (!Application.isPlaying || !_isInitialized)
+        return;
+
+      ApplySpriteTexture();
+
+      if (Columns != _builtColumns || Rows != _builtRows || Size != _builtSize)
+        Initialize();
+    }
+
+    private void Update()
     {
       if (!_isInitialized)
         return;
 
       Vector2 currentAnchorPosition = GetAnchorPosition();
-      float teleportThreshold = _teleportThreshold;
+      float teleportThreshold = TeleportThreshold;
 
       if (_requiresReset || teleportThreshold > 0f &&
           (currentAnchorPosition - _previousAnchorPosition).sqrMagnitude > teleportThreshold * teleportThreshold)
       {
         ResetSimulation(currentAnchorPosition);
+        SnapSimulatedPositions();
+        _simulationAccumulator = 0f;
         return;
       }
 
-      float deltaTime = Time.fixedDeltaTime;
-      _anchorMotionStrategy.FillPinnedPositions(
-        _initialAnchorPosition,
-        currentAnchorPosition,
-        _restPinnedWorldPositions,
-        _pinnedWorldPositions);
+      float step = 1f / SimulationFps;
+      _simulationAccumulator += Time.deltaTime;
 
-      ApplyPinnedPositions();
-      SimulateFreePoints(deltaTime);
+      if (_simulationAccumulator < step)
+        return;
 
-      for (int i = 0; i < _constraintIterations; i++)
-      {
-        SolveConstraints();
-        ApplyPinnedPositions();
-      }
+      StepSimulation(currentAnchorPosition, step);
+      _simulationAccumulator -= step;
 
-      _previousAnchorPosition = currentAnchorPosition;
+      if (_simulationAccumulator >= step)
+        _simulationAccumulator %= step;
     }
 
     private void LateUpdate()
@@ -140,35 +171,7 @@ namespace Sling.Level.PixelCloth
       if (!_isInitialized)
         return;
 
-      float pixelsPerUnit = _pixelsPerUnit;
-      bool snap = _pixelSnapEnabled;
-      Bounds bounds = new(Vector3.zero, Vector3.zero);
-
-      for (int i = 0; i < _positions.Length; i++)
-      {
-        Vector2 worldPosition = _positions[i];
-
-        if (snap)
-        {
-          worldPosition.x = Mathf.Round(worldPosition.x * pixelsPerUnit) / pixelsPerUnit;
-          worldPosition.y = Mathf.Round(worldPosition.y * pixelsPerUnit) / pixelsPerUnit;
-        }
-
-        Vector3 localPosition = _meshFilter.transform.InverseTransformPoint(worldPosition);
-        _renderVertices[i] = localPosition;
-
-        if (i == 0)
-          bounds = new Bounds(localPosition, Vector3.zero);
-        else
-          bounds.Encapsulate(localPosition);
-      }
-
-      _mesh.SetVertices(
-        _renderVertices,
-        0,
-        _renderVertices.Length,
-        MeshUpdateFlags.DontValidateIndices | MeshUpdateFlags.DontRecalculateBounds);
-      _mesh.bounds = bounds;
+      UploadMesh();
     }
 
     private void OnDisable() =>
@@ -184,8 +187,8 @@ namespace Sling.Level.PixelCloth
       if (_mesh == null)
         return;
 
-      if (_meshFilter != null && _meshFilter.sharedMesh == _mesh)
-        _meshFilter.sharedMesh = null;
+      if (MeshFilter != null && MeshFilter.sharedMesh == _mesh)
+        MeshFilter.sharedMesh = null;
 
       Destroy(_mesh);
       _mesh = null;
@@ -193,16 +196,16 @@ namespace Sling.Level.PixelCloth
 
     private bool ValidateConfiguration()
     {
-      if (_sprite == null || _meshFilter == null || _meshRenderer == null)
+      if (Sprite == null || MeshFilter == null || MeshRenderer == null)
       {
         Debug.LogError($"{nameof(PixelCloth2D)} on '{name}' is missing a required reference.", this);
         return false;
       }
 
-      if (_columns < 2 || _rows < 2 || _size.x <= 0f || _size.y <= 0f ||
-          _referenceTimeStep <= 0f || _constraintIterations < 1 ||
-          _pixelSnapEnabled && _pixelsPerUnit <= 0f || _anchorMotionStrategy == null ||
-          _forceModifiers == null)
+      if (Columns < 2 || Rows < 2 || Size.x <= 0f || Size.y <= 0f ||
+          SimulationFps < 1 || ConstraintIterations < 1 ||
+          PixelSnapEnabled && PixelsPerUnit <= 0f || AnchorMotionStrategy == null ||
+          ForceModifiers == null)
       {
         Debug.LogError($"{nameof(PixelCloth2D)} on '{name}' has invalid settings.", this);
         return false;
@@ -213,17 +216,22 @@ namespace Sling.Level.PixelCloth
 
     private void Initialize()
     {
-      if (_anchor == null)
-        _anchor = transform;
+      if (Anchor == null)
+        Anchor = transform;
 
       EnsureMesh();
       BuildBuffers();
       BuildMeshTopology();
 
-      _initialAnchorRotation = _anchor.rotation;
+      _builtColumns = Columns;
+      _builtRows = Rows;
+      _builtSize = Size;
+      _initialAnchorRotation = Anchor.rotation;
       ResetSimulation(GetAnchorPosition());
+      SnapSimulatedPositions();
       _isInitialized = true;
-      RenderImmediately();
+      _simulationAccumulator = 0f;
+      UploadMesh();
     }
 
     private void EnsureMesh()
@@ -238,32 +246,39 @@ namespace Sling.Level.PixelCloth
         _mesh.Clear();
       }
 
-      _meshFilter.sharedMesh = _mesh;
+      MeshFilter.sharedMesh = _mesh;
       ApplySorting();
+      ApplySpriteTexture();
+    }
+
+    private void ApplySpriteTexture()
+    {
+      if (MeshRenderer == null || Sprite == null)
+        return;
 
       _propertyBlock ??= new MaterialPropertyBlock();
-      _meshRenderer.GetPropertyBlock(_propertyBlock);
-      _propertyBlock.SetTexture(_sMainTextureId, _sprite.texture);
-      _meshRenderer.SetPropertyBlock(_propertyBlock);
+      MeshRenderer.GetPropertyBlock(_propertyBlock);
+      _propertyBlock.SetTexture(_sMainTextureId, Sprite.texture);
+      MeshRenderer.SetPropertyBlock(_propertyBlock);
     }
 
     private void ApplySorting()
     {
-      if (_meshRenderer == null)
+      if (MeshRenderer == null)
         return;
 
-      _meshRenderer.sortingLayerID = _sortingLayerId;
-      _meshRenderer.sortingOrder = _orderInLayer;
+      MeshRenderer.sortingLayerID = SortingLayerId;
+      MeshRenderer.sortingOrder = OrderInLayer;
     }
 
     private void BuildBuffers()
     {
-      int columns = _columns;
-      int rows = _rows;
+      int columns = Columns;
+      int rows = Rows;
       int pointCount = columns * rows;
       int constraintCount = rows * (columns - 1) +
                             (rows - 1) * columns +
-                            (rows - 1) * (columns - 1) * 2;
+                            (rows - 1) * (columns - 1);
 
       _positions = new Vector2[pointCount];
       _previousPositions = new Vector2[pointCount];
@@ -277,9 +292,9 @@ namespace Sling.Level.PixelCloth
 
     private void BuildMeshTopology()
     {
-      int columns = _columns;
-      int rows = _rows;
-      Vector4 outerUv = DataUtility.GetOuterUV(_sprite);
+      int columns = Columns;
+      int rows = Rows;
+      Vector4 outerUv = DataUtility.GetOuterUV(Sprite);
 
       for (int row = 0; row < rows; row++)
       {
@@ -330,8 +345,8 @@ namespace Sling.Level.PixelCloth
 
     private void BuildConstraints()
     {
-      int columns = _columns;
-      int rows = _rows;
+      int columns = Columns;
+      int rows = Rows;
       int constraintIndex = 0;
 
       for (int row = 0; row < rows; row++)
@@ -349,17 +364,14 @@ namespace Sling.Level.PixelCloth
       for (int row = 0; row < rows - 1; row++)
       {
         for (int column = 0; column < columns - 1; column++)
-        {
           AddConstraint(ref constraintIndex, column, row, column + 1, row + 1);
-          AddConstraint(ref constraintIndex, column + 1, row, column, row + 1);
-        }
       }
     }
 
     private void AddConstraint(ref int constraintIndex, int columnA, int rowA, int columnB, int rowB)
     {
-      float horizontalStep = _size.x / (_columns - 1);
-      float verticalStep = _size.y / (_rows - 1);
+      float horizontalStep = Size.x / (Columns - 1);
+      float verticalStep = Size.y / (Rows - 1);
       float deltaX = (columnB - columnA) * horizontalStep;
       float deltaY = (rowB - rowA) * verticalStep;
 
@@ -371,8 +383,8 @@ namespace Sling.Level.PixelCloth
 
     private void ResetSimulation(Vector2 anchorPosition)
     {
-      int columns = _columns;
-      int rows = _rows;
+      int columns = Columns;
+      int rows = Rows;
       _initialAnchorPosition = anchorPosition;
       _previousAnchorPosition = anchorPosition;
 
@@ -384,8 +396,8 @@ namespace Sling.Level.PixelCloth
         {
           float column01 = column / (float)(columns - 1);
           Vector2 localOffset = new(
-            Mathf.Lerp(-_size.x * 0.5f, _size.x * 0.5f, column01),
-            -_size.y * row01);
+            Mathf.Lerp(-Size.x * 0.5f, Size.x * 0.5f, column01),
+            -Size.y * row01);
           Vector2 worldOffset = _initialAnchorRotation * (Vector3)localOffset;
           int index = GetPointIndex(column, row);
           Vector2 worldPosition = anchorPosition + worldOffset;
@@ -404,44 +416,82 @@ namespace Sling.Level.PixelCloth
       _requiresReset = false;
     }
 
+    private void StepSimulation(Vector2 currentAnchorPosition, float deltaTime)
+    {
+      AnchorMotionStrategy.FillPinnedPositions(
+        _initialAnchorPosition,
+        currentAnchorPosition,
+        _restPinnedWorldPositions,
+        _pinnedWorldPositions);
+
+      ApplyPinnedPositions();
+      SimulateFreePoints(deltaTime);
+
+      for (int i = 0; i < ConstraintIterations; i++)
+      {
+        SolveConstraints();
+        ApplyPinnedPositions();
+      }
+
+      SnapSimulatedPositions();
+      _previousAnchorPosition = currentAnchorPosition;
+    }
+
     private void SimulateFreePoints(float deltaTime)
     {
-      float damping = Mathf.Pow(_damping, deltaTime / _referenceTimeStep);
+      float damping = Damping;
       float deltaTimeSqr = deltaTime * deltaTime;
-      int columns = _columns;
-      int rows = _rows;
-      IReadOnlyList<PixelClothForceModifier> localModifiers = _forceModifiers;
+      int columns = Columns;
+      int rows = Rows;
+      IReadOnlyList<PixelClothForceModifier> localModifiers = ForceModifiers;
+      bool hasForces = _runtimeModifiers.Count > 0;
+
+      if (!hasForces)
+      {
+        for (int i = 0; i < localModifiers.Count; i++)
+        {
+          if (localModifiers[i] != null)
+          {
+            hasForces = true;
+            break;
+          }
+        }
+      }
 
       for (int row = 1; row < rows; row++)
       {
-        float row01 = row / (float)(rows - 1);
+        float row01 = hasForces ? row / (float)(rows - 1) : 0f;
 
         for (int column = 0; column < columns; column++)
         {
           int index = GetPointIndex(column, row);
           Vector2 position = _positions[index];
           Vector2 velocity = position - _previousPositions[index];
-          Vector2 worldVelocity = velocity / deltaTime;
-          var context = new PixelClothForceContext(
-            index,
-            new Vector2Int(column, row),
-            new Vector2(column / (float)(columns - 1), row01),
-            position,
-            worldVelocity,
-            Time.fixedTime,
-            deltaTime);
           Vector2 acceleration = Vector2.zero;
 
-          for (int i = 0; i < localModifiers.Count; i++)
+          if (hasForces)
           {
-            PixelClothForceModifier modifier = localModifiers[i];
+            Vector2 worldVelocity = velocity / deltaTime;
+            var context = new PixelClothForceContext(
+              index,
+              new Vector2Int(column, row),
+              new Vector2(column / (float)(columns - 1), row01),
+              position,
+              worldVelocity,
+              Time.time,
+              deltaTime);
 
-            if (modifier != null)
-              acceleration += modifier.GetAcceleration(in context);
+            for (int i = 0; i < localModifiers.Count; i++)
+            {
+              PixelClothForceModifier modifier = localModifiers[i];
+
+              if (modifier != null)
+                acceleration += modifier.GetAcceleration(in context);
+            }
+
+            for (int i = 0; i < _runtimeModifiers.Count; i++)
+              acceleration += _runtimeModifiers[i].Modifier.GetAcceleration(in context);
           }
-
-          for (int i = 0; i < _runtimeModifiers.Count; i++)
-            acceleration += _runtimeModifiers[i].Modifier.GetAcceleration(in context);
 
           _previousPositions[index] = position;
           _positions[index] = position + velocity * damping + acceleration * deltaTimeSqr;
@@ -451,7 +501,7 @@ namespace Sling.Level.PixelCloth
 
     private void SolveConstraints()
     {
-      int pinnedCount = _columns;
+      int pinnedCount = Columns;
 
       for (int i = 0; i < _constraints.Length; i++)
       {
@@ -463,7 +513,7 @@ namespace Sling.Level.PixelCloth
           continue;
 
         float distance = Mathf.Sqrt(distanceSqr);
-        Vector2 correction = delta * ((distance - constraint.RestDistance) / distance);
+        Vector2 correction = delta * ((distance - constraint.RestDistance) / distance * FiberStrength);
         bool aPinned = constraint.IndexA < pinnedCount;
         bool bPinned = constraint.IndexB < pinnedCount;
 
@@ -496,20 +546,53 @@ namespace Sling.Level.PixelCloth
       }
     }
 
-    private void RenderImmediately()
+    private void SnapSimulatedPositions()
     {
-      for (int i = 0; i < _positions.Length; i++)
-        _renderVertices[i] = _meshFilter.transform.InverseTransformPoint(_positions[i]);
+      if (!PixelSnapEnabled)
+        return;
 
-      _mesh.SetVertices(_renderVertices);
-      _mesh.RecalculateBounds();
+      float pixelsPerUnit = PixelsPerUnit;
+
+      for (int i = 0; i < _positions.Length; i++)
+      {
+        Vector2 position = _positions[i];
+        Vector2 velocity = position - _previousPositions[i];
+        Vector2 snapped = new(
+          Mathf.Round(position.x * pixelsPerUnit) / pixelsPerUnit,
+          Mathf.Round(position.y * pixelsPerUnit) / pixelsPerUnit);
+        _positions[i] = snapped;
+        _previousPositions[i] = snapped - velocity;
+      }
+    }
+
+    private void UploadMesh()
+    {
+      Bounds bounds = new(Vector3.zero, Vector3.zero);
+
+      for (int i = 0; i < _positions.Length; i++)
+      {
+        Vector3 localPosition = MeshFilter.transform.InverseTransformPoint(_positions[i]);
+        _renderVertices[i] = localPosition;
+
+        if (i == 0)
+          bounds = new Bounds(localPosition, Vector3.zero);
+        else
+          bounds.Encapsulate(localPosition);
+      }
+
+      _mesh.SetVertices(
+        _renderVertices,
+        0,
+        _renderVertices.Length,
+        MeshUpdateFlags.DontValidateIndices | MeshUpdateFlags.DontRecalculateBounds);
+      _mesh.bounds = bounds;
     }
 
     private int GetPointIndex(int column, int row) =>
-      row * _columns + column;
+      row * Columns + column;
 
     private Vector2 GetAnchorPosition() =>
-      _anchor.position;
+      Anchor.position;
 
     private void Unregister(RuntimeModifierRegistration registration) =>
       _runtimeModifiers.Remove(registration);

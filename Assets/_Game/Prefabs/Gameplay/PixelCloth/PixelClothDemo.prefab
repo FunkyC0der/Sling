@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1232746764301041060}
-  - component: {fileID: 6485293532687011211}
   - component: {fileID: 3630451587201101390}
   - component: {fileID: 1487994662396568200}
-  - component: {fileID: 4768418265375668400}
   - component: {fileID: 6334560883167551128}
   m_Layer: 0
   m_Name: PixelClothDemo
@@ -36,33 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &6485293532687011211
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2507401487659568501}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!33 &3630451587201101390
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -115,32 +86,11 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 1393915797
-  m_SortingLayer: 3
+  m_SortingLayerID: 1179922883
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4768418265375668400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2507401487659568501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036015cf8aee43e988a03b8d856e953d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sling.Common.Tweeners.PhysicsMoveTweener
-  _autoStart: 1
-  Points:
-  - {x: 4, y: 0, z: 0}
-  - {x: -4, y: 2, z: 0}
-  - {x: 0, y: 0, z: 0}
-  Speed: 8
-  DelayBeforeNextPoint: 0.25
-  Ease: 1
-  Cycles: -1
 --- !u!114 &6334560883167551128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,27 +103,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52085be0c5180432a898f5d9cb7bbab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.PixelCloth.PixelCloth2D
-  _columns: 5
-  _rows: 13
-  _size: {x: 4, y: 12}
-  _damping: 0.96
-  _referenceTimeStep: 0.02
-  _constraintIterations: 4
-  _teleportThreshold: 12
-  _pixelSnapEnabled: 1
-  _pixelsPerUnit: 4
-  _sortingLayerId: 1393915797
-  _orderInLayer: 0
-  _anchorMotionStrategy:
+  Columns: 5
+  Rows: 13
+  Size: {x: 4, y: 12}
+  SimulationFps: 30
+  Damping: 0.9
+  FiberStrength: 1
+  ConstraintIterations: 6
+  TeleportThreshold: 12
+  PixelSnapEnabled: 0
+  PixelsPerUnit: 4
+  SortingLayerId: 1179922883
+  OrderInLayer: 0
+  AnchorMotionStrategy:
     rid: 8759470524390441110
-  _forceModifiers: []
-  _anchor: {fileID: 0}
-  _sprite: {fileID: 21300000, guid: 83536f25da19447a49640c2e2ff25e5f, type: 3}
-  _meshFilter: {fileID: 3630451587201101390}
-  _meshRenderer: {fileID: 1487994662396568200}
+  ForceModifiers:
+  - rid: 8759470524390441111
+  Anchor: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 83536f25da19447a49640c2e2ff25e5f, type: 3}
+  MeshFilter: {fileID: 3630451587201101390}
+  MeshRenderer: {fileID: 1487994662396568200}
   references:
     version: 2
     RefIds:
     - rid: 8759470524390441110
       type: {class: TranslationOnlyAnchorMotionStrategy, ns: Sling.Level.PixelCloth, asm: Assembly-CSharp}
+      data: 
+    - rid: 8759470524390441111
+      type: {class: GravityMassPixelClothForceModifier, ns: Sling.Level.PixelCloth, asm: Assembly-CSharp}
       data:
+        Mass: 1

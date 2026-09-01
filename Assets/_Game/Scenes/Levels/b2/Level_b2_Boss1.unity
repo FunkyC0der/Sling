@@ -790,33 +790,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1179922883
-      objectReference: {fileID: 0}
     - target: {fileID: 2507401487659568501, guid: 8995b244776564519a63a17be7f6af54, type: 3}
       propertyPath: m_Name
       value: PixelClothDemo
       objectReference: {fileID: 0}
-    - target: {fileID: 6334560883167551128, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-      propertyPath: _sortingLayerId
-      value: 1179922883
-      objectReference: {fileID: 0}
-    - target: {fileID: 6334560883167551128, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-      propertyPath: _anchorMotionStrategy
-      value: 8759470524390441160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6334560883167551128, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-      propertyPath: 'managedReferences[8759470524390441160]'
-      value: Assembly-CSharp Sling.Level.PixelCloth.TranslationOnlyAnchorMotionStrategy
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4768418265375668400, guid: 8995b244776564519a63a17be7f6af54, type: 3}
-    - {fileID: 6485293532687011211, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

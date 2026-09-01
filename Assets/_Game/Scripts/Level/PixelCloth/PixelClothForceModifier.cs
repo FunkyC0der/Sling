@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sling.Level.PixelCloth
 {
@@ -47,9 +48,21 @@ namespace Sling.Level.PixelCloth
   public sealed class UnityGravityPixelClothForceModifier : PixelClothForceModifier
   {
     [Tooltip("Scales Physics2D.gravity applied to free cloth points. 1 = full gravity, 0 = none, above 1 = heavier / faster sag.")]
-    public float _multiplier = 1f;
+    [FormerlySerializedAs("_multiplier")]
+    [Range(0f, 10f)] public float Multiplier = 1f;
 
     public override Vector2 GetAcceleration(in PixelClothForceContext context) =>
-      Physics2D.gravity * _multiplier;
+      Physics2D.gravity * Multiplier;
+  }
+
+  [Serializable]
+  public sealed class GravityMassPixelClothForceModifier : PixelClothForceModifier
+  {
+    [Tooltip("Gravitational mass of free cloth points. 1 = Physics2D.gravity as-is; higher mass sags faster and feels heavier.")]
+    [FormerlySerializedAs("_mass")]
+    [Range(0f, 10f)] public float Mass = 1f;
+
+    public override Vector2 GetAcceleration(in PixelClothForceContext context) =>
+      Physics2D.gravity * Mass;
   }
 }
