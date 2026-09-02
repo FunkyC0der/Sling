@@ -1,0 +1,11 @@
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+graphify-out/
+Packages/packages-lock.json
+Assets/Screenshots/
+**/*.html
