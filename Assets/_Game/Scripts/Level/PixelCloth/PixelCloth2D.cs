@@ -29,7 +29,7 @@ namespace Sling.Level.PixelCloth
     public Vector2 Size = new(4f, 12f);
 
     [Header("Simulation")]
-    [Tooltip("How many times per second the cloth pose updates. Lower values look like stop-motion pixel animation. Mesh is not interpolated between ticks.")]
+    [Tooltip("How many times per second the cloth pose updates. Lower values look like stop-motion pixel animation.")]
     [FormerlySerializedAs("_simulationFps")]
     [Range(1, 60)] public int SimulationFps = 12;
     [Tooltip("How much Verlet velocity is kept each simulation tick. 1 = no energy loss (jittery); lower = cloth settles faster. Lower this further if simulation FPS is low.")]
@@ -46,6 +46,8 @@ namespace Sling.Level.PixelCloth
     [Range(0f, 40f)] public float TeleportThreshold = 12f;
 
     [Header("Rendering")]
+    [Tooltip("Smooth the rendered cloth form between simulation ticks while keeping the pinned edge on the current anchor position.")]
+    public bool _renderInterpolation;
     [Tooltip("Snap simulated points to a pixel grid after each tick so the cape jumps pixel-to-pixel.")]
     [FormerlySerializedAs("_pixelSnapEnabled")]
     public bool PixelSnapEnabled = true;
@@ -86,6 +88,7 @@ namespace Sling.Level.PixelCloth
 
     private Vector2[] _positions;
     private Vector2[] _previousPositions;
+    private Vector2[] _previousSimulationPositions;
     private Vector2[] _restPinnedWorldPositions;
     private Vector2[] _pinnedWorldPositions;
     private Vector3[] _renderVertices;
@@ -98,6 +101,8 @@ namespace Sling.Level.PixelCloth
     private Quaternion _initialAnchorRotation;
     private Vector2 _initialAnchorPosition;
     private Vector2 _previousAnchorPosition;
+    private Vector2 _previousSimulationAnchorPosition;
+    private Vector2 _currentSimulationAnchorPosition;
     private float _simulationAccumulator;
     private int _builtColumns;
     private int _builtRows;
@@ -167,7 +172,6 @@ namespace Sling.Level.PixelCloth
           (currentAnchorPosition - _previousAnchorPosition).sqrMagnitude > teleportThreshold * teleportThreshold)
       {
         ResetSimulation(currentAnchorPosition);
-        SnapSimulatedPositions();
         _simulationAccumulator = 0f;
         return;
       }
@@ -255,7 +259,6 @@ namespace Sling.Level.PixelCloth
       _builtSprite = Sprite;
       _initialAnchorRotation = Anchor.rotation;
       ResetSimulation(GetAnchorPosition());
-      SnapSimulatedPositions();
       _isInitialized = true;
       _simulationAccumulator = 0f;
       UploadMesh();
@@ -344,6 +347,7 @@ namespace Sling.Level.PixelCloth
 
       _positions = new Vector2[pointCount];
       _previousPositions = new Vector2[pointCount];
+      _previousSimulationPositions = new Vector2[pointCount];
       _restPinnedWorldPositions = new Vector2[columns];
       _pinnedWorldPositions = new Vector2[columns];
       _renderVertices = new Vector3[pointCount];
@@ -476,10 +480,14 @@ namespace Sling.Level.PixelCloth
       }
 
       _requiresReset = false;
+      SnapSimulatedPositions();
+      SynchronizeInterpolationSnapshots(anchorPosition);
     }
 
     private void StepSimulation(Vector2 currentAnchorPosition, float deltaTime)
     {
+      CapturePreviousSimulationSnapshot();
+
       AnchorMotionStrategy.FillPinnedPositions(
         _initialAnchorPosition,
         currentAnchorPosition,
@@ -497,6 +505,20 @@ namespace Sling.Level.PixelCloth
 
       SnapSimulatedPositions();
       _previousAnchorPosition = currentAnchorPosition;
+      _currentSimulationAnchorPosition = currentAnchorPosition;
+    }
+
+    private void CapturePreviousSimulationSnapshot()
+    {
+      Array.Copy(_positions, _previousSimulationPositions, _positions.Length);
+      _previousSimulationAnchorPosition = _currentSimulationAnchorPosition;
+    }
+
+    private void SynchronizeInterpolationSnapshots(Vector2 anchorPosition)
+    {
+      Array.Copy(_positions, _previousSimulationPositions, _positions.Length);
+      _previousSimulationAnchorPosition = anchorPosition;
+      _currentSimulationAnchorPosition = anchorPosition;
     }
 
     private void SimulateFreePoints(float deltaTime)
@@ -630,10 +652,13 @@ namespace Sling.Level.PixelCloth
     private void UploadMesh()
     {
       Bounds bounds = new(Vector3.zero, Vector3.zero);
+      float interpolation = Mathf.Clamp01(_simulationAccumulator * SimulationFps);
+      Vector2 currentAnchorPosition = GetAnchorPosition();
 
       for (int i = 0; i < _positions.Length; i++)
       {
-        Vector3 transformedPosition = MeshFilter.transform.InverseTransformPoint(_positions[i]);
+        Vector2 renderPosition = GetRenderPosition(i, interpolation, currentAnchorPosition);
+        Vector3 transformedPosition = MeshFilter.transform.InverseTransformPoint(renderPosition);
         Vector3 localPosition = new(transformedPosition.x, transformedPosition.y, 0f);
         _renderVertices[i] = localPosition;
 
@@ -649,6 +674,16 @@ namespace Sling.Level.PixelCloth
         _renderVertices.Length,
         MeshUpdateFlags.DontValidateIndices | MeshUpdateFlags.DontRecalculateBounds);
       _mesh.bounds = bounds;
+    }
+
+    private Vector2 GetRenderPosition(int index, float interpolation, Vector2 currentAnchorPosition)
+    {
+      if (!_renderInterpolation || PixelSnapEnabled)
+        return _positions[index];
+
+      Vector2 previousOffset = _previousSimulationPositions[index] - _previousSimulationAnchorPosition;
+      Vector2 currentOffset = _positions[index] - _currentSimulationAnchorPosition;
+      return Vector2.Lerp(previousOffset, currentOffset, interpolation) + currentAnchorPosition;
     }
 
     private int GetPointIndex(int column, int row) =>

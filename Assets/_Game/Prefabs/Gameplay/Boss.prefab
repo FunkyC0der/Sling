@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: _autoStart
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 535411732277990038, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Points.Array.size
       value: 2
@@ -544,6 +548,10 @@ PrefabInstance:
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: _autoStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 535411732277990038, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Points.Array.size

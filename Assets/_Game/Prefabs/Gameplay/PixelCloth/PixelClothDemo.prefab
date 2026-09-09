@@ -111,6 +111,7 @@ MonoBehaviour:
   FiberStrength: 1
   ConstraintIterations: 6
   TeleportThreshold: 12
+  _renderInterpolation: 1
   PixelSnapEnabled: 0
   PixelsPerUnit: 4
   SortingLayerId: 1179922883
