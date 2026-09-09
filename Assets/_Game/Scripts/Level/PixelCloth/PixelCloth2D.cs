@@ -9,10 +9,13 @@ using UnityEngine.Sprites;
 namespace Sling.Level.PixelCloth
 {
   [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+  [ExecuteAlways]
   public sealed class PixelCloth2D : MonoBehaviour
   {
     private static readonly int _sMainTextureId = Shader.PropertyToID("_MainTex");
+    private const string _kSpriteLitShaderName = "Universal Render Pipeline/2D/Sprite-Lit-Default";
     private const float _kMinDistanceSqr = 0.000001f;
+    private static Material _sSpriteLitMaterial;
 
     [Header("Grid")]
     [Tooltip("Horizontal point count. More columns = finer left-right folds and stretch, higher CPU.")]
@@ -99,6 +102,7 @@ namespace Sling.Level.PixelCloth
     private int _builtColumns;
     private int _builtRows;
     private Vector2 _builtSize;
+    private Sprite _builtSprite;
     private bool _isInitialized;
     private bool _requiresReset = true;
 
@@ -126,18 +130,33 @@ namespace Sling.Level.PixelCloth
     private void OnValidate()
     {
       ApplySorting();
+      ApplySpriteMaterial();
 
-      if (!Application.isPlaying || !_isInitialized)
+      if (!Application.isPlaying)
+      {
+        if (enabled && ValidateConfiguration())
+          Initialize();
+
+        return;
+      }
+
+      if (!_isInitialized)
         return;
 
       ApplySpriteTexture();
 
-      if (Columns != _builtColumns || Rows != _builtRows || Size != _builtSize)
+      if (Columns != _builtColumns || Rows != _builtRows || Size != _builtSize || Sprite != _builtSprite)
         Initialize();
     }
 
     private void Update()
     {
+      if (!Application.isPlaying)
+      {
+        ApplySorting();
+        return;
+      }
+
       if (!_isInitialized)
         return;
 
@@ -168,7 +187,7 @@ namespace Sling.Level.PixelCloth
 
     private void LateUpdate()
     {
-      if (!_isInitialized)
+      if (!Application.isPlaying || !_isInitialized)
         return;
 
       UploadMesh();
@@ -190,7 +209,11 @@ namespace Sling.Level.PixelCloth
       if (MeshFilter != null && MeshFilter.sharedMesh == _mesh)
         MeshFilter.sharedMesh = null;
 
-      Destroy(_mesh);
+      if (Application.isPlaying)
+        Destroy(_mesh);
+      else
+        DestroyImmediate(_mesh);
+
       _mesh = null;
     }
 
@@ -219,6 +242,9 @@ namespace Sling.Level.PixelCloth
       if (Anchor == null)
         Anchor = transform;
 
+      if (Sprite != _builtSprite)
+        Size = GetSpriteWorldSize();
+
       EnsureMesh();
       BuildBuffers();
       BuildMeshTopology();
@@ -226,6 +252,7 @@ namespace Sling.Level.PixelCloth
       _builtColumns = Columns;
       _builtRows = Rows;
       _builtSize = Size;
+      _builtSprite = Sprite;
       _initialAnchorRotation = Anchor.rotation;
       ResetSimulation(GetAnchorPosition());
       SnapSimulatedPositions();
@@ -234,12 +261,24 @@ namespace Sling.Level.PixelCloth
       UploadMesh();
     }
 
+    private Vector2 GetSpriteWorldSize()
+    {
+      Vector2 localSize = Sprite.bounds.size;
+      Vector3 worldScale = transform.lossyScale;
+      return new Vector2(
+        Mathf.Abs(localSize.x * worldScale.x),
+        Mathf.Abs(localSize.y * worldScale.y));
+    }
+
     private void EnsureMesh()
     {
       if (_mesh == null)
       {
         _mesh = new Mesh { name = $"{name} Pixel Cloth" };
         _mesh.MarkDynamic();
+
+        if (!Application.isPlaying)
+          _mesh.hideFlags = HideFlags.HideAndDontSave;
       }
       else
       {
@@ -247,8 +286,31 @@ namespace Sling.Level.PixelCloth
       }
 
       MeshFilter.sharedMesh = _mesh;
+      ApplySpriteMaterial();
       ApplySorting();
       ApplySpriteTexture();
+    }
+
+    private void ApplySpriteMaterial()
+    {
+      if (MeshRenderer == null)
+        return;
+
+      Material currentMaterial = MeshRenderer.sharedMaterial;
+      if (currentMaterial != null && currentMaterial.shader != null &&
+          currentMaterial.shader.name == _kSpriteLitShaderName)
+        return;
+
+      Shader spriteLitShader = Shader.Find(_kSpriteLitShaderName);
+      if (spriteLitShader == null)
+        return;
+
+      _sSpriteLitMaterial ??= new Material(spriteLitShader)
+      {
+        name = "PixelCloth Sprite-Lit-Default",
+        hideFlags = HideFlags.HideAndDontSave
+      };
+      MeshRenderer.sharedMaterial = _sSpriteLitMaterial;
     }
 
     private void ApplySpriteTexture()
@@ -571,7 +633,8 @@ namespace Sling.Level.PixelCloth
 
       for (int i = 0; i < _positions.Length; i++)
       {
-        Vector3 localPosition = MeshFilter.transform.InverseTransformPoint(_positions[i]);
+        Vector3 transformedPosition = MeshFilter.transform.InverseTransformPoint(_positions[i]);
+        Vector3 localPosition = new(transformedPosition.x, transformedPosition.y, 0f);
         _renderVertices[i] = localPosition;
 
         if (i == 0)
