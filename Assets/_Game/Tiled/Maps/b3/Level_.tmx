@@ -7,7 +7,7 @@
  <tileset firstgid="171" source="../../Tilesets/b3.tsx"/>
  <layer id="1" name="prototype" width="44" height="61">
   <properties>
-   <property name="physicsMaterial" value="PM_Ground"/>
+   <property name="physicsMaterial" value="PM_IceGround"/>
    <property name="unity:ignore" value="Visual"/>
    <property name="unity:layer" value="Ground"/>
   </properties>

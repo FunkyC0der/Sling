@@ -516,7 +516,7 @@ MonoBehaviour:
         sceneIndex: 63
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 7ab18de099e277f439fb6020f09072b4, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 67b54014d84adc74d9c5e69852052fa0, type: 3}
@@ -532,7 +532,7 @@ MonoBehaviour:
         sceneIndex: 65
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: d784eea1d3eacb749b8c261fb63f8f13, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 2a7fdf3305d067045ba450467e350063, type: 3}
