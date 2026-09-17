@@ -479,6 +479,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6730474392159276202, guid: f3f23b8cb194f4d199e5869f0aec1adf, type: 3}
+      propertyPath: m_Size.x
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 314487824518324064, guid: ee95671ac412349fb95a3b4d9cb38a8f, type: 3}
       propertyPath: m_Name
       value: StickyZone_VRight
@@ -505,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8414722998812159130, guid: ee95671ac412349fb95a3b4d9cb38a8f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -77.5
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: 8414722998812159130, guid: ee95671ac412349fb95a3b4d9cb38a8f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -534,10 +538,6 @@ PrefabInstance:
     - target: {fileID: 8414722998812159130, guid: ee95671ac412349fb95a3b4d9cb38a8f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6730474392159276202, guid: f3f23b8cb194f4d199e5869f0aec1adf, type: 3}
-      propertyPath: m_Size.x
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
