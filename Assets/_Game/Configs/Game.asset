@@ -524,7 +524,7 @@ MonoBehaviour:
         sceneIndex: 64
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 4ed1d9aeeb674e442aef9245bc97dc9b, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: 1dee5f3635d343f4f8c056dc320de015, type: 3}
@@ -705,7 +705,7 @@ MonoBehaviour:
       Scene:
         Scene: {fileID: 102900000, guid: ceea9fbb2cba7d746a8c0b381b404d53, type: 3}
         SceneName: Level_b3_26
-        sceneIndex: 87
+        sceneIndex: -1
         sceneEnabled: 1
       Track: 1
     - Preview: {fileID: 0}
@@ -713,7 +713,7 @@ MonoBehaviour:
       Scene:
         Scene: {fileID: 102900000, guid: 0d72442b8f1c51440bc1e4ac8dfe413c, type: 3}
         SceneName: Level_b3_27
-        sceneIndex: 88
+        sceneIndex: -1
         sceneEnabled: 1
       Track: 1
     - Preview: {fileID: 0}
@@ -721,7 +721,7 @@ MonoBehaviour:
       Scene:
         Scene: {fileID: 102900000, guid: e3a20d9681a31a54b9a548fa52f145cc, type: 3}
         SceneName: Level_b3_28
-        sceneIndex: 89
+        sceneIndex: -1
         sceneEnabled: 1
       Track: 1
     - Preview: {fileID: 2800000, guid: 473d22132a593234a83eb3dea6e8ff6b, type: 3}
@@ -729,7 +729,7 @@ MonoBehaviour:
       Scene:
         Scene: {fileID: 102900000, guid: 8b83fe31ba836124fac7d3773b282ec0, type: 3}
         SceneName: Level_b3_29
-        sceneIndex: 90
+        sceneIndex: -1
         sceneEnabled: 1
       Track: 1
   SelectLevelWindowUxml: {fileID: 9197481963319205126, guid: aaed7f036b0ab4d2b8e5b85e61300488, type: 3}

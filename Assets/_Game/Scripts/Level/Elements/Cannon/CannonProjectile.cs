@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sling.Common.Extensions;
 using Sling.Level.Player;
 using UnityEngine;
@@ -8,11 +9,8 @@ namespace Sling.Level.Elements.Cannon
   public class CannonProjectile : MonoBehaviour
   {
     [SerializeField] private Rigidbody2D _rigidbody;
-    
-    public ParticleSystem LeftMoveDestroyVFXPrefab;
-    public ParticleSystem RightMoveDestroyVFXPrefab;
-    public ParticleSystem DownMoveDestroyVFXPrefab;
-    public ParticleSystem UpMoveDestroyVFXPrefab;
+
+    [SerializeReference] public List<ProjectileHitStrategy> HitStrategies = new();
 
     private float _collisionIgnoreUntilTime;
     private float _destroyDelay;
@@ -61,27 +59,16 @@ namespace Sling.Level.Elements.Cannon
         return;
 
       _isDestroying = true;
+      ApplyHitStrategies();
       Destroy(gameObject, _destroyDelay);
     }
 
-    private void OnDestroy() => 
-      SpawnDestroyVFX();
-
-    private void SpawnDestroyVFX()
+    private void ApplyHitStrategies()
     {
-      if (!gameObject.scene.isLoaded)
-        return;
+      ProjectileHitContext context = new(transform.position, _moveDirection, transform.lossyScale);
 
-      ParticleSystem prefab = LeftMoveDestroyVFXPrefab;
-      
-      if(_moveDirection.x > 0)
-        prefab = RightMoveDestroyVFXPrefab;
-      else if (_moveDirection.y < 0)
-        prefab = DownMoveDestroyVFXPrefab;
-      else if (_moveDirection.y > 0)
-        prefab = UpMoveDestroyVFXPrefab;
-      
-      Instantiate(prefab, transform.position, Quaternion.identity);
+      foreach (ProjectileHitStrategy strategy in HitStrategies)
+        strategy?.Apply(context);
     }
 
     private static bool IsPlayer(Rigidbody2D rigidbody) =>
@@ -92,5 +79,15 @@ namespace Sling.Level.Elements.Cannon
 
     private void Reset() =>
       _rigidbody = GetComponent<Rigidbody2D>();
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+      ProjectileHitContext context = new(transform.position, transform.right, transform.lossyScale);
+
+      foreach (ProjectileHitStrategy strategy in HitStrategies)
+        strategy?.DrawGizmos(context);
+    }
+#endif
   }
 }

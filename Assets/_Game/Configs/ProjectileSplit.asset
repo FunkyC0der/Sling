@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f45b4945df942ed8898a30d394b436, type: 3}
+  m_Name: ProjectileSplit
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.ProjectileSplitConfig
+  FragmentCount: 4
+  SpreadAngle: 94
+  FragmentSpeed: 20
+  FragmentLifetime: 5
+  CollisionIgnoreDuration: 0.1
+  DestroyDelay: 0.08
+  SpawnOffset: 0.5

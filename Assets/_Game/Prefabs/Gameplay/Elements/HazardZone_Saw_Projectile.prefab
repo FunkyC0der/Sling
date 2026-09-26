@@ -21,18 +21,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6202433926201647542, guid: 43580a91720564090a2d28c015b08651, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -59.325314
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202433926201647542, guid: 43580a91720564090a2d28c015b08651, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.832541
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202433926201647542, guid: 43580a91720564090a2d28c015b08651, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6202433926201647542, guid: 43580a91720564090a2d28c015b08651, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -116,8 +104,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.CannonProjectile
   _rigidbody: {fileID: 4157014459337241799}
-  _destroyVFXPrefab: {fileID: 7428245886722799732, guid: d9c46874f67cb4065a6b355bb1c94481, type: 3}
-  LeftMoveDestroyVFXPrefab: {fileID: 7428245886722799732, guid: d9c46874f67cb4065a6b355bb1c94481, type: 3}
-  RightMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: 89a7f459c2fec44ea8e494fe7e3059da, type: 3}
-  DownMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: f61700aaa291c4caea56359b4d7bfc7a, type: 3}
-  UpMoveDestroyVFXPrefab: {fileID: 6314308537281105109, guid: 76dff1a1e5372424fb4481016096e58b, type: 3}
+  HitStrategies:
+  - rid: 8759471086963523697
+  references:
+    version: 2
+    RefIds:
+    - rid: 8759471086963523697
+      type: {class: VFXProjectileHitStrategy, ns: Sling.Level.Elements.Cannon, asm: Assembly-CSharp}
+      data:
+        LeftMoveVFXPrefab: {fileID: 7428245886722799732, guid: d9c46874f67cb4065a6b355bb1c94481, type: 3}
+        RightMoveVFXPrefab: {fileID: 6314308537281105109, guid: 89a7f459c2fec44ea8e494fe7e3059da, type: 3}
+        DownMoveVFXPrefab: {fileID: 6314308537281105109, guid: f61700aaa291c4caea56359b4d7bfc7a, type: 3}
+        UpMoveVFXPrefab: {fileID: 6314308537281105109, guid: 76dff1a1e5372424fb4481016096e58b, type: 3}

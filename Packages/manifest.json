@@ -9,7 +9,6 @@
     }
   ],
   "dependencies": {
-    "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.kyrylokuzyk.primetween": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
     "com.mackysoft.serializereference-extensions": "1.7.0",
@@ -28,7 +27,7 @@
     "com.unity.ide.visualstudio": "2.0.28",
     "com.unity.inputsystem": "1.20.0",
     "com.unity.multiplayer.center": "2.0.1",
-    "com.unity.pipeline": "0.6.0-exp.1",
+    "com.unity.pipeline": "0.8.0-exp.1",
     "com.unity.project-auditor-rules": "1.0.3",
     "com.unity.recorder": "5.1.7",
     "com.unity.render-pipelines.universal": "17.6.0",
@@ -42,7 +41,6 @@
     "com.unity.ugui": "2.6.0",
     "com.unity.visualeffectgraph": "17.6.0",
     "com.unity.visualscripting": "1.9.12",
-    "com.xk.cms": "https://github.com/koster/CMS.git",
     "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.19.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.adaptiveperformance": "1.0.0",
