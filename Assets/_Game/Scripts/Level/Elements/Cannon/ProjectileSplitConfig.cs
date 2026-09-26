@@ -23,7 +23,6 @@ namespace Sling.Level.Elements.Cannon
     [Min(0)]
     public float DestroyDelay = 0.08f;
 
-    [Min(0)]
     public float SpawnOffset = 0.5f;
   }
 }

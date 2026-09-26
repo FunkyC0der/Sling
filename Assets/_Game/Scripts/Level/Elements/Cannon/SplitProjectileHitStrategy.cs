@@ -24,7 +24,7 @@ namespace Sling.Level.Elements.Cannon
 
       foreach (Vector2 direction in _directions)
       {
-        Vector2 position = context.Position + direction * Config.SpawnOffset;
+        Vector2 position = context.Position + context.MoveDirection * Config.SpawnOffset * -1;
 
         CannonProjectile fragment = UnityEngine.Object.Instantiate(
           FragmentPrefab, position, Quaternion.identity);
