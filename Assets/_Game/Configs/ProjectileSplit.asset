@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.ProjectileSplitConfig
   FragmentCount: 4
   SpreadAngle: 94
-  FragmentSpeed: 20
-  FragmentLifetime: 5
+  FragmentSpeed: 25
+  FragmentLifetime: 10
   CollisionIgnoreDuration: 0.1
-  DestroyDelay: 0.08
-  SpawnOffset: 0.5
+  DestroyDelay: 0.1
+  SpawnOffset: -3.48
