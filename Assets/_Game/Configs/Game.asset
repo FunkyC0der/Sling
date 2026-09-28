@@ -564,7 +564,7 @@ MonoBehaviour:
         sceneIndex: 69
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: a08aa9313fa90af4eaf69847fcbcde82, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: a6a574494d470bb48a2eb7f1fa0d045b, type: 3}
@@ -628,6 +628,14 @@ MonoBehaviour:
         sceneIndex: 77
         sceneEnabled: 1
       Track: 1
+    - Preview: {fileID: 2800000, guid: c0c1e1584a6ad4f4a8f236410d1f585e, type: 3}
+      Type: 1
+      Scene:
+        Scene: {fileID: 102900000, guid: 3b38f1a1154bcac429e44b2c317ba620, type: 3}
+        SceneName: Level_b3_Boss1
+        sceneIndex: 87
+        sceneEnabled: 1
+      Track: 53
     - Preview: {fileID: 0}
       Type: 0
       Scene:
@@ -660,7 +668,7 @@ MonoBehaviour:
         sceneIndex: 81
         sceneEnabled: 1
       Track: 1
-    - Preview: {fileID: 0}
+    - Preview: {fileID: 2800000, guid: 25ad2fd70647cd04f878520bfab53284, type: 3}
       Type: 0
       Scene:
         Scene: {fileID: 102900000, guid: c2b7b0af06b19414cb0dc1187626ce84, type: 3}
