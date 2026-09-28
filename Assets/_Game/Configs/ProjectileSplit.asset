@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f45b4945df942ed8898a30d394b436, type: 3}
   m_Name: ProjectileSplit
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Cannon.ProjectileSplitConfig
-  FragmentCount: 4
-  SpreadAngle: 94
+  FragmentCount: 2
+  SpreadAngle: 90
   FragmentSpeed: 25
   FragmentLifetime: 10
   CollisionIgnoreDuration: 0.1
