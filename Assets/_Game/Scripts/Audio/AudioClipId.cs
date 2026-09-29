@@ -20,6 +20,8 @@ namespace Sling.Audio
     BounceZone = 121,
     StickyZone = 122,
     Switcher = 123,
+    CannonFire = 124,
+    CannonProjectileBreak = 125,
     
     BossDamage = 131,
     

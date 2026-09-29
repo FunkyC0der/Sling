@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Sling.Audio;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace Sling.Level.Elements.Cannon
     [SerializeField] private CannonProjectile _projectilePrefab;
     
     [SerializeField] private Transform _muzzle;
+
+    [SerializeField] private AudioClipEmitter _fireClipEmitter;
+    [SerializeField] private AudioClipEmitter _breakClipEmitter;
 
     private Vector2 Direction => _muzzle.right;
 
@@ -39,13 +43,16 @@ namespace Sling.Level.Elements.Cannon
 
     private void Fire()
     {
+      _fireClipEmitter.Play();
+
       CannonProjectile projectile = Instantiate(_projectilePrefab, _muzzle.position, _muzzle.rotation);
       projectile.Launch(
         Direction,
         _config.ProjectileSpeed,
         _config.ProjectileLifetime,
         _config.CollisionIgnoreDuration,
-        _config.DestroyDelay);
+        _config.DestroyDelay,
+        _breakClipEmitter);
     }
 
 #if UNITY_EDITOR

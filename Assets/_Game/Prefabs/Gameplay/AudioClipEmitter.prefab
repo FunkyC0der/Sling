@@ -48,6 +48,7 @@ MonoBehaviour:
   _clipId: -1
   _audioSource: {fileID: 7453421374146598339}
   _audioConfig: {fileID: 11400000, guid: cd6f63594643448f8ab978e7c68e4f66, type: 2}
+  _pitchRange: {x: 0.9, y: 1.1}
 --- !u!82 &7453421374146598339
 AudioSource:
   m_ObjectHideFlags: 0

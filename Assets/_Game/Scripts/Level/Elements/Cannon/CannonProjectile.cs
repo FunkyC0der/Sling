@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sling.Audio;
 using Sling.Common.Extensions;
 using Sling.Level.Player;
 using UnityEngine;
@@ -16,13 +17,15 @@ namespace Sling.Level.Elements.Cannon
     private float _destroyDelay;
     private bool _isDestroying;
     private Vector2 _moveDirection;
+    private AudioClipEmitter _breakClipEmitter;
 
     public void Launch(
       Vector2 direction,
       float speed,
       float lifetime,
       float collisionIgnoreDuration,
-      float destroyDelay)
+      float destroyDelay,
+      AudioClipEmitter breakClipEmitter)
     {
       _moveDirection = direction;
       
@@ -30,6 +33,7 @@ namespace Sling.Level.Elements.Cannon
       _rigidbody.linearVelocity = direction.normalized * speed;
       _collisionIgnoreUntilTime = Time.time + collisionIgnoreDuration;
       _destroyDelay = destroyDelay;
+      _breakClipEmitter = breakClipEmitter;
 
       if (_moveDirection.x > 0) 
         transform.localScale = transform.localScale.Multiply(-1);
@@ -59,13 +63,17 @@ namespace Sling.Level.Elements.Cannon
         return;
 
       _isDestroying = true;
+
+      if (_breakClipEmitter != null)
+        _breakClipEmitter.Play();
+
       ApplyHitStrategies();
       Destroy(gameObject, _destroyDelay);
     }
 
     private void ApplyHitStrategies()
     {
-      ProjectileHitContext context = new(transform.position, _moveDirection, transform.lossyScale);
+      ProjectileHitContext context = new(transform.position, _moveDirection, transform.lossyScale, _breakClipEmitter);
 
       foreach (ProjectileHitStrategy strategy in HitStrategies)
         strategy?.Apply(context);
@@ -83,7 +91,7 @@ namespace Sling.Level.Elements.Cannon
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-      ProjectileHitContext context = new(transform.position, transform.right, transform.lossyScale);
+      ProjectileHitContext context = new(transform.position, transform.right, transform.lossyScale, null);
 
       foreach (ProjectileHitStrategy strategy in HitStrategies)
         strategy?.DrawGizmos(context);

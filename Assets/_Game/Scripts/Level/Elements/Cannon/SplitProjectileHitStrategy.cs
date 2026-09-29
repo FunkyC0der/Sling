@@ -34,7 +34,8 @@ namespace Sling.Level.Elements.Cannon
           Config.FragmentSpeed,
           Config.FragmentLifetime,
           Config.CollisionIgnoreDuration,
-          Config.DestroyDelay);
+          Config.DestroyDelay,
+          context.BreakClipEmitter);
       }
     }
 

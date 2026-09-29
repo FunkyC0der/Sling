@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8253501981713603567
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &5215314921432837083
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +123,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4445970938086440465}
+  - {fileID: 4929349449986425303}
+  - {fileID: 6647234111462261408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3317345937318977572
@@ -139,3 +142,159 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 09fa36e74e3664b8b90746542460ec6c, type: 2}
   _projectilePrefab: {fileID: 5301447285465220373, guid: 04dee1b7c5f044d63aa15a34895c75e3, type: 3}
   _muzzle: {fileID: 6839465015826650963}
+  _fireClipEmitter: {fileID: 4232100612992890873}
+  _breakClipEmitter: {fileID: 2516483135647216782}
+--- !u!1001 &2641358809833161834
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6839465015826650963}
+    m_Modifications:
+    - target: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: _clipId
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085843815261020547, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_Name
+      value: FireClipEmitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+--- !u!114 &4232100612992890873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 2641358809833161834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d255b329ee4e8bbd5455ebc298840c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Audio.AudioClipEmitter
+--- !u!4 &4929349449986425303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 2641358809833161834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4391243653831477021
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6839465015826650963}
+    m_Modifications:
+    - target: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: _clipId
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085843815261020547, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_Name
+      value: BreakClipEmitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+--- !u!114 &2516483135647216782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2169763887137895315, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 4391243653831477021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d255b329ee4e8bbd5455ebc298840c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Audio.AudioClipEmitter
+--- !u!4 &6647234111462261408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6975914069702280637, guid: 193c811cc44bf4f17b21e7df6868ba81, type: 3}
+  m_PrefabInstance: {fileID: 4391243653831477021}
+  m_PrefabAsset: {fileID: 0}
