@@ -206,29 +206,51 @@ MonoBehaviour:
     - {fileID: 2536439293183331239}
     BodySprite: {fileID: 0}
     AnimatorController: {fileID: 0}
-  _hitShakeSettings:
-    strength: {x: 0.5, y: 0.5, z: 0}
-    duration: 0.5
-    frequency: 10
-    enableFalloff: 0
-    falloffEase: 0
-    strengthOverTime:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    asymmetry: 0
-    easeBetweenShakes: 0
-    cycles: 1
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
-  _blinkAmount: 0.8
-  _hitBlinkCount: 2
   _phaseTransitionMoveSpeed: 30
+  _hitReactions:
+  - rid: 8759471155534364787
+  - rid: 8759471155534364788
+  - rid: 8759471155534364789
+  references:
+    version: 2
+    RefIds:
+    - rid: 8759471155534364787
+      type: {class: AnimatorBossHitReaction, ns: Sling.Level.Boss, asm: Assembly-CSharp}
+      data:
+        _animator: {fileID: 1513763150421013018}
+        _duration: 0.5
+    - rid: 8759471155534364788
+      type: {class: ShakeBossHitReaction, ns: Sling.Level.Boss, asm: Assembly-CSharp}
+      data:
+        _target: {fileID: 3772980208495210530}
+        _shakeSettings:
+          strength: {x: 0.5, y: 0.5, z: 0}
+          duration: 0.5
+          frequency: 10
+          enableFalloff: 0
+          falloffEase: 0
+          strengthOverTime:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          asymmetry: 0
+          easeBetweenShakes: 0
+          cycles: 1
+          startDelay: 0
+          endDelay: 0
+          useUnscaledTime: 0
+          _useFixedUpdate: 0
+          _updateType: 0
+    - rid: 8759471155534364789
+      type: {class: SpriteBlinkBossHitReaction, ns: Sling.Level.Boss, asm: Assembly-CSharp}
+      data:
+        _tweeners:
+        - {fileID: 1706072903558970319}
+        _blinkCount: 2
+        _duration: 0.5
+        _blinkAmount: 0.8
 --- !u!1 &6729289364589355069
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,13 +462,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7887320911632918912}
     m_Modifications:
-    - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
-      propertyPath: _autoStart
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 535411732277990038, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: m_Interpolate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
+      propertyPath: _autoStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Points.Array.size
@@ -545,13 +567,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7887320911632918912}
     m_Modifications:
-    - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
-      propertyPath: _autoStart
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 535411732277990038, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: m_Interpolate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
+      propertyPath: _autoStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2861151453502068371, guid: 58060066e3eba4a97aa09297ad9a4826, type: 3}
       propertyPath: Points.Array.size

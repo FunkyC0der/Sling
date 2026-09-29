@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using Sirenix.OdinInspector;
-using Sling.Common.Tweeners;
 using Sling.Common.Views;
 using UnityEngine;
 
@@ -11,24 +11,21 @@ namespace Sling.Level.Boss
 {
   public class BossView : MonoBehaviour, IUniqueView
   {
-    private static readonly int _hitTriggerId = Animator.StringToHash("Hit");
-    private static readonly int _idleTriggerId = Animator.StringToHash("Idle");
-
     [SerializeField] private Transform _bossBody;
     [SerializeField] private SpriteRenderer _bodySprite;
     [SerializeField] private Animator _animator;
     [SerializeField] private List<BossPhaseSettings> _phases;
-    [SerializeField] private ShakeSettings _hitShakeSettings;
-    [SerializeField] private float _blinkAmount;
-    [SerializeField] private int _hitBlinkCount = 3;
     [SerializeField] private float _phaseTransitionMoveSpeed = 10f;
-    
-    private SpriteBlinkTweener[] _blinkTweeners;
+
+    [SerializeReference, SubclassSelector] public List<BossHitReaction> _hitReactions = new();
 
     public int PhaseCount => _phases.Count;
 
-    private void Awake() => 
-      _blinkTweeners = GetComponentsInChildren<SpriteBlinkTweener>();
+    private void OnDestroy()
+    {
+      foreach (BossHitReaction reaction in _hitReactions)
+        reaction?.Stop();
+    }
 
     public void Init()
     {
@@ -85,27 +82,12 @@ namespace Sling.Level.Boss
         .WithCancellation(cancellationToken);
     }
 
-    [Button("Play Hit Anim")]
-    private void PlayHitAnimInEditor() =>
+    [Button("Trigger Hit")]
+    private void TriggerHitInEditor() =>
       PlayHitAnim(this.GetCancellationTokenOnDestroy()).Forget();
 
-    public async UniTask PlayHitAnim(CancellationToken cancellationToken)
-    {
-      bool hasAnimator = HasAnimator();
-
-      if (hasAnimator)
-        _animator.SetTrigger(_hitTriggerId);
-
-      PlayShakeAnim().Forget();
-      
-      foreach (SpriteBlinkTweener blinkTweener in _blinkTweeners) 
-        blinkTweener.PlayBlink(_hitBlinkCount, _hitShakeSettings.duration, _blinkAmount).Forget();
-
-      await UniTask.WaitForSeconds(_hitShakeSettings.duration, cancellationToken: cancellationToken);
-
-      if (hasAnimator)
-        _animator.SetTrigger(_idleTriggerId);
-    }
+    public async UniTask PlayHitAnim(CancellationToken cancellationToken) =>
+      await UniTask.WhenAll(_hitReactions.Select(r => r.Play(cancellationToken)));
 
     private void SetAnimatorController(RuntimeAnimatorController animatorController)
     {
@@ -123,8 +105,5 @@ namespace Sling.Level.Boss
 
     private bool HasAnimator() =>
       _animator != null && _animator.runtimeAnimatorController != null;
-
-    private async UniTask PlayShakeAnim() =>
-      await Tween.ShakeLocalPosition(_bossBody, _hitShakeSettings);
   }
 }

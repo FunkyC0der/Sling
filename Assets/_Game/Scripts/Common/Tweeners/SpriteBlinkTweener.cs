@@ -29,22 +29,7 @@ namespace Sling.Common.Tweeners
       Material originalMaterial = _spriteRenderer.sharedMaterial;
       _spriteRenderer.sharedMaterial = _blinkMaterial;
       
-      float halfBlinkDuration = duration / blinkCount * 0.5f;
-      
-      _sequence = Sequence.Create();
-      for (int i = 0; i < blinkCount; i++)
-      {
-        _sequence.Chain(Tween.MaterialProperty(_spriteRenderer.sharedMaterial,
-          _blinkAmountPropertyId,
-          startValue: 0f,
-          endValue: blinkAmount,
-          halfBlinkDuration));
-        
-        _sequence.Chain(Tween.MaterialProperty(_spriteRenderer.sharedMaterial,
-          _blinkAmountPropertyId,
-          endValue: 0f,
-          halfBlinkDuration));
-      }
+      _sequence = BlinkSequence.Create(_blinkMaterial, _blinkAmountPropertyId, blinkCount, duration, blinkAmount);
 
       _sequence.OnComplete(() => _spriteRenderer.sharedMaterial = originalMaterial);
 

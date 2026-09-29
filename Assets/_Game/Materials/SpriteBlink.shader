@@ -6,6 +6,7 @@ Shader "Sling/Sprite Blink"
         _BlinkAmount ("Blink Amount", Range(0, 1)) = 0
         _BlinkColor ("Blink Color", Color) = (1, 1, 1, 1)
         [MaterialToggle] _ZWrite("ZWrite", Float) = 0
+        [Toggle(_BLINK_MESH_RENDERER)] _MeshRenderer ("Mesh Renderer", Float) = 0
 
         [HideInInspector] _Color ("Tint", Color) = (1, 1, 1, 1)
         [HideInInspector] PixelSnap ("Pixel snap", Float) = 0
@@ -52,6 +53,7 @@ Shader "Sling/Sprite Blink"
 
             #pragma multi_compile_instancing
             #pragma multi_compile _ DEBUG_DISPLAY SKINNED_SPRITE
+            #pragma shader_feature_local _ _BLINK_MESH_RENDERER
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _Color;
@@ -63,10 +65,17 @@ Shader "Sling/Sprite Blink"
             {
                 UNITY_SKINNED_VERTEX_COMPUTE(input);
                 SetUpSpriteInstanceProperties();
+            #if !defined(_BLINK_MESH_RENDERER)
                 input.positionOS = UnityFlipSprite(input.positionOS, unity_SpriteProps.xy);
+            #endif
 
                 Varyings output = CommonUnlitVertex(input);
+            #if defined(_BLINK_MESH_RENDERER)
+                // MeshRenderer leaves unity_SpriteProps/unity_SpriteColor zeroed.
+                output.color = input.color * _Color;
+            #else
                 output.color = input.color * _Color * unity_SpriteColor;
+            #endif
                 return output;
             }
 

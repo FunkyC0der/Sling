@@ -488,6 +488,22 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _hitReactions.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: '_hitReactions.Array.data[3]'
+      value: 8759471155534364790
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[0].Tweener
+      value: 
+      objectReference: {fileID: 1100600406}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: _phases.Array.data[1].Tweener
+      value: 
+      objectReference: {fileID: 1279277723}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: _phases.Array.data[0].BodySprite
       value: 
       objectReference: {fileID: 2012386130007603486, guid: 48c693bda08794af8b3cf46e83b890a5, type: 3}
@@ -495,6 +511,10 @@ PrefabInstance:
       propertyPath: _phases.Array.data[1].BodySprite
       value: 
       objectReference: {fileID: 92268804, guid: 48c693bda08794af8b3cf46e83b890a5, type: 3}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: 'managedReferences[8759471155534364790]'
+      value: Assembly-CSharp Sling.Level.Boss.MeshBlinkBossHitReaction
+      objectReference: {fileID: 0}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: _phases.Array.data[0].AnimatorController
       value: 
@@ -512,13 +532,17 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: '_phases.Array.data[0].WeakPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 82651346}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: '_phases.Array.data[0].WeakPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 705256562}
+      objectReference: {fileID: 2059944254}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: '_phases.Array.data[0].WeakPoints.Array.data[2]'
       value: 
-      objectReference: {fileID: 82651346}
+      objectReference: {fileID: 705256562}
     - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
       propertyPath: '_phases.Array.data[0].WeakPoints.Array.data[3]'
       value: 
@@ -539,6 +563,46 @@ PrefabInstance:
       propertyPath: '_phases.Array.data[1].WeakPoints.Array.data[3]'
       value: 
       objectReference: {fileID: 799315778}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._duration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._blinkCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._blinkAmount
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._blinkMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 554e015f6939e4c30a0456e20d3c2a1e, type: 2}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._blinkAmountProperty
+      value: _BlinkAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: managedReferences[8759471155534364790]._renderers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: 'managedReferences[8759471155534364790]._renderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1145090116}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: 'managedReferences[8759471155534364790]._renderers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1617678547}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: 'managedReferences[8759471155534364790]._renderers.Array.data[2]'
+      value: 
+      objectReference: {fileID: 411543912}
+    - target: {fileID: 9206631028127552407, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+      propertyPath: 'managedReferences[8759471155534364790]._renderers.Array.data[3]'
+      value: 
+      objectReference: {fileID: 670720228}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1150,6 +1214,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1232746764301041060, guid: 8995b244776564519a63a17be7f6af54, type: 3}
   m_PrefabInstance: {fileID: 411543910}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &411543912 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+  m_PrefabInstance: {fileID: 411543910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &633588606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1468,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+--- !u!23 &670720228 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+  m_PrefabInstance: {fileID: 670720227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &705256561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1902,6 +1976,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4408754199558624685, guid: b1a4988eac49247db9e066f5ae7f199d, type: 3}
   m_PrefabInstance: {fileID: 1004580841}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1100600406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5932929541682809343, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+  m_PrefabInstance: {fileID: 82651345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036015cf8aee43e988a03b8d856e953d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Tweeners.PhysicsMoveTweener
 --- !u!1001 &1145090114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2040,6 +2125,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1232746764301041060, guid: 8995b244776564519a63a17be7f6af54, type: 3}
   m_PrefabInstance: {fileID: 1145090114}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1145090116 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+  m_PrefabInstance: {fileID: 1145090114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1217001594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2097,6 +2187,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b22549d069bc429083d7568200c5b94, type: 3}
+--- !u!114 &1279277723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5418916311888171328, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+  m_PrefabInstance: {fileID: 82651345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036015cf8aee43e988a03b8d856e953d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Tweeners.PhysicsMoveTweener
 --- !u!1001 &1310769735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2249,11 +2350,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3591279617658104933, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.28428
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3591279617658104933, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.284275
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3591279617658104933, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2464,6 +2565,11 @@ PrefabInstance:
 --- !u!4 &1617678546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1232746764301041060, guid: 8995b244776564519a63a17be7f6af54, type: 3}
+  m_PrefabInstance: {fileID: 1617678545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1617678547 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1487994662396568200, guid: 8995b244776564519a63a17be7f6af54, type: 3}
   m_PrefabInstance: {fileID: 1617678545}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1798479621
@@ -2961,6 +3067,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3591279617658104933, guid: e1f5a2c954d474afd809220bb54ea116, type: 3}
   m_PrefabInstance: {fileID: 1961904555}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2059944254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2821687121773488112, guid: 1af2cba7672fe40c2983f41a869af085, type: 3}
+  m_PrefabInstance: {fileID: 82651345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859b98d9225cb40898fb9034ff32513e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Boss.WeakPointView
 --- !u!1001 &2133398438
 PrefabInstance:
   m_ObjectHideFlags: 0
