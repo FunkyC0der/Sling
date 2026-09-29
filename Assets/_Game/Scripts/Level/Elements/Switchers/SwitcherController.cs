@@ -1,4 +1,5 @@
 using Playtika.Controllers;
+using Sling.Audio;
 using Sling.Common.Extensions;
 using Sling.Level.Session;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Sling.Level.Elements.Switchers
   public class SwitcherController : ControllerBase<Switcher>
   {
     private readonly LevelEvents _levelEvents;
+    private readonly AudioEvents _audioEvents;
 
     private Switcher _view;
     private bool _isOn;
@@ -15,10 +17,12 @@ namespace Sling.Level.Elements.Switchers
 
     public SwitcherController(
       IControllerFactory controllerFactory,
-      LevelEvents levelEvents)
+      LevelEvents levelEvents,
+      AudioEvents audioEvents)
       : base(controllerFactory)
     {
       _levelEvents = levelEvents;
+      _audioEvents = audioEvents;
     }
 
     protected override void OnStart()
@@ -42,6 +46,7 @@ namespace Sling.Level.Elements.Switchers
       _isFirstSwitch = false;
       _isOn = !_isOn;
       _view.SetState(_isOn, immediate: false);
+      _audioEvents.PlaySFX?.Invoke(AudioClipId.Switcher);
     }
 
     private void Reset()

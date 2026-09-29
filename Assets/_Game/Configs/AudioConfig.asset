@@ -30,6 +30,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 03ee5399875ff6e41a74153c233ace24, type: 3}
     - {fileID: 8300000, guid: c788b071fcf3f854f94dc63b356bd0af, type: 3}
     - {fileID: 8300000, guid: 2296172f16f9142acac10c6c1fd6244f, type: 3}
+    - {fileID: 8300000, guid: fa217d05b7b2d754ea1a1a47e5473dee, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -37,12 +38,10 @@ MonoBehaviour:
     SerializationNodes:
     - Name: AudioClips
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Sling.Audio.AudioClipId, Assembly-CSharp],[Sling.Audio.AudioClipConfig,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[Sling.Audio.AudioClipId, Assembly-CSharp],[Sling.Audio.AudioClipConfig, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Sling.Audio.AudioClipId,
-        Assembly-CSharp]], mscorlib
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Sling.Audio.AudioClipId, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -54,7 +53,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 14
+      Data: 15
     - Name: 
       Entry: 7
       Data: 
@@ -343,6 +342,27 @@ MonoBehaviour:
     - Name: Volume
       Entry: 4
       Data: 0.6979904
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 123
+    - Name: $v
+      Entry: 7
+      Data: 16|Sling.Audio.AudioClipConfig, Assembly-CSharp
+    - Name: AudioClip
+      Entry: 10
+      Data: 14
+    - Name: Volume
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
