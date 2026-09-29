@@ -17,6 +17,7 @@ AngryMeatBoy — 2D slingshot platformer. Unity **6000.4.3f1**, C# **9 max** (no
 
 - HMVC: never `new` a controller — `Execute<T>` / `ExecuteAndWaitResultAsync<T>` only; no controller→controller refs (POCO event brokers); View talks to Controller via `event` only; Model is POCO (no Unity objects); Config is tuner SO or `GameConfig` section, no runtime state.
 - Controllers may use the Unity API when the feature needs it. Required views are ctor params; optional views via `IOptionalViewProvider` in ctor — store the view, not the provider.
+- Self-contained level elements (Cannon, StickyWall, GravityZone…) may keep logic in MonoBehaviours: SO config only, no refs to controllers/models/services/statics, interact via physics/triggers/interfaces. Move to HMVC only when one needs flow: `LevelEvents`, models/services, reset on respawn, or cross-element coordination.
 - `CancellationToken` on every await. Subscribe in `OnStart`; cleanup via `AddDisposable`. Dispose Unity objects the controller created.
 - Inspector fields: `public` + `_underscore` (never `[SerializeField] private`). Do not mass-convert existing private SerializeFields. `[SerializeReference]` for polymorphic types. Private constants: `_kKPascalCase`.
 - No `FindObjectOfType` / singletons / static locators. No gameplay numbers outside configs. No comments unless WHY is non-obvious. New Input System only. 2D physics only (`Rigidbody2D`, `Physics2D`).
