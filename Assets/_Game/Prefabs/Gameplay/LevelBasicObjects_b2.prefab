@@ -78,6 +78,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 517368356288705136, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f5206dcc94fa14ffcaddcae415d41680, type: 2}
     - target: {fileID: 2143392119135803356, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -118,6 +122,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3442127445752082303, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3645302702140102446, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 4
@@ -141,6 +149,10 @@ PrefabInstance:
     - target: {fileID: 3645302702140102446, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437729477155552896, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: UVModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5383343168076663432, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -170,10 +182,18 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.minMaxState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5401938635095934850, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: UVModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7070061232733126315, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_Name
       value: LevelBasicObjects_b2
       objectReference: {fileID: 0}
+    - target: {fileID: 8091981325757926258, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f5206dcc94fa14ffcaddcae415d41680, type: 2}
     - target: {fileID: 8855321156565275568, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       propertyPath: m_TargetTexture
       value: 
@@ -188,6 +208,8 @@ PrefabInstance:
     - {fileID: 9186945588950836068, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
     - {fileID: 9141320039600139384, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
     - {fileID: 504318822496334302, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+    - {fileID: 6387957289614317181, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
+    - {fileID: 3442127445752082303, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1877982570832395003, guid: aaa45277fd0f741eaaa978e4a0aa32fe, type: 3}
       insertIndex: -1
