@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Foliage
-  m_Shader: {fileID: -6465566751694194690, guid: 0238d759a0684af4c90c51a61b5cf022, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1018d01940b1c4d3e85880ea791c94ef, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 2f6642b43dc405d498acba7e288c068c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -139,6 +139,7 @@ Material:
     - _CamDistFadeStepMax: 100
     - _CamDistFadeStepMin: 0
     - _CamDistProximityFade: 0
+    - _CellSizePx: 16
     - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
     - _ColorRampBlend: 1
@@ -240,6 +241,9 @@ Material:
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
     - _SrcMode: 5
+    - _SwayAmountPx: 2
+    - _SwayEndPx: 12
+    - _SwayStartPx: -5
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
@@ -257,6 +261,9 @@ Material:
     - _WaveStrength: 3.3
     - _WaveX: 0.429
     - _WaveY: 0
+    - _WindDirection: 1
+    - _WindPhaseScale: 0.2
+    - _WindSpeed: 3
     - _ZTestMode: 4
     - _ZWrite: 0
     m_Colors:
