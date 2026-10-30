@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Tumbleweed.TumbleweedConfig
   SpawnIntervalMin: 3
   SpawnIntervalMax: 6
-  MaxAlive: 3
+  MaxAlive: 2
   InitialCount: 2
   Sprites:
   - {fileID: 3773732052627447077, guid: 8dd3cf8b58fb94ae0a7e10716c1d737b, type: 3}
