@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baf2a37701ea445f9a46d2a5efea80a, type: 3}
+  m_Name: Tumbleweed
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Elements.Tumbleweed.TumbleweedConfig
+  SpawnIntervalMin: 3
+  SpawnIntervalMax: 6
+  MaxAlive: 3
+  InitialCount: 2
+  Sprites:
+  - {fileID: 3773732052627447077, guid: 8dd3cf8b58fb94ae0a7e10716c1d737b, type: 3}
+  SpeedMin: 2
+  SpeedMax: 5
+  HopHeightMin: 1
+  HopHeightMax: 3
+  HopLength: 6
+  MinLifetime: 4
+  MaxLifetime: 10
+  FadeInDuration: 1
+  FadeOutDuration: 1
+  CellSize: 4
+  MinSurfaceCells: 3
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  BlockerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  CameraPadding: 8
+  PixelSnap: 0
