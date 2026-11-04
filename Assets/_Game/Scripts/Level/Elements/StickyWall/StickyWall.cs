@@ -20,11 +20,17 @@ namespace Sling.Level.Elements.StickyWall
     private readonly Dictionary<Collider2D, PhysicsMaterial2D> _origPhysMaterials = new();
     private readonly Dictionary<Rigidbody2D, LaunchImmunity> _launchImmunities = new();
 
+    private const float EntryTolerance = 0.05f;
+    private static readonly List<Collider2D> _attachedColliders = new();
+
     private Rigidbody2D _carrierRb;
     private Vector2 _lastCarrierPosition;
+    private Collider2D _slowdownCollider;
 
     private void Awake()
     {
+      _slowdownCollider = _slowdownTriggerZone.GetComponent<Collider2D>();
+
       _carrierRb = GetComponentInParent<Rigidbody2D>();
       if (_carrierRb != null)
         _lastCarrierPosition = _carrierRb.position;
@@ -70,6 +76,7 @@ namespace Sling.Level.Elements.StickyWall
 
       _collidedRbs.Add(rb, new HashSet<Collider2D> { otherCollider });
 
+      SnapToStickDepth(rb, otherCollider);
       _stickClipEmitter.PlayOneShot();
       
       var launchable = rb.GetComponent<ILaunchable>();
@@ -81,6 +88,61 @@ namespace Sling.Level.Elements.StickyWall
         _launchSubscriptions.Add(launchable, onLaunched);
         launchable.OnLaunched += onLaunched;
       }
+    }
+
+    /// <summary>
+    /// The trigger fires after the physics step, so the body has already sunk into the zone by a
+    /// speed- and step-phase-dependent amount. Correct it to a fixed <see cref="StickyWallConfig.StickDepth"/>.
+    /// Only applied to horizontal hits; bodies entering through the zone's ends are left as is.
+    /// </summary>
+    private void SnapToStickDepth(Rigidbody2D rb, Collider2D otherCollider)
+    {
+      if (_launchImmunities.ContainsKey(rb))
+        return;
+
+      Bounds zone = _slowdownCollider.bounds;
+      Bounds body = GetSolidBounds(rb, otherCollider);
+
+      float carrierVelX = _carrierRb != null ? _carrierRb.linearVelocity.x : 0f;
+      float relVelX = rb.linearVelocity.x - carrierVelX;
+      bool fromRight = body.center.x > zone.center.x;
+
+      // Must be moving into the wall from its side.
+      if (fromRight ? relVelX >= 0f : relVelX <= 0f)
+        return;
+
+      float penetration = fromRight ? zone.max.x - body.min.x : body.max.x - zone.min.x;
+
+      // Deeper than one step of travel → entered through the top/bottom, not a side hit.
+      float maxStepTravel = Mathf.Abs(relVelX) * Time.fixedDeltaTime + EntryTolerance;
+      if (penetration > maxStepTravel)
+        return;
+
+      float shift = penetration - Config.StickDepth;
+      rb.position += new Vector2(fromRight ? shift : -shift, 0f);
+      rb.linearVelocity = new Vector2(carrierVelX, rb.linearVelocity.y);
+    }
+
+    private static Bounds GetSolidBounds(Rigidbody2D rb, Collider2D fallback)
+    {
+      int count = rb.GetAttachedColliders(_attachedColliders);
+      bool hasBounds = false;
+      Bounds result = default;
+      for (int i = 0; i < count; i++)
+      {
+        Collider2D collider = _attachedColliders[i];
+        if (collider.isTrigger || !collider.enabled)
+          continue;
+
+        if (hasBounds)
+          result.Encapsulate(collider.bounds);
+        else
+          result = collider.bounds;
+        hasBounds = true;
+      }
+
+      _attachedColliders.Clear();
+      return hasBounds ? result : fallback.bounds;
     }
 
     private void RemoveRigidbody(Rigidbody2D rb, Collider2D otherCollider)
