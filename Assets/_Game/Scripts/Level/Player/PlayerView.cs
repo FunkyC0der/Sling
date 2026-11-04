@@ -12,7 +12,6 @@ namespace Sling.Level.Player
   {
     [field: SerializeField] public PlayerConfig Config { get; private set; }
 
-    [SerializeField, Required] private PlayerAnimatorView _animatorView;
     [SerializeField, Required] private SpriteRenderer _bodySprite;
     [SerializeField, Required] private Rigidbody2D _rigidbody;
 

@@ -35,7 +35,7 @@ namespace Sling.Level.Player.Launch
       _inputView.OnPreLaunchStop += OnPreLaunchStop;
       _inputView.OnPreLaunchCancel += OnPreLaunchCancel;
 
-      _model.IsInPreLaunch.Value = true;
+      _model.IsAiming.Value = true;
     }
 
     protected override void OnStop()
@@ -46,7 +46,7 @@ namespace Sling.Level.Player.Launch
       
       _launchView.HideHint();
 
-      _model.IsInPreLaunch.Value = false;
+      _model.IsAiming.Value = false;
     }
 
     private void OnPreLaunchUpdate(Vector2 pointerWorldDelta)
@@ -54,7 +54,7 @@ namespace Sling.Level.Player.Launch
       if (_firstDrag && pointerWorldDelta.sqrMagnitude > 0)
       {
         _firstDrag = false;
-        _model.OnPreLaunch?.Invoke();
+        _model.RaisePreLaunch();
       }
       
       Vector2 launchVector = -pointerWorldDelta * _config.PointerDeltaSensitivity;
@@ -66,7 +66,7 @@ namespace Sling.Level.Player.Launch
       float totalTime = _config.TrajectoryHintDuration * forceFraction;
       _launchView.ShowHint(totalTime, _samplePositionFunc);
 
-      _model.PreLaunchForce = _launchVelocity.magnitude;
+      _model.AimForce = _launchVelocity.magnitude;
     }
 
     private void OnPreLaunchStop() =>

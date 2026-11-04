@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Audio;
+using Sling.Level.Player.Death;
 using Sling.Level.Session;
 
 namespace Sling.Level.Player
@@ -10,22 +11,19 @@ namespace Sling.Level.Player
   {
     private readonly PlayerView _view;
     private readonly LevelModel _levelModel;
-    private readonly PlayerInputView _inputView;
-    private readonly PlayerAnimatorView _animatorView;
+    private readonly PlayerDeathView _deathView;
     private readonly AudioEvents _audioEvents;
 
     public RespawnPlayerFlowController(IControllerFactory controllerFactory,
       PlayerView view,
       LevelModel levelModel,
-      PlayerInputView inputView, 
-      PlayerAnimatorView animatorView, 
+      PlayerDeathView deathView,
       AudioEvents audioEvents)
       : base(controllerFactory)
     {
       _view = view;
       _levelModel = levelModel;
-      _inputView = inputView;
-      _animatorView = animatorView;
+      _deathView = deathView;
       _audioEvents = audioEvents;
     }
 
@@ -36,11 +34,11 @@ namespace Sling.Level.Player
 
       _audioEvents.PlaySFX?.Invoke(AudioClipId.PlayerRevive);
       
-      await _animatorView.Revive()
+      await _deathView.Revive()
         .AttachExternalCancellation(cancellationToken);
       
+      // Input is enabled by PlayerInputGateController, which starts after this flow.
       _view.UnfreezePhysics();
-      _inputView.EnableInput();
       
       Complete();
     }

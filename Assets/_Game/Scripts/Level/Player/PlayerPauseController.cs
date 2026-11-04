@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
 using Sling.Common.Extensions;
 using Sling.Level.Hud;
+using Sling.Level.Player.States;
 using Sling.Level.Session;
 using UnityEngine;
 
@@ -10,19 +11,20 @@ namespace Sling.Level.Player
   public class PlayerPauseController : ControllerBase
   {
     private readonly PlayerInputView _inputView;
+    private readonly PlayerModel _model;
     private readonly HudView _hudView;
     private readonly LevelEvents _events;
-
-    private bool _isPauseOpen;
 
     public PlayerPauseController(
       IControllerFactory controllerFactory,
       PlayerInputView inputView,
+      PlayerModel model,
       HudView hudView,
       LevelEvents events)
       : base(controllerFactory)
     {
       _inputView = inputView;
+      _model = model;
       _hudView = hudView;
       _events = events;
     }
@@ -38,7 +40,8 @@ namespace Sling.Level.Player
 
     private void OnPauseRequested()
     {
-      if (_isPauseOpen)
+      // No pause during the death animation or after the finish.
+      if (_model.IsPaused.Value || PlayerStates.IsTerminal(_model.State))
         return;
 
       ShowPauseAsync().Forget();
@@ -46,9 +49,8 @@ namespace Sling.Level.Player
 
     private async UniTaskVoid ShowPauseAsync()
     {
-      _isPauseOpen = true;
+      _model.IsPaused.Value = true;
       Time.timeScale = 0f;
-      _inputView.DisableInput();
 
       PauseWindowResult result;
       try
@@ -58,8 +60,7 @@ namespace Sling.Level.Player
       finally
       {
         Time.timeScale = 1f;
-        _inputView.EnableInput();
-        _isPauseOpen = false;
+        _model.IsPaused.Value = false;
       }
 
       switch (result)

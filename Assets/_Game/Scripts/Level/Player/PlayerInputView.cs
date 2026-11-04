@@ -21,6 +21,7 @@ namespace Sling.Level.Player
 
     private Camera _cam;
     private Vector2 _pointerWorldDelta;
+    private bool _isDisabling;
 
     private void Awake()
     {
@@ -59,6 +60,24 @@ namespace Sling.Level.Player
 
     public void DisableInput()
     {
+      // An interrupted drag (pause/death) is cancelled, not launched.
+      if (_pointerPressActionRef.action.IsPressed())
+        OnPreLaunchCancel?.Invoke();
+
+      // Disable() fires `canceled` on the press action; ignore it.
+      _isDisabling = true;
+      try
+      {
+        DisableActions();
+      }
+      finally
+      {
+        _isDisabling = false;
+      }
+    }
+
+    private void DisableActions()
+    {
       _pointerPressActionRef.action.Disable();
       _pointerDeltaActionRef.action.Disable();
       _cancelPreLaunchActionRef.action.Disable();
@@ -85,6 +104,9 @@ namespace Sling.Level.Player
 
     private void HandleRelease(InputAction.CallbackContext _)
     {
+      if (_isDisabling)
+        return;
+
       AccumulatePointerDelta();
       OnPreLaunchUpdate?.Invoke(_pointerWorldDelta);
       OnPreLaunchStop?.Invoke();

@@ -1,4 +1,6 @@
 using Playtika.Controllers;
+using Sling.Common.Extensions;
+using Sling.Level.Player.States;
 
 namespace Sling.Level.Player.LandingDust
 {
@@ -16,15 +18,16 @@ namespace Sling.Level.Player.LandingDust
       _dustView = dustView;
     }
 
-    protected override void OnStart() => 
-      _model.IsGrounded.OnValueChanged += OnGroundedChanged;
-
-    private void OnGroundedChanged(bool oldValue, bool newValue)
+    protected override void OnStart()
     {
-      if (!newValue)
-        return;
+      _model.StateChanged += OnStateChanged;
+      this.AddDisposableAction(() => _model.StateChanged -= OnStateChanged);
+    }
 
-      _dustView.Play();
+    private void OnStateChanged(EPlayerState from, EPlayerState to)
+    {
+      if (PlayerStates.IsLanding(from, to))
+        _dustView.Play();
     }
   }
 }

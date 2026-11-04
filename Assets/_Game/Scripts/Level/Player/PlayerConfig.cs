@@ -12,20 +12,19 @@ namespace Sling.Level.Player
     [field: SerializeField] public float MaxDragDistance { get; private set; } = 5f;
     [field: SerializeField] public float LaunchForceMultiplier { get; private set; } = 10f;
 
-    [field: Header("Max pull camera shake")]
-    [field: SerializeField, Range(0f, 1f)] public float MaxPullCameraShakeThreshold { get; private set; } = 0.85f;
-    [field: SerializeField, Min(0f)] public float MaxPullCameraShakeStrength { get; private set; } = 0.2f;
-    [field: SerializeField, Min(0f)] public float MaxPullCameraShakeFrequency { get; private set; } = 15f;
+    [field: Header("Launch")]
+    [field: SerializeField, Range(0f, 1f), Tooltip("AimForce / MaxLaunchForce above which the strong launch clip plays")]
+    public float StrongLaunchAnimThreshold { get; private set; } = 0.6f;
 
-    [Header("Strong launch camera shake")]
-    [Range(0f, 1f)]
-    public float StrongLaunchCameraShakeThreshold = 0.85f;
+    [field: SerializeField, Min(0f), Tooltip("Launching state ignores ground/wall facts for this long after a launch")]
+    public float LaunchGroundIgnoreTime { get; private set; } = 0.1f;
 
-    [Min(0)]
-    public float StrongLaunchCameraShakeStrength = 0.45f;
+    [field: Header("Spawn")]
+    [field: SerializeField, Min(0f), Tooltip("Max time Spawning waits for the first ground contact before going Airborne")]
+    public float SpawnSettleTime { get; private set; } = 0.25f;
 
-    [Min(0)]
-    public float StrongLaunchCameraShakeFrequency = 12f;
+    [field: Header("Facing")]
+    [field: SerializeField, Min(0f)] public float FacingVelocityThreshold { get; private set; } = 0.2f;
 
     [Space]
     public LayerMask GroundSurfaceLayerMask;

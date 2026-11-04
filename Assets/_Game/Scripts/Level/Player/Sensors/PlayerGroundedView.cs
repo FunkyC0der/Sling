@@ -3,7 +3,7 @@ using Sling.Common.Collission;
 using Sling.Common.Views;
 using UnityEngine;
 
-namespace Sling.Level.Player.States
+namespace Sling.Level.Player.Sensors
 {
   public class PlayerGroundedView : MonoBehaviour, IGameObjectView
   {

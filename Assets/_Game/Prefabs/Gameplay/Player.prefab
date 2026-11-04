@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 6128743320293764185}
   - component: {fileID: 4576738806715326769}
   - component: {fileID: 3319328128685230070}
+  - component: {fileID: 6182924371568373534}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -156,7 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   <Config>k__BackingField: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
-  _animatorView: {fileID: 0}
   _bodySprite: {fileID: 3799020414547520204}
   _rigidbody: {fileID: 7531381223832247793}
 --- !u!61 &5717655998603572528
@@ -285,16 +285,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc8af55aebe4f3687740980eeb46b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.PlayerAnimatorView
-  _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
   _animator: {fileID: 4794860568099122736}
-  _spriteRenderer: {fileID: 3799020414547520204}
-  _blinkTweener: {fileID: 4576738806715326769}
-  _inAirTriggerId: 861170204
-  _idleTriggerId: 2081823275
-  _wallSlideTriggerId: -1437120513
-  _launchTriggerId: 2115719875
+  _idleState: Idle
+  _idleFadeDuration: 0
+  _inAirState: InAirBlendTree
+  _inAirFadeDuration: 0
+  _wallSlideState: WallSlide
+  _wallSlideFadeDuration: 0.25
+  _launchWeakState: PreLaunch-1
+  _launchWeakFadeDuration: 0
+  _launchStrongState: PreLaunch-2
+  _launchStrongFadeDuration: 0
   _inAirBlendFloatId: 67752084
-  _launchForceBlendFloatId: 20118768
 --- !u!114 &4438162892628949576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +495,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Common.OffScreenMarker.OffScreenMarkerView
   Renderer: {fileID: 3799020414547520204}
   MarkerPrefab: {fileID: 701752144740190095, guid: 04bf53fe1affe413bacd48e571b3c49c, type: 3}
+--- !u!114 &6182924371568373534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276618756648720583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b98db0cb14f40fe83ad727b919cd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sling.Level.Player.Death.PlayerDeathView
+  _config: {fileID: 11400000, guid: eb5efa3387d6d4dd2bd024b0291f93a2, type: 2}
+  _blinkTweener: {fileID: 4576738806715326769}
 --- !u!1 &4493491232001293797
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +543,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3799020414547520204
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -584,6 +600,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &5177032561923451103
 GameObject:
   m_ObjectHideFlags: 0

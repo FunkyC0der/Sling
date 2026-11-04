@@ -1,11 +1,15 @@
 using Playtika.Controllers;
 using Sling.Common.Controllers;
 using Sling.Common.Extensions;
-using Sling.Level.Collision;
 using Sling.Level.Common;
 using Sling.Level.Common.OffScreenMarker;
+using Sling.Level.Player.Animations;
+using Sling.Level.Player.Death;
+using Sling.Level.Player.Facing;
+using Sling.Level.Player.InputGate;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
+using Sling.Level.Player.Sensors;
 using Sling.Level.Player.States;
 using VContainer;
 using VContainer.Unity;
@@ -41,25 +45,26 @@ namespace Sling.Level.Player
       builder.Register<PlayerController>(Lifetime.Transient);
       
       builder.Register<RespawnPlayerFlowController>(Lifetime.Transient);
-      
-      builder.Register<PlayerAnimatorController>(Lifetime.Transient);
 
-      builder.Register<PlayerStatesController>(Lifetime.Transient);
-      builder.Register<IsInAirController>(Lifetime.Transient);
-      builder.Register<IsWallSlidingController>(Lifetime.Transient);
+      builder.Register<PlayerGroundSensorController>(Lifetime.Transient);
+      builder.Register<PlayerSurfaceContactSensorController>(Lifetime.Transient);
+      builder.Register<PlayerStickyWallSensorController>(Lifetime.Transient);
+      builder.Register<PlayerFinishSensorController>(Lifetime.Transient);
+
+      builder.Register<PlayerStateMachineController>(Lifetime.Transient);
 
       builder.Register<PlayerLaunchController>(Lifetime.Transient);
       builder.Register<PlayerPreLaunchFlowController>(Lifetime.Transient);
-      builder.Register<PlayerMaxPullCameraShakeController>(Lifetime.Transient);
+      builder.Register<PlayerInputGateController>(Lifetime.Transient);
       builder.Register<PlayerPauseController>(Lifetime.Transient);
 
+      builder.Register<PlayerAnimationController>(Lifetime.Transient);
+      builder.Register<PlayerFacingController>(Lifetime.Transient);
       builder.Register<PlayerDeathController>(Lifetime.Transient);
-
       builder.Register<PlayerAudioController>(Lifetime.Transient);
       builder.Register<PlayerLandingDustController>(Lifetime.Transient);
-
       builder.Register<PlayerEventsBroadcastController>(Lifetime.Transient);
-      
+
       builder.RegisterComponentInChildren<OffScreenMarkerView>(_playerView.gameObject);
       builder.Register<OffScreenMarkerController>(Lifetime.Transient);
       

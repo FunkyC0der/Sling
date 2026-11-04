@@ -1,5 +1,7 @@
 using Playtika.Controllers;
 using Sling.Audio;
+using Sling.Common.Extensions;
+using Sling.Level.Player.States;
 
 namespace Sling.Level.Player
 {
@@ -17,20 +19,25 @@ namespace Sling.Level.Player
 
     protected override void OnStart()
     {
-      _model.OnPreLaunch += OnPreLaunch;
-      _model.OnLaunched += OnLaunched;
-      _model.IsGrounded.OnValueChanged += OnGroundedChanged;
+      _model.PreLaunch += OnPreLaunch;
+      this.AddDisposableAction(() => _model.PreLaunch -= OnPreLaunch);
+
+      _model.Launched += OnLaunched;
+      this.AddDisposableAction(() => _model.Launched -= OnLaunched);
+
+      _model.StateChanged += OnStateChanged;
+      this.AddDisposableAction(() => _model.StateChanged -= OnStateChanged);
     }
 
-    private void OnPreLaunch() => 
+    private void OnPreLaunch() =>
       _audioEvents.PlayConcurrentSFX?.Invoke(AudioClipId.PlayerStretch);
 
-    private void OnLaunched() => 
+    private void OnLaunched() =>
       _audioEvents.PlayConcurrentSFX?.Invoke(AudioClipId.PlayerLaunch);
 
-    private void OnGroundedChanged(bool oldValue, bool newValue)
+    private void OnStateChanged(EPlayerState from, EPlayerState to)
     {
-      if(newValue)
+      if (PlayerStates.IsLanding(from, to))
         _audioEvents.PlaySFX?.Invoke(AudioClipId.PlayerLand);
     }
   }

@@ -1,10 +1,13 @@
 using Cysharp.Threading.Tasks;
 using Playtika.Controllers;
-using Sling.Common;
-using Sling.Level.Collision;
 using Sling.Level.Common.OffScreenMarker;
+using Sling.Level.Player.Animations;
+using Sling.Level.Player.Death;
+using Sling.Level.Player.Facing;
+using Sling.Level.Player.InputGate;
 using Sling.Level.Player.LandingDust;
 using Sling.Level.Player.Launch;
+using Sling.Level.Player.Sensors;
 using Sling.Level.Player.States;
 using Sling.Level.Session;
 
@@ -12,46 +15,43 @@ namespace Sling.Level.Player
 {
   public class PlayerController : ControllerBase
   {
-    private readonly PlayerModel _model;
-    private readonly PlayerConfig _config;
     private readonly LevelModel _levelModel;
-    
-    public PlayerController(
-      IControllerFactory controllerFactory,
-      PlayerModel model,
-      PlayerConfig config, 
-      LevelModel levelModel) 
+
+    public PlayerController(IControllerFactory controllerFactory, LevelModel levelModel)
       : base(controllerFactory)
     {
-      _model = model;
-      _config = config;
       _levelModel = levelModel;
     }
 
-    protected override void OnStart() => 
+    protected override void OnStart() =>
       StartAsync().Forget();
 
     private async UniTask StartAsync()
     {
-      if(_levelModel.PlayerDeathCount.Value > 0)
+      if (_levelModel.PlayerDeathCount.Value > 0)
         await ExecuteAndWaitResultAsync<RespawnPlayerFlowController>(CancellationToken);
-      
-      Execute<PlayerStatesController>();
-      Execute<IsWallSlidingController, Observable<bool>>(_model.IsWallSliding);
-      
-      Execute<IsInAirController, IsInAirController.Context>(
-        new IsInAirController.Context(_model.IsInAir, _config.GroundSurfaceLayerMask));
-      
+
+      // Sensors: write facts.
+      Execute<PlayerGroundSensorController>();
+      Execute<PlayerSurfaceContactSensorController>();
+      Execute<PlayerStickyWallSensorController>();
+      Execute<PlayerFinishSensorController>();
+
+      // FSM: the only writer of PlayerModel.State.
+      Execute<PlayerStateMachineController>();
+
+      // Actions gated by state.
       Execute<PlayerLaunchController>();
-      //Execute<PlayerMaxPullCameraShakeController>();
+      Execute<PlayerInputGateController>();
       Execute<PlayerPauseController>();
+
+      // Reactive: read state, drive views.
+      Execute<PlayerAnimationController>();
+      Execute<PlayerFacingController>();
       Execute<PlayerDeathController>();
-      
-      Execute<PlayerAnimatorController>();
       Execute<PlayerAudioController>();
       Execute<PlayerLandingDustController>();
       Execute<OffScreenMarkerController>();
-      
       Execute<PlayerEventsBroadcastController>();
     }
   }
