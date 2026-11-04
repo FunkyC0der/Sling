@@ -1,0 +1,104 @@
+:root {
+    --hud-panel-height: 50px;
+    --hud-icon-size: 32px;
+    --hud-color-text: rgb(235, 235, 235);
+}
+
+.hud-root {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 32px;
+}
+
+.hud-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.hud-panel {
+    flex-direction: row;
+    align-items: center;
+    height: var(--hud-panel-height);
+    padding: 0 18px;
+    margin: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-1881851476&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Panel");
+}
+
+.hud-group > .hud-panel {
+    margin-right: 8px;
+}
+
+.hud-group > .hud-panel:last-child {
+    margin-right: 0;
+}
+
+.hud-pause-button {
+    width: var(--hud-panel-height);
+    padding: 0;
+    justify-content: center;
+    transition-property: scale;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+}
+
+.hud-pause-button:hover {
+    -unity-background-image-tint-color: rgb(220, 220, 220);
+}
+
+.hud-pause-button:active {
+    scale: 0.95;
+}
+
+.hud-icon {
+    flex-shrink: 0;
+    width: var(--hud-icon-size);
+    height: var(--hud-icon-size);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.hud-icon--pause {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=1795681755&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Pause");
+}
+
+.hud-icon--skull {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-1562686582&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Skull");
+}
+
+.hud-icon--clock {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-277616889&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Clock");
+}
+
+.hud-icon--launch {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-91506363&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Launch2");
+}
+
+.hud-divider {
+    flex-shrink: 0;
+    height: var(--hud-icon-size);
+    margin: 0 -2px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=1126826358&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Divider");
+    width: 25px;
+}
+
+.hud-text {
+    margin: 0 0 0 8px;
+    padding: 0;
+    color: var(--hud-color-text);
+    font-size: 34px;
+    letter-spacing: 2px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-left;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+}
+
+.hud-panel > .hud-text:first-child {
+    margin-left: 0;
+}
+
+.hud-text--time {
+    min-width: 100px;
+}

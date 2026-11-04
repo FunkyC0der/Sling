@@ -47,7 +47,7 @@ namespace Sling.Level.Hud
       OnPauseClicked?.Invoke();
 
     public void SetLevelIndex(int levelIndex) => 
-      _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LEVEL {levelIndex + 1}";
+      _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LVL {levelIndex + 1}";
 
     public void SetPlayerDeathCount(int playerDeathCount) =>
       _playerDeathCountLabel.text = string.Format(_playerDeathCountFormat, playerDeathCount);
