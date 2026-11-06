@@ -11,7 +11,7 @@ using Sling.Infrastructure.Leaderboards;
 using Sling.Infrastructure.Progress;
 using Sling.Level;
 using Sling.LevelLoading;
-using Sling.MainMenu.SelectLevel;
+using Sling.MainMenu;
 using VContainer;
 using VContainer.Unity;
 
@@ -56,7 +56,8 @@ namespace Sling
       builder.Register<GameLoopController>(Lifetime.Transient);
       builder.Register<InitFirstSceneController>(Lifetime.Transient);
       builder.Register<MainMenuStateController>(Lifetime.Transient);
-      builder.Register<SelectLevelWindowController>(Lifetime.Transient);
+      builder.RegisterInstance(_gameConfig.MainMenuCamera);
+      builder.Register<MainMenuScopeController>(Lifetime.Transient);
       builder.Register<PlayLevelsStateController>(Lifetime.Transient);
       builder.Register<LoadLevelController>(Lifetime.Transient);
       builder.Register<LevelScopeController>(Lifetime.Transient);

@@ -5,7 +5,7 @@ using Sling;
 using Sling.Audio;
 using Sling.Common.Extensions;
 using Sling.Levels;
-using Sling.MainMenu.SelectLevel;
+using Sling.MainMenu;
 
 namespace Sling.Flow
 {
@@ -34,7 +34,7 @@ namespace Sling.Flow
 
       _audioEvents.PlayMusic?.Invoke(AudioClipId.MainMenuTrack);
       
-      LevelAddress levelAddress = await ExecuteAndWaitResultAsync<SelectLevelWindowController, LevelAddress>(ct);
+      LevelAddress levelAddress = await ExecuteAndWaitResultAsync<MainMenuScopeController, LevelAddress>(ct);
 
       _gameModel.GameState = GameState.PlayLevels;
       _gameModel.WorldIndex = levelAddress.WorldIndex;

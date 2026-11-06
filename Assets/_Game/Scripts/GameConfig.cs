@@ -3,6 +3,7 @@ using Sling.Audio;
 using Sling.Common.Scenes;
 using Sling.Infrastructure.FixedViewport;
 using Sling.Levels;
+using Sling.MainMenu.MenuCamera;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,7 @@ namespace Sling
     public FixedViewportConfig FixedViewport = new();
     
     public SceneReference MainMenuScene;
+    public MainMenuCameraConfig MainMenuCamera = new();
     public List<WorldConfig> Worlds = new();
 
     public VisualTreeAsset SelectLevelWindowUxml;

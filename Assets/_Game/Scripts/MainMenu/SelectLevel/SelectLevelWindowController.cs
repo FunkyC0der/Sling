@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -14,9 +13,6 @@ namespace Sling.MainMenu.SelectLevel
 {
   public class SelectLevelWindowController : ControllerWithResultBase<LevelAddress>
   {
-    // Extension point: subscribe here to drive a camera transition between world anchors in the MainMenu scene.
-    public event Action<int> OnWorldChanged;
-
     private VisualElement _window;
     private VisualElement _levelItemsContainer;
     private int _selectedWorldIndex;
@@ -26,17 +22,20 @@ namespace Sling.MainMenu.SelectLevel
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
     private readonly GameModel _gameModel;
+    private readonly MainMenuEvents _mainMenuEvents;
 
     public SelectLevelWindowController(
       IControllerFactory controllerFactory,
       PopUpWindowsRootView popUpWindowsRootView,
       GameConfig gameConfig,
-      GameModel gameModel)
+      GameModel gameModel,
+      MainMenuEvents mainMenuEvents)
       : base(controllerFactory)
     {
       _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
       _gameModel = gameModel;
+      _mainMenuEvents = mainMenuEvents;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
@@ -79,7 +78,7 @@ namespace Sling.MainMenu.SelectLevel
       _window.Q<Button>(WindowNames.NextWorldButton).SetEnabled(worldIndex < _gameConfig.Worlds.Count - 1);
 
       BuildLevelItems(worldIndex);
-      OnWorldChanged?.Invoke(worldIndex);
+      _mainMenuEvents.WorldSelected?.Invoke(worldIndex);
     }
 
     private void BuildLevelItems(int worldIndex)

@@ -16,14 +16,14 @@ namespace Sling.Level.Elements.Tumbleweed
     private readonly List<TumbleweedSurface> _candidates = new();
     private List<TumbleweedSurface> _surfaces = new();
     private float _timer;
+    private Rect _scannedArea;
 
     private IEnumerator Start()
     {
       // let physics pick up the level colliders before querying them
       yield return new WaitForFixedUpdate();
 
-      Rect area = GetCameraRect(_config.CameraPadding);
-      _surfaces = TumbleweedSurfaceScanner.Scan(area, _config);
+      ScanSurfaces();
 
       for (int i = 0; i < _config.MaxAlive; i++)
       {
@@ -62,6 +62,10 @@ namespace Sling.Level.Elements.Tumbleweed
         return false;
 
       Rect view = GetCameraRect(0f);
+      // the camera can travel away from the area scanned at start (e.g. main menu biome switch)
+      if (!Contains(_scannedArea, view))
+        ScanSurfaces();
+
       _candidates.Clear();
       float totalLength = 0f;
       foreach (TumbleweedSurface surface in _surfaces)
@@ -114,6 +118,15 @@ namespace Sling.Level.Elements.Tumbleweed
 
       return _candidates[^1];
     }
+
+    private void ScanSurfaces()
+    {
+      _scannedArea = GetCameraRect(_config.CameraPadding);
+      _surfaces = TumbleweedSurfaceScanner.Scan(_scannedArea, _config);
+    }
+
+    private static bool Contains(Rect outer, Rect inner) =>
+      outer.xMin <= inner.xMin && outer.xMax >= inner.xMax && outer.yMin <= inner.yMin && outer.yMax >= inner.yMax;
 
     private void ResetTimer() =>
       _timer = Random.Range(_config.SpawnIntervalMin, _config.SpawnIntervalMax);

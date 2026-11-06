@@ -59,6 +59,22 @@ namespace Sling.Common.Extensions
       builder.RegisterInstance(typedList, listType);
     }
 
+    public static void RegisterSceneComponent<TComponent>(this IContainerBuilder builder, Scene scene)
+      where TComponent : Component
+    {
+      foreach (GameObject root in scene.GetRootGameObjects())
+      {
+        var instance = root.GetComponentInChildren<TComponent>(includeInactive: true);
+        if (instance == null)
+          continue;
+
+        builder.RegisterInstance(instance);
+        return;
+      }
+
+      throw new InvalidOperationException($"{typeof(TComponent).Name} is required in scene '{scene.name}'.");
+    }
+
     public static void RegisterGameObjectViews(this IContainerBuilder builder, GameObject gameObject)
     {
       foreach (IGameObjectView view in gameObject.GetComponentsInChildren<IGameObjectView>())
