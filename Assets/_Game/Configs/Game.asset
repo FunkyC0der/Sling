@@ -21,6 +21,9 @@ MonoBehaviour:
     SceneName: MainMenu
     sceneIndex: 1
     sceneEnabled: 1
+  MainMenuCamera:
+    TransitionDuration: 0.6
+    TransitionEase: 10
   Worlds:
   - Name: World 1
     Levels:

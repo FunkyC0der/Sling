@@ -187,3 +187,57 @@
     -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
     letter-spacing: 3px;
 }
+
+.popup-window--transparent {
+    background-color: rgba(0, 0, 0, 0);
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+
+.popup-title--plain {
+    flex-grow: 0;
+    color: rgb(243, 243, 243);
+    font-size: 110px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(5, 4, 5);
+    margin-bottom: 30px;
+}
+
+.menu-button {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    height: 84px;
+    min-height: 84px;
+    max-height: 84px;
+    align-self: center;
+    padding: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/_Game/Sprites/UI/MenuButton.png?fileID=-3675728329477958583&guid=d3292fe9114ad4dffb73c01fb780de3e&type=3#MenuButton_0");
+    -unity-slice-scale: 2px;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 0;
+    color: var(--color-text-light);
+    font-size: 59px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 4px;
+    text-shadow: 0 3px 0 rgb(20, 16, 30);
+    transition-property: scale;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+}
+
+.menu-button:hover {
+    -unity-background-image-tint-color: rgb(200, 200, 200);
+}
+
+.menu-button:active {
+    scale: 0.95;
+}
