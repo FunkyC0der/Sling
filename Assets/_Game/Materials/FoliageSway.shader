@@ -7,13 +7,18 @@ Shader "Sling/Foliage Sway"
         _NormalMap ("Normal Map", 2D) = "bump" {}
         [MaterialToggle] _ZWrite ("ZWrite", Float) = 0
 
-        _SwayStartPx ("Sway Start Row (px)", Float) = 2
-        _SwayEndPx ("Sway Full Row (px)", Float) = 12
+        [Header(Shape)]
         _SwayAmountPx ("Sway Amount (px)", Float) = 2
-        _WindSpeed ("Wind Speed", Float) = 1.5
-        _WindDirection ("Wind Direction (-1 left, 0 none, 1 right)", Range(-1, 1)) = 0
-        _WindPhaseScale ("Wind Phase per World X", Float) = 0.5
         _CellSizePx ("Sprite Cell Size (px)", Float) = 16
+
+        [Header(Wind)]
+        _WindSpeed ("Sway Speed", Float) = 1.5
+        _WindDirection ("Wind Direction (-1 left, 0 none, 1 right)", Range(-1, 1)) = 0
+        _GustScale ("Gust Size (1 / world units)", Float) = 0.15
+        _GustSpeed ("Gust Travel Speed", Float) = 0.4
+        _CalmAmount ("Sway in Calm (0..1)", Range(0, 1)) = 0.35
+        _TipLag ("Tip Lag (s)", Range(0, 1)) = 0.25
+        _Variation ("Per-Plant Variation", Range(0, 1)) = 0.2
 
         // Legacy properties. They're here so that materials using this shader can gracefully fallback to the legacy sprite shader.
         [HideInInspector] _Color ("Tint", Color) = (1, 1, 1, 1)
@@ -28,14 +33,56 @@ Shader "Sling/Foliage Sway"
     // NOTE: Same layout in every pass, as SRP batcher can not handle different layouts.
     CBUFFER_START(UnityPerMaterial)
         half4 _Color;
-        float _SwayStartPx;
-        float _SwayEndPx;
         float _SwayAmountPx;
+        float _CellSizePx;
         float _WindSpeed;
         float _WindDirection;
-        float _WindPhaseScale;
-        float _CellSizePx;
+        float _GustScale;
+        float _GustSpeed;
+        float _CalmAmount;
+        float _TipLag;
+        float _Variation;
     CBUFFER_END
+
+    float FoliageHash11(float p)
+    {
+        p = frac(p * 0.1031);
+        p *= p + 33.33;
+        p *= p + p;
+        return frac(p);
+    }
+
+    float FoliageHash21(float2 p)
+    {
+        float3 p3 = frac(float3(p.xyx) * 0.1031);
+        p3 += dot(p3, p3.yzx + 33.33);
+        return frac((p3.x + p3.y) * p3.z);
+    }
+
+    // Smooth 1D value noise in [0, 1]; procedural, so no texture tiling seams.
+    float FoliageNoise1D(float x)
+    {
+        float i = floor(x);
+        float f = frac(x);
+        float u = f * f * (3.0 - 2.0 * f);
+        return lerp(FoliageHash11(i), FoliageHash11(i + 1.0), u);
+    }
+
+    // Wind in roughly [-1, 1]: gusts are world-space noise travelling downwind, so a gust
+    // rolls across the level and plants alternate between calm and strong sway.
+    float FoliageWind(float plantX, float t, float phase)
+    {
+        float travel = _WindDirection != 0 ? sign(_WindDirection) : 1.0;
+        float p = plantX * _GustScale - t * _GustSpeed * travel;
+        float gust = FoliageNoise1D(p) * 0.65 + FoliageNoise1D(p * 2.3 + 17.0) * 0.35;
+        gust = smoothstep(0.2, 0.85, gust);
+
+        float osc = sin(t * _WindSpeed + phase);
+        float symmetric = osc * lerp(_CalmAmount, 1.0, gust);
+        float oneSided = saturate(lerp(_CalmAmount * 0.5, 1.0, gust) * (0.85 + 0.15 * osc));
+        // |_WindDirection| blends symmetric sway into one-sided lean: at ±1 plants only bend downwind.
+        return lerp(symmetric, sign(_WindDirection) * oneSided, abs(_WindDirection));
+    }
 
     // Pixel-snapped horizontal shift of the upper rows inside the sprite sheet cell.
     // texSize comes from the bound sprite texture: _MainTex_TexelSize in UnityPerMaterial
@@ -45,15 +92,18 @@ Shader "Sling/Foliage Sway"
         float2 px = uv * texSize;
         float2 cellMin = floor(px / _CellSizePx) * _CellSizePx;
         float row = floor(px.y - cellMin.y);
-        float mask = saturate((row - _SwayStartPx) / max(_SwayEndPx - _SwayStartPx, 1));
-        mask *= mask;
+        // Linear bend from the bottom row (rooted) to the top row (full sway).
+        float mask = saturate(row / max(_CellSizePx - 1, 1));
 
-        float t = _Time.y * _WindSpeed + unity_ObjectToWorld._m03 * _WindPhaseScale;
-        float gust = sin(t) * 0.7 + sin(t * 2.3 + 1.7) * 0.3;
-        // |_WindDirection| blends symmetric sway [-1, 1] into one-sided lean [0, sign]:
-        // at ±1 plants only bend downwind and gusts swing them between upright and full lean.
-        float wind = lerp(gust, sign(_WindDirection) * (gust * 0.5 + 0.5), abs(_WindDirection));
-        float offset = round(wind * mask * _SwayAmountPx);
+        float2 plantPos = float2(unity_ObjectToWorld._m03, unity_ObjectToWorld._m13);
+        float seed = FoliageHash21(plantPos * 7.31 + cellMin);
+        float phase = seed * 6.2831853;
+        float strength = 1.0 + (FoliageHash11(seed * 91.7) * 2.0 - 1.0) * _Variation;
+
+        // Upper rows sample slightly older wind, so the tip trails the stem instead of a rigid shear.
+        float t = _Time.y - mask * _TipLag;
+        float wind = FoliageWind(plantPos.x, t, phase) * strength;
+        float offset = round(mask * wind * _SwayAmountPx);
 
         float x = clamp(floor(px.x) - offset, cellMin.x, cellMin.x + _CellSizePx - 1) + 0.5;
         return float2(x, px.y) / texSize;
