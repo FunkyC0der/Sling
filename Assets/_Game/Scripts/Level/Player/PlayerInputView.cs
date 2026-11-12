@@ -39,6 +39,9 @@ namespace Sling.Level.Player
       // I don't know why ???
       yield return null;
 
+      // Pause isn't gated by EnableInput/DisableInput: it must keep working while paused
+      // so the same key can resume.
+      _pauseActionRef.action.Enable();
       EnableInput();
     }
 
@@ -55,7 +58,6 @@ namespace Sling.Level.Player
       _pointerPressActionRef.action.Enable();
       _pointerDeltaActionRef.action.Enable();
       _cancelPreLaunchActionRef.action.Enable();
-      _pauseActionRef.action.Enable();
     }
 
     public void DisableInput()
@@ -81,7 +83,6 @@ namespace Sling.Level.Player
       _pointerPressActionRef.action.Disable();
       _pointerDeltaActionRef.action.Disable();
       _cancelPreLaunchActionRef.action.Disable();
-      _pauseActionRef.action.Disable();
     }
 
     private void Update() =>

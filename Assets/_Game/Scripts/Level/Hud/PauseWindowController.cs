@@ -4,6 +4,7 @@ using Playtika.Controllers;
 using Sling.Common;
 using Sling.Common.UI;
 using Sling.Infrastructure.UI;
+using Sling.Level.Player;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -14,17 +15,20 @@ namespace Sling.Level.Hud
   {
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
+    private readonly PlayerInputView _inputView;
 
     private VisualElement _window;
 
     public PauseWindowController(
       IControllerFactory factory,
       PopUpWindowsRootView popUpWindowsRootView,
-      GameConfig gameConfig)
+      GameConfig gameConfig,
+      PlayerInputView inputView)
       : base(factory)
     {
       _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
+      _inputView = inputView;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
@@ -70,13 +74,24 @@ namespace Sling.Level.Hud
       _window.Q<Button>(WindowNames.MenuButton).clicked += () =>
         completionSource.TrySetResult(PauseWindowResult.Menu);
 
-      (bool buttonClicked, PauseWindowResult result) =
-        await UniTaskUtils.WhenAnyWithAutoCancel(
-          token => completionSource.Task.AttachExternalCancellation(token),
-          token => _popUpWindowsRootView.GetClickOnBackgroundWaitTask(_window, token),
-          ct);
+      // The same key that opened the pause closes it.
+      void OnResumeRequested() => completionSource.TrySetResult(PauseWindowResult.Resume);
+      _inputView.OnPauseRequested += OnResumeRequested;
 
-      return buttonClicked ? result : PauseWindowResult.Resume;
+      try
+      {
+        (bool buttonClicked, PauseWindowResult result) =
+          await UniTaskUtils.WhenAnyWithAutoCancel(
+            token => completionSource.Task.AttachExternalCancellation(token),
+            token => _popUpWindowsRootView.GetClickOnBackgroundWaitTask(_window, token),
+            ct);
+
+        return buttonClicked ? result : PauseWindowResult.Resume;
+      }
+      finally
+      {
+        _inputView.OnPauseRequested -= OnResumeRequested;
+      }
     }
   }
 }
