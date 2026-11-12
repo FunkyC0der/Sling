@@ -4,8 +4,7 @@
       "name": "OpenUPM",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.mackysoft",
-        "com.unify.unified-universal-blur"
+        "com.mackysoft"
       ]
     }
   ],
@@ -14,7 +13,6 @@
     "com.kyrylokuzyk.primetween": "file:../Packages/com.kyrylokuzyk.primetween.tgz",
     "com.mackysoft.serializereference-extensions": "1.7.0",
     "com.playtika.controllers-tree": "https://github.com/PlaytikaOSS/controllers-tree.git?path=src/ControllersTree#v1.3.0",
-    "com.unify.unified-universal-blur": "0.9.0",
     "com.unity.2d.animation": "16.0.1",
     "com.unity.2d.aseprite": "6.0.0",
     "com.unity.2d.psdimporter": "15.0.1",

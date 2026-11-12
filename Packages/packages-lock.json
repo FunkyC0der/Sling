@@ -42,15 +42,6 @@
         "com.unity.burst": "1.0.0"
       }
     },
-    "com.unify.unified-universal-blur": {
-      "version": "0.9.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.render-pipelines.universal": "14.0.9"
-      },
-      "url": "https://package.openupm.com"
-    },
     "com.unity.2d.animation": {
       "version": "16.0.1",
       "depth": 0,
