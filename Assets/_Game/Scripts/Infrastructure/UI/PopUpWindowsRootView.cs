@@ -18,14 +18,28 @@ namespace Sling.Infrastructure.UI
       public VisualElement Window;
     }
 
-    [SerializeField] private UIDocument _uiDocument;
+    [SerializeField] private PanelRenderer _panelRenderer;
     [SerializeField] private VisualTreeAsset _backgroundTemplate;
 
     private VisualElement _root;
     private readonly Dictionary<VisualElement, PopupWindowData> _popUps = new();
 
     private void Awake() =>
-      _root = _uiDocument.rootVisualElement;
+      _panelRenderer.RegisterUIReloadCallback(OnUIReloaded);
+
+    private void OnDestroy()
+    {
+      if (_panelRenderer != null)
+        _panelRenderer.UnregisterUIReloadCallback(OnUIReloaded);
+    }
+
+    private void OnUIReloaded(PanelRenderer panelRenderer, VisualElement rootElement, int version)
+    {
+      if (_root != rootElement)
+        _popUps.Clear();
+
+      _root = rootElement;
+    }
 
     public VisualElement CreateWindow(VisualTreeAsset windowTemplate, bool hasBackground)
     {
