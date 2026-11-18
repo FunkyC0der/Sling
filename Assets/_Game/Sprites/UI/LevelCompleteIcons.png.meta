@@ -255,6 +255,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: LC_Launch
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5951d4c4e60d4003b551dc871ce0c0b6
+      internalID: 1592653589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -273,6 +295,7 @@ TextureImporter:
       LC_Crown: -306587222
       LC_Diamond: 1102524329
       LC_Divider: 1136802288
+      LC_Launch: 1592653589
       LC_Line: 188360083
       LC_Skull: 1754279586
       LevelCompleteIcons_0: -3836675008731511590

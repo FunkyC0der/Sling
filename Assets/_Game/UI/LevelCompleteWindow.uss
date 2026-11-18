@@ -115,9 +115,8 @@
     background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=843883640&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Clock");
 }
 
-/* TODO: replace with a 20px launch icon on the LevelCompleteIcons sheet. */
 .lc-icon--launch {
-    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-91506363&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Launch2");
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=1592653589&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Launch");
 }
 
 .lc-score-divider {
