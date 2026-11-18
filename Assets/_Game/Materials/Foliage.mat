@@ -244,7 +244,7 @@ Material:
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
     - _SrcMode: 5
-    - _SwayAmountPx: 2
+    - _SwayAmountPx: 3
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
@@ -265,7 +265,7 @@ Material:
     - _WaveX: 0.429
     - _WaveY: 0
     - _WindDirection: 1
-    - _WindSpeed: 3
+    - _WindSpeed: 5
     - _ZTestMode: 4
     - _ZWrite: 0
     m_Colors:
