@@ -46,8 +46,12 @@ namespace Sling.Level.Hud
     private void HandlePauseClicked() =>
       OnPauseClicked?.Invoke();
 
+    public void SetVisible(bool isVisible) =>
+      _uiDocument.rootVisualElement.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+
     public void SetLevelIndex(int levelIndex) => 
-      _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text = $"LVL {levelIndex + 1}";
+      _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text =
+        LevelScoreTextFormatter.FormatLevelName(levelIndex);
 
     public void SetPlayerDeathCount(int playerDeathCount) =>
       _playerDeathCountLabel.text = string.Format(_playerDeathCountFormat, playerDeathCount);

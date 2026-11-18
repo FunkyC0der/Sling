@@ -1,21 +1,55 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
-    <ui:VisualElement name="Window" class="rounded popup-window" style="width: 981px; height: auto;">
-        <ui:VisualElement name="TitleContainer" class="rounded popup-title-container">
-            <ui:Label text="LEVEL COMPLETE" name="Title" class="popup-title"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="BestScoreInfoContainer" style="flex-grow: 0; justify-content: center; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px; flex-shrink: 0;">
-            <ui:Label text="YOUR BEST SCORE" name="Title" class="text-h1" style="padding-left: 30px; color: rgb(0, 0, 0);"/>
-            <ui:VisualElement name="ScoreValuesContainer" style="flex-grow: 0; flex-direction: row; flex-basis: auto; flex-shrink: 0; justify-content: space-between; width: 462px; align-self: center;">
-                <ui:Label text="0 DEATHs" name="PlayerDeathCount" class="hud-text-h1 rounded" style="background-color: rgb(0, 0, 0); padding-left: 20px; padding-right: 20px;"/>
-                <ui:Label text="TIME 00:00:00" name="ElapsedTime" class="hud-text-h1 rounded" style="background-color: rgb(0, 0, 0); padding-left: 20px; padding-right: 20px; width: 247px;"/>
-                <ui:Label text="NEW" name="NewScoreLabel" class="primary-button rounded" style="position: absolute; top: -31px; left: 421px; width: auto; font-size: 35px; padding-left: 15px; padding-right: 15px; rotate: 16deg; display: none;"/>
+    <Style src="project://database/Assets/_Game/UI/Hud.uss?fileID=7433441132597879392&amp;guid=001663f9258d34c35a297cad38578acc&amp;type=3#Hud"/>
+    <Style src="LevelCompleteWindow.uss"/>
+    <ui:VisualElement name="HudOverlay" picking-mode="Ignore" class="hud-root lc-hud-overlay">
+        <ui:VisualElement picking-mode="Ignore" class="hud-group">
+            <ui:VisualElement picking-mode="Ignore" class="hud-panel" style="padding-left: 8px;">
+                <ui:Label text="LVL 1" name="LevelName" picking-mode="Ignore" class="hud-text"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonsContainer" style="flex-grow: 0; align-items: center; justify-content: center; flex-direction: row; align-content: center; align-self: stretch; flex-basis: auto; flex-shrink: 0; margin-top: 25px;">
-            <ui:Button text="RESTART" name="RestartButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>
-            <ui:Button text="MENU" name="MenuButton" class="primary-button rounded" style="flex-grow: 0; margin-top: 2px; flex-shrink: 0; margin-right: 10px; margin-left: 10px; translate: 0 0;"/>
-            <ui:Button text="NEXT" name="NextLevelButton" class="primary-button stacked-button rounded" style="flex-grow: 0; margin-bottom: 2px;"/>
+        <ui:VisualElement picking-mode="Ignore" class="hud-panel">
+            <ui:VisualElement picking-mode="Ignore" class="hud-icon hud-icon--skull"/>
+            <ui:Label text="0" name="CurrentDeathCount" picking-mode="Ignore" class="hud-text"/>
+            <ui:VisualElement picking-mode="Ignore" class="hud-divider"/>
+            <ui:VisualElement picking-mode="Ignore" class="hud-icon hud-icon--clock"/>
+            <ui:Label text="00:00.00" name="CurrentElapsedTime" picking-mode="Ignore" class="hud-text hud-text--time"/>
+            <ui:VisualElement picking-mode="Ignore" class="hud-divider"/>
+            <ui:VisualElement picking-mode="Ignore" class="hud-icon hud-icon--launch"/>
+            <ui:Label text="0" name="CurrentLaunchCount" picking-mode="Ignore" class="hud-text"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Window" class="popup-window popup-window--transparent">
+        <ui:VisualElement name="Header" class="lc-header">
+            <ui:VisualElement class="lc-divider lc-divider--crown">
+                <ui:VisualElement class="lc-line lc-line--left"/>
+                <ui:VisualElement name="Crown" class="lc-crown"/>
+                <ui:VisualElement class="lc-line lc-line--right"/>
+            </ui:VisualElement>
+            <ui:Label text="LEVEL COMPLETE" name="Title" class="popup-title popup-title--plain lc-title"/>
+            <ui:VisualElement class="lc-divider">
+                <ui:VisualElement class="lc-line lc-line--left"/>
+                <ui:VisualElement class="lc-diamond"/>
+                <ui:VisualElement class="lc-line lc-line--right"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="BestScore" class="lc-best-score">
+            <ui:Label text="YOUR BEST SCORE" name="BestScoreTitle" class="lc-best-score__title"/>
+            <ui:VisualElement class="lc-score-row">
+                <ui:VisualElement class="lc-icon lc-icon--skull"/>
+                <ui:Label text="0" name="BestDeathCount" class="lc-score-text"/>
+                <ui:VisualElement class="lc-score-divider"/>
+                <ui:VisualElement class="lc-icon lc-icon--clock"/>
+                <ui:Label text="00:00.00" name="BestElapsedTime" class="lc-score-text lc-score-text--time"/>
+                <ui:VisualElement class="lc-score-divider"/>
+                <ui:VisualElement class="lc-icon lc-icon--launch"/>
+                <ui:Label text="0" name="BestLaunchCount" class="lc-score-text"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonsContainer" class="lc-buttons">
+            <ui:Button text="RESTART" name="RestartButton" class="menu-button"/>
+            <ui:Button text="MENU" name="MenuButton" class="menu-button lc-buttons__middle"/>
+            <ui:Button text="NEXT" name="NextLevelButton" class="menu-button"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

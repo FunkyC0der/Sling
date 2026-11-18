@@ -4,10 +4,16 @@ namespace Sling.Common.UI
 {
   public static class LevelScoreTextFormatter
   {
+    public static string FormatLevelName(int levelIndex) =>
+      $"LVL {levelIndex + 1}";
+
     public static string FormatPlayerDeathCount(int playerDeathCount) =>
-      $"{playerDeathCount} DEATHs";
+      playerDeathCount.ToString();
+
+    public static string FormatPlayerLaunchCount(int playerLaunchCount) =>
+      playerLaunchCount.ToString();
 
     public static string FormatElapsedTime(float elapsedTimeInSeconds) =>
-      $"TIME {TimeSpan.FromSeconds(elapsedTimeInSeconds):mm\\:ss\\.ff}";
+      TimeSpan.FromSeconds(elapsedTimeInSeconds).ToString(@"mm\:ss\.ff");
   }
 }

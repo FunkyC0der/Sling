@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Sling.Audio;
 using Sling.Common.Scenes;
 using Sling.Infrastructure.FixedViewport;
+using Sling.Level.LevelComplete;
 using Sling.Levels;
 using Sling.MainMenu.MenuCamera;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Sling
     public VisualTreeAsset SelectLevelWindowUxml;
     public VisualTreeAsset SelectLevelLevelItemUxml;
     public VisualTreeAsset LevelCompleteWindowUxml;
+    public NewBestScorePulseConfig NewBestScorePulse = new();
     public VisualTreeAsset PauseWindowUxml;
   }
 }

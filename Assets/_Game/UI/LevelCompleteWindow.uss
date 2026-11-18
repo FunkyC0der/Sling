@@ -1,0 +1,167 @@
+:root {
+    --lc-ornament-color: rgb(133, 119, 140);
+    --lc-subtitle-color: rgb(173, 161, 179);
+    --lc-divider-width: 496px;
+    --lc-icon-size: 40px;
+}
+
+.lc-hud-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Header: crown divider, title, diamond divider */
+
+.lc-header {
+    align-items: center;
+}
+
+.lc-divider {
+    flex-direction: row;
+    align-items: center;
+    width: var(--lc-divider-width);
+}
+
+.lc-divider--crown {
+    align-items: flex-start;
+}
+
+.lc-line {
+    flex-grow: 1;
+    height: 4px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=188360083&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Line");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.lc-line--left {
+    margin-right: 6px;
+}
+
+.lc-line--right {
+    margin-left: 6px;
+}
+
+/* The crown's bottom bars are rows 15-17 of its 20px sprite (x2 scale); the line is centred on them. */
+.lc-divider--crown > .lc-line {
+    margin-top: 31px;
+}
+
+/* The crown's bars start 8px inside its edges; keep the same 6px gap as around the diamond. */
+.lc-divider--crown > .lc-line--left {
+    margin-right: -2px;
+}
+
+.lc-divider--crown > .lc-line--right {
+    margin-left: -2px;
+}
+
+.lc-crown {
+    flex-shrink: 0;
+    width: 92px;
+    height: 40px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteCrown.png?fileID=21300000&guid=c03e6c37e73704b66849a082efe65b2d&type=3#LevelCompleteCrown");
+    -unity-background-image-tint-color: var(--lc-ornament-color);
+}
+
+.lc-diamond {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=1102524329&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Diamond");
+}
+
+.lc-title {
+    margin: 6px 0 2px 0;
+}
+
+/* Best score block */
+
+.lc-best-score {
+    align-items: center;
+    margin-top: 28px;
+}
+
+.lc-best-score__title {
+    padding: 0;
+    margin: 0 0 12px 0;
+    color: var(--lc-subtitle-color);
+    font-size: 48px;
+    letter-spacing: 3px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+}
+
+.lc-score-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.lc-icon {
+    flex-shrink: 0;
+    width: var(--lc-icon-size);
+    height: var(--lc-icon-size);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.lc-icon--skull {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=1754279586&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Skull");
+}
+
+.lc-icon--clock {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=843883640&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Clock");
+}
+
+/* TODO: replace with a 20px launch icon on the LevelCompleteIcons sheet. */
+.lc-icon--launch {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/HudIcons.png?fileID=-91506363&guid=d1a2234abd2054a28b464834fd843473&type=3#Hud_Launch2");
+}
+
+.lc-score-divider {
+    flex-shrink: 0;
+    width: 4px;
+    height: 36px;
+    margin: 0 24px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=1136802288&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#LC_Divider");
+}
+
+.lc-score-text {
+    margin: 0 0 0 12px;
+    padding: 0;
+    color: var(--hud-color-text);
+    font-size: 40px;
+    letter-spacing: 2px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-left;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+}
+
+.lc-score-text--time {
+    min-width: 118px;
+}
+
+/* New best score */
+
+.lc-best-score--new > .lc-best-score__title {
+    color: var(--color-accent);
+}
+
+.lc-crown--new {
+    -unity-background-image-tint-color: var(--color-accent);
+}
+
+/* Buttons */
+
+.lc-buttons {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+}
+
+.lc-buttons__middle {
+    margin: 0 16px;
+}
