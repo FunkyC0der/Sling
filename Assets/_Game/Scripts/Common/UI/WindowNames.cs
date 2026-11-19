@@ -3,7 +3,8 @@ namespace Sling.Common.UI
   public static class WindowNames
   {
     public const string PopupLayer = "PopupLayer";
-    
+    public const string HudRoot = "Root";
+
     public const string PlayButton = "PlayButton";
     public const string NextLevelButton = "NextLevelButton";
     public const string RestartButton   = "RestartButton";
@@ -38,6 +39,7 @@ namespace Sling.Common.UI
       public const string SuperBossLevelItem = "level-item--super-boss";
       public const string NewBestScore = "lc-best-score--new";
       public const string NewBestScoreCrown = "lc-crown--new";
+      public const string HudRootBlurred = "hud-root--blurred";
     }
   }
 }

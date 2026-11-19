@@ -49,6 +49,11 @@ namespace Sling.Level.Hud
     public void SetVisible(bool isVisible) =>
       _uiDocument.rootVisualElement.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
 
+    // The HUD sits above the camera image, so the scene blur behind pop-ups does not cover it.
+    public void SetBlurred(bool isBlurred) =>
+      _uiDocument.rootVisualElement.Q(WindowNames.HudRoot)
+        .EnableInClassList(WindowNames.Classes.HudRootBlurred, isBlurred);
+
     public void SetLevelIndex(int levelIndex) => 
       _uiDocument.rootVisualElement.Q<Label>(WindowNames.LevelName).text =
         LevelScoreTextFormatter.FormatLevelName(levelIndex);

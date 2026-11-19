@@ -16,6 +16,7 @@ namespace Sling.Level.Hud
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
     private readonly PlayerInputView _inputView;
+    private readonly HudView _hudView;
 
     private VisualElement _window;
 
@@ -23,12 +24,14 @@ namespace Sling.Level.Hud
       IControllerFactory factory,
       PopUpWindowsRootView popUpWindowsRootView,
       GameConfig gameConfig,
-      PlayerInputView inputView)
+      PlayerInputView inputView,
+      HudView hudView)
       : base(factory)
     {
       _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
       _inputView = inputView;
+      _hudView = hudView;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
@@ -46,12 +49,15 @@ namespace Sling.Level.Hud
 
         try
         {
+          _hudView.SetBlurred(true);
           await _popUpWindowsRootView.ShowWindow(_window, ct);
           result = await WaitForResult(ct);
+          _hudView.SetBlurred(false);
           await _popUpWindowsRootView.HideWindow(_window, ct);
         }
         finally
         {
+          _hudView.SetBlurred(false);
           _popUpWindowsRootView.RemoveWindow(_window);
         }
       }

@@ -10,6 +10,13 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 32px;
+    transition-property: filter;
+    transition-duration: 0.2s;
+}
+
+/* Set while a pop-up with a background is open; the scene itself is blurred by BackdropBlurFeature. */
+.hud-root--blurred {
+    filter: blur(5);
 }
 
 .hud-group {
