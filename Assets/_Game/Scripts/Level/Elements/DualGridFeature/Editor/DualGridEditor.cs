@@ -1,4 +1,3 @@
-using PlasticGui.WorkspaceWindow.Security;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
