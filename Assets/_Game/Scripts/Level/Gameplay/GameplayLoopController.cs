@@ -7,6 +7,7 @@ using Sling.Level.Boss;
 using Sling.Level.Hud;
 using Sling.Level.Player;
 using Sling.Level.Session;
+using Sling.Settings;
 using UnityEngine;
 
 namespace Sling.Level.Gameplay
@@ -15,14 +16,17 @@ namespace Sling.Level.Gameplay
   {
     private readonly LevelEvents _events;
     private readonly BossView _bossView;
+    private readonly SettingsModel _settingsModel;
 
     public GameplayLoopController(
       IControllerFactory factory,
       LevelEvents events,
-      IOptionalViewProvider optionalViewProvider)
+      IOptionalViewProvider optionalViewProvider,
+      SettingsModel settingsModel)
       : base(factory)
     {
       _events = events;
+      _settingsModel = settingsModel;
       _bossView = optionalViewProvider.Get<BossView>();
     }
 
@@ -31,7 +35,7 @@ namespace Sling.Level.Gameplay
       bool wasCursorVisible = Cursor.visible;
       CursorLockMode previousCursorLockState = Cursor.lockState;
 
-      Cursor.visible = false;
+      Cursor.visible = _settingsModel.IsCursorVisible.Value;
       Cursor.lockState = CursorLockMode.Locked;
       AddDisposable(new DisposableToken(() =>
       {

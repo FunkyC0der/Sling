@@ -25,5 +25,6 @@ namespace Sling
     public VisualTreeAsset LevelCompleteWindowUxml;
     public NewBestScorePulseConfig NewBestScorePulse = new();
     public VisualTreeAsset PauseWindowUxml;
+    public VisualTreeAsset SettingsWindowUxml;
   }
 }

@@ -207,3 +207,29 @@
 .menu-button:active {
     scale: 0.95;
 }
+
+.settings-button {
+    position: absolute;
+    left: 60px;
+    bottom: 50px;
+    width: 160px;
+    height: 129px;
+    margin: 0;
+    padding: 0 0 8px 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/_Game/Sprites/Button_Blank.png?fileID=21300000&guid=be25cf28d77641368bc74a4fe488e369&type=3#Button_Blank");
+    -unity-slice-scale: 1.25px;
+    border-width: 0;
+}
+
+.settings-button__icon {
+    width: 76px;
+    height: 76px;
+    background-image: url("project://database/Assets/_Game/Sprites/UI/SettingsIcon.png?fileID=21300000&guid=629634e9642b45b9a9f1ac09d307de61&type=3#SettingsIcon");
+}
+
+.settings-button:hover .settings-button__icon {
+    -unity-background-image-tint-color: rgb(200, 200, 200);
+}

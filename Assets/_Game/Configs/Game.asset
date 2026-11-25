@@ -761,3 +761,4 @@ MonoBehaviour:
     Duration: 0.3
     Ease: 6
   PauseWindowUxml: {fileID: 9197481963319205126, guid: df3fc7ba3ae2d4bdfba0eb14b1e3f105, type: 3}
+  SettingsWindowUxml: {fileID: 9197481963319205126, guid: 4c2e7a91d05b4e8f9a3b6c1d2e7f8a90, type: 3}

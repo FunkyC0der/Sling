@@ -1,0 +1,161 @@
+/* Pixel art from LevelCompleteIcons.png is drawn at 3x. */
+
+.settings-screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-rows {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.settings-row {
+    flex-direction: row;
+    align-items: center;
+    height: 72px;
+    margin-bottom: 12px;
+}
+
+.settings-label {
+    width: 400px;
+    margin: 0;
+    padding: 0;
+    color: var(--color-text-light);
+    font-size: 56px;
+    -unity-text-align: middle-left;
+    -unity-font-definition: url("project://database/Assets/_Game/Fonts/Jersey10-Regular.ttf?fileID=12800000&guid=7ffffbcb394e741398e6a142f1cab370&type=3#Jersey10-Regular");
+    letter-spacing: 2px;
+    text-shadow: 0 3px 0 rgb(20, 16, 30);
+}
+
+.settings-control {
+    width: 420px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Slider: built-in SliderInt with its fill. */
+
+.settings-slider {
+    flex-grow: 1;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.settings-slider .unity-base-field__label {
+    display: none;
+}
+
+.settings-slider .unity-base-slider__input,
+.settings-slider .unity-base-slider__drag-container {
+    height: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.settings-slider .unity-base-slider__tracker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    height: 48px;
+    margin: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    /* Own texture with Repeat wrap: tiling and slicing do not work on a sprite from the sheet. */
+    background-image: url("project://database/Assets/_Game/Sprites/UI/SettingsTrack.png?fileID=21300000&guid=1d04f784e8b84455a50e73d1a4d0a090&type=3#SettingsTrack");
+    -unity-slice-left: 9;
+    -unity-slice-right: 11;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    -unity-slice-scale: 3px;
+    -unity-slice-type: tiled;
+}
+
+/* The fill is inside the track; Unity sets its top/bottom inline, so it is inset with margins into the groove.
+   It ends under the knob. Extra selectors outrank the theme's fill rules. */
+.settings-control .settings-slider.unity-base-slider--horizontal .unity-base-slider__fill {
+    margin: 12px 0 12px 12px;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/_Game/Sprites/UI/SettingsFill.png?fileID=21300000&guid=b690fea86aa34fe1a52315e6112aef05&type=3#SettingsFill");
+    -unity-slice-left: 4;
+    -unity-slice-right: 4;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    -unity-slice-scale: 3px;
+}
+
+.settings-control .settings-slider.unity-base-slider--horizontal:hover .unity-base-slider__fill,
+.settings-control .settings-slider--active.unity-base-slider--horizontal .unity-base-slider__fill {
+    -unity-background-image-tint-color: rgb(255, 170, 70);
+}
+
+.settings-slider .unity-base-slider__dragger-border {
+    display: none;
+}
+
+.settings-slider .unity-base-slider__dragger {
+    width: 48px;
+    height: 60px;
+    top: 0;
+    margin: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=302142728&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#Settings_Knob");
+}
+
+.settings-slider:hover .unity-base-slider__dragger,
+.settings-slider--active .unity-base-slider__dragger {
+    -unity-background-image-tint-color: rgb(200, 200, 200);
+}
+
+/* Checkbox */
+
+.settings-control .settings-toggle {
+    margin: 0;
+    padding: 0;
+}
+
+.settings-control .settings-toggle .unity-toggle__input {
+    margin: 0;
+    padding: 0;
+}
+
+.settings-control .settings-toggle .unity-toggle__checkmark {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=885310972&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#Settings_Checkbox");
+}
+
+.settings-control .settings-toggle:checked .unity-toggle__checkmark {
+    background-image: url("project://database/Assets/_Game/Sprites/UI/LevelCompleteIcons.png?fileID=1351527726&guid=f1de71a5872d94dd39a7a2b6218e9b8a&type=3#Settings_CheckboxChecked");
+}
+
+.settings-control .settings-toggle:hover .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(200, 200, 200);
+}
+
+.settings-back-button {
+    position: absolute;
+    right: 60px;
+    bottom: 50px;
+}

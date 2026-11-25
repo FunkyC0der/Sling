@@ -1,3 +1,14 @@
+/* Full-screen and absolute, so stacked pop-ups each cover the whole screen. */
+.popup-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 .container-open {
     opacity: 1;
     transition-duration: 0.2s;
@@ -15,4 +26,9 @@
 
 .window-close {
     scale: 0 0 0;
+}
+
+/* A window under another pop-up with a background. Element filter, not backdrop-filter: it works on WebGL. */
+.window-covered {
+    filter: blur(10);
 }

@@ -10,6 +10,11 @@ namespace Sling.Common.UI
     public const string RestartButton   = "RestartButton";
     public const string MenuButton      = "MenuButton";
     public const string PauseButton     = "PauseButton";
+    public const string SettingsButton  = "SettingsButton";
+    public const string BackButton      = "BackButton";
+    public const string MusicVolumeSlider = "MusicVolumeSlider";
+    public const string SfxVolumeSlider = "SfxVolumeSlider";
+    public const string ShowCursorToggle = "ShowCursorToggle";
     public const string LevelItemsContainer = "LevelItemsContainer";
     public const string PrevWorldButton = "PrevWorldButton";
     public const string NextWorldButton = "NextWorldButton";
@@ -35,11 +40,13 @@ namespace Sling.Common.UI
       public const string ContainerOpen = "container-open";
       public const string WindowClose = "window-close";
       public const string WindowOpen = "window-open";
+      public const string WindowCovered = "window-covered";
       public const string BossLevelItem = "level-item--boss";
       public const string SuperBossLevelItem = "level-item--super-boss";
       public const string NewBestScore = "lc-best-score--new";
       public const string NewBestScoreCrown = "lc-crown--new";
       public const string HudRootBlurred = "hud-root--blurred";
+      public const string SettingsSliderActive = "settings-slider--active";
     }
   }
 }

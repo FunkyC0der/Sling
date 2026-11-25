@@ -1,19 +1,7 @@
 fileFormatVersion: 2
 guid: f1de71a5872d94dd39a7a2b6218e9b8a
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -3836675008731511590
-    second: LevelCompleteIcons_0
-  - first:
-      213: 5276983920321420390
-    second: LevelCompleteIcons_1
-  - first:
-      213: 6083729268138781319
-    second: LevelCompleteIcons_2
-  - first:
-      213: -8824843348367351635
-    second: LevelCompleteIcons_3
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 25
@@ -128,7 +116,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 40
         width: 20
         height: 20
       alignment: 0
@@ -146,45 +134,23 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LC_Clock
+      name: Settings_TrackAlt
       rect:
         serializedVersion: 2
-        x: 20
-        y: 0
-        width: 20
-        height: 20
+        x: 39
+        y: 22
+        width: 26
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 11, y: 0, z: 11, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f980a876451c84b26a06b3cb1edf4db4
-      internalID: 843883640
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LC_Divider
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 1
-        width: 2
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebb7b58e523414defb2a894f84378d75
-      internalID: 1136802288
+      spriteID: 70feac278430e4a72b86ddea5d27e0a4
+      internalID: 947876999
       vertices: []
       indices: 
       edges: []
@@ -194,7 +160,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 4
+        y: 44
         width: 12
         height: 12
       alignment: 0
@@ -212,33 +178,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LC_Line
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 9
-        width: 20
-        height: 2
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15ed022b7601e439bacefa8d651a025a
-      internalID: 188360083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: LC_Crown
       rect:
         serializedVersion: 2
         x: 107
-        y: 0
+        y: 40
         width: 46
         height: 20
       alignment: 0
@@ -256,11 +200,33 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: LC_Divider
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 41
+        width: 2
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebb7b58e523414defb2a894f84378d75
+      internalID: 1136802288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: LC_Launch
       rect:
         serializedVersion: 2
         x: 160
-        y: 0
+        y: 40
         width: 20
         height: 20
       alignment: 0
@@ -277,6 +243,160 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Settings_Track
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 22
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 9, y: 0, z: 11, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c406d1d5ff1394b03a22969a72ab3256
+      internalID: 795425564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Settings_Fill
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 26
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 0, z: 4, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f683e2790f9384dacbdcfc4546e0087a
+      internalID: 255555737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Settings_Knob
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8b568af9c06413d8f39755161fff9a
+      internalID: 302142728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Settings_Checkbox
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4b76ec0c6284389985370506b76eea
+      internalID: 885310972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LC_Clock
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 40
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f980a876451c84b26a06b3cb1edf4db4
+      internalID: 843883640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Settings_CheckboxChecked
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e11f9143763ae4aa9b9ff520682993a6
+      internalID: 1351527726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LC_Line
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 49
+        width: 20
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15ed022b7601e439bacefa8d651a025a
+      internalID: 188360083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -289,7 +409,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       LC_Clock: 843883640
       LC_Crown: -306587222
@@ -298,10 +420,12 @@ TextureImporter:
       LC_Launch: 1592653589
       LC_Line: 188360083
       LC_Skull: 1754279586
-      LevelCompleteIcons_0: -3836675008731511590
-      LevelCompleteIcons_1: 5276983920321420390
-      LevelCompleteIcons_2: 6083729268138781319
-      LevelCompleteIcons_3: -8824843348367351635
+      Settings_Checkbox: 885310972
+      Settings_CheckboxChecked: 1351527726
+      Settings_Fill: 255555737
+      Settings_Knob: 302142728
+      Settings_Track: 795425564
+      Settings_TrackAlt: 947876999
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

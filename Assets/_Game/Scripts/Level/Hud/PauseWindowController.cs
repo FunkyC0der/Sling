@@ -4,7 +4,7 @@ using Playtika.Controllers;
 using Sling.Common;
 using Sling.Common.UI;
 using Sling.Infrastructure.UI;
-using Sling.Level.Player;
+using Sling.Settings;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -15,28 +15,28 @@ namespace Sling.Level.Hud
   {
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
-    private readonly PlayerInputView _inputView;
     private readonly HudView _hudView;
+    private readonly SettingsModel _settingsModel;
 
     private VisualElement _window;
+    private bool _isSettingsOpen;
 
     public PauseWindowController(
       IControllerFactory factory,
       PopUpWindowsRootView popUpWindowsRootView,
       GameConfig gameConfig,
-      PlayerInputView inputView,
-      HudView hudView)
+      HudView hudView,
+      SettingsModel settingsModel)
       : base(factory)
     {
       _popUpWindowsRootView = popUpWindowsRootView;
       _gameConfig = gameConfig;
-      _inputView = inputView;
       _hudView = hudView;
+      _settingsModel = settingsModel;
     }
 
     protected override async UniTask OnFlowAsync(CancellationToken ct)
     {
-      bool wasCursorVisible = Cursor.visible;
       CursorLockMode previousCursorLockState = Cursor.lockState;
 
       Cursor.lockState = CursorLockMode.None;
@@ -63,7 +63,8 @@ namespace Sling.Level.Hud
       }
       finally
       {
-        Cursor.visible = wasCursorVisible;
+        // The setting may have been changed in the settings window opened from the pause.
+        Cursor.visible = _settingsModel.IsCursorVisible.Value;
         Cursor.lockState = previousCursorLockState;
       }
 
@@ -77,26 +78,35 @@ namespace Sling.Level.Hud
       _window.Q<Button>(WindowNames.RestartButton).clicked += () =>
         completionSource.TrySetResult(PauseWindowResult.Restart);
 
+      _window.Q<Button>(WindowNames.SettingsButton).clicked += () =>
+        OpenSettingsAsync(ct).Forget();
+
       _window.Q<Button>(WindowNames.MenuButton).clicked += () =>
         completionSource.TrySetResult(PauseWindowResult.Menu);
 
-      // The same key that opened the pause closes it.
-      void OnResumeRequested() => completionSource.TrySetResult(PauseWindowResult.Resume);
-      _inputView.OnPauseRequested += OnResumeRequested;
+      // Esc (the pause key) is handled by the pop-up root: it closes only the top pop-up.
+      (bool buttonClicked, PauseWindowResult result) =
+        await UniTaskUtils.WhenAnyWithAutoCancel(
+          token => completionSource.Task.AttachExternalCancellation(token),
+          token => _popUpWindowsRootView.GetDismissWaitTask(_window, token),
+          ct);
 
+      return buttonClicked ? result : PauseWindowResult.Resume;
+    }
+
+    private async UniTaskVoid OpenSettingsAsync(CancellationToken ct)
+    {
+      if (_isSettingsOpen)
+        return;
+
+      _isSettingsOpen = true;
       try
       {
-        (bool buttonClicked, PauseWindowResult result) =
-          await UniTaskUtils.WhenAnyWithAutoCancel(
-            token => completionSource.Task.AttachExternalCancellation(token),
-            token => _popUpWindowsRootView.GetClickOnBackgroundWaitTask(_window, token),
-            ct);
-
-        return buttonClicked ? result : PauseWindowResult.Resume;
+        await ExecuteAndWaitResultAsync<SettingsWindowController>(ct);
       }
       finally
       {
-        _inputView.OnPauseRequested -= OnResumeRequested;
+        _isSettingsOpen = false;
       }
     }
   }

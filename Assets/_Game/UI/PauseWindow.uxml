@@ -4,6 +4,7 @@
         <ui:Label text="PAUSED" name="Title" class="popup-title popup-title--plain"/>
         <ui:VisualElement name="ButtonsContainer" style="flex-grow: 0; align-items: center; justify-content: center;">
             <ui:Button text="RESTART" name="RestartButton" class="menu-button stacked-button"/>
+            <ui:Button text="SETTINGS" name="SettingsButton" class="menu-button stacked-button"/>
             <ui:Button text="MENU" name="MenuButton" class="menu-button"/>
         </ui:VisualElement>
     </ui:VisualElement>

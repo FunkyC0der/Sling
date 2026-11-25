@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Game/UI/Common.uss?fileID=7433441132597879392&amp;guid=232b8db22188748e992ff42839e7d716&amp;type=3#Common"/>
+    <Style src="project://database/Assets/_Game/UI/SettingsWindow.uss?fileID=7433441132597879392&amp;guid=9b0c3f6e2d8a4f61a7e5c1d4b8f20a37&amp;type=3#SettingsWindow"/>
+    <!-- Full-screen and click-through, so clicks outside the rows reach the pop-up background. -->
+    <ui:VisualElement name="Window" picking-mode="Ignore" class="settings-screen">
+        <ui:Label text="SETTINGS" name="Title" picking-mode="Ignore" class="popup-title popup-title--plain"/>
+        <ui:VisualElement name="Rows" class="settings-rows">
+            <ui:VisualElement class="settings-row">
+                <ui:Label text="Music Volume:" picking-mode="Ignore" class="settings-label"/>
+                <ui:VisualElement class="settings-control">
+                    <ui:SliderInt name="MusicVolumeSlider" low-value="0" high-value="10" fill="true" focusable="false" class="settings-slider"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="settings-row">
+                <ui:Label text="SFX Volume:" picking-mode="Ignore" class="settings-label"/>
+                <ui:VisualElement class="settings-control">
+                    <ui:SliderInt name="SfxVolumeSlider" low-value="0" high-value="10" fill="true" focusable="false" class="settings-slider"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="settings-row">
+                <ui:Label text="Show Cursor:" picking-mode="Ignore" class="settings-label"/>
+                <ui:VisualElement class="settings-control">
+                    <ui:Toggle name="ShowCursorToggle" focusable="false" class="settings-toggle"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="BACK" name="BackButton" focusable="false" class="menu-button settings-back-button"/>
+    </ui:VisualElement>
+</ui:UXML>

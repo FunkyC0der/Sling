@@ -6,6 +6,7 @@ using Sling.Infrastructure;
 using Sling.Infrastructure.Analytics;
 using Sling.Infrastructure.FixedViewport;
 using Sling.Infrastructure.Progress;
+using Sling.Settings;
 
 namespace Sling
 {
@@ -31,6 +32,7 @@ namespace Sling
     {
       Execute<UpdateController>();
       Execute<FixedViewportController>();
+      Execute<SettingsController>();
       Execute<AudioController>();
       Execute<AnalyticsController>();
       _playerProgressService.Load();

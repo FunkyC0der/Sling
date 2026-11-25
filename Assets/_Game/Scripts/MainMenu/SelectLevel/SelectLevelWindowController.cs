@@ -6,6 +6,7 @@ using Sling;
 using Sling.Common.UI;
 using Sling.Infrastructure.UI;
 using Sling.Levels;
+using Sling.Settings;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,6 +19,7 @@ namespace Sling.MainMenu.SelectLevel
     private int _selectedWorldIndex;
     private int _selectedLevelIndex;
     private VisualElement _selectedRect;
+    private bool _isSettingsOpen;
 
     private readonly PopUpWindowsRootView _popUpWindowsRootView;
     private readonly GameConfig _gameConfig;
@@ -64,6 +66,7 @@ namespace Sling.MainMenu.SelectLevel
 
       _window.Q<Button>(WindowNames.PrevWorldButton).clicked += () => SelectWorld(_selectedWorldIndex - 1);
       _window.Q<Button>(WindowNames.NextWorldButton).clicked += () => SelectWorld(_selectedWorldIndex + 1);
+      _window.Q<Button>(WindowNames.SettingsButton).clicked += () => OpenSettingsAsync().Forget();
 
       SelectWorld(_gameModel.WorldIndex);
     }
@@ -118,6 +121,22 @@ namespace Sling.MainMenu.SelectLevel
       return completionSource.Task.AttachExternalCancellation(ct);
     }
     
+    private async UniTaskVoid OpenSettingsAsync()
+    {
+      if (_isSettingsOpen)
+        return;
+
+      _isSettingsOpen = true;
+      try
+      {
+        await ExecuteAndWaitResultAsync<SettingsWindowController>(CancellationToken);
+      }
+      finally
+      {
+        _isSettingsOpen = false;
+      }
+    }
+
     private void SelectItem(int levelIndex, VisualElement levelItem)
     {
       _selectedRect?.SetCheckedPseudoState(false);

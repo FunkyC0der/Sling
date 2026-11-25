@@ -12,6 +12,7 @@ using Sling.Infrastructure.Progress;
 using Sling.Level;
 using Sling.LevelLoading;
 using Sling.MainMenu;
+using Sling.Settings;
 using VContainer;
 using VContainer.Unity;
 
@@ -48,6 +49,10 @@ namespace Sling
 
       builder.RegisterInstance(_gameConfig.FixedViewport);
       builder.Register<FixedViewportController>(Lifetime.Transient);
+
+      builder.Register<SettingsModel>(Lifetime.Singleton);
+      builder.Register<SettingsController>(Lifetime.Transient);
+      builder.Register<SettingsWindowController>(Lifetime.Transient);
 
       builder.RegisterInstance(_gameConfig.AudioConfig);
       builder.Register<AudioEvents>(Lifetime.Singleton);
